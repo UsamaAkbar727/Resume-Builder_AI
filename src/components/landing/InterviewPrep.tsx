@@ -68,7 +68,7 @@ export default function InterviewPrep() {
               </p>
               <ul className="space-y-3.5 text-sm font-semibold text-slate-700">
                 <li className="flex items-center gap-3 text-indigo-600">
-                  <Check className="w-4 h-4 stroke-[3]" /> Filler word counts tracking ("like", "um", "uh")
+                  <Check className="w-4 h-4 stroke-[3]" /> Filler word counts tracking (&quot;like&quot;, &quot;um&quot;, &quot;uh&quot;)
                 </li>
                 <li className="flex items-center gap-3 text-indigo-600">
                   <Check className="w-4 h-4 stroke-[3]" /> Speech pacing diagnostics (Words / minute)
@@ -99,7 +99,7 @@ export default function InterviewPrep() {
                 <div className="bg-slate-50 border border-slate-100 rounded-xl p-4 mb-6">
                   <h4 className="text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">Active Prompt</h4>
                   <p className="text-xs sm:text-sm font-bold text-slate-800 leading-relaxed">
-                    "{questions[activeQuestion]}"
+                    &quot;{questions[activeQuestion]}&quot;
                   </p>
                 </div>
               </div>

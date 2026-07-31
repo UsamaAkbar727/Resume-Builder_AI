@@ -174,12 +174,12 @@ export default function ATSChecker() {
                   <div className="text-[9px] bg-slate-50 border border-slate-100 rounded-lg p-2 font-medium text-slate-500 leading-normal text-left">
                     {hasScanned ? (
                       <span className="text-emerald-600 font-semibold flex items-start gap-1">
-                        <Sparkles className="w-3 h-3 text-emerald-500 shrink-0 mt-0.5" /> Great! TypeScript matched. Add "Kubernetes" to hit 100% density.
+                        <Sparkles className="w-3 h-3 text-emerald-500 shrink-0 mt-0.5" /> Great! TypeScript matched. Add &quot;Kubernetes&quot; to hit 100% density.
                       </span>
                     ) : isScanning ? (
                       <span>Running diagnostics and checks...</span>
                     ) : (
-                      <span>Press "Run ATS Audit" to trace compatibility.</span>
+                      <span>Press &quot;Run ATS Audit&quot; to trace compatibility.</span>
                     )}
                   </div>
                 </div>

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 type AuthMode = "login" | "register" | "forgot" | "reset" | "verify" | "2fa";
 
-export default function AuthPage() {
+function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -277,5 +277,13 @@ export default function AuthPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <React.Suspense fallback={<div className="min-h-screen bg-[#F5F7FB] flex items-center justify-center text-xs font-bold text-slate-400">Loading Auth Workspace...</div>}>
+      <AuthContent />
+    </React.Suspense>
   );
 }

@@ -174,6 +174,10 @@ export default function DashboardWrapper() {
     setJobs([...jobs, newJob]);
   };
 
+  const handleNavigate = (tab: string) => {
+    setActiveTab(tab as Tab);
+  };
+
   const filteredSidebarItems = sidebarItems.filter((item) =>
     item.label.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -320,15 +324,15 @@ export default function DashboardWrapper() {
 
         {/* Primary Page Canvas */}
         <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
-          {activeTab === "overview" && <DashboardOverview jobs={jobs} onNavigate={setActiveTab} />}
+          {activeTab === "overview" && <DashboardOverview jobs={jobs} onNavigate={handleNavigate} />}
           {activeTab === "builder" && (
-            <ResumeBuilder resumeData={resumeData} setResumeData={setResumeData} onNavigate={setActiveTab} />
+            <ResumeBuilder resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} />
           )}
           {activeTab === "analyzer" && <ResumeAnalyzer />}
           {activeTab === "optimizer" && <ResumeOptimizer />}
           {activeTab === "cover-letter" && <CoverLetterGenerator />}
           {activeTab === "tracker" && <JobTracker jobs={jobs} setJobs={setJobs} />}
-          {activeTab === "import" && <JobImport onAddJob={handleAddJob} onNavigate={setActiveTab} />}
+          {activeTab === "import" && <JobImport onAddJob={handleAddJob} onNavigate={handleNavigate} />}
           {activeTab === "matching" && <JobMatching />}
           {activeTab === "interview" && <InterviewPrep />}
           {activeTab === "advisor" && <CareerAdvisor />}

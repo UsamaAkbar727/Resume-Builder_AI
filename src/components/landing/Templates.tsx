@@ -111,7 +111,7 @@ export default function Templates() {
               {colors.map((color) => (
                 <button
                   key={color.id}
-                  onClick={() => setSelectedColor(color.id as any)}
+                  onClick={() => setSelectedColor(color.id as "navy" | "green" | "slate" | "charcoal")}
                   className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all ${
                     selectedColor === color.id
                       ? "border-blue-600 scale-110"
