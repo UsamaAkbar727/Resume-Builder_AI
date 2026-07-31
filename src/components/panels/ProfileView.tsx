@@ -1,0 +1,100 @@
+"use client";
+
+import React, { useState } from "react";
+
+export default function ProfileView() {
+  const [name, setName] = useState("Sarah Jenkins");
+  const [title, setTitle] = useState("Senior Full Stack Developer");
+  const [location, setLocation] = useState("San Francisco, CA");
+  const [linkedin, setLinkedin] = useState("https://linkedin.com/in/sjenkins");
+  const [github, setGithub] = useState("https://github.com/sjenkins");
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("Profile saved successfully!");
+  };
+
+  return (
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <div className="border-b border-[#E5E7EB] pb-4">
+        <h1 className="text-3xl font-extrabold text-[#111827]">Job Seeker Profile</h1>
+        <p className="text-sm text-[#6B7280]">Manage contact details, targets, portfolios, and external accounts credentials.</p>
+      </div>
+
+      <div className="max-w-2xl mx-auto">
+        <form onSubmit={handleSave} className="clay-card p-6 bg-white space-y-6 text-left">
+          {/* Avatar simulation */}
+          <div className="flex items-center gap-4 border-b border-[#E5E7EB]/50 pb-5">
+            <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center font-extrabold text-[#2563EB] text-xl shadow-[inset_1px_1px_3px_rgba(255,255,255,0.8)] border border-[#E5E7EB]">
+              SJ
+            </div>
+            <div>
+              <h3 className="font-extrabold text-base text-[#111827]">{name}</h3>
+              <p className="text-xs text-[#6B7280]">{title}</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">Full Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="clay-input w-full text-xs"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">Target Career Title</label>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="clay-input w-full text-xs"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">Current Location</label>
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="clay-input w-full text-xs"
+            />
+          </div>
+
+          <div className="space-y-4 pt-4 border-t border-[#E5E7EB]/50">
+            <h4 className="font-bold text-xs text-[#6B7280] uppercase tracking-wider">Social Channels & Portfolio</h4>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[10px] font-semibold text-[#6B7280] uppercase mb-1.5">LinkedIn Profile URL</label>
+                <input
+                  type="url"
+                  value={linkedin}
+                  onChange={(e) => setLinkedin(e.target.value)}
+                  className="clay-input w-full text-xs"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-semibold text-[#6B7280] uppercase mb-1.5">GitHub Profile URL</label>
+                <input
+                  type="url"
+                  value={github}
+                  onChange={(e) => setGithub(e.target.value)}
+                  className="clay-input w-full text-xs"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" className="clay-btn-primary w-full py-3 text-sm text-white font-semibold">
+            Save Profile changes
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
