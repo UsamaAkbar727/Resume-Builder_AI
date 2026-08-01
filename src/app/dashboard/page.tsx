@@ -169,6 +169,43 @@ export default function DashboardWrapper() {
     ]
   });
 
+  // Load from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedJobs = localStorage.getItem("resumeflow_jobs");
+      if (savedJobs) {
+        try {
+          setJobs(JSON.parse(savedJobs));
+        } catch (e) {
+          console.error("Error loading jobs:", e);
+        }
+      }
+
+      const savedResume = localStorage.getItem("resumeflow_resume");
+      if (savedResume) {
+        try {
+          setResumeData(JSON.parse(savedResume));
+        } catch (e) {
+          console.error("Error loading resume:", e);
+        }
+      }
+    }
+  }, []);
+
+  // Save to localStorage when jobs update
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_jobs", JSON.stringify(jobs));
+    }
+  }, [jobs]);
+
+  // Save to localStorage when resume updates
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_resume", JSON.stringify(resumeData));
+    }
+  }, [resumeData]);
+
   const sidebarItems: SidebarItem[] = [
     { id: "overview", label: "Dashboard", icon: "LayoutGrid", gradient: "from-blue-500 to-indigo-600" },
     { id: "builder", label: "AI Resume Builder", icon: "Layers", gradient: "from-indigo-500 to-purple-600" },
@@ -324,20 +361,20 @@ export default function DashboardWrapper() {
           {activeTab === "builder" && (
             <ResumeBuilder resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />
           )}
-          {activeTab === "analyzer" && <ResumeAnalyzer onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "optimizer" && <ResumeOptimizer onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "cover-letter" && <CoverLetterGenerator onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "analyzer" && <ResumeAnalyzer resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "optimizer" && <ResumeOptimizer resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "cover-letter" && <CoverLetterGenerator resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "tracker" && <JobTracker jobs={jobs} setJobs={setJobs} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "import" && <JobImport onAddJob={handleAddJob} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "matching" && <JobMatching onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "interview" && <InterviewPrep onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "advisor" && <CareerAdvisor onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "portfolio" && <PortfolioBuilder onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "matching" && <JobMatching resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "interview" && <InterviewPrep resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "advisor" && <CareerAdvisor resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "portfolio" && <PortfolioBuilder resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "documents" && <DocumentsManager onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "calendar" && <CalendarView onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "analytics" && <AnalyticsView onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "notifications" && <NotificationsView onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "profile" && <ProfileView onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "analytics" && <AnalyticsView jobs={jobs} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "notifications" && <NotificationsView jobs={jobs} resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "profile" && <ProfileView resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "settings" && <SettingsView onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "admin" && <AdminPanel onNavigate={handleNavigate} showToast={showToast} />}
         </main>

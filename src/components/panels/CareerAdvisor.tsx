@@ -1,32 +1,68 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
-export default function CareerAdvisor({ onNavigate }: { onNavigate?: (tab: string) => void }) {
-  const steps = [
-    {
-      title: "Consolidate Senior Experience",
-      desc: "Lead at least one end-to-end multi-million dollar system redesign. Master Next.js 15, React 19, and cloud load management protocols.",
-      status: "In Progress",
-    },
-    {
-      title: "Add Distributed Orchestration Skills",
-      desc: "Complete certification in Kubernetes infrastructure management. Integrate EKS services with modern microservices environments.",
-      status: "Todo",
-    },
-    {
-      title: "Target Staff Engineer Applications",
-      desc: "Apply to positions requesting systems architecture focus, targeting starting salaries of $190K+. Prepare design systems templates.",
-      status: "Todo",
-    }
-  ];
+interface CareerAdvisorProps {
+  resumeData?: any;
+  onNavigate?: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
+}
 
-  const skillGaps = [
-    { name: "Kubernetes & EKS", level: "Beginner", target: "Advanced", resource: "Certified Kubernetes Administrator (CKA) - Udemy" },
-    { name: "GraphQL & Schema Stitching", level: "Intermediate", target: "Advanced", resource: "Apollo Graph Developer Training - official" },
-    { name: "Playwright Integration Testing", level: "Beginner", target: "Intermediate", resource: "Testing Next.js applications - Frontend Masters" }
-  ];
+export default function CareerAdvisor({ resumeData, onNavigate, showToast }: CareerAdvisorProps) {
+  const [skillGaps, setSkillGaps] = useState<any[]>([]);
+  const [steps, setSteps] = useState<any[]>([]);
+
+  useEffect(() => {
+    const userSkills = (resumeData?.skills || "")
+      .toLowerCase()
+      .split(",")
+      .map((s: string) => s.trim())
+      .filter(Boolean);
+
+    // List of target skills and recommended resources
+    const targetDatabase = [
+      { name: "Kubernetes & Orchestration", search: "kubernetes", level: "Beginner", target: "Advanced", resource: "Certified Kubernetes Administrator (CKA) - Udemy" },
+      { name: "GraphQL & Schemas", search: "graphql", level: "Intermediate", target: "Advanced", resource: "Apollo Graph Developer Certification Course" },
+      { name: "Playwright Integration Testing", search: "playwright", level: "Beginner", target: "Intermediate", resource: "End-to-End Testing with Playwright - Frontend Masters" },
+      { name: "AWS Services & EKS", search: "aws", level: "Intermediate", target: "Advanced", resource: "AWS Certified Solutions Architect Training Course" },
+      { name: "Redis Systems Caching", search: "redis", level: "Beginner", target: "Intermediate", resource: "Redis University: Systems Caching RU101" }
+    ];
+
+    // Compute gaps
+    const gaps = targetDatabase.map((item) => {
+      const acquired = userSkills.some((sk) => sk.includes(item.search) || item.search.includes(sk));
+      return {
+        ...item,
+        acquired
+      };
+    });
+
+    setSkillGaps(gaps);
+
+    // Dynamic steps roadmap
+    const step1Complete = userSkills.includes("next.js 15") || userSkills.includes("react") || userSkills.includes("typescript");
+    const step2Complete = userSkills.includes("postgresql") || userSkills.includes("graphql") || userSkills.includes("node.js");
+    const step3Complete = userSkills.includes("kubernetes") || userSkills.includes("aws");
+
+    setSteps([
+      {
+        title: "Consolidate Client Layout Architectures",
+        desc: "Build highly interactive client interfaces. Master Next.js 15 routing, React 19 server hooks, and Tailwind CSS design libraries.",
+        status: step1Complete ? "Completed" : "In Progress",
+      },
+      {
+        title: "Integrate Advanced Data Pipelines",
+        desc: "Design and implement database schema normalization. Focus on GraphQL Apollo stitch layers and PostgreSQL search queries.",
+        status: step2Complete ? "Completed" : (step1Complete ? "In Progress" : "Todo"),
+      },
+      {
+        title: "Deploy Orchestration Infrastructure",
+        desc: "Transition applications to microservices. Implement Docker files and Kubernetes cluster definitions inside AWS cloud servers.",
+        status: step3Complete ? "Completed" : (step2Complete ? "In Progress" : "Todo"),
+      }
+    ]);
+  }, [resumeData]);
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
@@ -122,14 +158,27 @@ export default function CareerAdvisor({ onNavigate }: { onNavigate?: (tab: strin
             <div className="space-y-4">
               {skillGaps.map((sg, i) => (
                 <div key={i} className="space-y-1 pb-3 border-b border-[#E5E7EB]/50 last:border-b-0 last:pb-0">
-                  <h4 className="font-bold text-xs text-[#111827]">{sg.name}</h4>
-                  <p className="text-[10px] text-[#6B7280]">
-                    Current: <span className="font-semibold text-[#DC2626]">{sg.level}</span> → Target:{" "}
-                    <span className="font-semibold text-[#16A34A]">{sg.target}</span>
-                  </p>
-                  <p className="text-[10px] text-[#2563EB] font-medium leading-relaxed mt-1">
-                    📖 Course: {sg.resource}
-                  </p>
+                  <div className="flex justify-between items-center">
+                    <h4 className="font-bold text-xs text-[#111827]">{sg.name}</h4>
+                    {sg.acquired ? (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-green-50 text-green-600 border border-green-200 font-bold uppercase">Acquired</span>
+                    ) : (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-red-50 text-red-600 border border-red-200 font-bold uppercase">Gap</span>
+                    )}
+                  </div>
+                  {!sg.acquired ? (
+                    <>
+                      <p className="text-[10px] text-[#6B7280]">
+                        Current: <span className="font-semibold text-[#DC2626]">{sg.level}</span> → Target:{" "}
+                        <span className="font-semibold text-[#16A34A]">{sg.target}</span>
+                      </p>
+                      <p className="text-[10px] text-[#2563EB] font-medium leading-relaxed mt-1">
+                        📖 Course: {sg.resource}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-[10px] text-green-600/70">Matching skill verified inside your active resume builder profile.</p>
+                  )}
                 </div>
               ))}
             </div>

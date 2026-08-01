@@ -1,9 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Sparkles } from "lucide-react";
 
-export default function PortfolioBuilder({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
+interface PortfolioBuilderProps {
+  resumeData?: any;
+  onNavigate?: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
+}
+
+export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: PortfolioBuilderProps) {
   const [theme, setTheme] = useState("dark");
   const [domain, setDomain] = useState("sjenkins.dev");
   const [deploying, setDeploying] = useState(false);
@@ -132,7 +138,9 @@ export default function PortfolioBuilder({ onNavigate, showToast }: { onNavigate
             >
               {/* Header */}
               <div className="flex justify-between items-center mb-10 pb-4 border-b border-gray-500/20">
-                <span className="font-bold text-sm tracking-wider">SJ.DEV</span>
+                <span className="font-bold text-sm tracking-wider">
+                  {(resumeData?.name || "Sarah Jenkins").split(" ").map((n: string) => n[0]).join("") + ".DEV"}
+                </span>
                 <div className="flex gap-4 text-xs font-medium text-gray-400">
                   <span>About</span>
                   <span>Experience</span>
@@ -143,34 +151,27 @@ export default function PortfolioBuilder({ onNavigate, showToast }: { onNavigate
               {/* Hero */}
               <div className="space-y-4">
                 <h2 className="text-3xl font-extrabold tracking-tight">
-                  Hi, I'm <span className="text-[#2563EB]">Sarah Jenkins</span>
+                  Hi, I'm <span className="text-[#2563EB]">{resumeData?.name || "Sarah Jenkins"}</span>
                 </h2>
                 <p className={`text-sm leading-relaxed max-w-lg font-light ${
                   theme === "dark" ? "text-gray-300" : "text-[#6B7280]"
                 }`}>
-                  Senior Full Stack Developer specializing in building high-performance web systems. Designing microservices checkout flows and server rendering setups at Stripe.
+                  {resumeData?.summary || "Senior Full Stack Developer specializing in building high-performance web systems."}
                 </p>
 
                 {/* Sub projects lists */}
                 <div className="grid grid-cols-2 gap-4 mt-8">
-                  <div className={`p-4 rounded-xl border ${
-                    theme === "dark" ? "bg-[#1F2937] border-gray-700/50" :
-                    theme === "clay" ? "clay-card bg-white" : "bg-[#EEF2F7]/50 border-gray-200"
-                  }`}>
-                    <h4 className="font-bold text-xs mb-1">Stripe Checkout Optimizations</h4>
-                    <p className={`text-[10px] ${theme === "dark" ? "text-gray-400" : "text-[#6B7280]"}`}>
-                      React checkouts migration handling transaction capacity.
-                    </p>
-                  </div>
-                  <div className={`p-4 rounded-xl border ${
-                    theme === "dark" ? "bg-[#1F2937] border-gray-700/50" :
-                    theme === "clay" ? "clay-card bg-white" : "bg-[#EEF2F7]/50 border-gray-200"
-                  }`}>
-                    <h4 className="font-bold text-xs mb-1">EKS Services migration</h4>
-                    <p className={`text-[10px] ${theme === "dark" ? "text-gray-400" : "text-[#6B7280]"}`}>
-                      Orchestration pipelines migration using Terraform configs.
-                    </p>
-                  </div>
+                  {(resumeData?.experience || []).slice(0, 2).map((exp: any, i: number) => (
+                    <div key={i} className={`p-4 rounded-xl border text-left ${
+                      theme === "dark" ? "bg-[#1F2937] border-gray-700/50" :
+                      theme === "clay" ? "clay-card bg-white border-[#E5E7EB]" : "bg-[#EEF2F7]/50 border-gray-200"
+                    }`}>
+                      <h4 className="font-bold text-xs mb-1 truncate">{exp.role}</h4>
+                      <p className={`text-[10px] line-clamp-2 ${theme === "dark" ? "text-gray-400" : "text-[#6B7280]"}`}>
+                        {exp.company} — {exp.description}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

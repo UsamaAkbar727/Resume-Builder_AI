@@ -3,7 +3,13 @@
 import React, { useState } from "react";
 import { FileText, PenTool, Copy, Download, Sparkles, ArrowLeft } from "lucide-react";
 
-export default function CoverLetterGenerator({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
+interface CoverLetterProps {
+  resumeData?: any;
+  onNavigate?: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
+}
+
+export default function CoverLetterGenerator({ resumeData, onNavigate, showToast }: CoverLetterProps) {
   const [company, setCompany] = useState("Vercel");
   const [role, setRole] = useState("Senior Frontend Engineer");
   const [jobDesc, setJobDesc] = useState("Looking for a frontend expert with deep experience in React, Next.js, and Tailwind CSS to optimize our dashboard components...");
@@ -15,26 +21,68 @@ export default function CoverLetterGenerator({ onNavigate, showToast }: { onNavi
     setGenerating(true);
     setTimeout(() => {
       setGenerating(false);
-      setLetter(`[Your Contact Information]
-[Date]
 
-Hiring Team
+      const name = resumeData?.name || "Sarah Jenkins";
+      const email = resumeData?.email || "sarah.jenkins@company.com";
+      const location = resumeData?.location || "San Francisco, CA";
+      const skills = resumeData?.skills || "React, Next.js 15, TypeScript, Tailwind CSS";
+      
+      const firstExp = resumeData?.experience?.[0] || {
+        company: "Stripe",
+        role: "Lead Software Engineer",
+        description: "Scaled payment checkout page handling $2B+ in annual transaction volume. Led migration of microservices architectures to AWS EKS container hosts."
+      };
+
+      const dateString = new Date().toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+      });
+
+      let intro = "";
+      let corePara = "";
+      let conclusion = "";
+
+      if (tone === "Bold") {
+        intro = `I don't just build interfaces—I engineer business solutions. When I saw the opening for a ${role} at ${company}, I knew my background in deploying high-volume, highly optimized system dashboards mapped perfectly with what you are looking for.`;
+        corePara = `At my previous role with ${firstExp.company} as a ${firstExp.role}, I did exactly that: ${firstExp.description.replace(/\n/g, " ")}. Incorporating stacks like ${skills.split(",").slice(0, 4).join(", ")}, I thrive when optimizing complex, slow, or scale-constrained architectures.`;
+        conclusion = `Let's skip the standard HR delays. I am ready to jump in and show you how my engineering record can streamline ${company}'s frontend performance. I look forward to connecting directly.`;
+      } else if (tone === "Enthusiastic") {
+        intro = `I am absolutely thrilled to apply for the ${role} position at ${company}! I have been following ${company}'s phenomenal milestones and open-source contributions for years, and the opportunity to join your engineering crew is incredibly exciting to me.`;
+        corePara = `My engineering journey has centered around building responsive products with ${skills.split(",").slice(0, 4).join(", ")}. In my tenure as a ${firstExp.role} at ${firstExp.company}, I led projects like: ${firstExp.description.replace(/\n/g, " ")}. Tying my user-centric layout optimization directly to your requirements makes this role a perfect next chapter.`;
+        conclusion = `I would love nothing more than to bring this passion and technical expertise to ${company}. Thank you so much for reviewing my application, and I cannot wait to speak with the hiring team!`;
+      } else if (tone === "Creative") {
+        intro = `Great software is a mix of logic and art. As a developer who loves crafting clean code and beautiful user interfaces, I was captivated by the ${role} opening at ${company}.`;
+        corePara = `With a deep toolbox featuring ${skills.split(",").slice(0, 5).join(", ")}, my work as a ${firstExp.role} at ${firstExp.company} has always focused on blending design aesthetics with high performance. For example, ${firstExp.description.replace(/\n/g, " ")}. Your target goals for dashboard upgrades fit my design-meets-dev background like a glove.`;
+        conclusion = `I am eager to bring a fresh creative perspective to your tech stack at ${company}. Let's chat soon about how my experience matches your team's ambitions.`;
+      } else {
+        intro = `I am writing to express my formal interest in the ${role} position at ${company}. With a strong background in developing scalable SaaS applications and a proven track record in frontend optimization, I am confident in my ability to add immediate value to your team.`;
+        corePara = `During my tenure as a ${firstExp.role} at ${firstExp.company}, I was responsible for key performance milestones. Specifically, ${firstExp.description.replace(/\n/g, " ")}. Utilizing technologies such as ${skills.split(",").slice(0, 4).join(", ")}, I have consistently delivered clean, reusable components and minimized payload loading lags.`;
+        conclusion = `I appreciate your time and consideration of my candidacy. I look forward to discussing how my experience can support ${company}'s upcoming engineering goals.`;
+      }
+
+      setLetter(`${name}
+${location} | ${email}
+${dateString}
+
+Hiring Committee
 ${company}
 
-Subject: Application for ${role}
+RE: Application for ${role}
 
 Dear ${company} Hiring Team,
 
-I am writing to express my enthusiastic interest in the ${role} position at ${company}. Having followed ${company}'s contributions to frontend technologies and Vercel deployments, I am eager to contribute my development capabilities to your team.
+${intro}
 
-In my previous roles, I have focused heavily on optimization using React, Next.js, and styling frameworks. For example, at Stripe I refactored key payment checkout steps, which improved responsiveness by 40% and handled large transaction flows smoothly. Your requirement for a developer with deep expertise in optimizing dashboard modules maps perfectly with my career projects.
+${corePara}
 
-I look forward to discussing how my experience can support ${company}'s engineering initiatives. Thank you for your time and consideration.
+${conclusion}
 
 Sincerely,
 
-Sarah Jenkins`);
-    }, 1500);
+${name}`);
+      if (showToast) showToast("Custom Cover Letter generated successfully!", "success");
+    }, 1000);
   };
 
   return (

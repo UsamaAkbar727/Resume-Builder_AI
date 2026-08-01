@@ -36,36 +36,87 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
       type: "HR",
       question: "Tell me about a time you had a technical disagreement with a team member. How did you resolve it, and what was the outcome?",
       expectedKeywords: ["collaboration", "active listening", "compromise", "data-driven decisions", "retrospective"],
+      sampleVoiceAnswer: "We had a disagreement regarding database normalization. I scheduled a call, practiced active listening, and we set up a data-driven performance test. This led to a consensus retrospective decision."
     },
     {
       id: "4",
       type: "Coding",
       question: "Write a function that merges overlapping intervals. E.g. input [[1,3],[2,6],[8,10]] yields [[1,6],[8,10]]. What is the time complexity?",
       expectedKeywords: ["sorting", "interval merging", "O(N log N)", "O(1) auxiliary space"],
+      sampleVoiceAnswer: "We first sort the intervals. Then we merge overlapping ranges in a single pass. The time complexity is O(N log N) due to sorting, using O(1) auxiliary space."
     }
   ];
 
   const filteredQuestions = questions.filter((q) => q.type === activeType);
   const currentQuestion = filteredQuestions[activeQuestionIdx] || filteredQuestions[0] || questions[0];
 
+  const runEvaluation = (text: string) => {
+    const cleanText = text.toLowerCase();
+    const expected = currentQuestion.expectedKeywords;
+    const matched = expected.filter((kw: string) => cleanText.includes(kw.toLowerCase()));
+    const missing = expected.filter((kw: string) => !cleanText.includes(kw.toLowerCase()));
+    
+    const coverage = expected.length > 0 ? matched.length / expected.length : 0;
+    const computedScore = Math.round(55 + (coverage * 40) + (cleanText.length > 100 ? 3 : 0));
+
+    const strengths = [];
+    const improvements = [];
+
+    if (matched.length > 0) {
+      strengths.push(`Addressed expected keywords: ${matched.slice(0, 3).join(", ").toUpperCase()}`);
+      strengths.push("Direct response targeting syntax characteristics");
+    } else {
+      improvements.push("Reference the question terms directly to set high relevance");
+    }
+
+    if (missing.length > 0) {
+      improvements.push(`Include: ${missing.slice(0, 2).join(", ").toUpperCase()} to improve score`);
+    }
+
+    if (cleanText.length < 50) {
+      improvements.push("Expand on details using STAR sequence (Situation, Task, Action, Result)");
+    } else {
+      strengths.push("Adequate duration and engineering terminology used");
+    }
+
+    return {
+      score: computedScore > 98 ? 98 : computedScore,
+      speechRate: cleanText.length > 150 ? "135 WPM (Optimal)" : "110 WPM (Slightly Slow)",
+      fillerWords: cleanText.includes("basically") || cleanText.includes("like") ? 4 : 1,
+      grammarCompliance: "96%",
+      strengths,
+      improvements
+    };
+  };
+
   const handleStartRecord = () => {
     setRecording(true);
     setFeedbackData(null);
+    setAnswerInput("");
     setTimeout(() => {
       setRecording(false);
-      setFeedbackData({
-        score: 84,
-        speechRate: "135 WPM (Optimal)",
-        fillerWords: 3, // filler word counts
-        grammarCompliance: "94%",
-        strengths: ["Clear logical structure using the STAR method", "Directly addressed Next.js caching behaviors"],
-        improvements: ["Avoid using 'uh' and 'basically' during tech descriptions", "Quantify stripe project outcomes more clearly in your description"]
-      });
-    }, 4000); // simulate 4s recording duration
+      // Simulate speech transcription
+      const simulatedText = currentQuestion.sampleVoiceAnswer;
+      setAnswerInput(simulatedText);
+      
+      const evalData = runEvaluation(simulatedText);
+      setFeedbackData(evalData);
+      
+      if (showToast) showToast("Audio transcribed and analyzed successfully!", "success");
+    }, 3000);
+  };
+
+  const handleSubmitText = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!answerInput) return;
+    const evalData = runEvaluation(answerInput);
+    setFeedbackData(evalData);
+    if (showToast) showToast("Written response analyzed successfully!", "success");
   };
 
   const handleNext = () => {
     setFeedbackData(null);
+    setAnswerInput("");
     setActiveQuestionIdx((prev) => (prev + 1) % filteredQuestions.length);
   };
 
@@ -122,30 +173,86 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
               {currentQuestion.expectedKeywords.join(", ")}
             </div>
 
-            <div className="flex gap-3 items-center justify-between pt-4 border-t border-[#E5E7EB]">
-              <button
-                onClick={() => {
-                  if (showToast) showToast("Playing simulated question audio...", "info");
-                  else alert("Playing simulated question audio...");
-                }}
-                className="clay-btn-secondary px-4 py-2 text-xs font-semibold flex items-center gap-1.5"
-              >
-                <Volume2 className="w-3.5 h-3.5" /> Read Aloud
-              </button>
-
-              <div className="flex gap-2">
+            {/* Answer Input Option Tabs */}
+            <div className="border-t border-[#E5E7EB] pt-4">
+              <div className="flex border border-[#E5E7EB] rounded-xl overflow-hidden mb-4">
                 <button
-                  onClick={handleStartRecord}
-                  disabled={recording}
-                  className={`px-5 py-2.5 text-xs text-white font-bold rounded-xl flex items-center gap-2 shadow-md ${recording ? "bg-red-500 animate-pulse" : "bg-[#2563EB] hover:bg-[#1D4ED8]"
-                    }`}
+                  type="button"
+                  onClick={() => { setInputMode("voice"); setFeedbackData(null); }}
+                  className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                    inputMode === "voice" ? "bg-[#2563EB]/10 text-[#2563EB]" : "bg-white text-gray-500 hover:text-[#111827]"
+                  }`}
                 >
-                  <Mic className="w-3.5 h-3.5" /> {recording ? "Recording (Speak Now)" : "Answer Aloud"}
+                  <Mic className="w-3.5 h-3.5" /> Answer Verbally
                 </button>
-                <button onClick={handleNext} className="clay-btn-secondary px-4 py-2.5 text-xs font-semibold">
-                  Next Question →
+                <button
+                  type="button"
+                  onClick={() => { setInputMode("text"); setFeedbackData(null); }}
+                  className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                    inputMode === "text" ? "bg-[#2563EB]/10 text-[#2563EB]" : "bg-white text-gray-500 hover:text-[#111827]"
+                  }`}
+                >
+                  <PenTool className="w-3.5 h-3.5" /> Type Answer
                 </button>
               </div>
+
+              {inputMode === "text" ? (
+                <form onSubmit={handleSubmitText} className="space-y-4">
+                  <textarea
+                    value={answerInput}
+                    onChange={(e) => setAnswerInput(e.target.value)}
+                    placeholder="Type your technical or HR answer here..."
+                    rows={4}
+                    className="clay-input w-full text-xs"
+                  />
+                  <div className="flex justify-between items-center">
+                    <button
+                      onClick={() => {
+                        if (showToast) showToast("Playing simulated question audio...", "info");
+                        else alert("Playing simulated question audio...");
+                      }}
+                      type="button"
+                      className="clay-btn-secondary px-4 py-2 text-xs font-semibold flex items-center gap-1.5"
+                    >
+                      <Volume2 className="w-3.5 h-3.5" /> Read Aloud
+                    </button>
+                    <div className="flex gap-2">
+                      <button type="submit" className="clay-btn-primary px-5 py-2.5 text-xs text-white font-bold">
+                        Analyze Answer
+                      </button>
+                      <button type="button" onClick={handleNext} className="clay-btn-secondary px-4 py-2.5 text-xs font-semibold">
+                        Next Question
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              ) : (
+                <div className="flex gap-3 items-center justify-between">
+                  <button
+                    onClick={() => {
+                      if (showToast) showToast("Playing simulated question audio...", "info");
+                      else alert("Playing simulated question audio...");
+                    }}
+                    className="clay-btn-secondary px-4 py-2 text-xs font-semibold flex items-center gap-1.5"
+                  >
+                    <Volume2 className="w-3.5 h-3.5" /> Read Aloud
+                  </button>
+
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleStartRecord}
+                      disabled={recording}
+                      className={`px-5 py-2.5 text-xs text-white font-bold rounded-xl flex items-center gap-2 shadow-md ${recording ? "bg-red-500 animate-pulse" : "bg-[#2563EB] hover:bg-[#1D4ED8]"
+                        }`}
+                    >
+                      <Mic className="w-3.5 h-3.5" /> {recording ? "Recording (Speak Now)" : "Answer Aloud"}
+                    </button>
+                    <button onClick={handleNext} className="clay-btn-secondary px-4 py-2.5 text-xs font-semibold">
+                      Next Question →
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

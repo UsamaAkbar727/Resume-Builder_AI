@@ -1,41 +1,119 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 
-export default function JobMatching({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
+interface JobMatchingProps {
+  resumeData?: any;
+  onNavigate?: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
+}
+
+export default function JobMatching({ resumeData, onNavigate, showToast }: JobMatchingProps) {
   const [matching, setMatching] = useState(false);
   const [matched, setMatched] = useState(true);
+  const [dynamicJobs, setDynamicJobs] = useState<any[]>([]);
+  const [stats, setStats] = useState({
+    highestOverlap: "94% Match",
+    highestOverlapText: "Stripe",
+    strengthArea: "Frontend Developer",
+    skillGap: "Playwright",
+    skillGapCount: "2 target listings"
+  });
 
-  const matchedJobs = [
+  const jobDatabase = [
     {
       company: "Stripe",
       role: "Senior Frontend Developer",
-      match: 94,
       location: "San Francisco, CA",
       salary: "$195,000",
-      matchedSkills: ["React", "TypeScript", "Tailwind CSS", "REST APIs"],
-      missingSkills: ["Playwright"],
+      skills: ["react", "typescript", "tailwind css", "rest apis", "playwright"],
     },
     {
       company: "Linear",
       role: "Product Engineer (Frontend)",
-      match: 88,
       location: "Remote (US/EU)",
       salary: "$170,000",
-      matchedSkills: ["React", "TypeScript", "Tailwind CSS"],
-      missingSkills: ["GraphQL", "Linear sync engine"],
+      skills: ["react", "typescript", "tailwind css", "graphql", "node.js"],
     },
     {
       company: "Vercel",
       role: "Frontend Engineer - Frameworks",
-      match: 82,
       location: "Remote",
       salary: "$160,000",
-      matchedSkills: ["React", "TypeScript", "REST APIs"],
-      missingSkills: ["Next.js App Router core", "Rust compiled tools"],
+      skills: ["react", "typescript", "next.js", "tailwind css", "serverless"],
+    },
+    {
+      company: "Google",
+      role: "Software Engineer",
+      location: "Mountain View, CA",
+      salary: "$210,000",
+      skills: ["python", "c++", "go", "systems", "algorithms"],
+    },
+    {
+      company: "Netflix",
+      role: "Senior Full Stack Engineer",
+      location: "Los Gatos, CA",
+      salary: "$240,000",
+      skills: ["react", "node.js", "aws", "postgresql", "docker", "redis"],
     }
   ];
+
+  useEffect(() => {
+    const userSkills = (resumeData?.skills || "")
+      .toLowerCase()
+      .split(",")
+      .map((s: string) => s.trim())
+      .filter(Boolean);
+
+    const computed = jobDatabase.map((job) => {
+      const matched = job.skills.filter((sk) => userSkills.includes(sk));
+      const missing = job.skills.filter((sk) => !userSkills.includes(sk));
+      const matchPct = Math.round((matched.length / job.skills.length) * 100);
+
+      return {
+        company: job.company,
+        role: job.role,
+        match: matchPct,
+        location: job.location,
+        salary: job.salary,
+        matchedSkills: matched.map(s => s.toUpperCase()),
+        missingSkills: missing.map(s => s.toUpperCase())
+      };
+    });
+
+    // Sort descending by match percentage
+    computed.sort((a, b) => b.match - a.match);
+    setDynamicJobs(computed);
+
+    // Compute key statistics
+    const bestJob = computed[0] || { match: 0, company: "None" };
+    
+    // Find key skill gaps
+    const gapCounts: Record<string, number> = {};
+    computed.forEach((job) => {
+      job.missingSkills.forEach((sk) => {
+        gapCounts[sk] = (gapCounts[sk] || 0) + 1;
+      });
+    });
+
+    let topGap = "No skill gaps found";
+    let maxCount = 0;
+    Object.keys(gapCounts).forEach((sk) => {
+      if (gapCounts[sk] > maxCount) {
+        maxCount = gapCounts[sk];
+        topGap = sk.charAt(0) + sk.slice(1).toLowerCase();
+      }
+    });
+
+    setStats({
+      highestOverlap: `${bestJob.match}% Match`,
+      highestOverlapText: `${bestJob.role} at ${bestJob.company}`,
+      strengthArea: userSkills.includes("react") || userSkills.includes("typescript") ? "Frontend Client Frameworks" : "Engineering Core",
+      skillGap: topGap,
+      skillGapCount: maxCount > 0 ? `Missing ${topGap} on ${maxCount} listings` : "100% matched!"
+    });
+  }, [resumeData]);
 
   const handleMatchCheck = () => {
     setMatching(true);
@@ -43,7 +121,8 @@ export default function JobMatching({ onNavigate, showToast }: { onNavigate?: (t
     setTimeout(() => {
       setMatching(false);
       setMatched(true);
-    }, 1200);
+      if (showToast) showToast("Job matching score database recalculated!", "success");
+    }, 1000);
   };
 
   return (
@@ -80,31 +159,31 @@ export default function JobMatching({ onNavigate, showToast }: { onNavigate?: (t
         <div className="space-y-8">
           {/* Summary Matrix */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="clay-card p-6 bg-white">
+            <div className="clay-card p-6 bg-white text-left">
               <span className="text-xs font-bold text-[#6B7280] uppercase tracking-wider block mb-2">Highest Overlap</span>
-              <h3 className="text-3xl font-extrabold text-[#16A34A]">94% Match</h3>
-              <p className="text-[10px] text-[#6B7280] mt-2">Senior Frontend Developer role at Stripe</p>
+              <h3 className="text-3xl font-extrabold text-[#16A34A]">{stats.highestOverlap}</h3>
+              <p className="text-[10px] text-[#6B7280] mt-2">{stats.highestOverlapText}</p>
             </div>
             
-            <div className="clay-card p-6 bg-white">
+            <div className="clay-card p-6 bg-white text-left">
               <span className="text-xs font-bold text-[#6B7280] uppercase tracking-wider block mb-2">Core Strength Area</span>
-              <h3 className="text-3xl font-extrabold text-[#2563EB]">Frontend Architecture</h3>
-              <p className="text-[10px] text-[#6B7280] mt-2">100% match on React, TypeScript stack</p>
+              <h3 className="text-3xl font-extrabold text-[#2563EB]">{stats.strengthArea}</h3>
+              <p className="text-[10px] text-[#6B7280] mt-2">Strong profile intersection tags</p>
             </div>
 
-            <div className="clay-card p-6 bg-white">
+            <div className="clay-card p-6 bg-white text-left">
               <span className="text-xs font-bold text-[#6B7280] uppercase tracking-wider block mb-2">Key Skill Gap</span>
-              <h3 className="text-3xl font-extrabold text-[#DC2626]">End-to-End Testing</h3>
-              <p className="text-[10px] text-[#6B7280] mt-2">Missing Playwright/Cypress on 2 target listings</p>
+              <h3 className="text-3xl font-extrabold text-[#DC2626]">{stats.skillGap}</h3>
+              <p className="text-[10px] text-[#6B7280] mt-2">{stats.skillGapCount}</p>
             </div>
           </div>
 
           {/* List of recommended matches */}
-          <div className="clay-card p-6 bg-white">
+          <div className="clay-card p-6 bg-white text-left">
             <h3 className="font-bold text-lg text-[#111827] mb-6">Recommended Open Vacancies</h3>
             
             <div className="space-y-6">
-              {matchedJobs.map((mj, idx) => (
+              {dynamicJobs.map((mj, idx) => (
                 <div key={idx} className="p-5 rounded-2xl bg-[#EEF2F7]/50 border border-[#E5E7EB] flex flex-col md:flex-row md:items-center justify-between gap-6">
                   {/* Left: Job Header */}
                   <div className="space-y-3 flex-1">

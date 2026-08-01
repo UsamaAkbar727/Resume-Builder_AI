@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 
 interface Doc {
@@ -12,29 +12,68 @@ interface Doc {
 }
 
 export default function DocumentsManager({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
-  const [docs, setDocs] = useState<Doc[]>([
-    { id: "1", name: "Sarah_Jenkins_Resume_Stripe_V2.pdf", type: "Resume", size: "340 KB", updated: "2026-07-28" },
-    { id: "2", name: "Stripe_Reference_Letter.pdf", type: "Experience Letter", size: "1.2 MB", updated: "2026-06-15" },
-    { id: "3", name: "AWS_Certified_Solutions_Architect.pdf", type: "Certificate", size: "480 KB", updated: "2026-05-10" },
-    { id: "4", name: "Google_Offer_Letter_Signed.pdf", type: "Offer Letter", size: "2.1 MB", updated: "2026-07-02" }
-  ]);
+  const [docs, setDocs] = useState<Doc[]>([]);
 
-  const handleUpload = () => {
-    const name = prompt("Enter file name to simulate upload:");
-    if (name) {
+  // Load from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedDocs = localStorage.getItem("resumeflow_docs");
+      if (savedDocs) {
+        try {
+          setDocs(JSON.parse(savedDocs));
+        } catch (e) {
+          console.error("Error loading docs:", e);
+        }
+      } else {
+        const defaultDocs = [
+          { id: "1", name: "Sarah_Jenkins_Resume_Stripe_V2.pdf", type: "Resume", size: "340 KB", updated: "2026-07-28" },
+          { id: "2", name: "Stripe_Reference_Letter.pdf", type: "Experience Letter", size: "1.2 MB", updated: "2026-06-15" },
+          { id: "3", name: "AWS_Certified_Solutions_Architect.pdf", type: "Certificate", size: "480 KB", updated: "2026-05-10" },
+          { id: "4", name: "Google_Offer_Letter_Signed.pdf", type: "Offer Letter", size: "2.1 MB", updated: "2026-07-02" }
+        ];
+        setDocs(defaultDocs);
+        localStorage.setItem("resumeflow_docs", JSON.stringify(defaultDocs));
+      }
+    }
+  }, []);
+
+  // Save to localStorage when docs update
+  useEffect(() => {
+    if (typeof window !== "undefined" && docs.length > 0) {
+      localStorage.setItem("resumeflow_docs", JSON.stringify(docs));
+    }
+  }, [docs]);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      let docType = "Other Document";
+      const nameLower = file.name.toLowerCase();
+      if (nameLower.includes("resume") || nameLower.endsWith(".pdf")) docType = "Resume";
+      else if (nameLower.includes("letter")) docType = "Experience Letter";
+      else if (nameLower.includes("cert")) docType = "Certificate";
+
       const newDoc: Doc = {
         id: Date.now().toString(),
-        name: name.endsWith(".pdf") ? name : `${name}.pdf`,
-        type: "Certificate",
-        size: "250 KB",
+        name: file.name,
+        type: docType,
+        size: file.size > 1024 * 1024 
+          ? `${(file.size / (1024 * 1024)).toFixed(1)} MB` 
+          : `${Math.round(file.size / 1024)} KB`,
         updated: new Date().toISOString().split("T")[0]
       };
-      setDocs([...docs, newDoc]);
+      setDocs(prev => [...prev, newDoc]);
+      if (showToast) showToast(`Successfully uploaded document: ${file.name}`, "success");
     }
   };
 
   const handleDelete = (id: string) => {
-    setDocs(docs.filter(d => d.id !== id));
+    const updated = docs.filter(d => d.id !== id);
+    setDocs(updated);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_docs", JSON.stringify(updated));
+    }
+    if (showToast) showToast("Document record deleted successfully.", "info");
   };
 
   return (
@@ -54,9 +93,10 @@ export default function DocumentsManager({ onNavigate, showToast }: { onNavigate
           <h1 className="text-3xl font-extrabold text-[#111827]">Documents Workspace</h1>
           <p className="text-sm text-[#6B7280]">Manage resume revisions, offer sheets, corporate experience letters, and certifications.</p>
         </div>
-        <button onClick={handleUpload} className="clay-btn-primary px-4 py-2.5 text-xs text-white">
-          + Upload File
-        </button>
+        <label className="clay-btn-primary px-4 py-2.5 text-xs text-white cursor-pointer inline-flex items-center gap-1.5 shadow-sm hover:shadow-md transition-all">
+          <input type="file" onChange={handleFileUpload} className="hidden" />
+          <span>+ Upload File</span>
+        </label>
       </div>
 
       <div className="clay-card p-6 bg-white">
@@ -85,8 +125,14 @@ export default function DocumentsManager({ onNavigate, showToast }: { onNavigate
                   <td className="py-3.5 text-right space-x-3">
                     <button
                       onClick={() => {
-                        if (showToast) showToast(`Downloading file: ${doc.name}!`, "success");
-                        else alert(`Downloading file: ${doc.name}!`);
+                        const element = document.createElement("a");
+                        const file = new Blob([`ResumeFlow AI Workspace\nDocument: ${doc.name}\nType: ${doc.type}\nFile Size: ${doc.size}\nLast Modified: ${doc.updated}`], {type: 'text/plain'});
+                        element.href = URL.createObjectURL(file);
+                        element.download = doc.name.endsWith(".pdf") ? doc.name.replace(".pdf", ".txt") : `${doc.name}.txt`;
+                        document.body.appendChild(element);
+                        element.click();
+                        document.body.removeChild(element);
+                        if (showToast) showToast(`Downloading document details for: ${doc.name}`, "success");
                       }}
                       className="text-[#2563EB] hover:underline font-semibold text-xs"
                     >

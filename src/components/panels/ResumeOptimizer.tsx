@@ -5,7 +5,14 @@ import { Zap, Sparkles, Copy, ArrowLeft } from "lucide-react";
 
 type Tone = "Professional" | "Executive" | "Technical" | "Entry";
 
-export default function ResumeOptimizer({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
+interface ResumeOptimizerProps {
+  resumeData?: any;
+  setResumeData?: (data: any) => void;
+  onNavigate?: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
+}
+
+export default function ResumeOptimizer({ resumeData, setResumeData, onNavigate, showToast }: ResumeOptimizerProps) {
   const [inputText, setInputText] = useState("I was responsible for scaling the checkout codebase and led the migration of systems to Kubernetes cluster.");
   const [tone, setTone] = useState<Tone>("Professional");
   const [optimizing, setOptimizing] = useState(false);
@@ -14,28 +21,94 @@ export default function ResumeOptimizer({ onNavigate, showToast }: { onNavigate?
   const [actionVerbsSuggested, setActionVerbsSuggested] = useState<string[]>([]);
 
   const handleOptimize = () => {
+    if (!inputText) return;
     setOptimizing(true);
     setTimeout(() => {
       setOptimizing(false);
       
-      if (tone === "Executive") {
-        setOptimizedText("Spearheaded checkout pipeline re-architectures, increasing transaction capacity by 45% ($90M ARR impact) while leading the orchestration of core services to AWS EKS.");
-        setMetricsSuggested(["Increase processing capacity by 45%", "$90M ARR impact handled"]);
-        setActionVerbsSuggested(["Spearheaded", "Led", "Orchestrated"]);
-      } else if (tone === "Technical") {
-        setOptimizedText("Optimized React transaction paths and refactored Node microservices to AWS EKS container nodes, reducing processing latencies by 40%.");
-        setMetricsSuggested(["Reduce latency by 40%", "Migrate 15 microservices"]);
-        setActionVerbsSuggested(["Optimized", "Refactored", "Migrated"]);
-      } else if (tone === "Entry") {
-        setOptimizedText("Collaborated on checkout system scalability updates and helped migrate microservices configurations to container clusters.");
-        setMetricsSuggested(["Helped 5 team members", "Maintained 99.9% uptime"]);
-        setActionVerbsSuggested(["Collaborated", "Helped", "Supported"]);
-      } else {
-        setOptimizedText("Architected and scaled global checkout systems, reducing API response times by 30% and leading container migrations to Kubernetes.");
-        setMetricsSuggested(["Reduce response times by 30%", "Migrated stripe checkout layers"]);
-        setActionVerbsSuggested(["Architected", "Scaled", "Migrated"]);
+      const passiveMapping: Record<string, string> = {
+        "i was responsible for": "Architected",
+        "i helped with": "Collaborated on",
+        "i worked on": "Engineered",
+        "i built": "Synthesized",
+        "i managed": "Orchestrated",
+        "led": "Spearheaded",
+        "built": "Developed & shipped",
+        "designed": "Formulated",
+        "made": "Created",
+        "improved": "Catalyzed",
+        "changed": "Re-engineered"
+      };
+
+      let baseText = inputText.trim();
+      if (baseText.endsWith(".")) {
+        baseText = baseText.slice(0, -1);
       }
-    }, 1200);
+
+      let startVerb = "Synthesized";
+      let processedText = baseText;
+      let matchedPassive = false;
+
+      Object.keys(passiveMapping).forEach(phrase => {
+        if (processedText.toLowerCase().startsWith(phrase)) {
+          startVerb = passiveMapping[phrase];
+          processedText = processedText.slice(phrase.length).trim();
+          if (processedText.length > 0) {
+            processedText = processedText.charAt(0).toUpperCase() + processedText.slice(1);
+          }
+          matchedPassive = true;
+        }
+      });
+
+      if (!matchedPassive) {
+        const firstWord = baseText.split(" ")[0] || "";
+        const lowerFirst = firstWord.toLowerCase();
+        if (passiveMapping[lowerFirst]) {
+          startVerb = passiveMapping[lowerFirst];
+          processedText = baseText.slice(firstWord.length).trim();
+        } else {
+          startVerb = firstWord ? firstWord.charAt(0).toUpperCase() + firstWord.slice(1) : "Optimized";
+          processedText = baseText.slice(firstWord.length).trim();
+        }
+      }
+
+      let result = "";
+      let verbs: string[] = [];
+      let metrics: string[] = [];
+
+      if (tone === "Executive") {
+        result = `${startVerb} ${processedText.charAt(0).toLowerCase() + processedText.slice(1)}, driving a 35% performance enhancement and achieving a $120K annual cost reduction footprint.`;
+        verbs = [startVerb, "Spearheaded", "Directed"];
+        metrics = ["35% performance enhancement", "$120K annual cost reduction"];
+      } else if (tone === "Technical") {
+        result = `${startVerb} ${processedText.charAt(0).toLowerCase() + processedText.slice(1)}, optimizing system transaction pathways and reducing memory allocation overheads by 42%.`;
+        verbs = [startVerb, "Refactored", "Containerized"];
+        metrics = ["Reduce memory allocation by 42%", "Refactored transaction pathways"];
+      } else if (tone === "Entry") {
+        result = `Collaborated on team tasks to ${startVerb.toLowerCase()} ${processedText.charAt(0).toLowerCase() + processedText.slice(1)}, ensuring project delivery aligned with 100% test coverage benchmarks.`;
+        verbs = ["Collaborated", startVerb, "Facilitated"];
+        metrics = ["100% test coverage benchmarks", "Aligned team delivery objectives"];
+      } else {
+        result = `${startVerb} ${processedText.charAt(0).toLowerCase() + processedText.slice(1)}, resulting in a 28% reduction in page layout load times and boosting active customer engagement index.`;
+        verbs = [startVerb, "Engineered", "Catalyzed"];
+        metrics = ["28% reduction in page load latency", "Enhanced customer engagement index"];
+      }
+
+      setOptimizedText(result);
+      setMetricsSuggested(metrics);
+      setActionVerbsSuggested(verbs);
+      if (showToast) showToast("Resume bullet point optimized successfully!", "success");
+    }, 1000);
+  };
+
+  const handleApplyToResume = () => {
+    if (!resumeData || !setResumeData || !optimizedText) return;
+    const updatedExp = [...resumeData.experience];
+    if (updatedExp[0]) {
+      updatedExp[0].description = `${updatedExp[0].description}\n• ${optimizedText}`;
+      setResumeData({ ...resumeData, experience: updatedExp });
+      if (showToast) showToast("Optimized bullet applied to your Stripe work experience!", "success");
+    }
   };
 
   return (
@@ -145,6 +218,15 @@ export default function ResumeOptimizer({ onNavigate, showToast }: { onNavigate?
                   >
                     <Copy className="w-3.5 h-3.5" /> Copy Text
                   </button>
+
+                  {resumeData && (
+                    <button
+                      onClick={handleApplyToResume}
+                      className="clay-btn-primary px-4 py-2 text-xs text-white font-semibold flex items-center gap-1.5"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-white" /> Apply to Active Resume
+                    </button>
+                  )}
                 </div>
               </div>
             ) : (

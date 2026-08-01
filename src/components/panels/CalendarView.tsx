@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Calendar, ArrowLeft } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Calendar, ArrowLeft, Trash2 } from "lucide-react";
 
 interface Event {
   id: string;
@@ -12,21 +12,44 @@ interface Event {
 }
 
 export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
-  const [events, setEvents] = useState<Event[]>([
-    { id: "1", title: "Systems Design Round", date: "2026-08-01", type: "Interview", company: "Stripe" },
-    { id: "2", title: "Apply Deadline", date: "2026-08-30", type: "Deadline", company: "Stripe" },
-    { id: "3", title: "Culture Screen Round", date: "2026-08-03", type: "Interview", company: "Notion" },
-    { id: "4", title: "Submit take-home task", date: "2026-08-10", type: "Task", company: "Linear" }
-  ]);
+  const [events, setEvents] = useState<Event[]>([]);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedEvents = localStorage.getItem("resumeflow_events");
+      if (savedEvents) {
+        try {
+          setEvents(JSON.parse(savedEvents));
+        } catch (e) {
+          console.error("Error loading events:", e);
+        }
+      } else {
+        const defaultEvents = [
+          { id: "1", title: "Systems Design Round", date: "2026-08-01", type: "Interview", company: "Stripe" },
+          { id: "2", title: "Apply Deadline", date: "2026-08-30", type: "Deadline", company: "Stripe" },
+          { id: "3", title: "Culture Screen Round", date: "2026-08-03", type: "Interview", company: "Notion" },
+          { id: "4", title: "Submit take-home task", date: "2026-08-10", type: "Task", company: "Linear" }
+        ];
+        setEvents(defaultEvents);
+        localStorage.setItem("resumeflow_events", JSON.stringify(defaultEvents));
+      }
+    }
+  }, []);
+
+  // Save to localStorage when events change
+  useEffect(() => {
+    if (typeof window !== "undefined" && events.length > 0) {
+      localStorage.setItem("resumeflow_events", JSON.stringify(events));
+    }
+  }, [events]);
 
   const [newEventTitle, setNewEventTitle] = useState("");
   const [newEventDate, setNewEventDate] = useState("2026-08-05");
   const [newEventType, setNewEventType] = useState<"Interview" | "Deadline" | "Task">("Interview");
 
-  // Draw simple monthly grid for August 2026
-  // August 1st 2026 is a Saturday (in 2026, August starts on Saturday, let's verify or draft standard 31-day block).
   const daysInMonth = 31;
-  const startDayOffset = 6; // Saturday offset (0: Sunday, 1: Monday, ... 6: Saturday)
+  const startDayOffset = 6;
 
   const handleAddEvent = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,13 +60,26 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
       date: newEventDate,
       type: newEventType,
     };
-    setEvents([...events, added]);
+    const updated = [...events, added];
+    setEvents(updated);
     setNewEventTitle("");
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_events", JSON.stringify(updated));
+    }
     if (showToast) {
       showToast("Event scheduled successfully!", "success");
     } else {
       alert("Event scheduled successfully!");
     }
+  };
+
+  const handleDeleteEvent = (id: string) => {
+    const updated = events.filter((ev) => ev.id !== id);
+    setEvents(updated);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_events", JSON.stringify(updated));
+    }
+    if (showToast) showToast("Event deleted from calendar.", "info");
   };
 
   const renderCells = () => {
@@ -174,13 +210,22 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
           <div className="clay-card p-6 bg-white text-left space-y-4">
             <h3 className="font-bold text-xs text-[#6B7280] uppercase tracking-wider">Timeline List</h3>
             <div className="space-y-3.5 text-xs">
-              {events.slice(0, 4).map((e) => (
+              {events.slice(0, 5).map((e) => (
                 <div key={e.id} className="flex justify-between items-center pb-2 border-b border-[#E5E7EB]/40 last:border-0 last:pb-0">
-                  <div>
+                  <div className="flex-1">
                     <h5 className="font-bold text-[#111827]">{e.title}</h5>
-                    <span className="text-[10px] text-[#6B7280]">{e.company}</span>
+                    {e.company && <span className="text-[10px] text-[#6B7280]">{e.company}</span>}
                   </div>
-                  <span className="font-mono text-gray-500">{e.date}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-gray-500 text-[10px]">{e.date}</span>
+                    <button
+                      onClick={() => handleDeleteEvent(e.id)}
+                      className="text-red-500 hover:text-red-700 transition-colors p-1"
+                      title="Delete Event"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
