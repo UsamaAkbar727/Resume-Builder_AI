@@ -56,13 +56,13 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
       "Full Stack Developer": ["node.js", "react", "postgresql", "express", "mongodb", "typescript", "git", "rest api"]
     };
 
-    const targetKeywords = keywordsByRole[targetRole] || keywordsByRole["Lead Software Engineer"];
+    const targetKeywords = (keywordsByRole[targetRole] || keywordsByRole["Lead Software Engineer"]) as string[];
     const foundKeywords = targetKeywords.filter(kw => fullText.includes(kw));
-    const missingKeywords = targetKeywords.filter(kw => !fullText.includes(kw));
+    const missingKeywords: string[] = [...targetKeywords.filter(kw => !fullText.includes(kw))];
 
     // Custom JD extra analysis
     if (customJD) {
-      const jdWords = customJD.toLowerCase().match(/\b\w+\b/g) || [];
+      const jdWords: string[] = customJD.toLowerCase().match(/\b\w+\b/g) || [];
       const commonTech = ["react", "vue", "angular", "node", "python", "java", "golang", "ruby", "rust", "kubernetes", "docker", "aws", "gcp", "azure", "sql", "nosql", "redis", "graphql", "typescript", "javascript"];
       commonTech.forEach(tech => {
         if (jdWords.includes(tech) && !targetKeywords.includes(tech)) {

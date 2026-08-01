@@ -25,7 +25,7 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
           console.error("Error loading events:", e);
         }
       } else {
-        const defaultEvents = [
+        const defaultEvents: Event[] = [
           { id: "1", title: "Systems Design Round", date: "2026-08-01", type: "Interview", company: "Stripe" },
           { id: "2", title: "Apply Deadline", date: "2026-08-30", type: "Deadline", company: "Stripe" },
           { id: "3", title: "Culture Screen Round", date: "2026-08-03", type: "Interview", company: "Notion" },

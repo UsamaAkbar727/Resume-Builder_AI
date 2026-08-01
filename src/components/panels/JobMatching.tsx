@@ -199,13 +199,13 @@ export default function JobMatching({ resumeData, onNavigate, showToast }: JobMa
                     <div className="space-y-1.5 pt-2">
                       <div className="text-[11px] text-[#6B7280]">
                         <strong>Matches:</strong>{" "}
-                        {mj.matchedSkills.map((s, i) => (
+                        {mj.matchedSkills.map((s: string, i: number) => (
                           <span key={i} className="text-[#16A34A] font-semibold mr-2">✓ {s}</span>
                         ))}
                       </div>
                       <div className="text-[11px] text-[#6B7280]">
                         <strong>Missing:</strong>{" "}
-                        {mj.missingSkills.map((s, i) => (
+                        {mj.missingSkills.map((s: string, i: number) => (
                           <span key={i} className="text-[#DC2626] font-semibold mr-2">✗ {s}</span>
                         ))}
                       </div>

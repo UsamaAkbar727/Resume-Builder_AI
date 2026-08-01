@@ -15,7 +15,7 @@ interface Job {
   deadline?: string;
 }
 
-export default function AnalyticsView({ jobs = [], onNavigate }: { jobs?: Job[]; onNavigate?: (tab: string) => void }) {
+export default function AnalyticsView({ jobs = [], onNavigate, showToast }: { jobs?: Job[]; onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const scoreHistory = [
     { month: "May", score: 72 },
     { month: "Jun", score: 78 },

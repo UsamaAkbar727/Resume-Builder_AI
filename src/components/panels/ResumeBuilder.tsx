@@ -10,7 +10,7 @@ interface ResumeBuilderProps {
   showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
 
-export default function ResumeBuilder({ resumeData, setResumeData, onNavigate }: ResumeBuilderProps) {
+export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, showToast }: ResumeBuilderProps) {
   const [activeTab, setActiveTab] = useState<"details" | "experience" | "skills" | "projects">("details");
   const [template, setTemplate] = useState<"modern" | "classic" | "minimal">("modern");
   const [primaryColor, setPrimaryColor] = useState("#2563EB");

@@ -81,7 +81,7 @@ export default function Testimonials() {
                 <div>
                   <h4 className="text-xs font-bold text-slate-900 flex items-center gap-1">
                     {t.name}
-                    <ShieldCheck className="w-3.5 h-3.5 text-blue-500 fill-blue-500/10" title="Verified Customer" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-blue-500 fill-blue-500/10" />
                   </h4>
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
                     {t.role} @ <span className="text-slate-600">{t.company}</span>

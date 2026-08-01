@@ -31,7 +31,7 @@ export default function CareerAdvisor({ resumeData, onNavigate, showToast }: Car
 
     // Compute gaps
     const gaps = targetDatabase.map((item) => {
-      const acquired = userSkills.some((sk) => sk.includes(item.search) || item.search.includes(sk));
+      const acquired = userSkills.some((sk: string) => sk.includes(item.search) || item.search.includes(sk));
       return {
         ...item,
         acquired
