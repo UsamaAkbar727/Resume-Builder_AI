@@ -70,11 +70,7 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
         return j;
       });
       setJobs(updated);
-      if (showToast) {
-        showToast("Notes updated successfully!", "success");
-      } else {
-        alert("Notes updated successfully!");
-      }
+      showToast?.("Notes updated successfully!", "success");
     }
   };
 

@@ -66,11 +66,7 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
     if (typeof window !== "undefined") {
       localStorage.setItem("resumeflow_events", JSON.stringify(updated));
     }
-    if (showToast) {
-      showToast("Event scheduled successfully!", "success");
-    } else {
-      alert("Event scheduled successfully!");
-    }
+    showToast?.("Event scheduled successfully!", "success");
   };
 
   const handleDeleteEvent = (id: string) => {

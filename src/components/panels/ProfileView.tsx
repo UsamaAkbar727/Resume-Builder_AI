@@ -36,11 +36,7 @@ export default function ProfileView({ resumeData, setResumeData, onNavigate, sho
         location
       });
     }
-    if (showToast) {
-      showToast("Profile saved successfully and synced with Resume Builder!", "success");
-    } else {
-      alert("Profile saved successfully!");
-    }
+    showToast?.("Profile saved successfully and synced with Resume Builder!", "success");
   };
 
   return (

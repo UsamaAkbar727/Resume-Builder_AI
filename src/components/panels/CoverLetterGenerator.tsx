@@ -174,20 +174,16 @@ ${name}`);
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(letter);
-                        if (showToast) showToast("Copied to clipboard!", "success");
-                        else alert("Copied to clipboard!");
+                        showToast?.("Copied to clipboard!", "success");
                       }}
-                      className="text-[#2563EB] hover:underline font-semibold flex items-center gap-1"
+                      className="text-[#2563EB] hover:underline font-semibold flex items-center gap-1 cursor-pointer"
                     >
                       <Copy className="w-3.5 h-3.5" /> Copy
                     </button>
                     <span>•</span>
                     <button
-                      onClick={() => {
-                        if (showToast) showToast("Cover Letter downloaded as PDF!", "success");
-                        else alert("Cover Letter downloaded as PDF!");
-                      }}
-                      className="text-[#2563EB] hover:underline font-semibold flex items-center gap-1"
+                      onClick={() => showToast?.("Cover Letter downloaded as PDF!", "success")}
+                      className="text-[#2563EB] hover:underline font-semibold flex items-center gap-1 cursor-pointer"
                     >
                       <Download className="w-3.5 h-3.5" /> Export PDF
                     </button>

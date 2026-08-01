@@ -431,55 +431,54 @@ export default function DashboardWrapper() {
         </div>
       )}
 
-      {/* Modern custom toast notification alert */}
+      {/* Premium custom redesigned glassmorphic dark toast */}
       {toast.show && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] animate-in fade-in slide-in-from-top-4 duration-300 px-4 w-full max-w-md">
-          <div className="bg-white/95 backdrop-blur-lg border border-slate-200/60 rounded-2xl shadow-[0_20px_50px_rgba(15,23,42,0.12)] p-4 flex items-center gap-3.5 relative overflow-hidden">
-            {/* Glow matching status */}
-            <div className={`absolute -inset-0.5 bg-gradient-to-r opacity-5 blur-md ${
-              toast.type === "success" ? "from-emerald-500 to-teal-500" :
-              toast.type === "warning" ? "from-amber-500 to-orange-500" :
-              "from-blue-500 to-indigo-500"
-            }`} />
+        <div className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] animate-in fade-in slide-in-from-top-6 duration-500 px-4 w-full max-w-sm">
+          <div className={`bg-slate-950/90 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-4 flex items-center justify-between gap-4 relative transition-all ${
+            toast.type === "success" ? "shadow-[0_20px_50px_rgba(16,185,129,0.18)]" :
+            toast.type === "warning" ? "shadow-[0_20px_50px_rgba(245,158,11,0.18)]" :
+            "shadow-[0_20px_50px_rgba(37,99,235,0.18)]"
+          }`}>
+            <div className="flex items-center gap-3.5 select-none">
+              {/* Colored status dot with ripple pulse */}
+              <div className="relative flex h-2.5 w-2.5 shrink-0">
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                  toast.type === "success" ? "bg-emerald-400" :
+                  toast.type === "warning" ? "bg-amber-400" :
+                  "bg-blue-400"
+                }`}></span>
+                <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
+                  toast.type === "success" ? "bg-emerald-500" :
+                  toast.type === "warning" ? "bg-amber-500" :
+                  "bg-blue-500"
+                }`}></span>
+              </div>
 
-            {/* Left Accent indicator line */}
-            <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${
-              toast.type === "success" ? "bg-emerald-500" :
-              toast.type === "warning" ? "bg-amber-500" :
-              "bg-blue-500"
-            }`} />
-            
-            {/* Left Status Icon with matching background bubble */}
-            <div className={`p-2 rounded-xl shrink-0 ${
-              toast.type === "success" ? "bg-emerald-50 text-emerald-600 border border-emerald-100" :
-              toast.type === "warning" ? "bg-amber-50 text-amber-600 border border-amber-100" :
-              "bg-blue-50 text-blue-600 border border-blue-100"
-            }`}>
-              {toast.type === "success" && <LucideIcons.CheckCircle2 className="w-4 h-4 stroke-[2.5]" />}
-              {toast.type === "warning" && <LucideIcons.AlertTriangle className="w-4 h-4 stroke-[2.5]" />}
-              {toast.type === "info" && <LucideIcons.Info className="w-4 h-4 stroke-[2.5]" />}
+              {/* Toast Message Text */}
+              <div className="text-left">
+                <h4 className={`text-[10px] font-extrabold tracking-wider uppercase ${
+                  toast.type === "success" ? "text-emerald-400" :
+                  toast.type === "warning" ? "text-amber-400" :
+                  "text-blue-400"
+                }`}>
+                  {toast.type === "success" ? "Success" : toast.type === "warning" ? "Alert" : "Info"}
+                </h4>
+                <p className="text-xs font-semibold text-slate-100 mt-0.5 leading-normal">
+                  {toast.message}
+                </p>
+              </div>
             </div>
 
-            {/* Content */}
-            <div className="flex-1 text-left select-none relative z-10 pl-1">
-              <h4 className="font-extrabold text-xs text-slate-900 tracking-wide uppercase">
-                {toast.type === "success" ? "Success" : toast.type === "warning" ? "Alert" : "Info"}
-              </h4>
-              <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-0.5">
-                {toast.message}
-              </p>
-            </div>
-
-            {/* Close Button */}
+            {/* Close Cross icon */}
             <button
               onClick={() => setToast(prev => ({ ...prev, show: false }))}
-              className="text-slate-400 hover:text-slate-900 transition-colors p-1 hover:bg-slate-100/50 rounded-lg shrink-0 cursor-pointer"
+              className="text-slate-500 hover:text-white transition-colors p-1.5 hover:bg-slate-900 rounded-xl shrink-0 cursor-pointer border border-transparent hover:border-slate-800"
             >
               <LucideIcons.X className="w-3.5 h-3.5" />
             </button>
             
-            {/* Progress Countdown Bar */}
-            <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-slate-100 overflow-hidden">
+            {/* Fine Bottom Countdown Border */}
+            <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-slate-900 overflow-hidden rounded-b-2xl">
               <div className={`h-full animate-toast-progress ${
                 toast.type === "success" ? "bg-emerald-500" :
                 toast.type === "warning" ? "bg-amber-500" :

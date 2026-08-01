@@ -215,19 +215,13 @@ export default function JobMatching({ resumeData, onNavigate, showToast }: JobMa
                   {/* Right: Actions */}
                   <div className="flex gap-2">
                     <button
-                      onClick={() => {
-                        if (showToast) showToast(`Redirecting to application link for ${mj.company}!`, "info");
-                        else alert(`Redirecting to application link for ${mj.company}!`);
-                      }}
+                      onClick={() => showToast?.(`Redirecting to application link for ${mj.company}!`, "info")}
                       className="clay-btn-primary px-4 py-2.5 text-xs text-white font-semibold"
                     >
                       Apply Now
                     </button>
                     <button
-                      onClick={() => {
-                        if (showToast) showToast(`Job tracking details generated for ${mj.company}!`, "success");
-                        else alert(`Job tracking details generated for ${mj.company}!`);
-                      }}
+                      onClick={() => showToast?.(`Job tracking details generated for ${mj.company}!`, "success")}
                       className="clay-btn-secondary px-4 py-2.5 text-xs"
                     >
                       Save to Tracker

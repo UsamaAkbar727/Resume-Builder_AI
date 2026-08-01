@@ -21,11 +21,7 @@ export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: 
     setTimeout(() => {
       setDeploying(false);
       setDeployed(true);
-      if (showToast) {
-        showToast(`Portfolio website successfully deployed to https://${domain}!`, "success");
-      } else {
-        alert(`Portfolio website successfully deployed to https://${domain}!`);
-      }
+      showToast?.(`Portfolio website successfully deployed to https://${domain}!`, "success");
     }, 2000);
   };
 

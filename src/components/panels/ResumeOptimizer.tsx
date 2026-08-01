@@ -211,8 +211,7 @@ export default function ResumeOptimizer({ resumeData, setResumeData, onNavigate,
                   <button
                     onClick={() => {
                       navigator.clipboard.writeText(optimizedText);
-                      if (showToast) showToast("Copied to clipboard!", "success");
-                      else alert("Copied to clipboard!");
+                      showToast?.("Copied to clipboard!", "success");
                     }}
                     className="clay-btn-secondary px-4 py-2 text-xs font-semibold flex items-center gap-1.5"
                   >

@@ -64,11 +64,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate }:
     setExporting(true);
     setTimeout(() => {
       setExporting(false);
-      if (showToast) {
-        showToast(`Resume successfully generated and downloaded in ${format.toUpperCase()} format!`, "success");
-      } else {
-        alert(`Resume successfully generated and downloaded in ${format.toUpperCase()} format!`);
-      }
+      showToast?.(`Resume successfully generated and downloaded in ${format.toUpperCase()} format!`, "success");
     }, 1500);
   };
 

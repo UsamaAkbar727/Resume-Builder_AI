@@ -22,11 +22,7 @@ export default function AdminPanel({ onNavigate, showToast }: { onNavigate?: (ta
 
   const handleAdjustPlan = (userId: string, newPlan: string) => {
     setUsers(users.map(u => u.id === userId ? { ...u, plan: newPlan } : u));
-    if (showToast) {
-      showToast("User subscription tier updated!", "success");
-    } else {
-      alert("User subscription tier updated!");
-    }
+    showToast?.("User subscription tier updated!", "success");
   };
 
   return (
@@ -113,11 +109,8 @@ export default function AdminPanel({ onNavigate, showToast }: { onNavigate?: (ta
                       Toggle Pro
                     </button>
                     <button
-                      onClick={() => {
-                        if (showToast) showToast(`Detailed platform usage logs retrieved for user ID ${u.id}!`, "info");
-                        else alert(`Detailed platform usage logs retrieved for user ID ${u.id}!`);
-                      }}
-                      className="text-gray-500 hover:underline font-semibold text-xs"
+                      onClick={() => showToast?.(`Detailed platform usage logs retrieved for user ID ${u.id}!`, "info")}
+                      className="text-gray-500 hover:underline font-semibold text-xs cursor-pointer"
                     >
                       Audit Logs
                     </button>

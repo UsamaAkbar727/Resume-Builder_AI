@@ -58,11 +58,7 @@ export default function JobImport({ onAddJob, onNavigate, showToast }: ImportPro
         deadline: extractedData.deadline,
       };
       onAddJob(newJob);
-      if (showToast) {
-        showToast("Job saved successfully into your tracker under 'Applied'!", "success");
-      } else {
-        alert("Job saved successfully into your tracker under 'Applied'!");
-      }
+      showToast?.("Job saved successfully into your tracker under 'Applied'!", "success");
       onNavigate("tracker");
     }
   };

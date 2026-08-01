@@ -15,11 +15,7 @@ export default function SettingsView({ onNavigate, showToast }: { onNavigate?: (
       key += chars[Math.floor(Math.random() * chars.length)];
     }
     setApiKey(key);
-    if (showToast) {
-      showToast("New production API Key generated!", "success");
-    } else {
-      alert("New production API Key generated!");
-    }
+    showToast?.("New production API Key generated!", "success");
   };
 
   return (
@@ -129,19 +125,13 @@ export default function SettingsView({ onNavigate, showToast }: { onNavigate?: (
 
             <div className="flex gap-2.5">
               <button
-                onClick={() => {
-                  if (showToast) showToast("Subscription upgrade portal loaded!", "info");
-                  else alert("Subscription upgrade portal loaded!");
-                }}
+                onClick={() => showToast?.("Subscription upgrade portal loaded!", "info")}
                 className="clay-btn-primary flex-1 py-2.5 text-xs text-white font-semibold"
               >
                 Change Plan
               </button>
               <button
-                onClick={() => {
-                  if (showToast) showToast("Payment history log retrieved!", "info");
-                  else alert("Payment history log retrieved!");
-                }}
+                onClick={() => showToast?.("Payment history log retrieved!", "info")}
                 className="clay-btn-secondary flex-1 py-2.5 text-xs font-semibold"
               >
                 Cancel Subscription
