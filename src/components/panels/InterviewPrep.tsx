@@ -1,21 +1,30 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mic, Volume2, ArrowLeft } from "lucide-react";
+import { ArrowLeft, Volume2, Mic, CheckCircle2, AlertTriangle, Info, Play, PenTool, Trash2 } from "lucide-react";
 
-type QuestionType = "HR" | "Technical" | "Coding";
+interface InterviewPrepProps {
+  resumeData?: any;
+  onNavigate?: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
+}
+
+type QuestionType = "Technical" | "HR" | "Coding";
 
 interface Question {
   id: string;
   type: QuestionType;
   question: string;
   expectedKeywords: string[];
+  sampleVoiceAnswer: string;
 }
 
-export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
+export default function InterviewPrep({ resumeData, onNavigate, showToast }: InterviewPrepProps) {
   const [activeType, setActiveType] = useState<QuestionType>("Technical");
   const [recording, setRecording] = useState(false);
   const [activeQuestionIdx, setActiveQuestionIdx] = useState(0);
+  const [answerInput, setAnswerInput] = useState("");
+  const [inputMode, setInputMode] = useState<"voice" | "text">("voice");
   const [feedbackData, setFeedbackData] = useState<any>(null);
 
   const questions: Question[] = [
@@ -24,12 +33,14 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
       type: "Technical",
       question: "Explain the difference between Server Actions and API Routes in Next.js 15, and when you would choose one over the other.",
       expectedKeywords: ["Server Actions", "RPC", "POST request", "formAction", "API routes", "static caching"],
+      sampleVoiceAnswer: "Server Actions in Next.js 15 utilize direct RPC connections to execute code directly on the server without creating explicit API routes, which is great for form submissions and mutating server states. API routes are better when building general REST API endpoints for external clients."
     },
     {
       id: "2",
       type: "Technical",
       question: "How does React 19 handle ref passing, and what is the role of forwardRef in the new architecture?",
       expectedKeywords: ["ref prop", "forwardRef deprecation", "React.forwardRef", "functional components"],
+      sampleVoiceAnswer: "In React 19, ref is passed directly as a standard prop to functional components. This deprecates the need for React.forwardRef, simplifying component signatures and rendering patterns."
     },
     {
       id: "3",
@@ -95,7 +106,6 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
     setAnswerInput("");
     setTimeout(() => {
       setRecording(false);
-      // Simulate speech transcription
       const simulatedText = currentQuestion.sampleVoiceAnswer;
       setAnswerInput(simulatedText);
       
@@ -125,7 +135,7 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
       {onNavigate && (
         <button
           onClick={() => onNavigate("overview")}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
           <span>Back to Dashboard</span>
@@ -146,9 +156,11 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
               setActiveType(type);
               setActiveQuestionIdx(0);
               setFeedbackData(null);
+              setAnswerInput("");
             }}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold border ${activeType === type ? "bg-[#2563EB] text-white border-[#2563EB]" : "bg-white border-[#E5E7EB] hover:bg-[#EEF2F7]"
-              }`}
+            className={`px-4 py-2 rounded-xl text-xs font-semibold border cursor-pointer ${
+              activeType === type ? "bg-[#2563EB] text-white border-[#2563EB]" : "bg-white border-[#E5E7EB] hover:bg-[#EEF2F7]"
+            }`}
           >
             {type} Questions
           </button>
@@ -178,8 +190,8 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
               <div className="flex border border-[#E5E7EB] rounded-xl overflow-hidden mb-4">
                 <button
                   type="button"
-                  onClick={() => { setInputMode("voice"); setFeedbackData(null); }}
-                  className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                  onClick={() => { setInputMode("voice"); setFeedbackData(null); setAnswerInput(""); }}
+                  className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                     inputMode === "voice" ? "bg-[#2563EB]/10 text-[#2563EB]" : "bg-white text-gray-500 hover:text-[#111827]"
                   }`}
                 >
@@ -187,8 +199,8 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setInputMode("text"); setFeedbackData(null); }}
-                  className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                  onClick={() => { setInputMode("text"); setFeedbackData(null); setAnswerInput(""); }}
+                  className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                     inputMode === "text" ? "bg-[#2563EB]/10 text-[#2563EB]" : "bg-white text-gray-500 hover:text-[#111827]"
                   }`}
                 >
@@ -209,18 +221,17 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
                     <button
                       onClick={() => {
                         if (showToast) showToast("Playing simulated question audio...", "info");
-                        else alert("Playing simulated question audio...");
                       }}
                       type="button"
-                      className="clay-btn-secondary px-4 py-2 text-xs font-semibold flex items-center gap-1.5"
+                      className="clay-btn-secondary px-4 py-2 text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
                     >
                       <Volume2 className="w-3.5 h-3.5" /> Read Aloud
                     </button>
                     <div className="flex gap-2">
-                      <button type="submit" className="clay-btn-primary px-5 py-2.5 text-xs text-white font-bold">
+                      <button type="submit" className="clay-btn-primary px-5 py-2.5 text-xs text-white font-bold cursor-pointer">
                         Analyze Answer
                       </button>
-                      <button type="button" onClick={handleNext} className="clay-btn-secondary px-4 py-2.5 text-xs font-semibold">
+                      <button type="button" onClick={handleNext} className="clay-btn-secondary px-4 py-2.5 text-xs font-semibold cursor-pointer">
                         Next Question
                       </button>
                     </div>
@@ -231,9 +242,8 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
                   <button
                     onClick={() => {
                       if (showToast) showToast("Playing simulated question audio...", "info");
-                      else alert("Playing simulated question audio...");
                     }}
-                    className="clay-btn-secondary px-4 py-2 text-xs font-semibold flex items-center gap-1.5"
+                    className="clay-btn-secondary px-4 py-2 text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
                   >
                     <Volume2 className="w-3.5 h-3.5" /> Read Aloud
                   </button>
@@ -242,12 +252,13 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
                     <button
                       onClick={handleStartRecord}
                       disabled={recording}
-                      className={`px-5 py-2.5 text-xs text-white font-bold rounded-xl flex items-center gap-2 shadow-md ${recording ? "bg-red-500 animate-pulse" : "bg-[#2563EB] hover:bg-[#1D4ED8]"
-                        }`}
+                      className={`px-5 py-2.5 text-xs text-white font-bold rounded-xl flex items-center gap-2 shadow-md cursor-pointer ${
+                        recording ? "bg-red-500 animate-pulse" : "bg-[#2563EB] hover:bg-[#1D4ED8]"
+                      }`}
                     >
                       <Mic className="w-3.5 h-3.5" /> {recording ? "Recording (Speak Now)" : "Answer Aloud"}
                     </button>
-                    <button onClick={handleNext} className="clay-btn-secondary px-4 py-2.5 text-xs font-semibold">
+                    <button onClick={handleNext} className="clay-btn-secondary px-4 py-2.5 text-xs font-semibold cursor-pointer">
                       Next Question →
                     </button>
                   </div>
@@ -280,7 +291,7 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
           )}
 
           {!recording && feedbackData && (
-            <div className="clay-card p-6 bg-white space-y-5 animate-in fade-in duration-300">
+            <div className="clay-card p-6 bg-white space-y-5 animate-in fade-in duration-300 text-left">
               <div className="flex justify-between items-center border-b border-[#E5E7EB] pb-3">
                 <h4 className="font-bold text-sm text-[#111827] uppercase tracking-wider">AI Response Scorecard</h4>
                 <span className="text-xl font-extrabold text-[#16A34A]">{feedbackData.score} / 100</span>
@@ -296,7 +307,7 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
                   <span className="font-bold text-xs text-[#DC2626]">{feedbackData.fillerWords} count</span>
                 </div>
                 <div className="p-3 bg-[#F5F7FB] border border-[#E5E7EB] rounded-xl">
-                  <span className="text-[10px] text-[#6B7280] block">Grammar accuracy</span>
+                  <span className="text-[10px] text-[#6B7280] block">Grammar Accuracy</span>
                   <span className="font-bold text-xs text-[#16A34A]">{feedbackData.grammarCompliance}</span>
                 </div>
               </div>
@@ -311,7 +322,7 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
                   </ul>
                 </div>
                 <div>
-                  <h5 className="font-bold text-[#DC2626] mb-1.5">✗ Suggested improvements</h5>
+                  <h5 className="font-bold text-[#DC2626] mb-1.5">✗ Suggested Improvements</h5>
                   <ul className="list-disc pl-4 space-y-1 text-[#6B7280]">
                     {feedbackData.improvements.map((s: string, i: number) => (
                       <li key={i}>{s}</li>
