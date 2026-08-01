@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import * as LucideIcons from "lucide-react";
 
@@ -70,6 +70,25 @@ export default function DashboardWrapper() {
   const [activeTab, setActiveTab] = useState<Tab>("overview");
   const [searchQuery, setSearchQuery] = useState("");
   const [showCommandPalette, setShowCommandPalette] = useState(false);
+
+  const [toast, setToast] = useState<{ message: string; type: "success" | "info" | "warning"; show: boolean }>({
+    message: "",
+    type: "success",
+    show: false
+  });
+
+  const showToast = (message: string, type: "success" | "info" | "warning" = "success") => {
+    setToast({ message, type, show: true });
+  };
+
+  useEffect(() => {
+    if (toast.show) {
+      const timer = setTimeout(() => {
+        setToast(prev => ({ ...prev, show: false }));
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast.show]);
 
   // Shared Job Tracker State
   const [jobs, setJobs] = useState<Job[]>([
@@ -303,24 +322,24 @@ export default function DashboardWrapper() {
         <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
           {activeTab === "overview" && <DashboardOverview jobs={jobs} onNavigate={handleNavigate} />}
           {activeTab === "builder" && (
-            <ResumeBuilder resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} />
+            <ResumeBuilder resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />
           )}
-          {activeTab === "analyzer" && <ResumeAnalyzer onNavigate={handleNavigate} />}
-          {activeTab === "optimizer" && <ResumeOptimizer onNavigate={handleNavigate} />}
-          {activeTab === "cover-letter" && <CoverLetterGenerator onNavigate={handleNavigate} />}
-          {activeTab === "tracker" && <JobTracker jobs={jobs} setJobs={setJobs} onNavigate={handleNavigate} />}
-          {activeTab === "import" && <JobImport onAddJob={handleAddJob} onNavigate={handleNavigate} />}
-          {activeTab === "matching" && <JobMatching onNavigate={handleNavigate} />}
-          {activeTab === "interview" && <InterviewPrep onNavigate={handleNavigate} />}
-          {activeTab === "advisor" && <CareerAdvisor onNavigate={handleNavigate} />}
-          {activeTab === "portfolio" && <PortfolioBuilder onNavigate={handleNavigate} />}
-          {activeTab === "documents" && <DocumentsManager onNavigate={handleNavigate} />}
-          {activeTab === "calendar" && <CalendarView onNavigate={handleNavigate} />}
-          {activeTab === "analytics" && <AnalyticsView onNavigate={handleNavigate} />}
-          {activeTab === "notifications" && <NotificationsView onNavigate={handleNavigate} />}
-          {activeTab === "profile" && <ProfileView onNavigate={handleNavigate} />}
-          {activeTab === "settings" && <SettingsView onNavigate={handleNavigate} />}
-          {activeTab === "admin" && <AdminPanel onNavigate={handleNavigate} />}
+          {activeTab === "analyzer" && <ResumeAnalyzer onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "optimizer" && <ResumeOptimizer onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "cover-letter" && <CoverLetterGenerator onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "tracker" && <JobTracker jobs={jobs} setJobs={setJobs} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "import" && <JobImport onAddJob={handleAddJob} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "matching" && <JobMatching onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "interview" && <InterviewPrep onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "advisor" && <CareerAdvisor onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "portfolio" && <PortfolioBuilder onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "documents" && <DocumentsManager onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "calendar" && <CalendarView onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "analytics" && <AnalyticsView onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "notifications" && <NotificationsView onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "profile" && <ProfileView onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "settings" && <SettingsView onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "admin" && <AdminPanel onNavigate={handleNavigate} showToast={showToast} />}
         </main>
       </div>
 
@@ -370,6 +389,58 @@ export default function DashboardWrapper() {
                   })}
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modern custom toast notification alert */}
+      {toast.show && (
+        <div className="fixed bottom-6 right-6 z-[100] animate-in fade-in slide-in-from-bottom-5 duration-300">
+          <div className="bg-white/90 backdrop-blur-md border border-[#E5E7EB] rounded-2xl shadow-2xl p-4 min-w-[320px] max-w-sm flex items-start gap-3.5 relative overflow-hidden">
+            {/* Top accent bar */}
+            <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${
+              toast.type === "success" ? "from-emerald-400 to-teal-500" :
+              toast.type === "warning" ? "from-amber-400 to-orange-500" :
+              "from-blue-500 to-indigo-600"
+            }`} />
+            
+            {/* Left Icon */}
+            <div className={`mt-1 p-2 rounded-xl text-white bg-gradient-to-tr ${
+              toast.type === "success" ? "from-emerald-500 to-teal-600" :
+              toast.type === "warning" ? "from-amber-500 to-orange-600" :
+              "from-blue-500 to-indigo-600"
+            }`}>
+              {toast.type === "success" && <LucideIcons.CheckCircle2 className="w-4 h-4" />}
+              {toast.type === "warning" && <LucideIcons.AlertTriangle className="w-4 h-4" />}
+              {toast.type === "info" && <LucideIcons.Info className="w-4 h-4" />}
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 text-left select-none">
+              <h4 className="font-extrabold text-xs text-[#111827] uppercase tracking-wider mb-0.5">
+                {toast.type === "success" ? "Success" : toast.type === "warning" ? "Warning Alert" : "System Notification"}
+              </h4>
+              <p className="text-xs text-[#6B7280] font-semibold leading-relaxed">
+                {toast.message}
+              </p>
+            </div>
+
+            {/* Close Button */}
+            <button
+              onClick={() => setToast(prev => ({ ...prev, show: false }))}
+              className="text-[#6B7280] hover:text-[#111827] transition-colors p-1"
+            >
+              <LucideIcons.X className="w-3.5 h-3.5" />
+            </button>
+            
+            {/* Progress Bar */}
+            <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gray-100 overflow-hidden">
+              <div className={`h-full animate-toast-progress ${
+                toast.type === "success" ? "bg-emerald-500" :
+                toast.type === "warning" ? "bg-amber-500" :
+                "bg-blue-500"
+              }`} />
             </div>
           </div>
         </div>

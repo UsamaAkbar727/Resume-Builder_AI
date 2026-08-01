@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
-export default function NotificationsView({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function NotificationsView({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [emailAlerts, setEmailAlerts] = useState(true);
   const [pushAlerts, setPushAlerts] = useState(false);
   const [weeklyDigest, setWeeklyDigest] = useState(true);
@@ -109,7 +109,10 @@ export default function NotificationsView({ onNavigate }: { onNavigate?: (tab: s
             </div>
 
             <button
-              onClick={() => alert("Notification settings saved successfully!")}
+              onClick={() => {
+                if (showToast) showToast("Notification settings saved successfully!", "success");
+                else alert("Notification settings saved successfully!");
+              }}
               className="clay-btn-primary w-full py-2.5 text-xs text-white font-semibold"
             >
               Save Preferences

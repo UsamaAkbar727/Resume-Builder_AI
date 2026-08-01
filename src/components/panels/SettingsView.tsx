@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
-export default function SettingsView({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function SettingsView({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [apiKey, setApiKey] = useState("rf_live_829a47d2f9b1c0e3d8");
   const [themeMode, setThemeMode] = useState("light");
   const [billingPlan, setBillingPlan] = useState("Pro");
@@ -15,7 +15,11 @@ export default function SettingsView({ onNavigate }: { onNavigate?: (tab: string
       key += chars[Math.floor(Math.random() * chars.length)];
     }
     setApiKey(key);
-    alert("New production API Key generated!");
+    if (showToast) {
+      showToast("New production API Key generated!", "success");
+    } else {
+      alert("New production API Key generated!");
+    }
   };
 
   return (
@@ -126,7 +130,8 @@ export default function SettingsView({ onNavigate }: { onNavigate?: (tab: string
             <div className="flex gap-2.5">
               <button
                 onClick={() => {
-                  alert("Subscription upgrade portal loaded!");
+                  if (showToast) showToast("Subscription upgrade portal loaded!", "info");
+                  else alert("Subscription upgrade portal loaded!");
                 }}
                 className="clay-btn-primary flex-1 py-2.5 text-xs text-white font-semibold"
               >
@@ -134,7 +139,8 @@ export default function SettingsView({ onNavigate }: { onNavigate?: (tab: string
               </button>
               <button
                 onClick={() => {
-                  alert("Payment history log retrieved!");
+                  if (showToast) showToast("Payment history log retrieved!", "info");
+                  else alert("Payment history log retrieved!");
                 }}
                 className="clay-btn-secondary flex-1 py-2.5 text-xs font-semibold"
               >

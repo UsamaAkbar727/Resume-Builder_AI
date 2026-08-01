@@ -11,7 +11,7 @@ interface Doc {
   updated: string;
 }
 
-export default function DocumentsManager({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function DocumentsManager({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [docs, setDocs] = useState<Doc[]>([
     { id: "1", name: "Sarah_Jenkins_Resume_Stripe_V2.pdf", type: "Resume", size: "340 KB", updated: "2026-07-28" },
     { id: "2", name: "Stripe_Reference_Letter.pdf", type: "Experience Letter", size: "1.2 MB", updated: "2026-06-15" },
@@ -84,7 +84,10 @@ export default function DocumentsManager({ onNavigate }: { onNavigate?: (tab: st
                   <td className="py-3.5 text-[#6B7280]">{doc.updated}</td>
                   <td className="py-3.5 text-right space-x-3">
                     <button
-                      onClick={() => alert(`Downloading file: ${doc.name}!`)}
+                      onClick={() => {
+                        if (showToast) showToast(`Downloading file: ${doc.name}!`, "success");
+                        else alert(`Downloading file: ${doc.name}!`);
+                      }}
                       className="text-[#2563EB] hover:underline font-semibold text-xs"
                     >
                       Download

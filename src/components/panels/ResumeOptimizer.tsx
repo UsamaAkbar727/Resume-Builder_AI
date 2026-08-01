@@ -5,7 +5,7 @@ import { Zap, Sparkles, Copy, ArrowLeft } from "lucide-react";
 
 type Tone = "Professional" | "Executive" | "Technical" | "Entry";
 
-export default function ResumeOptimizer({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function ResumeOptimizer({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [inputText, setInputText] = useState("I was responsible for scaling the checkout codebase and led the migration of systems to Kubernetes cluster.");
   const [tone, setTone] = useState<Tone>("Professional");
   const [optimizing, setOptimizing] = useState(false);
@@ -138,7 +138,8 @@ export default function ResumeOptimizer({ onNavigate }: { onNavigate?: (tab: str
                   <button
                     onClick={() => {
                       navigator.clipboard.writeText(optimizedText);
-                      alert("Copied to clipboard!");
+                      if (showToast) showToast("Copied to clipboard!", "success");
+                      else alert("Copied to clipboard!");
                     }}
                     className="clay-btn-secondary px-4 py-2 text-xs font-semibold flex items-center gap-1.5"
                   >

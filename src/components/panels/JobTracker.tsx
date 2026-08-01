@@ -19,11 +19,12 @@ interface TrackerProps {
   jobs: Job[];
   setJobs: React.Dispatch<React.SetStateAction<Job[]>>;
   onNavigate?: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
 
 type Column = "Wishlist" | "Applied" | "Interview" | "Offer" | "Rejected";
 
-export default function JobTracker({ jobs, setJobs, onNavigate }: TrackerProps) {
+export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: TrackerProps) {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [editingNotes, setEditingNotes] = useState("");
 
@@ -69,7 +70,11 @@ export default function JobTracker({ jobs, setJobs, onNavigate }: TrackerProps) 
         return j;
       });
       setJobs(updated);
-      alert("Notes updated successfully!");
+      if (showToast) {
+        showToast("Notes updated successfully!", "success");
+      } else {
+        alert("Notes updated successfully!");
+      }
     }
   };
 

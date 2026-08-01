@@ -12,7 +12,7 @@ interface Question {
   expectedKeywords: string[];
 }
 
-export default function InterviewPrep({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [activeType, setActiveType] = useState<QuestionType>("Technical");
   const [recording, setRecording] = useState(false);
   const [activeQuestionIdx, setActiveQuestionIdx] = useState(0);
@@ -125,7 +125,10 @@ export default function InterviewPrep({ onNavigate }: { onNavigate?: (tab: strin
 
             <div className="flex gap-3 items-center justify-between pt-4 border-t border-[#E5E7EB]">
               <button
-                onClick={() => alert("Playing simulated question audio...")}
+                onClick={() => {
+                  if (showToast) showToast("Playing simulated question audio...", "info");
+                  else alert("Playing simulated question audio...");
+                }}
                 className="clay-btn-secondary px-4 py-2 text-xs font-semibold flex items-center gap-1.5"
               >
                 <Volume2 className="w-3.5 h-3.5" /> Read Aloud

@@ -12,7 +12,7 @@ interface UserRow {
   aiUsage: string; // Token counts
 }
 
-export default function AdminPanel({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function AdminPanel({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [users, setUsers] = useState<UserRow[]>([
     { id: "1", name: "Sarah Jenkins", email: "sarah@stripe.com", plan: "Pro", joined: "2026-07-10", aiUsage: "48.2k" },
     { id: "2", name: "Michael Chen", email: "m.chen@google.com", plan: "Pro", joined: "2026-07-15", aiUsage: "125.4k" },
@@ -22,7 +22,11 @@ export default function AdminPanel({ onNavigate }: { onNavigate?: (tab: string) 
 
   const handleAdjustPlan = (userId: string, newPlan: string) => {
     setUsers(users.map(u => u.id === userId ? { ...u, plan: newPlan } : u));
-    alert("User subscription tier updated!");
+    if (showToast) {
+      showToast("User subscription tier updated!", "success");
+    } else {
+      alert("User subscription tier updated!");
+    }
   };
 
   return (
@@ -109,7 +113,10 @@ export default function AdminPanel({ onNavigate }: { onNavigate?: (tab: string) 
                       Toggle Pro
                     </button>
                     <button
-                      onClick={() => alert(`Detailed platform usage logs retrieved for user ID ${u.id}!`)}
+                      onClick={() => {
+                        if (showToast) showToast(`Detailed platform usage logs retrieved for user ID ${u.id}!`, "info");
+                        else alert(`Detailed platform usage logs retrieved for user ID ${u.id}!`);
+                      }}
                       className="text-gray-500 hover:underline font-semibold text-xs"
                     >
                       Audit Logs

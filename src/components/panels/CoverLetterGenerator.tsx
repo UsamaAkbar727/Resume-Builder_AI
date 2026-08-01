@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { FileText, PenTool, Copy, Download, Sparkles, ArrowLeft } from "lucide-react";
 
-export default function CoverLetterGenerator({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function CoverLetterGenerator({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [company, setCompany] = useState("Vercel");
   const [role, setRole] = useState("Senior Frontend Engineer");
   const [jobDesc, setJobDesc] = useState("Looking for a frontend expert with deep experience in React, Next.js, and Tailwind CSS to optimize our dashboard components...");
@@ -126,7 +126,8 @@ Sarah Jenkins`);
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(letter);
-                        alert("Copied to clipboard!");
+                        if (showToast) showToast("Copied to clipboard!", "success");
+                        else alert("Copied to clipboard!");
                       }}
                       className="text-[#2563EB] hover:underline font-semibold flex items-center gap-1"
                     >
@@ -134,7 +135,10 @@ Sarah Jenkins`);
                     </button>
                     <span>•</span>
                     <button
-                      onClick={() => alert("Cover Letter downloaded as PDF!")}
+                      onClick={() => {
+                        if (showToast) showToast("Cover Letter downloaded as PDF!", "success");
+                        else alert("Cover Letter downloaded as PDF!");
+                      }}
                       className="text-[#2563EB] hover:underline font-semibold flex items-center gap-1"
                     >
                       <Download className="w-3.5 h-3.5" /> Export PDF

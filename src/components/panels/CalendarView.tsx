@@ -11,7 +11,7 @@ interface Event {
   company?: string;
 }
 
-export default function CalendarView({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [events, setEvents] = useState<Event[]>([
     { id: "1", title: "Systems Design Round", date: "2026-08-01", type: "Interview", company: "Stripe" },
     { id: "2", title: "Apply Deadline", date: "2026-08-30", type: "Deadline", company: "Stripe" },
@@ -39,7 +39,11 @@ export default function CalendarView({ onNavigate }: { onNavigate?: (tab: string
     };
     setEvents([...events, added]);
     setNewEventTitle("");
-    alert("Event scheduled successfully!");
+    if (showToast) {
+      showToast("Event scheduled successfully!", "success");
+    } else {
+      alert("Event scheduled successfully!");
+    }
   };
 
   const renderCells = () => {

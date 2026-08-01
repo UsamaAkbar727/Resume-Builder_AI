@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
-export default function PortfolioBuilder({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function PortfolioBuilder({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [theme, setTheme] = useState("dark");
   const [domain, setDomain] = useState("sjenkins.dev");
   const [deploying, setDeploying] = useState(false);
@@ -15,7 +15,11 @@ export default function PortfolioBuilder({ onNavigate }: { onNavigate?: (tab: st
     setTimeout(() => {
       setDeploying(false);
       setDeployed(true);
-      alert(`Portfolio website successfully deployed to https://${domain}!`);
+      if (showToast) {
+        showToast(`Portfolio website successfully deployed to https://${domain}!`, "success");
+      } else {
+        alert(`Portfolio website successfully deployed to https://${domain}!`);
+      }
     }, 2000);
   };
 

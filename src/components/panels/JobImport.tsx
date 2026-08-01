@@ -18,9 +18,10 @@ interface Job {
 interface ImportProps {
   onAddJob: (job: Job) => void;
   onNavigate: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
 
-export default function JobImport({ onAddJob, onNavigate }: ImportProps) {
+export default function JobImport({ onAddJob, onNavigate, showToast }: ImportProps) {
   const [url, setUrl] = useState("https://www.linkedin.com/jobs/view/stripe-senior-frontend-engineer-9284105/");
   const [extracting, setExtracting] = useState(false);
   const [extractedData, setExtractedData] = useState<any>(null);
@@ -57,7 +58,11 @@ export default function JobImport({ onAddJob, onNavigate }: ImportProps) {
         deadline: extractedData.deadline,
       };
       onAddJob(newJob);
-      alert("Job saved successfully into your tracker under 'Applied'!");
+      if (showToast) {
+        showToast("Job saved successfully into your tracker under 'Applied'!", "success");
+      } else {
+        alert("Job saved successfully into your tracker under 'Applied'!");
+      }
       onNavigate("tracker");
     }
   };

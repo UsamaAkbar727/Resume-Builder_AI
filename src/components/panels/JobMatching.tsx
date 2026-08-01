@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
-export default function JobMatching({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function JobMatching({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [matching, setMatching] = useState(false);
   const [matched, setMatched] = useState(true);
 
@@ -136,13 +136,19 @@ export default function JobMatching({ onNavigate }: { onNavigate?: (tab: string)
                   {/* Right: Actions */}
                   <div className="flex gap-2">
                     <button
-                      onClick={() => alert(`Redirecting to application link for ${mj.company}!`)}
+                      onClick={() => {
+                        if (showToast) showToast(`Redirecting to application link for ${mj.company}!`, "info");
+                        else alert(`Redirecting to application link for ${mj.company}!`);
+                      }}
                       className="clay-btn-primary px-4 py-2.5 text-xs text-white font-semibold"
                     >
                       Apply Now
                     </button>
                     <button
-                      onClick={() => alert(`Job tracking details generated for ${mj.company}!`)}
+                      onClick={() => {
+                        if (showToast) showToast(`Job tracking details generated for ${mj.company}!`, "success");
+                        else alert(`Job tracking details generated for ${mj.company}!`);
+                      }}
                       className="clay-btn-secondary px-4 py-2.5 text-xs"
                     >
                       Save to Tracker

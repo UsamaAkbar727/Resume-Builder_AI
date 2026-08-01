@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
-export default function ProfileView({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+export default function ProfileView({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [name, setName] = useState("Sarah Jenkins");
   const [title, setTitle] = useState("Senior Full Stack Developer");
   const [location, setLocation] = useState("San Francisco, CA");
@@ -12,7 +12,11 @@ export default function ProfileView({ onNavigate }: { onNavigate?: (tab: string)
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Profile saved successfully!");
+    if (showToast) {
+      showToast("Profile saved successfully!", "success");
+    } else {
+      alert("Profile saved successfully!");
+    }
   };
 
   return (

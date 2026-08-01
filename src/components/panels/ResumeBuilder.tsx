@@ -7,6 +7,7 @@ interface ResumeBuilderProps {
   resumeData: any;
   setResumeData: (data: any) => void;
   onNavigate: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
 
 export default function ResumeBuilder({ resumeData, setResumeData, onNavigate }: ResumeBuilderProps) {
@@ -63,7 +64,11 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate }:
     setExporting(true);
     setTimeout(() => {
       setExporting(false);
-      alert(`Resume successfully generated and downloaded in ${format.toUpperCase()} format!`);
+      if (showToast) {
+        showToast(`Resume successfully generated and downloaded in ${format.toUpperCase()} format!`, "success");
+      } else {
+        alert(`Resume successfully generated and downloaded in ${format.toUpperCase()} format!`);
+      }
     }, 1500);
   };
 
