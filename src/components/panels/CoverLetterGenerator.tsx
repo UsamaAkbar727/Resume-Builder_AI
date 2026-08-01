@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { FileText, PenTool, Copy, Download, Sparkles } from "lucide-react";
+import { FileText, PenTool, Copy, Download, Sparkles, ArrowLeft } from "lucide-react";
 
-export default function CoverLetterGenerator() {
+export default function CoverLetterGenerator({ onNavigate }: { onNavigate?: (tab: string) => void }) {
   const [company, setCompany] = useState("Vercel");
   const [role, setRole] = useState("Senior Frontend Engineer");
   const [jobDesc, setJobDesc] = useState("Looking for a frontend expert with deep experience in React, Next.js, and Tailwind CSS to optimize our dashboard components...");
@@ -39,6 +39,16 @@ Sarah Jenkins`);
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+      {onNavigate && (
+        <button
+          onClick={() => onNavigate("overview")}
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+          <span>Back to Dashboard</span>
+        </button>
+      )}
+
       <div className="border-b border-[#E5E7EB] pb-4">
         <h1 className="text-3xl font-extrabold text-[#111827]">AI Cover Letter Generator</h1>
         <p className="text-sm text-[#6B7280]">Create custom, job-specific cover letters matching your resume experience.</p>

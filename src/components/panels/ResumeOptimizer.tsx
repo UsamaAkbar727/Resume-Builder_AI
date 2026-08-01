@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { Zap, Sparkles, Copy } from "lucide-react";
+import { Zap, Sparkles, Copy, ArrowLeft } from "lucide-react";
 
 type Tone = "Professional" | "Executive" | "Technical" | "Entry";
 
-export default function ResumeOptimizer() {
+export default function ResumeOptimizer({ onNavigate }: { onNavigate?: (tab: string) => void }) {
   const [inputText, setInputText] = useState("I was responsible for scaling the checkout codebase and led the migration of systems to Kubernetes cluster.");
   const [tone, setTone] = useState<Tone>("Professional");
   const [optimizing, setOptimizing] = useState(false);
@@ -40,6 +40,16 @@ export default function ResumeOptimizer() {
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+      {onNavigate && (
+        <button
+          onClick={() => onNavigate("overview")}
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+          <span>Back to Dashboard</span>
+        </button>
+      )}
+
       <div className="border-b border-[#E5E7EB] pb-4">
         <h1 className="text-3xl font-extrabold text-[#111827]">AI Resume Optimizer</h1>
         <p className="text-sm text-[#6B7280]">Enhance bullet descriptions with action verbs and quantified impact metrics.</p>

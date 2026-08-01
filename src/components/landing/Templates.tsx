@@ -109,7 +109,7 @@ export default function Templates() {
           <div className={`w-full h-full bg-white text-slate-800 flex flex-col justify-between text-left font-sans ${paddingClass}`}>
             <div>
               {/* Header */}
-              <div className="mb-4">
+              <div className="mb-3">
                 <div className="flex items-center gap-1">
                   <span className={`${isLarge ? "text-sm" : "text-xs"}`}>💻</span>
                   <h4 className={`font-black tracking-tight text-slate-900 ${isLarge ? "text-lg" : "text-[10px]"}`}>Sarah Jenkins</h4>
@@ -124,10 +124,9 @@ export default function Templates() {
                 {/* Summary */}
                 <div>
                   <h5 className={`font-bold border-b pb-0.5 text-slate-900 ${isLarge ? "text-[10px]" : "text-[7px]"}`}>Summary</h5>
-                  <div className={`space-y-1 mt-1 opacity-70 ${textSizeClass}`}>
-                    <div className="h-1.5 bg-slate-200 rounded-sm w-full"></div>
-                    <div className="h-1.5 bg-slate-200 rounded-sm w-11/12"></div>
-                  </div>
+                  <p className={`mt-1 opacity-75 leading-normal ${isLarge ? "text-[8px]" : "text-[4.5px] scale-95 origin-left"}`}>
+                    Experienced Software Engineer building high-performance SaaS applications with React, Next.js, and Node.js. Focus on scalable backend schemas and low-latency APIs.
+                  </p>
                 </div>
 
                 {/* Experience */}
@@ -138,10 +137,10 @@ export default function Templates() {
                       <span className={`font-bold text-slate-800 ${textSizeClass}`}>Lead Software Engineer @ Stripe</span>
                       <span className={`text-slate-400 ${textSizeClass}`}>2024 - Present</span>
                     </div>
-                    <div className={`space-y-1 opacity-75 ${textSizeClass}`}>
-                      <div className="h-1.5 bg-slate-200 rounded-sm w-full"></div>
-                      <div className="h-1.5 bg-slate-200 rounded-sm w-10/12"></div>
-                    </div>
+                    <p className={`mt-0.5 opacity-75 leading-normal ${isLarge ? "text-[7.5px]" : "text-[4.5px] scale-95 origin-left"}`}>
+                      • Scaled Stripe checkout infrastructure for high transaction flows.<br/>
+                      • Migrated microservices gateways to AWS container hosts.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -183,10 +182,9 @@ export default function Templates() {
                       <span className={`font-bold text-slate-900 ${textSizeClass}`}>Stripe — Lead Software Engineer</span>
                       <span className={`text-slate-400 ${textSizeClass}`}>2024 - Present</span>
                     </div>
-                    <div className={`space-y-1 opacity-70 ${textSizeClass}`}>
-                      <div className="h-1.5 bg-slate-200 rounded-sm w-full"></div>
-                      <div className="h-1.5 bg-slate-200 rounded-sm w-11/12"></div>
-                    </div>
+                    <p className={`mt-0.5 opacity-70 leading-normal ${isLarge ? "text-[7.5px]" : "text-[4.5px] scale-95 origin-left"}`}>
+                      Managed core developer API integrations, scaling checkout security and reliability to 99.99% uptime.
+                    </p>
                   </div>
                 </div>
 
@@ -246,12 +244,11 @@ export default function Templates() {
                   <h4 className={`font-bold transition-colors uppercase tracking-wider border-b pb-0.5 ${accentText} ${isLarge ? "text-[9px]" : "text-[6px]"}`}>
                     Experience
                   </h4>
-                  <div className="space-y-1.5 mt-1.5">
+                  <div className="space-y-1 mt-1">
                     <div className={`font-bold text-slate-800 ${textSizeClass}`}>Lead Developer @ Stripe</div>
-                    <div className={`space-y-1 opacity-70 ${textSizeClass}`}>
-                      <div className="h-1.5 bg-slate-200 rounded-sm w-full"></div>
-                      <div className="h-1.5 bg-slate-200 rounded-sm w-10/12"></div>
-                    </div>
+                    <p className={`mt-0.5 opacity-70 leading-normal ${isLarge ? "text-[7.5px]" : "text-[4.5px] scale-95 origin-left"}`}>
+                      Designed transaction systems processing $2B+ payments.
+                    </p>
                   </div>
                 </div>
 
@@ -260,8 +257,10 @@ export default function Templates() {
                     Key Projects
                   </h4>
                   <div className="space-y-1 mt-1">
-                    <div className={`font-bold text-slate-800 ${textSizeClass}`}>Developer Portfolio Host</div>
-                    <div className={`h-1.5 bg-slate-200 rounded-sm w-5/6 opacity-70`}></div>
+                    <div className={`font-bold text-slate-800 ${textSizeClass}`}>Portfolio Generator</div>
+                    <p className={`mt-0.5 opacity-70 leading-normal ${isLarge ? "text-[7.5px]" : "text-[4.5px] scale-95 origin-left"}`}>
+                      Open-source system translating YAML data to active portfolios.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -293,10 +292,9 @@ export default function Templates() {
                     <h5 className={`font-bold uppercase tracking-wider text-slate-900 ${isLarge ? "text-[8px]" : "text-[6px]"}`}>Experience</h5>
                     <div className="mt-1">
                       <div className={`font-bold text-slate-800 leading-tight ${textSizeClass}`}>Lead Software Engineer @ Stripe</div>
-                      <div className={`space-y-1 mt-1 opacity-70 ${textSizeClass}`}>
-                        <div className="h-1.5 bg-slate-200 rounded-sm w-full"></div>
-                        <div className="h-1.5 bg-slate-200 rounded-sm w-11/12"></div>
-                      </div>
+                      <p className={`mt-0.5 opacity-70 leading-normal ${isLarge ? "text-[7.5px]" : "text-[4.5px] scale-95 origin-left"}`}>
+                        Spearheaded the migration of core payment checkout APIs to scale checkout availability.
+                      </p>
                     </div>
                   </div>
                 </div>

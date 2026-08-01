@@ -61,6 +61,7 @@ interface SidebarItem {
   id: Tab;
   label: string;
   icon: string;
+  gradient: string;
   badge?: string;
   adminOnly?: boolean;
 }
@@ -150,24 +151,24 @@ export default function DashboardWrapper() {
   });
 
   const sidebarItems: SidebarItem[] = [
-    { id: "overview", label: "Dashboard", icon: "LayoutDashboard" },
-    { id: "builder", label: "AI Resume Builder", icon: "FileText" },
-    { id: "analyzer", label: "Resume Analyzer", icon: "Search", badge: "85%" },
-    { id: "optimizer", label: "AI Resume Optimizer", icon: "Zap" },
-    { id: "cover-letter", label: "AI Cover Letter", icon: "Mail" },
-    { id: "tracker", label: "Job Kanban Tracker", icon: "Kanban" },
-    { id: "import", label: "Job Import Scraper", icon: "Globe" },
-    { id: "matching", label: "AI Job Matching", icon: "Target" },
-    { id: "interview", label: "AI Mock Interview", icon: "Mic" },
-    { id: "advisor", label: "AI Career Advisor", icon: "Compass" },
-    { id: "portfolio", label: "Portfolio Builder", icon: "Briefcase" },
-    { id: "documents", label: "Documents", icon: "FolderOpen" },
-    { id: "calendar", label: "Calendar", icon: "Calendar" },
-    { id: "analytics", label: "Analytics Stats", icon: "TrendingUp" },
-    { id: "notifications", label: "Notifications", icon: "Bell" },
-    { id: "profile", label: "Profile", icon: "User" },
-    { id: "settings", label: "Settings", icon: "Settings" },
-    { id: "admin", label: "Admin Operations", icon: "Key", adminOnly: true },
+    { id: "overview", label: "Dashboard", icon: "LayoutGrid", gradient: "from-blue-500 to-indigo-600" },
+    { id: "builder", label: "AI Resume Builder", icon: "Layers", gradient: "from-indigo-500 to-purple-600" },
+    { id: "analyzer", label: "Resume Analyzer", icon: "Gauge", badge: "85%", gradient: "from-emerald-500 to-teal-600" },
+    { id: "optimizer", label: "AI Resume Optimizer", icon: "Rocket", gradient: "from-purple-500 to-pink-600" },
+    { id: "cover-letter", label: "AI Cover Letter", icon: "Send", gradient: "from-pink-500 to-rose-600" },
+    { id: "tracker", label: "Job Kanban Tracker", icon: "Columns4", gradient: "from-violet-500 to-purple-600" },
+    { id: "import", label: "Job Import Scraper", icon: "CloudDownload", gradient: "from-sky-500 to-blue-600" },
+    { id: "matching", label: "AI Job Matching", icon: "Fingerprint", gradient: "from-red-500 to-rose-600" },
+    { id: "interview", label: "AI Mock Interview", icon: "MessageSquareCode", gradient: "from-amber-500 to-orange-600" },
+    { id: "advisor", label: "AI Career Advisor", icon: "Lightbulb", gradient: "from-rose-500 to-red-600" },
+    { id: "portfolio", label: "Portfolio Builder", icon: "ExternalLink", gradient: "from-teal-500 to-emerald-600" },
+    { id: "documents", label: "Documents", icon: "FolderGit", gradient: "from-cyan-500 to-blue-600" },
+    { id: "calendar", label: "Calendar", icon: "Calendar", gradient: "from-orange-500 to-red-600" },
+    { id: "analytics", label: "Analytics Stats", icon: "BarChart3", gradient: "from-fuchsia-500 to-purple-600" },
+    { id: "notifications", label: "Notifications", icon: "BellRing", gradient: "from-yellow-500 to-amber-600" },
+    { id: "profile", label: "Profile", icon: "UserCheck", gradient: "from-blue-500 to-sky-600" },
+    { id: "settings", label: "Settings", icon: "Sliders", gradient: "from-gray-500 to-slate-600" },
+    { id: "admin", label: "Admin Operations", icon: "Terminal", gradient: "from-red-600 to-rose-700", adminOnly: true },
   ];
 
   const handleAddJob = (newJob: Job) => {
@@ -198,52 +199,28 @@ export default function DashboardWrapper() {
           </Link>
 
           {/* Nav links */}
-          <nav className="space-y-1">
+          <nav className="space-y-1.5 max-h-[calc(100vh-175px)] overflow-y-auto pr-1">
             {sidebarItems.map((item) => {
               const IconComponent = LucideIcons[item.icon as keyof typeof LucideIcons] as React.ComponentType<{ className?: string }>;
               const isActive = activeTab === item.id;
-              
-              // Custom brand colors for each active sidebar icon category
-              const iconColors: Record<string, string> = {
-                overview: "text-indigo-600",
-                builder: "text-blue-600",
-                analyzer: "text-emerald-600",
-                optimizer: "text-purple-600",
-                "cover-letter": "text-pink-600",
-                tracker: "text-violet-600",
-                import: "text-sky-600",
-                matching: "text-red-600",
-                interview: "text-amber-600",
-                advisor: "text-rose-600",
-                portfolio: "text-teal-600",
-                documents: "text-cyan-600",
-                calendar: "text-orange-600",
-                analytics: "text-fuchsia-600",
-                notifications: "text-yellow-600",
-                profile: "text-blue-600",
-                settings: "text-gray-700",
-                admin: "text-red-600",
-              };
-              
-              const activeColor = iconColors[item.id] || "text-[#2563EB]";
 
               return (
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center justify-between px-2 py-1.5 rounded-xl text-xs font-semibold transition-all group ${
+                  className={`w-full flex items-center justify-between px-2 py-1.5 rounded-xl text-xs transition-all duration-300 group border ${
                     isActive
-                      ? "bg-white border border-[#E5E7EB]/40 shadow-[0_4px_10px_rgba(0,0,0,0.04)] text-[#111827]"
-                      : "text-[#6B7280] hover:text-[#111827] hover:bg-[#EEF2F7]/50"
+                      ? "bg-white border-[#E5E7EB]/60 shadow-[0_4px_12px_rgba(0,0,0,0.03)] text-[#111827]"
+                      : "bg-transparent border-transparent text-[#6B7280] hover:text-[#111827] hover:bg-[#EEF2F7]/40"
                   }`}
                 >
                   <span className="flex items-center gap-3">
-                    <span className={`w-7 h-7 rounded-lg flex items-center justify-center border transition-all ${
+                    <span className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-300 border ${
                       isActive 
-                        ? "bg-[#EEF2F7]/50 border-[#E5E7EB]/40 shadow-[inset_1px_1px_2px_rgba(0,0,0,0.02)]" 
-                        : "bg-white border-[#E5E7EB]/40 group-hover:bg-[#EEF2F7]/30 shadow-[0_2px_4px_rgba(0,0,0,0.02)]"
+                        ? `bg-gradient-to-tr ${item.gradient} text-white shadow-[0_3px_8px_rgba(0,0,0,0.12)] border-white/10 scale-105` 
+                        : `bg-white border-[#E5E7EB]/60 text-[#6B7280] shadow-[0_2px_4px_rgba(0,0,0,0.01)] group-hover:border-transparent group-hover:bg-gradient-to-tr group-hover:${item.gradient} group-hover:text-white group-hover:scale-105 group-hover:shadow-[0_3px_8px_rgba(0,0,0,0.1)]`
                     }`}>
-                      {IconComponent && <IconComponent className={`w-3.5 h-3.5 transition-colors ${isActive ? activeColor : "text-[#6B7280] group-hover:text-[#111827]"}`} />}
+                      {IconComponent && <IconComponent className="w-4 h-4" />}
                     </span>
                     <span className={isActive ? "font-bold text-[#111827]" : "font-semibold text-[#6B7280] group-hover:text-[#111827]"}>
                       {item.label}
@@ -328,22 +305,22 @@ export default function DashboardWrapper() {
           {activeTab === "builder" && (
             <ResumeBuilder resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} />
           )}
-          {activeTab === "analyzer" && <ResumeAnalyzer />}
-          {activeTab === "optimizer" && <ResumeOptimizer />}
-          {activeTab === "cover-letter" && <CoverLetterGenerator />}
-          {activeTab === "tracker" && <JobTracker jobs={jobs} setJobs={setJobs} />}
+          {activeTab === "analyzer" && <ResumeAnalyzer onNavigate={handleNavigate} />}
+          {activeTab === "optimizer" && <ResumeOptimizer onNavigate={handleNavigate} />}
+          {activeTab === "cover-letter" && <CoverLetterGenerator onNavigate={handleNavigate} />}
+          {activeTab === "tracker" && <JobTracker jobs={jobs} setJobs={setJobs} onNavigate={handleNavigate} />}
           {activeTab === "import" && <JobImport onAddJob={handleAddJob} onNavigate={handleNavigate} />}
-          {activeTab === "matching" && <JobMatching />}
-          {activeTab === "interview" && <InterviewPrep />}
-          {activeTab === "advisor" && <CareerAdvisor />}
-          {activeTab === "portfolio" && <PortfolioBuilder />}
-          {activeTab === "documents" && <DocumentsManager />}
-          {activeTab === "calendar" && <CalendarView />}
-          {activeTab === "analytics" && <AnalyticsView />}
-          {activeTab === "notifications" && <NotificationsView />}
-          {activeTab === "profile" && <ProfileView />}
-          {activeTab === "settings" && <SettingsView />}
-          {activeTab === "admin" && <AdminPanel />}
+          {activeTab === "matching" && <JobMatching onNavigate={handleNavigate} />}
+          {activeTab === "interview" && <InterviewPrep onNavigate={handleNavigate} />}
+          {activeTab === "advisor" && <CareerAdvisor onNavigate={handleNavigate} />}
+          {activeTab === "portfolio" && <PortfolioBuilder onNavigate={handleNavigate} />}
+          {activeTab === "documents" && <DocumentsManager onNavigate={handleNavigate} />}
+          {activeTab === "calendar" && <CalendarView onNavigate={handleNavigate} />}
+          {activeTab === "analytics" && <AnalyticsView onNavigate={handleNavigate} />}
+          {activeTab === "notifications" && <NotificationsView onNavigate={handleNavigate} />}
+          {activeTab === "profile" && <ProfileView onNavigate={handleNavigate} />}
+          {activeTab === "settings" && <SettingsView onNavigate={handleNavigate} />}
+          {activeTab === "admin" && <AdminPanel onNavigate={handleNavigate} />}
         </main>
       </div>
 

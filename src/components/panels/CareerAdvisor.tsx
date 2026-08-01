@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
+import { ArrowLeft } from "lucide-react";
 
-export default function CareerAdvisor() {
+export default function CareerAdvisor({ onNavigate }: { onNavigate?: (tab: string) => void }) {
   const steps = [
     {
       title: "Consolidate Senior Experience",
@@ -29,6 +30,16 @@ export default function CareerAdvisor() {
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+      {onNavigate && (
+        <button
+          onClick={() => onNavigate("overview")}
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+          <span>Back to Dashboard</span>
+        </button>
+      )}
+
       <div className="border-b border-[#E5E7EB] pb-4">
         <h1 className="text-3xl font-extrabold text-[#111827]">AI Career Advisor & Coach</h1>
         <p className="text-sm text-[#6B7280]">Review your career roadmap, salary projections, and recommended learning resources.</p>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { ArrowLeft } from "lucide-react";
 
 interface Job {
   id: string;
@@ -17,11 +18,12 @@ interface Job {
 interface TrackerProps {
   jobs: Job[];
   setJobs: React.Dispatch<React.SetStateAction<Job[]>>;
+  onNavigate?: (tab: string) => void;
 }
 
 type Column = "Wishlist" | "Applied" | "Interview" | "Offer" | "Rejected";
 
-export default function JobTracker({ jobs, setJobs }: TrackerProps) {
+export default function JobTracker({ jobs, setJobs, onNavigate }: TrackerProps) {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [editingNotes, setEditingNotes] = useState("");
 
@@ -78,6 +80,16 @@ export default function JobTracker({ jobs, setJobs }: TrackerProps) {
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+      {onNavigate && (
+        <button
+          onClick={() => onNavigate("overview")}
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+          <span>Back to Dashboard</span>
+        </button>
+      )}
+
       <div className="flex justify-between items-center border-b border-[#E5E7EB] pb-4">
         <div>
           <h1 className="text-3xl font-extrabold text-[#111827]">Job Search Tracker</h1>

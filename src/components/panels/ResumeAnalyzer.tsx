@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { UploadCloud, CheckCircle2, AlertTriangle, Info } from "lucide-react";
+import { UploadCloud, CheckCircle2, AlertTriangle, Info, ArrowLeft } from "lucide-react";
 
-export default function ResumeAnalyzer() {
+export default function ResumeAnalyzer({ onNavigate }: { onNavigate?: (tab: string) => void }) {
   const [analyzing, setAnalyzing] = useState(false);
   const [analyzed, setAnalyzed] = useState(true); // default loaded for instant premium display
   const [score, setScore] = useState(85);
@@ -46,6 +46,16 @@ export default function ResumeAnalyzer() {
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+      {onNavigate && (
+        <button
+          onClick={() => onNavigate("overview")}
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+          <span>Back to Dashboard</span>
+        </button>
+      )}
+
       <div className="border-b border-[#E5E7EB] pb-4">
         <h1 className="text-3xl font-extrabold text-[#111827]">ATS Resume Analyzer</h1>
         <p className="text-sm text-[#6B7280]">Check keywords, alignment, syntax, and formatting compliance.</p>
