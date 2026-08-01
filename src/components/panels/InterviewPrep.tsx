@@ -96,9 +96,8 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
               setActiveQuestionIdx(0);
               setFeedbackData(null);
             }}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold border ${
-              activeType === type ? "bg-[#2563EB] text-white border-[#2563EB]" : "bg-white border-[#E5E7EB] hover:bg-[#EEF2F7]"
-            }`}
+            className={`px-4 py-2 rounded-xl text-xs font-semibold border ${activeType === type ? "bg-[#2563EB] text-white border-[#2563EB]" : "bg-white border-[#E5E7EB] hover:bg-[#EEF2F7]"
+              }`}
           >
             {type} Questions
           </button>
@@ -138,9 +137,8 @@ export default function InterviewPrep({ onNavigate, showToast }: { onNavigate?: 
                 <button
                   onClick={handleStartRecord}
                   disabled={recording}
-                  className={`px-5 py-2.5 text-xs text-white font-bold rounded-xl flex items-center gap-2 shadow-md ${
-                    recording ? "bg-red-500 animate-pulse" : "bg-[#2563EB] hover:bg-[#1D4ED8]"
-                  }`}
+                  className={`px-5 py-2.5 text-xs text-white font-bold rounded-xl flex items-center gap-2 shadow-md ${recording ? "bg-red-500 animate-pulse" : "bg-[#2563EB] hover:bg-[#1D4ED8]"
+                    }`}
                 >
                   <Mic className="w-3.5 h-3.5" /> {recording ? "Recording (Speak Now)" : "Answer Aloud"}
                 </button>
