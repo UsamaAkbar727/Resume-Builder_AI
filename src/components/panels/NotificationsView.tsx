@@ -1,18 +1,69 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 
-export default function NotificationsView({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
+interface Job {
+  id: string;
+  company: string;
+  role: string;
+  status: string;
+  salary: string;
+  location: string;
+  priority: "High" | "Medium" | "Low";
+  notes?: string;
+  deadline?: string;
+}
+
+export default function NotificationsView({ jobs = [], resumeData, onNavigate, showToast }: { jobs?: Job[]; resumeData?: any; onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [emailAlerts, setEmailAlerts] = useState(true);
   const [pushAlerts, setPushAlerts] = useState(false);
   const [weeklyDigest, setWeeklyDigest] = useState(true);
+  const [notifications, setNotifications] = useState<any[]>([]);
 
-  const notifications = [
-    { id: "1", title: "New Interview Scheduled", desc: "Your Stripe Systems Design Round is scheduled for Aug 01.", time: "10m ago", read: false },
-    { id: "2", title: "ATS Check Complete", desc: "Resume version 'Stripe_V2' achieved an 85% ATS match score.", time: "2h ago", read: true },
-    { id: "3", title: "Scraper Action Complete", desc: "Google Frontend Developer listing imported to Wishlist.", time: "1d ago", read: true }
-  ];
+  useEffect(() => {
+    const list = [];
+    const interviewJobs = jobs.filter(j => j.status === "Interview");
+    
+    if (interviewJobs.length > 0) {
+      list.push({
+        id: "1",
+        title: "New Interview Scheduled",
+        desc: `Your ${interviewJobs[0].company} ${interviewJobs[0].role} round is scheduled. Deadline focus: ${interviewJobs[0].deadline || "soon"}.`,
+        time: "Just now",
+        read: false
+      });
+    } else {
+      list.push({
+        id: "1",
+        title: "Interview Tracker Status",
+        desc: "No active interviews scheduled yet. Move a company to 'Interview' on your Kanban board to schedule.",
+        time: "1h ago",
+        read: true
+      });
+    }
+
+    if (resumeData?.skills) {
+      const skillCount = resumeData.skills.split(",").length;
+      list.push({
+        id: "2",
+        title: "ATS Parser Synced",
+        desc: `Active resume synced with builder profile. Indexed ${skillCount} tech capabilities.`,
+        time: "10m ago",
+        read: false
+      });
+    }
+
+    list.push({
+      id: "3",
+      title: "Platform Database Synced",
+      desc: `Total tracker indexes: ${jobs.length} vacancy applications saved in localStorage.`,
+      time: "2h ago",
+      read: true
+    });
+
+    setNotifications(list);
+  }, [jobs, resumeData]);
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">

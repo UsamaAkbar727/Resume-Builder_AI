@@ -1,19 +1,43 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 
-export default function ProfileView({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
+interface ProfileViewProps {
+  resumeData?: any;
+  setResumeData?: (data: any) => void;
+  onNavigate?: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
+}
+
+export default function ProfileView({ resumeData, setResumeData, onNavigate, showToast }: ProfileViewProps) {
   const [name, setName] = useState("Sarah Jenkins");
   const [title, setTitle] = useState("Senior Full Stack Developer");
   const [location, setLocation] = useState("San Francisco, CA");
   const [linkedin, setLinkedin] = useState("https://linkedin.com/in/sjenkins");
   const [github, setGithub] = useState("https://github.com/sjenkins");
 
+  // Sync state with resumeData updates
+  useEffect(() => {
+    if (resumeData) {
+      setName(resumeData.name || "Sarah Jenkins");
+      setTitle(resumeData.title || "Senior Full Stack Developer");
+      setLocation(resumeData.location || "San Francisco, CA");
+    }
+  }, [resumeData]);
+
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
+    if (setResumeData && resumeData) {
+      setResumeData({
+        ...resumeData,
+        name,
+        title,
+        location
+      });
+    }
     if (showToast) {
-      showToast("Profile saved successfully!", "success");
+      showToast("Profile saved successfully and synced with Resume Builder!", "success");
     } else {
       alert("Profile saved successfully!");
     }
