@@ -285,7 +285,7 @@ export default function DashboardWrapper() {
     <div className="min-h-screen bg-[#F5F7FB] flex text-[#111827] font-sans">
       {/* Sidebar navigation */}
       <aside className="hidden lg:flex flex-col w-64 bg-white dark:bg-[#0B0F19] border-r border-[#E5E7EB]/60 dark:border-slate-800/80 shrink-0 p-5 justify-between min-h-screen shadow-[1px_0_5px_rgba(0,0,0,0.015)]">
-        <div className="space-y-4 flex flex-col flex-1">
+        <div className="space-y-6 flex flex-col">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 px-2 shrink-0">
             <div className="w-8 h-8 rounded-lg bg-[#2563EB] flex items-center justify-center text-white font-extrabold text-base shadow-[inset_1.5px_1.5px_3px_rgba(255,255,255,0.4)]">
@@ -297,7 +297,7 @@ export default function DashboardWrapper() {
           </Link>
 
           {/* Nav links */}
-          <nav className="space-y-0.5 flex-1 overflow-y-auto pr-1 max-h-[calc(100vh-140px)]">
+          <nav className="space-y-1.5 overflow-y-auto pr-1 max-h-[calc(100vh-175px)]">
             {sidebarItems.map((item) => {
               const IconComponent = LucideIcons[item.icon as keyof typeof LucideIcons] as React.ComponentType<{ className?: string }>;
               const isActive = activeTab === item.id;
@@ -306,19 +306,19 @@ export default function DashboardWrapper() {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center justify-between px-2.5 py-1 rounded-xl text-xs transition-all duration-300 group border cursor-pointer ${
+                  className={`w-full flex items-center justify-between px-2 py-1.5 rounded-xl text-xs transition-all duration-300 group border cursor-pointer ${
                     isActive
                       ? "bg-white dark:bg-slate-800 border-[#E5E7EB]/60 dark:border-slate-700/50 shadow-[0_4px_12px_rgba(0,0,0,0.03)] text-[#111827] dark:text-white"
                       : "bg-transparent border-transparent text-[#6B7280] dark:text-slate-400 hover:text-[#111827] dark:hover:text-white hover:bg-[#EEF2F7]/40 dark:hover:bg-slate-800/40"
                   }`}
                 >
                   <span className="flex items-center gap-3">
-                    <span className={`w-7.5 h-7.5 rounded-xl flex items-center justify-center transition-all duration-300 border ${
+                    <span className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-300 border ${
                       isActive 
                         ? `bg-gradient-to-tr ${item.gradient} text-white shadow-[0_3px_8px_rgba(0,0,0,0.12)] border-white/10 scale-105` 
                         : `bg-white dark:bg-slate-800 border-[#E5E7EB]/60 dark:border-slate-700/50 text-[#6B7280] dark:text-slate-400 shadow-[0_2px_4px_rgba(0,0,0,0.01)] group-hover:border-transparent group-hover:bg-gradient-to-tr group-hover:${item.gradient} group-hover:text-white group-hover:scale-105 group-hover:shadow-[0_3px_8px_rgba(0,0,0,0.1)]`
                     }`}>
-                      {IconComponent && <IconComponent className="w-3.5 h-3.5" />}
+                      {IconComponent && <IconComponent className="w-4 h-4" />}
                     </span>
                     <span className={isActive ? "font-bold text-[#111827] dark:text-white" : "font-semibold text-[#6B7280] dark:text-slate-400 group-hover:text-[#111827] dark:group-hover:text-white"}>
                       {t(item.id)}
