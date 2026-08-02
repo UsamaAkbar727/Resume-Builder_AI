@@ -14,6 +14,8 @@ import {
   Briefcase 
 } from "lucide-react";
 
+import { TRANSLATIONS } from "@/utils/i18n";
+
 interface Job {
   id: string;
   company: string;
@@ -26,10 +28,15 @@ interface Job {
 
 interface OverviewProps {
   jobs: Job[];
+  language?: string;
   onNavigate: (tab: string) => void;
 }
 
-export default function DashboardOverview({ jobs, onNavigate }: OverviewProps) {
+export default function DashboardOverview({ jobs, language = "en", onNavigate }: OverviewProps) {
+  const t = (key: string) => {
+    return TRANSLATIONS[language]?.[key] || TRANSLATIONS["en"]?.[key] || key;
+  };
+
   const stats = {
     totalApplications: jobs.length,
     interviewsScheduled: jobs.filter(j => j.status === "Interview").length,
@@ -42,15 +49,15 @@ export default function DashboardOverview({ jobs, onNavigate }: OverviewProps) {
       {/* Welcome Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-[#111827]">Welcome back, Sarah</h1>
-          <p className="text-sm text-[#6B7280]">Here is what is happening with your job applications search today.</p>
+          <h1 className="text-3xl font-extrabold text-[#111827]">{t("welcome")}</h1>
+          <p className="text-sm text-[#6B7280]">{t("subtext")}</p>
         </div>
         <div className="flex gap-3">
-          <button onClick={() => onNavigate("import")} className="clay-btn-secondary px-4 py-2.5 text-xs flex items-center gap-2">
-            <Globe className="w-3.5 h-3.5" /> Import Job URL
+          <button onClick={() => onNavigate("import")} className="clay-btn-secondary px-4 py-2.5 text-xs flex items-center gap-2 cursor-pointer transition-all">
+            <Globe className="w-3.5 h-3.5" /> {t("importUrl")}
           </button>
-          <button onClick={() => onNavigate("builder")} className="clay-btn-primary px-4 py-2.5 text-xs text-white flex items-center gap-2">
-            <FileText className="w-3.5 h-3.5" /> Edit Resume
+          <button onClick={() => onNavigate("builder")} className="clay-btn-primary px-4 py-2.5 text-xs text-white flex items-center gap-2 cursor-pointer transition-all">
+            <FileText className="w-3.5 h-3.5" /> {t("editResume")}
           </button>
         </div>
       </div>
@@ -59,34 +66,34 @@ export default function DashboardOverview({ jobs, onNavigate }: OverviewProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="clay-card p-6 bg-white flex flex-col justify-between">
           <div>
-            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-2">Total Applications</span>
+            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-2">{t("totalApps")}</span>
             <h3 className="text-4xl font-extrabold text-[#111827]">{stats.totalApplications}</h3>
           </div>
-          <span className="text-[10px] text-[#16A34A] font-semibold mt-4 block">✓ Active Tracking</span>
+          <span className="text-[10px] text-[#16A34A] font-semibold mt-4 block">✓ {t("activeTracking")}</span>
         </div>
 
         <div className="clay-card p-6 bg-white flex flex-col justify-between">
           <div>
-            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-2">Interviews</span>
+            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-2">{t("interviews")}</span>
             <h3 className="text-4xl font-extrabold text-[#2563EB]">{stats.interviewsScheduled}</h3>
           </div>
-          <span className="text-[10px] text-[#2563EB] font-semibold mt-4 block">→ Next interview: Tomorrow</span>
+          <span className="text-[10px] text-[#2563EB] font-semibold mt-4 block">→ {t("nextInterview")}</span>
         </div>
 
         <div className="clay-card p-6 bg-white flex flex-col justify-between">
           <div>
-            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-2">Offers Secured</span>
+            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-2">{t("offers")}</span>
             <h3 className="text-4xl font-extrabold text-[#16A34A]">{stats.offersReceived}</h3>
           </div>
-          <span className="text-[10px] text-[#16A34A] font-semibold mt-4 block">★ 20% conversion rate</span>
+          <span className="text-[10px] text-[#16A34A] font-semibold mt-4 block">★ 20% {t("conversionRate")}</span>
         </div>
 
         <div className="clay-card p-6 bg-white flex flex-col justify-between">
           <div>
-            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-2">Primary ATS Score</span>
+            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-2">{t("atsScore")}</span>
             <h3 className="text-4xl font-extrabold text-[#F59E0B]">{stats.resumeScore}%</h3>
           </div>
-          <span className="text-[10px] text-[#6B7280] mt-4 block">Targeting Staff Engineer</span>
+          <span className="text-[10px] text-[#6B7280] mt-4 block">{t("targetingRole")}</span>
         </div>
       </div>
 
@@ -97,7 +104,7 @@ export default function DashboardOverview({ jobs, onNavigate }: OverviewProps) {
           {/* Applications list */}
           <div className="clay-card p-6 bg-white">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="font-bold text-lg text-[#111827]">Recent Job Applications</h3>
+              <h3 className="font-bold text-lg text-[#111827]">{t("recentApps")}</h3>
               <button onClick={() => onNavigate("tracker")} className="text-xs text-[#2563EB] font-semibold hover:underline">
                 View Kanban Board →
               </button>

@@ -435,12 +435,8 @@ body {
 .dark .border-slate-100,
 .dark .border-slate-200,
 .dark .border-gray-200,
-.dark .border-\[\#E5E7EB\],
-.dark .border-\[\#E5E7EB\]\/40,
-.dark .border-\[\#E5E7EB\]\/50,
-.dark .border-\[\#E5E7EB\]\/60,
-.dark .border-\[\#E5E7EB\]\/80,
-.dark .border-gray-200\/80 {
+.dark [class*="border-[#E5E7EB]"],
+.dark .border-gray-200/80 {
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
@@ -450,21 +446,83 @@ body {
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Text overrides */
-.dark .text-\[\#111827\],
+/* Exclude resume A4 papers from being darkened, preserving standard print layouts */
+.dark .resume-paper {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+.dark .resume-paper h2,
+.dark .resume-paper h3,
+.dark .resume-paper h4,
+.dark .resume-paper p,
+.dark .resume-paper span,
+.dark .resume-paper div {
+  color: revert !important;
+  background-color: revert !important;
+}
+
+/* Text overrides using robust attribute selectors */
+.dark [class*="text-[#111827]"],
+.dark [class*="text-[#0F172A]"],
 .dark .text-slate-900,
 .dark .text-gray-900,
 .dark .text-slate-800,
-.dark .text-gray-800 {
+.dark .text-gray-800,
+.dark .text-slate-700,
+.dark .text-gray-700 {
   color: #F8FAFC !important;
 }
 
-.dark .text-\[\#6B7280\],
+.dark [class*="text-[#6B7280]"],
 .dark .text-slate-500,
 .dark .text-gray-500,
 .dark .text-slate-600,
-.dark .text-gray-600 {
+.dark .text-gray-600,
+.dark .text-slate-400,
+.dark .text-gray-400 {
   color: #94A3B8 !important;
+}
+
+/* Bright contrast colors for tags, matches, and alerts */
+.dark [class*="text-[#16A34A]"],
+.dark .text-green-700,
+.dark .text-green-600 {
+  color: #4ADE80 !important;
+}
+
+.dark [class*="text-[#DC2626]"],
+.dark .text-red-700,
+.dark .text-red-600 {
+  color: #F87171 !important;
+}
+
+.dark [class*="text-[#2563EB]"],
+.dark .text-blue-700,
+.dark .text-blue-600 {
+  color: #60A5FA !important;
+}
+
+/* Dynamic background overrides */
+.dark [class*="bg-[#EEF2F7]"],
+.dark [class*="bg-[#F5F7FB]"],
+.dark [class*="bg-[#F1F5F9]"] {
+  background-color: rgba(30, 41, 59, 0.45) !important;
+}
+
+.dark [class*="bg-green-50"],
+.dark [class*="bg-green-100"] {
+  background-color: rgba(16, 185, 129, 0.08) !important;
+}
+
+.dark [class*="bg-red-50"],
+.dark [class*="bg-red-100"] {
+  background-color: rgba(239, 68, 68, 0.08) !important;
+}
+
+.dark [class*="bg-blue-50"],
+.dark [class*="bg-blue-100"] {
+  background-color: rgba(37, 99, 235, 0.08) !important;
 }
 
 /* Buttons and Inputs */

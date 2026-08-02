@@ -3,21 +3,35 @@
 import React, { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 
-export default function SettingsView({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
+export default function SettingsView({ 
+  language, 
+  setLanguage, 
+  onNavigate, 
+  showToast 
+}: { 
+  language: string; 
+  setLanguage: (lang: string) => void; 
+  onNavigate?: (tab: string) => void; 
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void 
+}) {
   const [apiKey, setApiKey] = useState("rf_live_829a47d2f9b1c0e3d8");
   const [themeMode, setThemeMode] = useState("light");
   const [billingPlan, setBillingPlan] = useState("Pro");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Read theme on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("resumeflow_theme") || "light";
       setThemeMode(savedTheme);
+      setIsLoaded(true);
     }
   }, []);
 
   // Write theme and apply classes
   useEffect(() => {
+    if (!isLoaded) return; // Prevent overwriting stored theme on initial render mount
+
     if (typeof window !== "undefined") {
       localStorage.setItem("resumeflow_theme", themeMode);
       const root = window.document.documentElement;
@@ -52,7 +66,7 @@ export default function SettingsView({ onNavigate, showToast }: { onNavigate?: (
         return () => mediaQuery.removeEventListener("change", listener);
       }
     }
-  }, [themeMode]);
+  }, [themeMode, isLoaded]);
 
   const generateApiKey = () => {
     const chars = "abcdef0123456789";
@@ -69,7 +83,7 @@ export default function SettingsView({ onNavigate, showToast }: { onNavigate?: (
       {onNavigate && (
         <button
           onClick={() => onNavigate("overview")}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start cursor-pointer animate-none"
         >
           <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
           <span>Back to Dashboard</span>
@@ -95,8 +109,10 @@ export default function SettingsView({ onNavigate, showToast }: { onNavigate?: (
                   <button
                     key={t}
                     onClick={() => setThemeMode(t)}
-                    className={`py-2 rounded-xl text-xs font-semibold border capitalize ${
-                      themeMode === t ? "bg-[#2563EB]/10 text-[#2563EB] border-[#2563EB]" : "border-[#E5E7EB]"
+                    className={`py-2 rounded-xl text-xs font-semibold border capitalize cursor-pointer transition-all ${
+                      themeMode === t 
+                        ? "bg-[#2563EB]/15 text-[#2563EB] border-[#2563EB] shadow-xs" 
+                        : "bg-transparent border-[#E5E7EB] dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
                     }`}
                   >
                     {t}
@@ -107,11 +123,22 @@ export default function SettingsView({ onNavigate, showToast }: { onNavigate?: (
 
             <div>
               <label className="block text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">Default Language</label>
-              <select className="clay-input w-full text-xs">
+              <select 
+                value={language}
+                onChange={(e) => {
+                  setLanguage(e.target.value);
+                  showToast?.(`Language changed to ${e.target.value.toUpperCase()}!`, "success");
+                }}
+                className="clay-input w-full text-xs cursor-pointer"
+              >
                 <option value="en">English (US)</option>
-                <option value="es">Spanish (ES)</option>
-                <option value="fr">French (FR)</option>
-                <option value="de">German (DE)</option>
+                <option value="ur">اردو (Urdu)</option>
+                <option value="es">Español (Spanish)</option>
+                <option value="ar">العربية (Arabic)</option>
+                <option value="fr">Français (French)</option>
+                <option value="de">Deutsch (German)</option>
+                <option value="zh">中文 (Chinese)</option>
+                <option value="hi">हिन्दी (Hindi)</option>
               </select>
             </div>
           </div>

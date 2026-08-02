@@ -23,6 +23,7 @@ import NotificationsView from "@/components/panels/NotificationsView";
 import ProfileView from "@/components/panels/ProfileView";
 import SettingsView from "@/components/panels/SettingsView";
 import AdminPanel from "@/components/panels/AdminPanel";
+import { TRANSLATIONS } from "@/utils/i18n";
 
 // Centralized state models
 interface Job {
@@ -71,6 +72,26 @@ export default function DashboardWrapper() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [language, setLanguage] = useState("en");
+
+  // Read language on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedLang = localStorage.getItem("resumeflow_lang") || "en";
+      setLanguage(savedLang);
+    }
+  }, []);
+
+  // Save language to localStorage on state changes
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_lang", language);
+    }
+  }, [language]);
+
+  const t = (key: string) => {
+    return TRANSLATIONS[language]?.[key] || TRANSLATIONS["en"]?.[key] || key;
+  };
 
   const [toast, setToast] = useState<{ message: string; type: "success" | "info" | "warning"; show: boolean }>({
     message: "",
@@ -300,7 +321,7 @@ export default function DashboardWrapper() {
                       {IconComponent && <IconComponent className="w-4 h-4" />}
                     </span>
                     <span className={isActive ? "font-bold text-[#111827]" : "font-semibold text-[#6B7280] group-hover:text-[#111827]"}>
-                      {item.label}
+                      {t(item.id)}
                     </span>
                   </span>
                   {item.badge && (
@@ -385,7 +406,7 @@ export default function DashboardWrapper() {
 
         {/* Primary Page Canvas */}
         <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
-          {activeTab === "overview" && <DashboardOverview jobs={jobs} onNavigate={handleNavigate} />}
+          {activeTab === "overview" && <DashboardOverview jobs={jobs} language={language} onNavigate={handleNavigate} />}
           {activeTab === "builder" && (
             <ResumeBuilder resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />
           )}
@@ -403,7 +424,7 @@ export default function DashboardWrapper() {
           {activeTab === "analytics" && <AnalyticsView jobs={jobs} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "notifications" && <NotificationsView jobs={jobs} resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "profile" && <ProfileView resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "settings" && <SettingsView onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "settings" && <SettingsView language={language} setLanguage={setLanguage} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "admin" && <AdminPanel onNavigate={handleNavigate} showToast={showToast} />}
         </main>
       </div>

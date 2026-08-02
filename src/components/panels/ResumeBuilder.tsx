@@ -397,7 +397,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
           <span className="text-xs font-bold text-[#6B7280] uppercase tracking-wider block">Live Resume Layout Preview</span>
           
           <div
-            className={`clay-card p-8 bg-white border border-[#E5E7EB]/80 min-h-[700px] shadow-md transition-all ${
+            className={`resume-paper clay-card p-8 bg-white border border-[#E5E7EB]/80 min-h-[700px] shadow-md transition-all ${
               customFont === "serif" ? "font-serif" : customFont === "mono" ? "font-mono" : "font-sans"
             }`}
           >
