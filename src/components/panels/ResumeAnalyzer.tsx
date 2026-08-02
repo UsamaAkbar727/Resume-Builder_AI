@@ -238,14 +238,6 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
     improvements: []
   });
 
-  console.log("ResumeAnalyzer: Component Rendering", {
-    analysisMode,
-    uploadedResumeTextLength: uploadedResumeText.length,
-    resultScore: result.score,
-    analyzing,
-    analyzed
-  });
-
   // Handle PDF parsing
   const parsePdf = async (arrayBuffer: ArrayBuffer): Promise<string> => {
     const pdfjs = await loadScript(
@@ -351,20 +343,8 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
     }
   };
 
-  const prevDeps = useRef({ resumeData, targetRole, customJD, uploadedResumeText, analysisMode });
-
   // Re-run dynamic analysis when dependencies change
   useEffect(() => {
-    const changes: any = {};
-    if (prevDeps.current.resumeData !== resumeData) changes.resumeData = { prev: prevDeps.current.resumeData, curr: resumeData };
-    if (prevDeps.current.targetRole !== targetRole) changes.targetRole = { prev: prevDeps.current.targetRole, curr: targetRole };
-    if (prevDeps.current.customJD !== customJD) changes.customJD = { prev: prevDeps.current.customJD, curr: customJD };
-    if (prevDeps.current.uploadedResumeText !== uploadedResumeText) changes.uploadedResumeText = { prev: prevDeps.current.uploadedResumeText, curr: uploadedResumeText };
-    if (prevDeps.current.analysisMode !== analysisMode) changes.analysisMode = { prev: prevDeps.current.analysisMode, curr: analysisMode };
-
-    console.log("ResumeAnalyzer: useEffect running because of: " + JSON.stringify(changes));
-    prevDeps.current = { resumeData, targetRole, customJD, uploadedResumeText, analysisMode };
-
     // 1. Gather raw text and metadata based on analysis mode
     let targetText = "";
     
