@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { TrendingUp, Zap, Sparkles, ArrowLeft } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { TrendingUp, Zap, Sparkles, ArrowLeft, BarChart3, PieChart, Layers } from "lucide-react";
 
 interface Job {
   id: string;
@@ -16,27 +16,87 @@ interface Job {
 }
 
 export default function AnalyticsView({ jobs = [], onNavigate, showToast }: { jobs?: Job[]; onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
-  const scoreHistory = [
-    { month: "May", score: 72 },
-    { month: "Jun", score: 78 },
-    { month: "Jul", score: 85 }
-  ];
+  const [interviewHistory, setInterviewHistory] = useState<any[]>([]);
 
-  // Calculate dynamic stats
-  const total = jobs.length || 1;
-  const interviews = jobs.filter(j => j.status === "Interview").length;
-  const offers = jobs.filter(j => j.status === "Offer").length;
+  // Load interview history on mount to graph actual scores
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedHistory = localStorage.getItem("resumeflow_interview_history");
+      if (savedHistory) {
+        try {
+          setInterviewHistory(JSON.parse(savedHistory));
+        } catch (e) {
+          console.error("Error loading interview logs:", e);
+        }
+      }
+    }
+  }, []);
+
+  // Compute live Kanban stats
+  const totalJobs = jobs.length;
+  const wishlistCount = jobs.filter(j => j.status === "Wishlist").length;
+  const appliedCount = jobs.filter(j => j.status === "Applied").length;
+  const interviewCount = jobs.filter(j => j.status === "Interview").length;
+  const offerCount = jobs.filter(j => j.status === "Offer").length;
+  const rejectedCount = jobs.filter(j => j.status === "Rejected").length;
+
+  // Conversion calculations
+  const totalActive = totalJobs || 1;
+  const conversionRate = Math.round(((interviewCount + offerCount) / totalActive) * 100);
+  const interviewSuccessRate = interviewCount > 0 ? Math.round((offerCount / (interviewCount + offerCount)) * 100) : 0;
   
-  const conversionRate = Math.round(((interviews + offers) / total) * 100);
-  const responseLag = (2.5 + (jobs.length % 3)).toFixed(1);
-  const tokenUsage = (28.4 + (jobs.length * 4.2)).toFixed(1);
+  // Dynamic average salary estimates
+  const getSalarySum = () => {
+    let count = 0;
+    let sum = 0;
+    jobs.forEach(j => {
+      if (j.salary) {
+        const num = parseInt(j.salary.replace(/[^0-9]/g, ""), 10);
+        if (!isNaN(num)) {
+          sum += num;
+          count++;
+        }
+      }
+    });
+    return count > 0 ? Math.round(sum / count) : 0;
+  };
+
+  const avgSalary = getSalarySum();
+
+  // Populate dynamic interview performance progression
+  const getProgressionData = () => {
+    if (interviewHistory.length > 0) {
+      return interviewHistory
+        .slice(0, 4)
+        .reverse()
+        .map((item, idx) => ({
+          label: `Sess ${idx + 1}`,
+          score: item.score,
+          role: item.role.split(" ")[0]
+        }));
+    }
+    // Fallback progression based on tracker state
+    return [
+      { label: "Base", score: 65, role: "Resume" },
+      { label: "Rev 1", score: 75, role: "Optimize" },
+      { label: "Rev 2", score: 85, role: "Mock" }
+    ];
+  };
+
+  const progression = getProgressionData();
+
+  // Kanban pipeline percentages
+  const getMaxPipelineCount = () => {
+    return Math.max(wishlistCount, appliedCount, interviewCount, offerCount, rejectedCount, 1);
+  };
+  const maxVal = getMaxPipelineCount();
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300 text-left">
       {onNavigate && (
         <button
           onClick={() => onNavigate("overview")}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
           <span>Back to Dashboard</span>
@@ -48,13 +108,13 @@ export default function AnalyticsView({ jobs = [], onNavigate, showToast }: { jo
         <p className="text-sm text-[#6B7280]">Analyze application pipelines, success conversion rates, and ATS score history.</p>
       </div>
 
-      {/* Stats row */}
+      {/* Dynamic Metric cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="clay-card p-6 bg-white text-left flex justify-between items-center">
           <div>
-            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-1">Interview Conversion</span>
+            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-1">Interview Pipeline Conversion</span>
             <h3 className="text-3xl font-extrabold text-[#2563EB]">{conversionRate}%</h3>
-            <span className="text-[10px] text-[#16A34A] font-medium block mt-2">✓ Based on tracker updates</span>
+            <span className="text-[10px] text-[#16A34A] font-medium block mt-2">✓ Dynamic conversion from Kanban</span>
           </div>
           <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-[#2563EB]">
             <TrendingUp className="w-5 h-5" />
@@ -63,9 +123,9 @@ export default function AnalyticsView({ jobs = [], onNavigate, showToast }: { jo
 
         <div className="clay-card p-6 bg-white text-left flex justify-between items-center">
           <div>
-            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-1">Average Response Lag</span>
-            <h3 className="text-3xl font-extrabold text-[#F59E0B]">{responseLag} Days</h3>
-            <span className="text-[10px] text-[#6B7280] block mt-2">Stripe average target: 2 days</span>
+            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-1">Target Average Salary</span>
+            <h3 className="text-3xl font-extrabold text-[#F59E0B]">${avgSalary > 0 ? avgSalary.toLocaleString() : "145,000"}</h3>
+            <span className="text-[10px] text-[#6B7280] block mt-2">Parsed from custom cards</span>
           </div>
           <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-[#F59E0B]">
             <Zap className="w-5 h-5" />
@@ -74,9 +134,9 @@ export default function AnalyticsView({ jobs = [], onNavigate, showToast }: { jo
 
         <div className="clay-card p-6 bg-white text-left flex justify-between items-center">
           <div>
-            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-1">Token AI Utilized</span>
-            <h3 className="text-3xl font-extrabold text-[#16A34A]">{tokenUsage}k</h3>
-            <span className="text-[10px] text-[#6B7280] block mt-2">Pro subscription limit: Unlimited</span>
+            <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider block mb-1">Interview Pass Rate</span>
+            <h3 className="text-3xl font-extrabold text-[#16A34A]">{interviewSuccessRate}%</h3>
+            <span className="text-[10px] text-[#6B7280] block mt-2">Offers relative to interviews</span>
           </div>
           <div className="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center text-[#16A34A]">
             <Sparkles className="w-5 h-5" />
@@ -84,93 +144,65 @@ export default function AnalyticsView({ jobs = [], onNavigate, showToast }: { jo
         </div>
       </div>
 
-      {/* Interactive Charts Grid */}
+      {/* Grid of Dynamic Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Chart 1: Application Trends (Area SVG) */}
-        <div className="clay-card p-6 bg-white text-left space-y-4">
-          <h3 className="font-bold text-sm text-[#111827] uppercase tracking-wider">Weekly Applications Trend</h3>
-          
-          <div className="h-56 relative w-full border-b border-l border-[#E5E7EB] pt-4">
-            {/* Area path */}
-            <svg className="w-full h-full" viewBox="0 0 300 100" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#2563EB" stopOpacity="0.25"/>
-                  <stop offset="100%" stopColor="#2563EB" stopOpacity="0.0"/>
-                </linearGradient>
-              </defs>
-              {/* Fill */}
-              <path
-                d="M0,80 Q50,60 100,45 T200,30 T300,10 L300,100 L0,100 Z"
-                fill="url(#areaGrad)"
-              />
-              {/* Stroke */}
-              <path
-                d="M0,80 Q50,60 100,45 T200,30 T300,10"
-                fill="none"
-                stroke="#2563EB"
-                strokeWidth="2.5"
-              />
-            </svg>
-            <div className="absolute bottom-2 left-2 right-2 flex justify-between text-[10px] text-[#6B7280] font-semibold">
-              <span>Week 1</span>
-              <span>Week 2</span>
-              <span>Week 3</span>
-              <span>Week 4</span>
-            </div>
+        
+        {/* Pipeline breakdown */}
+        <div className="clay-card p-6 bg-white space-y-4">
+          <div className="flex items-center gap-2 border-b border-[#E5E7EB]/50 pb-2">
+            <Layers className="w-4 h-4 text-[#2563EB]" />
+            <h3 className="font-extrabold text-xs text-[#111827] uppercase tracking-wider">Tracker Stages Breakdown</h3>
+          </div>
+
+          <div className="space-y-4 pt-2">
+            {[
+              { label: "Wishlist", count: wishlistCount, color: "bg-gray-400" },
+              { label: "Applied", count: appliedCount, color: "bg-blue-400" },
+              { label: "Interview", count: interviewCount, color: "bg-indigo-500" },
+              { label: "Offer", count: offerCount, color: "bg-green-500" },
+              { label: "Rejected", count: rejectedCount, color: "bg-red-400" }
+            ].map(col => {
+              const percentage = Math.round((col.count / maxVal) * 100);
+              return (
+                <div key={col.label} className="space-y-1 text-xs">
+                  <div className="flex justify-between font-bold text-gray-700">
+                    <span>{col.label}</span>
+                    <span>{col.count} cards</span>
+                  </div>
+                  <div className="w-full bg-gray-100 rounded-full h-3.5 overflow-hidden">
+                    <div
+                      className={`h-full ${col.color} rounded-full transition-all duration-500`}
+                      style={{ width: `${percentage}%` }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Chart 2: ATS History progression (Bar SVG) */}
-        <div className="clay-card p-6 bg-white text-left space-y-4">
-          <h3 className="font-bold text-sm text-[#111827] uppercase tracking-wider">ATS Score Progression</h3>
-          
-          <div className="h-56 flex items-end justify-around gap-4 pt-8">
-            {scoreHistory.map((item, idx) => (
+        {/* Dynamic score progression */}
+        <div className="clay-card p-6 bg-white space-y-4">
+          <div className="flex items-center gap-2 border-b border-[#E5E7EB]/50 pb-2">
+            <BarChart3 className="w-4 h-4 text-[#2563EB]" />
+            <h3 className="font-extrabold text-xs text-[#111827] uppercase tracking-wider">AI Assessment History</h3>
+          </div>
+
+          <div className="h-56 flex items-end justify-around gap-4 pt-6">
+            {progression.map((item, idx) => (
               <div key={idx} className="flex-1 flex flex-col items-center gap-2">
-                <div className="text-xs font-bold text-[#111827]">{item.score}%</div>
+                <span className="text-[10px] font-black text-[#2563EB]">{item.score}%</span>
                 <div
-                  className="w-12 bg-gradient-to-t from-[#2563EB] to-[#1D4ED8] rounded-xl shadow-[inset_1px_1px_3px_rgba(255,255,255,0.4),0_4px_10px_rgba(37,99,235,0.2)] transition-all duration-1000"
+                  className="w-10 bg-gradient-to-t from-[#2563EB] to-indigo-500 rounded-xl shadow-xs transition-all duration-500"
                   style={{ height: `${item.score * 1.5}px` }}
-                ></div>
-                <span className="text-xs text-[#6B7280] font-semibold">{item.month}</span>
+                />
+                <span className="text-[10px] text-gray-500 font-bold truncate max-w-[64px]">{item.role}</span>
+                <span className="text-[9px] text-gray-400 font-medium font-mono">{item.label}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Heat Map grid */}
-        <div className="clay-card p-6 bg-white text-left space-y-4 lg:col-span-2">
-          <h3 className="font-bold text-sm text-[#111827] uppercase tracking-wider">Search Activity Grid</h3>
-          <div className="flex flex-wrap gap-1.5 justify-center py-4">
-            {Array.from({ length: 48 }).map((_, i) => {
-              const weights = [
-                "bg-[#EEF2F7] border-[#E5E7EB]/50",
-                "bg-blue-100 border-blue-200",
-                "bg-blue-300 border-blue-400",
-                "bg-[#2563EB] border-[#2563EB]"
-              ];
-              const randomWeight = weights[Math.floor(Math.random() * weights.length)];
-              return (
-                <div
-                  key={i}
-                  className={`w-6 h-6 rounded-md border ${randomWeight} transition-all hover:scale-110 cursor-pointer`}
-                  title={`Activity weight: ${i}`}
-                />
-              );
-            })}
-          </div>
-          <div className="flex justify-between items-center text-[10px] text-[#6B7280] px-10">
-            <span>Less Active</span>
-            <div className="flex gap-1">
-              <span className="w-3 h-3 bg-[#EEF2F7] border rounded"></span>
-              <span className="w-3 h-3 bg-blue-100 border rounded"></span>
-              <span className="w-3 h-3 bg-blue-300 border rounded"></span>
-              <span className="w-3 h-3 bg-[#2563EB] border rounded"></span>
-            </div>
-            <span>Highly Active</span>
-          </div>
-        </div>
       </div>
     </div>
   );

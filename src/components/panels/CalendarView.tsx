@@ -3,6 +3,18 @@
 import React, { useState, useEffect } from "react";
 import { Calendar, ArrowLeft, Trash2 } from "lucide-react";
 
+interface Job {
+  id: string;
+  company: string;
+  role: string;
+  status: string;
+  salary: string;
+  location: string;
+  priority: "High" | "Medium" | "Low";
+  notes?: string;
+  deadline?: string;
+}
+
 interface Event {
   id: string;
   title: string;
@@ -11,7 +23,13 @@ interface Event {
   company?: string;
 }
 
-export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
+interface CalendarProps {
+  jobs?: Job[];
+  onNavigate?: (tab: string) => void;
+  showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
+}
+
+export default function CalendarView({ jobs = [], onNavigate, showToast }: CalendarProps) {
   const [events, setEvents] = useState<Event[]>([]);
 
   // Load from localStorage on mount
@@ -51,12 +69,50 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
   const daysInMonth = 31;
   const startDayOffset = 6;
 
+  // Combine custom manual events with active Kanban board interview schedules
+  const getCombinedEvents = (): Event[] => {
+    const combined = [...events];
+    
+    jobs.forEach(job => {
+      // Find interviews that have a deadline (interview date) defined
+      if (job.status === "Interview" && job.deadline) {
+        // Ensure no duplication with existing events
+        const isDuplicate = events.some(ev => ev.id === `job-int-${job.id}`);
+        if (!isDuplicate) {
+          combined.push({
+            id: `job-int-${job.id}`,
+            title: `${job.company} Interview`,
+            date: job.deadline, // YYYY-MM-DD
+            type: "Interview",
+            company: job.company
+          });
+        }
+      } else if (job.deadline) {
+        // Also map other deadlines from the board as Deadline events
+        const isDuplicate = events.some(ev => ev.id === `job-dead-${job.id}`);
+        if (!isDuplicate) {
+          combined.push({
+            id: `job-dead-${job.id}`,
+            title: `${job.company} Deadline`,
+            date: job.deadline,
+            type: "Deadline",
+            company: job.company
+          });
+        }
+      }
+    });
+
+    return combined;
+  };
+
+  const combinedEvents = getCombinedEvents();
+
   const handleAddEvent = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newEventTitle) return;
+    if (!newEventTitle.trim()) return;
     const added: Event = {
       id: Date.now().toString(),
-      title: newEventTitle,
+      title: newEventTitle.trim(),
       date: newEventDate,
       type: newEventType,
     };
@@ -70,24 +126,30 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
   };
 
   const handleDeleteEvent = (id: string) => {
+    // If it's a Kanban job event, prompt to edit it in the Kanban board
+    if (id.startsWith("job-")) {
+      showToast?.("Kanban-tracked events must be updated directly from the tracker card stages.", "info");
+      return;
+    }
+
     const updated = events.filter((ev) => ev.id !== id);
     setEvents(updated);
     if (typeof window !== "undefined") {
       localStorage.setItem("resumeflow_events", JSON.stringify(updated));
     }
-    if (showToast) showToast("Event deleted from calendar.", "info");
+    showToast?.("Event deleted from calendar.", "info");
   };
 
   const renderCells = () => {
     const cells = [];
     // empty offset cells
     for (let i = 0; i < startDayOffset; i++) {
-      cells.push(<div key={`empty-${i}`} className="min-h-[85px] bg-[#EEF2F7]/30 border border-[#E5E7EB]/40"></div>);
+      cells.push(<div key={`empty-${i}`} className="min-h-[85px] bg-[#EEF2F7]/30 dark:bg-slate-900/10 border border-[#E5E7EB]/40"></div>);
     }
     // days cells
     for (let day = 1; day <= daysInMonth; day++) {
       const dateString = `2026-08-${day < 10 ? `0${day}` : day}`;
-      const dayEvents = events.filter((e) => e.date === dateString);
+      const dayEvents = combinedEvents.filter((e) => e.date === dateString);
 
       cells.push(
         <div key={day} className="min-h-[85px] p-2 bg-white border border-[#E5E7EB]/50 hover:bg-[#F5F7FB] transition-colors relative flex flex-col justify-between text-left">
@@ -97,10 +159,10 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
               <div
                 key={ev.id}
                 title={`${ev.title} ${ev.company ? `(${ev.company})` : ""}`}
-                className={`text-[8px] px-1 py-0.5 rounded font-bold uppercase truncate ${
-                  ev.type === "Interview" ? "bg-blue-50 text-[#2563EB] border border-blue-200" :
-                  ev.type === "Deadline" ? "bg-amber-50 text-[#F59E0B] border border-amber-200" :
-                  "bg-green-50 text-[#16A34A] border border-green-200"
+                className={`text-[8px] px-1 py-0.5 rounded font-bold uppercase truncate border ${
+                  ev.type === "Interview" ? "bg-blue-50 text-[#2563EB] border-blue-200" :
+                  ev.type === "Deadline" ? "bg-amber-50 text-[#F59E0B] border-amber-200" :
+                  "bg-green-50 text-[#16A34A] border-green-200"
                 }`}
               >
                 {ev.title}
@@ -114,11 +176,11 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300 text-left">
       {onNavigate && (
         <button
           onClick={() => onNavigate("overview")}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
           <span>Back to Dashboard</span>
@@ -135,7 +197,7 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
         <div className="lg:col-span-8 space-y-4">
           <div className="flex justify-between items-center bg-white px-5 py-3.5 rounded-2xl border border-[#E5E7EB]/80 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.9)]">
             <h3 className="font-extrabold text-sm text-[#111827] uppercase tracking-wider">August 2026</h3>
-            <span className="text-xs text-[#6B7280] font-semibold">{events.length} Scheduled Events</span>
+            <span className="text-xs text-[#6B7280] font-semibold">{combinedEvents.length} Scheduled Events</span>
           </div>
 
           <div className="grid grid-cols-7 text-center font-bold text-xs text-[#6B7280] uppercase tracking-wider pb-2">
@@ -179,7 +241,7 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
                     required
                     value={newEventDate}
                     onChange={(e) => setNewEventDate(e.target.value)}
-                    className="clay-input w-full text-xs"
+                    className="clay-input w-full text-xs cursor-pointer"
                   />
                 </div>
                 <div>
@@ -187,7 +249,7 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
                   <select
                     value={newEventType}
                     onChange={(e) => setNewEventType(e.target.value as any)}
-                    className="clay-input w-full text-xs"
+                    className="clay-input w-full text-xs cursor-pointer"
                   >
                     <option value="Interview">Interview</option>
                     <option value="Deadline">Deadline</option>
@@ -196,7 +258,7 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
                 </div>
               </div>
 
-              <button type="submit" className="clay-btn-primary w-full py-2.5 text-xs text-white font-semibold flex items-center justify-center gap-2">
+              <button type="submit" className="clay-btn-primary w-full py-2.5 text-xs text-white font-semibold flex items-center justify-center gap-2 cursor-pointer">
                 <Calendar className="w-3.5 h-3.5" /> Add Event
               </button>
             </form>
@@ -206,17 +268,17 @@ export default function CalendarView({ onNavigate, showToast }: { onNavigate?: (
           <div className="clay-card p-6 bg-white text-left space-y-4">
             <h3 className="font-bold text-xs text-[#6B7280] uppercase tracking-wider">Timeline List</h3>
             <div className="space-y-3.5 text-xs">
-              {events.slice(0, 5).map((e) => (
+              {combinedEvents.slice(0, 5).map((e) => (
                 <div key={e.id} className="flex justify-between items-center pb-2 border-b border-[#E5E7EB]/40 last:border-0 last:pb-0">
-                  <div className="flex-1">
-                    <h5 className="font-bold text-[#111827]">{e.title}</h5>
+                  <div className="flex-1 truncate pr-2">
+                    <h5 className="font-bold text-[#111827] truncate">{e.title}</h5>
                     {e.company && <span className="text-[10px] text-[#6B7280]">{e.company}</span>}
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 shrink-0">
                     <span className="font-mono text-gray-500 text-[10px]">{e.date}</span>
                     <button
                       onClick={() => handleDeleteEvent(e.id)}
-                      className="text-red-500 hover:text-red-700 transition-colors p-1"
+                      className="text-red-500 hover:text-red-700 transition-colors p-1 cursor-pointer"
                       title="Delete Event"
                     >
                       <Trash2 className="w-3.5 h-3.5" />

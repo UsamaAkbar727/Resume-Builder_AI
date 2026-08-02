@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Check, Plus, AlertCircle } from "lucide-react";
 
 interface Job {
   id: string;
@@ -27,6 +27,19 @@ type Column = "Wishlist" | "Applied" | "Interview" | "Offer" | "Rejected";
 export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: TrackerProps) {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [editingNotes, setEditingNotes] = useState("");
+  const [isAdding, setIsAdding] = useState(false);
+
+  // Form state for creating custom application
+  const [form, setForm] = useState({
+    company: "",
+    role: "",
+    status: "Wishlist" as Column,
+    salary: "$120,000",
+    location: "Remote",
+    priority: "Medium" as "High" | "Medium" | "Low",
+    notes: "",
+    deadline: ""
+  });
 
   const columns: Column[] = ["Wishlist", "Applied", "Interview", "Offer", "Rejected"];
 
@@ -44,19 +57,38 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
     setJobs(updated);
   };
 
-  const handleAddJob = () => {
+  const handleCreateJob = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.company.trim() || !form.role.trim()) {
+      showToast?.("Company and Role are required!", "warning");
+      return;
+    }
+
     const newJob: Job = {
       id: Date.now().toString(),
-      company: "Google",
-      role: "Frontend Engineer",
-      status: "Wishlist",
-      salary: "$180,000",
-      location: "Mountain View, CA",
-      priority: "Medium",
-      notes: "Referral submitted by engineering lead.",
-      deadline: "2026-09-15"
+      company: form.company.trim(),
+      role: form.role.trim(),
+      status: form.status,
+      salary: form.salary.trim(),
+      location: form.location.trim(),
+      priority: form.priority,
+      notes: form.notes.trim(),
+      deadline: form.deadline
     };
+
     setJobs([...jobs, newJob]);
+    setIsAdding(false);
+    setForm({
+      company: "",
+      role: "",
+      status: "Wishlist",
+      salary: "$120,000",
+      location: "Remote",
+      priority: "Medium",
+      notes: "",
+      deadline: ""
+    });
+    showToast?.("Application successfully added to board!", "success");
   };
 
   const handleSaveNotes = () => {
@@ -80,11 +112,11 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300 text-left">
       {onNavigate && (
         <button
           onClick={() => onNavigate("overview")}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-all bg-white border border-[#E5E7EB] hover:border-[#2563EB] px-3.5 py-1.5 rounded-xl shadow-xs hover:shadow-sm group self-start cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
           <span>Back to Dashboard</span>
@@ -96,7 +128,7 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
           <h1 className="text-3xl font-extrabold text-[#111827]">Job Search Tracker</h1>
           <p className="text-sm text-[#6B7280]">Organize your interviews, applications, and negotiations on a Kanban board.</p>
         </div>
-        <button onClick={handleAddJob} className="clay-btn-primary px-4 py-2.5 text-xs text-white">
+        <button onClick={() => setIsAdding(true)} className="clay-btn-primary px-4 py-2.5 text-xs text-white cursor-pointer">
           + Add Custom Application
         </button>
       </div>
@@ -106,10 +138,10 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
         {columns.map((col) => {
           const colJobs = jobs.filter((j) => j.status === col);
           return (
-            <div key={col} className="space-y-4 bg-[#EEF2F7]/50 p-4 rounded-2xl border border-[#E5E7EB]/50 min-h-[480px]">
+            <div key={col} className="space-y-4 bg-[#EEF2F7]/50 dark:bg-slate-900/40 p-4 rounded-2xl border border-[#E5E7EB]/50 min-h-[480px]">
               <div className="flex justify-between items-center border-b border-[#E5E7EB] pb-2">
                 <span className="font-bold text-xs text-[#111827] uppercase tracking-wider">{col}</span>
-                <span className="text-[10px] bg-[#EEF2F7] border border-[#E5E7EB] px-2 py-0.5 rounded-full font-bold text-[#6B7280]">
+                <span className="text-[10px] bg-[#EEF2F7] dark:bg-slate-950 border border-[#E5E7EB] px-2 py-0.5 rounded-full font-bold text-[#6B7280]">
                   {colJobs.length}
                 </span>
               </div>
@@ -149,7 +181,7 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
                               key={colName}
                               onClick={() => handleMove(job.id, colName)}
                               title={`Move to ${colName}`}
-                              className="text-[#2563EB] hover:underline font-semibold"
+                              className="text-[#2563EB] hover:underline font-semibold cursor-pointer"
                             >
                               {colName.charAt(0)}
                             </button>
@@ -166,10 +198,129 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
         })}
       </div>
 
+      {/* Adding Custom Application Overlay Modal */}
+      {isAdding && (
+        <div className="fixed inset-0 z-50 bg-[#111827]/40 backdrop-blur-xs flex items-center justify-center">
+          <div className="clay-card w-full max-w-md bg-white p-6 space-y-5 text-left shadow-2xl animate-in zoom-in-95 duration-150">
+            <div className="flex justify-between items-start border-b border-[#E5E7EB] pb-3">
+              <h3 className="font-extrabold text-sm text-[#111827] uppercase tracking-wider">New Application Card</h3>
+              <button
+                onClick={() => setIsAdding(false)}
+                className="text-xs font-bold text-gray-400 hover:text-gray-600 cursor-pointer"
+              >
+                ✕ Close
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateJob} className="space-y-4 text-xs">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider">Company Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={form.company}
+                    onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    placeholder="E.g. Apple"
+                    className="clay-input w-full"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider">Job Role / Title</label>
+                  <input
+                    type="text"
+                    required
+                    value={form.role}
+                    onChange={(e) => setForm({ ...form, role: e.target.value })}
+                    placeholder="E.g. Staff Engineer"
+                    className="clay-input w-full"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider">Salary Range</label>
+                  <input
+                    type="text"
+                    value={form.salary}
+                    onChange={(e) => setForm({ ...form, salary: e.target.value })}
+                    placeholder="E.g. $140,000"
+                    className="clay-input w-full"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider">Location</label>
+                  <input
+                    type="text"
+                    value={form.location}
+                    onChange={(e) => setForm({ ...form, location: e.target.value })}
+                    placeholder="E.g. Remote / NYC"
+                    className="clay-input w-full"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div className="space-y-1">
+                  <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider">Stage</label>
+                  <select
+                    value={form.status}
+                    onChange={(e) => setForm({ ...form, status: e.target.value as Column })}
+                    className="clay-input w-full cursor-pointer"
+                  >
+                    {columns.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider">Priority</label>
+                  <select
+                    value={form.priority}
+                    onChange={(e) => setForm({ ...form, priority: e.target.value as any })}
+                    className="clay-input w-full cursor-pointer"
+                  >
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider">Deadline</label>
+                  <input
+                    type="date"
+                    value={form.deadline}
+                    onChange={(e) => setForm({ ...form, deadline: e.target.value })}
+                    className="clay-input w-full cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider">Initial Notes</label>
+                <textarea
+                  value={form.notes}
+                  onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                  placeholder="Paste referral contact names, application numbers, or links..."
+                  rows={3}
+                  className="clay-input w-full"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full clay-btn-primary py-2.5 text-xs text-white font-bold cursor-pointer"
+              >
+                Create Tracker Card
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Item Detail Drawer */}
       {selectedJob && (
-        <div className="fixed inset-0 z-50 bg-[#111827]/40 backdrop-blur-sm flex justify-end">
-          <div className="w-full max-w-md bg-white h-full shadow-2xl p-6 overflow-y-auto space-y-6 flex flex-col justify-between">
+        <div className="fixed inset-0 z-50 bg-[#111827]/40 backdrop-blur-xs flex justify-end">
+          <div className="w-full max-w-md bg-white dark:bg-gray-950 h-full shadow-2xl p-6 overflow-y-auto space-y-6 flex flex-col justify-between">
             <div className="space-y-6">
               {/* Drawer Header */}
               <div className="flex justify-between items-start border-b border-[#E5E7EB] pb-4">
@@ -179,14 +330,14 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
                 </div>
                 <button
                   onClick={() => setSelectedJob(null)}
-                  className="text-xs font-semibold text-[#6B7280] hover:text-[#111827]"
+                  className="text-xs font-semibold text-[#6B7280] hover:text-[#111827] cursor-pointer"
                 >
                   ✕ Close
                 </button>
               </div>
 
               {/* Job Parameters */}
-              <div className="grid grid-cols-2 gap-4 text-xs">
+              <div className="grid grid-cols-2 gap-4 text-xs text-left">
                 <div>
                   <span className="text-[#6B7280] block mb-1">Location</span>
                   <span className="font-semibold">{selectedJob.location}</span>
@@ -206,14 +357,14 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
               </div>
 
               {/* Action columns */}
-              <div className="space-y-2">
+              <div className="space-y-2 text-left">
                 <span className="text-xs font-semibold text-[#6B7280] block">Change Stage</span>
                 <div className="flex flex-wrap gap-1.5">
                   {columns.map((c) => (
                     <button
                       key={c}
                       onClick={() => handleMove(selectedJob.id, c)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border cursor-pointer ${
                         selectedJob.status === c ? "bg-[#2563EB] text-white border-[#2563EB]" : "border-[#E5E7EB] hover:bg-[#EEF2F7]"
                       }`}
                     >
@@ -224,7 +375,7 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
               </div>
 
               {/* Notes Editor */}
-              <div className="space-y-2">
+              <div className="space-y-2 text-left">
                 <label className="text-xs font-semibold text-[#6B7280] block">Application Notes</label>
                 <textarea
                   rows={4}
@@ -233,7 +384,7 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
                   className="clay-input w-full text-xs leading-relaxed"
                   placeholder="Record application details, interviewer feedback, or system parameters..."
                 />
-                <button onClick={handleSaveNotes} className="clay-btn-primary px-3 py-1.5 text-xs text-white">
+                <button onClick={handleSaveNotes} className="clay-btn-primary px-3 py-1.5 text-xs text-white cursor-pointer">
                   Save Notes
                 </button>
               </div>
@@ -243,7 +394,7 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
             <div className="pt-4 border-t border-[#E5E7EB]">
               <button
                 onClick={() => handleDelete(selectedJob.id)}
-                className="clay-btn-danger w-full py-2.5 text-xs text-white"
+                className="clay-btn-danger w-full py-2.5 text-xs text-white cursor-pointer"
               >
                 Delete Application
               </button>

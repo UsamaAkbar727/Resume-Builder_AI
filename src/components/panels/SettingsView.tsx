@@ -1,12 +1,58 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 
 export default function SettingsView({ onNavigate, showToast }: { onNavigate?: (tab: string) => void; showToast?: (msg: string, type?: "success" | "info" | "warning") => void }) {
   const [apiKey, setApiKey] = useState("rf_live_829a47d2f9b1c0e3d8");
   const [themeMode, setThemeMode] = useState("light");
   const [billingPlan, setBillingPlan] = useState("Pro");
+
+  // Read theme on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("resumeflow_theme") || "light";
+      setThemeMode(savedTheme);
+    }
+  }, []);
+
+  // Write theme and apply classes
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_theme", themeMode);
+      const root = window.document.documentElement;
+      
+      const applyCurrentTheme = (val: string) => {
+        if (val === "dark") {
+          root.classList.add("dark");
+        } else if (val === "light") {
+          root.classList.remove("dark");
+        } else {
+          const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          if (systemTheme === "dark") {
+            root.classList.add("dark");
+          } else {
+            root.classList.remove("dark");
+          }
+        }
+      };
+
+      applyCurrentTheme(themeMode);
+
+      if (themeMode === "system") {
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        const listener = (e: MediaQueryListEvent) => {
+          if (e.matches) {
+            root.classList.add("dark");
+          } else {
+            root.classList.remove("dark");
+          }
+        };
+        mediaQuery.addEventListener("change", listener);
+        return () => mediaQuery.removeEventListener("change", listener);
+      }
+    }
+  }, [themeMode]);
 
   const generateApiKey = () => {
     const chars = "abcdef0123456789";

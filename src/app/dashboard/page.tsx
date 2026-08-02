@@ -173,6 +173,26 @@ export default function DashboardWrapper() {
   // Load from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
+      // Apply theme preference
+      const savedTheme = localStorage.getItem("resumeflow_theme") || "light";
+      const root = window.document.documentElement;
+      
+      const applyCurrentTheme = (val: string) => {
+        if (val === "dark") {
+          root.classList.add("dark");
+        } else if (val === "light") {
+          root.classList.remove("dark");
+        } else {
+          const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          if (systemTheme === "dark") {
+            root.classList.add("dark");
+          } else {
+            root.classList.remove("dark");
+          }
+        }
+      };
+      applyCurrentTheme(savedTheme);
+
       const savedJobs = localStorage.getItem("resumeflow_jobs");
       if (savedJobs) {
         try {
@@ -379,7 +399,7 @@ export default function DashboardWrapper() {
           {activeTab === "advisor" && <CareerAdvisor resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "portfolio" && <PortfolioBuilder resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "documents" && <DocumentsManager onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "calendar" && <CalendarView onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "calendar" && <CalendarView jobs={jobs} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "analytics" && <AnalyticsView jobs={jobs} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "notifications" && <NotificationsView jobs={jobs} resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "profile" && <ProfileView resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />}
