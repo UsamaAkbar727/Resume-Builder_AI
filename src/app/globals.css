@@ -436,7 +436,7 @@ body {
 .dark .border-slate-200,
 .dark .border-gray-200,
 .dark [class*="border-[#E5E7EB]"],
-.dark .border-gray-200/80 {
+.dark [class*="border-gray-200/80"] {
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
