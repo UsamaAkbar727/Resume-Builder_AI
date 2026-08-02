@@ -24,7 +24,8 @@ import {
   TrendingUp,
   Briefcase,
   Linkedin,
-  Github
+  Github,
+  ChevronDown
 } from "lucide-react";
 
 interface ResumeAnalyzerProps {
@@ -170,6 +171,7 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
   // Settings & inputs
   const [targetRole, setTargetRole] = useState("Lead Software Engineer");
   const [customJD, setCustomJD] = useState("");
+  const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
   
   // Active (from Builder) vs Uploaded Resume File
   const [analysisMode, setAnalysisMode] = useState<"active" | "uploaded">("active");
@@ -782,15 +784,41 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
             
             <div className="space-y-1.5 text-left">
               <label className="block text-xs font-bold text-[#6B7280] uppercase tracking-wider">Target Job Role</label>
-              <select
-                value={targetRole}
-                onChange={(e) => setTargetRole(e.target.value)}
-                className="clay-input w-full text-xs font-semibold text-[#111827]"
-              >
-                {Object.keys(ROLES_DATABASE).map(role => (
-                  <option key={role} value={role}>{role}</option>
-                ))}
-              </select>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
+                  className="clay-input w-full text-xs font-semibold text-[#111827] flex justify-between items-center bg-white cursor-pointer"
+                >
+                  <span className="truncate pr-2">{targetRole}</span>
+                  <ChevronDown className="w-4 h-4 text-[#6B7280] shrink-0" />
+                </button>
+                {roleDropdownOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setRoleDropdownOpen(false)} />
+                    <div className="absolute left-0 right-0 mt-1 bg-white border border-[#E5E7EB] rounded-xl shadow-lg z-50 max-h-64 overflow-y-auto text-xs py-1 animate-in fade-in slide-in-from-top-1 duration-150">
+                      {Object.keys(ROLES_DATABASE).map(role => (
+                        <button
+                          key={role}
+                          type="button"
+                          onClick={() => {
+                            setTargetRole(role);
+                            setRoleDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3.5 py-2.5 transition-colors font-medium flex items-center justify-between cursor-pointer ${
+                            targetRole === role 
+                              ? "bg-blue-50 text-[#2563EB] font-bold" 
+                              : "text-[#111827] hover:bg-[#EEF2F7]/50"
+                          }`}
+                        >
+                          <span>{role}</span>
+                          {targetRole === role && <Check className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
               <p className="text-[10px] text-[#6B7280] leading-relaxed mt-1">
                 {ROLES_DATABASE[targetRole]?.description}
               </p>

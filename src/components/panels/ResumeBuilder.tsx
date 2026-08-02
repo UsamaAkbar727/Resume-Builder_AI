@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Download, FileText, ArrowLeft } from "lucide-react";
+import { Download, FileText, ArrowLeft, ChevronDown, Check } from "lucide-react";
 
 interface ResumeBuilderProps {
   resumeData: any;
@@ -15,6 +15,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
   const [template, setTemplate] = useState<"modern" | "classic" | "minimal">("modern");
   const [primaryColor, setPrimaryColor] = useState("#2563EB");
   const [customFont, setCustomFont] = useState("sans");
+  const [fontDropdownOpen, setFontDropdownOpen] = useState(false);
   const [exporting, setExporting] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
@@ -149,15 +150,49 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
 
               <div>
                 <span className="block mb-1.5 font-medium">Font Family</span>
-                <select
-                  value={customFont}
-                  onChange={(e) => setCustomFont(e.target.value)}
-                  className="clay-input py-1 px-2.5 text-xs"
-                >
-                  <option value="sans">Inter (Sans)</option>
-                  <option value="serif">Classic Serif</option>
-                  <option value="mono">Developer Mono</option>
-                </select>
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setFontDropdownOpen(!fontDropdownOpen)}
+                    className="clay-input py-1.5 px-3 text-xs font-semibold text-[#111827] flex justify-between items-center bg-white cursor-pointer min-w-[140px]"
+                  >
+                    <span>
+                      {customFont === "sans" ? "Inter (Sans)" :
+                       customFont === "serif" ? "Classic Serif" :
+                       "Developer Mono"}
+                    </span>
+                    <ChevronDown className="w-3.5 h-3.5 text-[#6B7280] ml-2 shrink-0" />
+                  </button>
+                  {fontDropdownOpen && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setFontDropdownOpen(false)} />
+                      <div className="absolute left-0 mt-1 bg-white border border-[#E5E7EB] rounded-xl shadow-lg z-50 min-w-[140px] text-xs py-1 animate-in fade-in slide-in-from-top-1 duration-150">
+                        {[
+                          { val: "sans", label: "Inter (Sans)" },
+                          { val: "serif", label: "Classic Serif" },
+                          { val: "mono", label: "Developer Mono" }
+                        ].map(f => (
+                          <button
+                            key={f.val}
+                            type="button"
+                            onClick={() => {
+                              setCustomFont(f.val);
+                              setFontDropdownOpen(false);
+                            }}
+                            className={`w-full text-left px-3 py-2 transition-colors font-medium flex items-center justify-between cursor-pointer ${
+                              customFont === f.val 
+                                ? "bg-blue-50 text-[#2563EB] font-bold" 
+                                : "text-[#111827] hover:bg-[#EEF2F7]/50"
+                            }`}
+                          >
+                            <span>{f.label}</span>
+                            {customFont === f.val && <Check className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>

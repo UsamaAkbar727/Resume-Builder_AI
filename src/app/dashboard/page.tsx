@@ -70,6 +70,7 @@ export default function DashboardWrapper() {
   const [activeTab, setActiveTab] = useState<Tab>("overview");
   const [searchQuery, setSearchQuery] = useState("");
   const [showCommandPalette, setShowCommandPalette] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [toast, setToast] = useState<{ message: string; type: "success" | "info" | "warning"; show: boolean }>({
     message: "",
@@ -317,20 +318,27 @@ export default function DashboardWrapper() {
           <div className="flex items-center gap-4">
             {/* Mobile menu trigger */}
             <div className="lg:hidden flex items-center gap-2">
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="w-8.5 h-8.5 rounded-xl bg-white border border-[#E5E7EB]/80 flex items-center justify-center text-[#6B7280] hover:text-[#111827] transition-colors cursor-pointer"
+              >
+                <LucideIcons.Menu className="w-4 h-4" />
+              </button>
               <div className="w-8 h-8 rounded-lg bg-[#2563EB] flex items-center justify-center text-white font-extrabold text-sm">
                 R
               </div>
-              <span className="font-bold text-sm">ResumeFlow</span>
+              <span className="font-bold text-sm hidden sm:inline">ResumeFlow</span>
             </div>
 
             {/* Global Search Command trigger button */}
             <button
               onClick={() => setShowCommandPalette(true)}
-              className="clay-card-flat px-4 py-2 text-xs text-[#6B7280] hover:text-[#111827] flex items-center gap-3 cursor-pointer bg-white"
+              className="clay-card-flat px-3 py-2 text-xs text-[#6B7280] hover:text-[#111827] flex items-center gap-2.5 cursor-pointer bg-white max-w-[120px] xs:max-w-[180px] sm:max-w-xs md:max-w-md shrink-0"
             >
-              <LucideIcons.Search className="w-4 h-4 text-[#6B7280]" />
-              <span>Search dashboard command palette...</span>
-              <kbd className="bg-[#EEF2F7] px-1.5 py-0.5 rounded text-[10px] font-mono border">⌘K</kbd>
+              <LucideIcons.Search className="w-4 h-4 text-[#6B7280] shrink-0" />
+              <span className="truncate hidden sm:inline">Search dashboard command palette...</span>
+              <span className="truncate inline sm:hidden">Search...</span>
+              <kbd className="hidden md:inline-block bg-[#EEF2F7] px-1.5 py-0.5 rounded text-[10px] font-mono border shrink-0">⌘K</kbd>
             </button>
           </div>
 
@@ -484,6 +492,100 @@ export default function DashboardWrapper() {
                 toast.type === "warning" ? "bg-amber-500" :
                 "bg-blue-500"
               }`} />
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Mobile Sidebar drawer overlay */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden flex">
+          {/* Backdrop blur overlay */}
+          <div 
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 bg-[#0F172A]/40 backdrop-blur-xs transition-opacity duration-300"
+          />
+
+          {/* Sidebar Drawer container */}
+          <div className="relative flex flex-col w-64 max-w-xs bg-[#F5F7FB] border-r border-[#E5E7EB] p-5 justify-between animate-in slide-in-from-left duration-300 shadow-2xl">
+            <div className="space-y-6">
+              {/* Header logo & Close button */}
+              <div className="flex items-center justify-between">
+                <Link href="/" className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#2563EB] flex items-center justify-center text-white font-extrabold text-base">
+                    R
+                  </div>
+                  <span className="font-extrabold text-lg tracking-tight text-[#111827]">
+                    ResumeFlow <span className="text-[#2563EB]">AI</span>
+                  </span>
+                </Link>
+                <button 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-8 h-8 rounded-lg border border-[#E5E7EB] flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <LucideIcons.X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Navigation Links inside Drawer */}
+              <nav className="space-y-1.5 max-h-[calc(100vh-175px)] overflow-y-auto pr-1">
+                {sidebarItems.map((item) => {
+                  const IconComponent = LucideIcons[item.icon as keyof typeof LucideIcons] as React.ComponentType<{ className?: string }>;
+                  const isActive = activeTab === item.id;
+
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        setActiveTab(item.id);
+                        setMobileMenuOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between px-2 py-1.5 rounded-xl text-xs transition-all duration-300 group border ${
+                        isActive
+                          ? "bg-white border-[#E5E7EB]/60 shadow-[0_4px_12px_rgba(0,0,0,0.03)] text-[#111827]"
+                          : "bg-transparent border-transparent text-[#6B7280] hover:text-[#111827] hover:bg-[#EEF2F7]/40"
+                      }`}
+                    >
+                      <span className="flex items-center gap-3">
+                        <span className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-300 border ${
+                          isActive 
+                            ? `bg-gradient-to-tr ${item.gradient} text-white shadow-[0_3px_8px_rgba(0,0,0,0.12)] border-white/10 scale-105` 
+                            : `bg-white border-[#E5E7EB]/60 text-[#6B7280] shadow-[0_2px_4px_rgba(0,0,0,0.01)] group-hover:border-transparent group-hover:bg-gradient-to-tr group-hover:${item.gradient} group-hover:text-white group-hover:scale-105 group-hover:shadow-[0_3px_8px_rgba(0,0,0,0.1)]`
+                        }`}>
+                          {IconComponent && <IconComponent className="w-4 h-4" />}
+                        </span>
+                        <span className={isActive ? "font-bold text-[#111827]" : "font-semibold text-[#6B7280] group-hover:text-[#111827]"}>
+                          {item.label}
+                        </span>
+                      </span>
+                      {item.badge && (
+                        <span className="bg-[#16A34A] text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
+                          {item.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+
+            {/* Drawer User Card Footer */}
+            <div className="border-t border-[#E5E7EB]/60 pt-4 flex items-center justify-between gap-3 text-left">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-xs text-[#2563EB]">
+                  SJ
+                </div>
+                <div>
+                  <h5 className="font-bold text-xs text-[#111827]">Sarah Jenkins</h5>
+                  <span className="text-[10px] text-[#6B7280] block truncate max-w-[110px]">sarah@stripe.com</span>
+                </div>
+              </div>
+              <Link 
+                href="/auth?mode=login" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-[#6B7280] hover:text-[#DC2626] font-bold p-1.5 hover:bg-[#EEF2F7] rounded-lg transition-colors border border-transparent hover:border-[#E5E7EB]/50"
+              >
+                <LucideIcons.LogOut className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </div>
