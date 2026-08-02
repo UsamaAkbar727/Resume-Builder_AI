@@ -93,6 +93,63 @@ export default function DashboardWrapper() {
     return TRANSLATIONS[language]?.[key] || TRANSLATIONS["en"]?.[key] || key;
   };
 
+  const [themeMode, setThemeMode] = useState("light");
+  const [isThemeLoaded, setIsThemeLoaded] = useState(false);
+
+  // Read theme on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("resumeflow_theme") || "light";
+      setThemeMode(savedTheme);
+      setIsThemeLoaded(true);
+    }
+  }, []);
+
+  // Write theme and apply classes
+  useEffect(() => {
+    if (!isThemeLoaded) return;
+    
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_theme", themeMode);
+      const root = window.document.documentElement;
+      
+      const applyCurrentTheme = (val: string) => {
+        if (val === "dark") {
+          root.classList.add("dark");
+        } else if (val === "light") {
+          root.classList.remove("dark");
+        } else {
+          const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          if (systemTheme === "dark") {
+            root.classList.add("dark");
+          } else {
+            root.classList.remove("dark");
+          }
+        }
+      };
+
+      applyCurrentTheme(themeMode);
+
+      if (themeMode === "system") {
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        const listener = (e: MediaQueryListEvent) => {
+          if (e.matches) {
+            root.classList.add("dark");
+          } else {
+            root.classList.remove("dark");
+          }
+        };
+        mediaQuery.addEventListener("change", listener);
+        return () => mediaQuery.removeEventListener("change", listener);
+      }
+    }
+  }, [themeMode, isThemeLoaded]);
+
+  const handleToggleTheme = () => {
+    const nextTheme = themeMode === "dark" ? "light" : "dark";
+    setThemeMode(nextTheme);
+  };
+
   const [toast, setToast] = useState<{ message: string; type: "success" | "info" | "warning"; show: boolean }>({
     message: "",
     type: "success",
@@ -383,7 +440,20 @@ export default function DashboardWrapper() {
             </button>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            {/* Quick theme toggler shortcut */}
+            <button
+              onClick={handleToggleTheme}
+              className="w-9 h-9 rounded-xl bg-white border border-[#E5E7EB]/80 flex items-center justify-center text-sm relative hover:bg-[#EEF2F7]/50 text-[#6B7280] hover:text-[#111827] transition-colors cursor-pointer"
+              title={themeMode === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {themeMode === "dark" ? (
+                <LucideIcons.Sun className="w-4 h-4 text-amber-500" />
+              ) : (
+                <LucideIcons.Moon className="w-4 h-4" />
+              )}
+            </button>
+
             <button
               onClick={() => setActiveTab("notifications")}
               className="w-9 h-9 rounded-xl bg-white border border-[#E5E7EB]/80 flex items-center justify-center text-sm relative hover:bg-[#EEF2F7]/50 text-[#6B7280] hover:text-[#111827] transition-colors"
@@ -424,7 +494,7 @@ export default function DashboardWrapper() {
           {activeTab === "analytics" && <AnalyticsView jobs={jobs} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "notifications" && <NotificationsView jobs={jobs} resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "profile" && <ProfileView resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "settings" && <SettingsView language={language} setLanguage={setLanguage} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "settings" && <SettingsView themeMode={themeMode} setThemeMode={setThemeMode} language={language} setLanguage={setLanguage} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "admin" && <AdminPanel onNavigate={handleNavigate} showToast={showToast} />}
         </main>
       </div>
