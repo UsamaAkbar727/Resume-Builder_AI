@@ -485,7 +485,7 @@ export default function DashboardWrapper() {
           {activeTab === "cover-letter" && <CoverLetterGenerator resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "tracker" && <JobTracker jobs={jobs} setJobs={setJobs} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "import" && <JobImport onAddJob={handleAddJob} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "matching" && <JobMatching resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "matching" && <JobMatching resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} onAddJob={handleAddJob} />}
           {activeTab === "interview" && <InterviewPrep resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "advisor" && <CareerAdvisor resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
           {activeTab === "portfolio" && <PortfolioBuilder resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
