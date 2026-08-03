@@ -21,7 +21,7 @@ import Footer from "@/components/landing/Footer";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 relative overflow-hidden flex flex-col font-sans antialiased selection:bg-blue-500/20 selection:text-blue-900">
+    <div className="min-h-screen bg-[#060A14] text-[#F0F4FF] relative overflow-hidden flex flex-col font-sans antialiased selection:bg-blue-500/20 selection:text-blue-200">
       {/* Premium Navbar */}
       <Navbar />
 
