@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   ArrowRight, Check, Star, Sparkles, TrendingUp, Zap, ShieldCheck, 
-  Terminal, Play, Eye, FileText, SearchCode, Trello, Mic, Award, CheckCircle2
+  Terminal, Play, Eye, FileText, SearchCode, Trello, Mic, Award, CheckCircle2, Globe
 } from "lucide-react";
 import { ScrollReveal } from "./Animations";
 
@@ -34,6 +34,46 @@ const roleDemos = {
     optimized: "Spearheaded self-serve team onboard funnel, driving +34% MoM conversion and $2.4M ARR expansion in Q3.",
   }
 };
+
+{/* Auto-Rotating Dotted Globe Icon Component */}
+function RotatingGlobe() {
+  return (
+    <span className="inline-flex items-center justify-center align-middle ml-2 relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 -mt-2 shrink-0">
+      {/* Outer ambient soft glow */}
+      <span className="absolute inset-0 rounded-full bg-blue-400/20 blur-md pointer-events-none" />
+
+      {/* Rotating Dotted Globe SVG */}
+      <svg 
+        className="w-full h-full text-blue-600 animate-[spin_18s_linear_infinite] relative z-10" 
+        viewBox="0 0 100 100" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Dotted Orbit Outer Rings */}
+        <circle cx="50" cy="50" r="46" stroke="#2563EB" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.6" />
+        <circle cx="50" cy="50" r="38" stroke="#3B82F6" strokeWidth="1.2" strokeDasharray="4 3" opacity="0.5" />
+        
+        {/* Latitudes & Longitudes Wireframe */}
+        <ellipse cx="50" cy="50" rx="46" ry="18" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.7" />
+        <ellipse cx="50" cy="50" rx="18" ry="46" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.7" />
+        <ellipse cx="50" cy="50" rx="46" ry="32" stroke="#60A5FA" strokeWidth="1" strokeDasharray="2 3" opacity="0.4" />
+        <ellipse cx="50" cy="50" rx="32" ry="46" stroke="#60A5FA" strokeWidth="1" strokeDasharray="2 3" opacity="0.4" />
+        <line x1="4" y1="50" x2="96" y2="50" stroke="#3B82F6" strokeWidth="1.2" strokeDasharray="2 2" opacity="0.5" />
+        <line x1="50" y1="4" x2="50" y2="96" stroke="#3B82F6" strokeWidth="1.2" strokeDasharray="2 2" opacity="0.5" />
+
+        {/* Glowing Dotted Location Nodes */}
+        <circle cx="50" cy="4" r="3" fill="#2563EB" />
+        <circle cx="96" cy="50" r="3" fill="#2563EB" />
+        <circle cx="50" cy="96" r="3" fill="#2563EB" />
+        <circle cx="4" cy="50" r="3" fill="#2563EB" />
+        <circle cx="28" cy="28" r="2.5" fill="#10B981" />
+        <circle cx="72" cy="72" r="2.5" fill="#10B981" />
+        <circle cx="72" cy="28" r="2" fill="#6366F1" />
+        <circle cx="28" cy="72" r="2" fill="#6366F1" />
+      </svg>
+    </span>
+  );
+}
 
 export default function Hero() {
   const [activeRole, setActiveRole] = useState<"software" | "design" | "pm">("software");
@@ -79,11 +119,14 @@ export default function Hero() {
             </div>
           </ScrollReveal>
 
-          {/* Main Giant Editorial Headline */}
+          {/* Main Giant Editorial Headline with Auto-Rotating Dotted Globe */}
           <ScrollReveal variant="fade-up" delay={60}>
-            <h1 className="display-hero text-gray-900 mb-6 text-balance">
-              Stop applying into the void.<br />
-              <span className="text-gradient-primary">Engineered to get hired.</span>
+            <h1 className="display-hero text-gray-900 mb-6 text-balance inline-flex flex-wrap items-center justify-center gap-x-2">
+              <span>Stop applying into the void.</span>
+              <span className="inline-flex items-center gap-1">
+                <span className="text-gradient-primary">Engineered to get hired.</span>
+                <RotatingGlobe />
+              </span>
             </h1>
           </ScrollReveal>
 
@@ -220,8 +263,8 @@ export default function Hero() {
 
                 </div>
 
-                {/* Right Col: AI Rewriting Panel */}
-                <div className="md:col-span-7 space-y-4">
+                {/* Right Col: AI Rewriting Panel — shifted slightly to the left */}
+                <div className="md:col-span-7 space-y-4 md:-ml-2">
                   
                   {/* Title Bar */}
                   <div className="flex items-center justify-between text-xs text-gray-500 pb-1">
@@ -281,5 +324,6 @@ export default function Hero() {
     </section>
   );
 }
+
 
 
