@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Geist:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&family=Geist:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -108,6 +108,22 @@ body {
    TYPOGRAPHY SYSTEM
    ============================================================ */
 
+/* Hero — massive editorial headline */
+.display-hero {
+  font-size: clamp(3.25rem, 10vw, 8.5rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+
+/* Feature section headline */
+.display-feature {
+  font-size: clamp(2.25rem, 5.5vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
 .display-xl {
   font-size: clamp(2.5rem, 6vw, 5.5rem);
   font-weight: 900;
@@ -129,12 +145,32 @@ body {
   letter-spacing: -0.025em;
 }
 
+/* Numbered eyebrow for feature sections */
 .eyebrow {
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
 }
+
+.feature-num {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #9CA3AF;
+  text-transform: uppercase;
+}
+
+/* Big stat number style */
+.stat-number {
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+/* text-balance polyfill helper */
+.text-balance { text-wrap: balance; }
 
 /* ============================================================
    PREMIUM CARD SYSTEM
@@ -387,6 +423,36 @@ body {
 .bg-dot-grid {
   background-image: radial-gradient(#E5E7EB 1.5px, transparent 1.5px);
   background-size: 24px 24px;
+}
+
+/* Warm off-white — like Notion/Linear */
+.bg-warm { background-color: #FAFAF8; }
+.bg-warm-2 { background-color: #F5F4F0; }
+
+/* Thin horizontal rule gradient */
+.hr-gradient {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #E5E7EB 20%, #E5E7EB 80%, transparent);
+  border: none;
+}
+
+/* Product mockup shadow */
+.mockup-shadow {
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.04),
+    0 8px 16px -4px rgba(0,0,0,0.06),
+    0 32px 64px -12px rgba(0,0,0,0.12);
+}
+
+/* Dark bleed section */
+.section-dark {
+  background: #0C0C0F;
+  color: #F9FAFB;
+}
+
+/* Feature section border */
+.feature-divider {
+  border-top: 1px solid #F0F0EC;
 }
 
 /* ── Blob Shape ── */
