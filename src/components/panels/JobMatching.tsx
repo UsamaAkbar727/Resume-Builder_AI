@@ -206,16 +206,6 @@ export default function JobMatching({ resumeData, onNavigate, showToast, onAddJo
   useEffect(() => {
     let result = [...jobs];
 
-    // Search query keyword filter
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      result = result.filter(j => 
-        j.title.toLowerCase().includes(q) || 
-        j.companyName.toLowerCase().includes(q) || 
-        j.description.toLowerCase().includes(q)
-      );
-    }
-
     // Location query filter
     if (locationQuery) {
       const loc = locationQuery.toLowerCase();
@@ -381,16 +371,30 @@ export default function JobMatching({ resumeData, onNavigate, showToast, onAddJo
 
       {/* Search & Filter Bar */}
       <div className="clay-card p-5 bg-white dark:bg-[#0B0F19] space-y-4">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-[#6B7280]" />
-            <input 
-              type="text" 
-              placeholder="Search roles or keywords (e.g. React, Next.js, Stripe)..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#F8FAFC] dark:bg-slate-800/40 border border-[#E5E7EB] dark:border-slate-700/60 rounded-xl pl-10 pr-4 py-2.5 text-xs text-[#111827] dark:text-white outline-hidden focus:border-[#2563EB]"
-            />
+        <div className="flex flex-col md:flex-row gap-4 items-stretch">
+          <div className="relative flex-1 flex gap-2">
+            <div className="relative flex-grow">
+              <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-[#6B7280]" />
+              <input 
+                type="text" 
+                placeholder="Search roles or keywords (e.g. React, Next.js, Stripe)..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    fetchJobs(searchQuery);
+                  }
+                }}
+                className="w-full bg-[#F8FAFC] dark:bg-slate-800/40 border border-[#E5E7EB] dark:border-slate-700/60 rounded-xl pl-10 pr-4 py-2.5 text-xs text-[#111827] dark:text-white outline-hidden focus:border-[#2563EB]"
+              />
+            </div>
+            <button
+              onClick={() => fetchJobs(searchQuery)}
+              className="clay-btn-primary px-4 text-xs text-white font-semibold flex items-center gap-1.5 shrink-0 cursor-pointer"
+            >
+              <Search className="w-3.5 h-3.5" />
+              <span>Search</span>
+            </button>
           </div>
           <div className="relative w-full md:w-64">
             <MapPin className="absolute left-3.5 top-3.5 w-4 h-4 text-[#6B7280]" />
@@ -399,6 +403,11 @@ export default function JobMatching({ resumeData, onNavigate, showToast, onAddJo
               placeholder="Preferred Location (e.g. Remote)..." 
               value={locationQuery}
               onChange={(e) => setLocationQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  fetchJobs(searchQuery);
+                }
+              }}
               className="w-full bg-[#F8FAFC] dark:bg-slate-800/40 border border-[#E5E7EB] dark:border-slate-700/60 rounded-xl pl-10 pr-4 py-2.5 text-xs text-[#111827] dark:text-white outline-hidden focus:border-[#2563EB]"
             />
           </div>
