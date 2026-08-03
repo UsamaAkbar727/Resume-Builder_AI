@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   ArrowRight, Check, Star, Sparkles, TrendingUp, Zap, ShieldCheck, 
-  Terminal, Play, Eye, FileText, SearchCode, Trello, Mic, Award
+  Terminal, Play, Eye, FileText, SearchCode, Trello, Mic, Award, CheckCircle2
 } from "lucide-react";
 import { ScrollReveal } from "./Animations";
 
@@ -59,9 +59,9 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-white pt-16 pb-24 border-b border-gray-100">
       
-      {/* Dynamic Background Atmosphere */}
-      <div className="absolute inset-0 bg-dot-grid opacity-40 pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-blue-50/80 via-indigo-50/40 to-transparent rounded-full blur-3xl pointer-events-none" />
+      {/* Subtle Background Accent */}
+      <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-gradient-to-b from-blue-50/70 via-indigo-50/30 to-transparent rounded-full blur-3xl pointer-events-none" />
       
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
         
@@ -70,12 +70,12 @@ export default function Hero() {
           
           {/* Release Badge */}
           <ScrollReveal variant="fade-up" delay={0}>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-900 text-white text-xs font-semibold shadow-sm mb-6">
-              <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold shadow-sm mb-6">
+              <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
               <span>ResumeFlow 2.0</span>
-              <span className="text-gray-400 font-normal">|</span>
-              <span className="text-gray-300 font-normal">Engineered for candidates who refuse to be ignored</span>
-              <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+              <span className="text-blue-300 font-normal">•</span>
+              <span className="text-blue-900 font-medium">Engineered to get you shortlisted</span>
+              <ArrowRight className="w-3.5 h-3.5 text-blue-600" />
             </div>
           </ScrollReveal>
 
@@ -89,7 +89,7 @@ export default function Hero() {
 
           {/* Subtitle */}
           <ScrollReveal variant="fade-up" delay={120}>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-normal max-w-2xl mx-auto mb-10 text-balance">
+            <p className="text-lg md:text-xl text-gray-500 leading-relaxed font-normal max-w-2xl mx-auto mb-10 text-balance">
               The AI Career Operating System. Build ATS-beating resumes, track application pipelines in real-time, and practice voice interviews with AI.
             </p>
           </ScrollReveal>
@@ -125,43 +125,43 @@ export default function Hero() {
 
         </div>
 
-        {/* ── High-End Interactive App Sandbox Display ── */}
+        {/* ── High-End Crisp Light Mode Workspace Mockup ── */}
         <ScrollReveal variant="fade-up" delay={300}>
           <div className="relative max-w-5xl mx-auto">
             
             {/* Outer Glow Halo */}
-            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-purple-500/20 blur-xl opacity-80 pointer-events-none" />
+            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-100/60 via-indigo-100/40 to-slate-100/60 blur-xl opacity-80 pointer-events-none" />
 
-            {/* Main Interactive App Container */}
-            <div className="relative bg-gray-950 rounded-2xl border border-gray-800 text-white shadow-2xl overflow-hidden">
+            {/* Main Interactive App Container — Crisp Light Card */}
+            <div className="relative bg-white rounded-2xl border border-gray-200 shadow-[0_24px_70px_-15px_rgba(0,0,0,0.08)] overflow-hidden">
               
-              {/* Top Chrome Header Bar */}
-              <div className="flex flex-col sm:flex-row items-center justify-between px-5 py-3.5 bg-gray-900/90 border-b border-gray-800 gap-3">
+              {/* Top Window Header Chrome */}
+              <div className="flex flex-col sm:flex-row items-center justify-between px-5 py-3.5 bg-gray-50/90 border-b border-gray-200/80 gap-3">
                 
                 {/* Dots + Window Title */}
                 <div className="flex items-center gap-3">
                   <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-red-400" />
+                    <div className="w-3 h-3 rounded-full bg-amber-400" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-400" />
                   </div>
-                  <span className="text-xs font-medium text-gray-400 flex items-center gap-1.5">
-                    <Terminal className="w-3.5 h-3.5 text-blue-400" />
-                    resumeflow-ai // live-optimizer-sandbox
-                  </span>
+                  <div className="px-3 py-1 bg-white rounded-md border border-gray-200 text-[11px] font-mono text-gray-500 flex items-center gap-1.5 shadow-2xs">
+                    <Sparkles className="w-3 h-3 text-blue-500" />
+                    resumeflow.ai/editor
+                  </div>
                 </div>
 
                 {/* Role Switcher Pills inside Hero Chrome */}
-                <div className="flex items-center bg-gray-950 p-1 rounded-lg border border-gray-800 text-xs">
-                  <span className="text-[10px] text-gray-500 uppercase px-2 font-bold tracking-wider">Target Role:</span>
+                <div className="flex items-center bg-gray-100 p-1 rounded-lg border border-gray-200 text-xs">
+                  <span className="text-[10px] text-gray-400 uppercase px-2 font-bold tracking-wider">Role Preview:</span>
                   {(["software", "design", "pm"] as const).map((r) => (
                     <button
                       key={r}
                       onClick={() => setActiveRole(r)}
                       className={`px-3 py-1 rounded-md font-semibold transition-all cursor-pointer ${
                         activeRole === r 
-                          ? "bg-blue-600 text-white shadow-sm" 
-                          : "text-gray-400 hover:text-gray-200"
+                          ? "bg-white text-gray-900 shadow-sm border border-gray-200" 
+                          : "text-gray-500 hover:text-gray-900"
                       }`}
                     >
                       {r === "software" ? "Engineering" : r === "design" ? "Product Design" : "Product Mgmt"}
@@ -171,110 +171,99 @@ export default function Hero() {
 
               </div>
 
-              {/* Sandbox Body Content */}
-              <div className="p-6 md:p-8 grid md:grid-cols-12 gap-6 items-center">
+              {/* Workspace Body */}
+              <div className="p-6 md:p-8 grid md:grid-cols-12 gap-6 items-center bg-warm">
                 
-                {/* Left Col: Role Details & Score Dial */}
-                <div className="md:col-span-5 space-y-6">
+                {/* Left Col: Paper Resume Preview Card */}
+                <div className="md:col-span-5 bg-white p-6 rounded-xl border border-gray-200/90 shadow-sm space-y-5">
                   
                   {/* Candidate Header */}
-                  <div>
-                    <div className="flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider mb-1">
-                      <Zap className="w-3.5 h-3.5" /> Target Resume Profile
-                    </div>
-                    <h3 className="text-xl font-bold text-white">{current.role}</h3>
-                    <p className="text-xs text-gray-400">Optimized for {current.company} & FAANG shortlists</p>
-                  </div>
-
-                  {/* Dynamic Score Ring Meter */}
-                  <div className="p-4 rounded-xl bg-gray-900/80 border border-gray-800 flex items-center gap-5">
-                    <div className="relative w-16 h-16 shrink-0 flex items-center justify-center">
-                      <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
-                        <path
-                          className="text-gray-800"
-                          strokeWidth="3.5"
-                          stroke="currentColor"
-                          fill="none"
-                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        />
-                        <path
-                          className="text-emerald-400 transition-all duration-500"
-                          strokeDasharray={`${atsScoreDisplay}, 100`}
-                          strokeWidth="3.5"
-                          strokeLinecap="round"
-                          stroke="currentColor"
-                          fill="none"
-                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        />
-                      </svg>
-                      <span className="absolute text-base font-black text-white">{atsScoreDisplay}%</span>
-                    </div>
-
+                  <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-bold text-emerald-400 flex items-center gap-1">
-                        <ShieldCheck className="w-4 h-4" /> ATS Tier: Exceptional
-                      </div>
-                      <p className="text-[11px] text-gray-400 mt-0.5">Passed Greenhouse & Workday keyword filters</p>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 block mb-0.5">Target Title</span>
+                      <h3 className="text-base font-bold text-gray-900">{current.role}</h3>
+                      <p className="text-xs text-gray-400">Targeting {current.company}</p>
+                    </div>
+                    
+                    {/* Live ATS Pill */}
+                    <div className="px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-xl text-center">
+                      <div className="text-xs font-black text-emerald-700">{atsScoreDisplay}%</div>
+                      <div className="text-[9px] font-bold text-emerald-600 uppercase">ATS Score</div>
                     </div>
                   </div>
 
-                  {/* Extracted Key Skills */}
+                  <hr className="border-gray-100" />
+
+                  {/* Matched Keywords Grid */}
                   <div>
-                    <div className="text-[11px] text-gray-400 uppercase font-bold tracking-wider mb-2">
-                      Matched Critical Keywords:
+                    <div className="text-[11px] font-bold text-gray-500 mb-2 flex items-center justify-between">
+                      <span>Matched ATS Keywords:</span>
+                      <span className="text-emerald-600 text-[10px] font-bold">4/4 Matched</span>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {current.keywords.map((kw) => (
-                        <span key={kw} className="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 flex items-center gap-1">
-                          <Check className="w-3 h-3 text-emerald-400 stroke-[3]" /> {kw}
+                        <span key={kw} className="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> {kw}
                         </span>
                       ))}
                     </div>
                   </div>
 
+                  {/* Candidate Status Indicator */}
+                  <div className="p-3 bg-gray-50 rounded-lg border border-gray-100 text-xs flex items-center gap-2.5 text-gray-600">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                    </span>
+                    <span className="font-medium">ATS Formatting: 100% Clean Vector PDF</span>
+                  </div>
+
                 </div>
 
-                {/* Right Col: Live AI Transformation Preview */}
+                {/* Right Col: AI Rewriting Panel */}
                 <div className="md:col-span-7 space-y-4">
                   
                   {/* Title Bar */}
-                  <div className="flex items-center justify-between text-xs text-gray-400 pb-2 border-b border-gray-800">
-                    <span className="font-bold text-gray-300">Live AI Bullet Point Transformation</span>
-                    <span className="text-blue-400 flex items-center gap-1 text-[11px]">
-                      <Sparkles className="w-3.5 h-3.5" /> Auto-Rewritten in 0.4s
+                  <div className="flex items-center justify-between text-xs text-gray-500 pb-1">
+                    <span className="font-bold text-gray-800">AI Metric-First Bullet Rewriter</span>
+                    <span className="text-blue-600 font-semibold flex items-center gap-1 text-[11px]">
+                      <Sparkles className="w-3.5 h-3.5" /> Instant Optimization
                     </span>
                   </div>
 
-                  {/* Before Box */}
-                  <div className="p-3.5 rounded-xl bg-red-950/20 border border-red-900/40 text-xs">
-                    <div className="text-[10px] font-bold text-red-400 uppercase tracking-wider mb-1 flex items-center gap-1">
-                      <span>✕ Weak Original Bullet (Low Impact)</span>
+                  {/* Original Bullet */}
+                  <div className="p-4 rounded-xl bg-white border border-red-200/80 shadow-2xs">
+                    <div className="text-[10px] font-bold text-red-600 uppercase tracking-wider mb-1">
+                      Original Draft (Unquantified)
                     </div>
-                    <p className="text-red-200/70 font-mono text-[11px]">"{current.original}"</p>
+                    <p className="text-gray-500 text-xs leading-relaxed font-normal">
+                      "{current.original}"
+                    </p>
                   </div>
 
-                  {/* After Box */}
-                  <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-800/60 text-xs relative overflow-hidden shadow-inner">
-                    <div className="absolute top-0 right-0 px-3 py-1 bg-emerald-500 text-gray-950 text-[10px] font-black uppercase rounded-bl-lg">
-                      +44% Impact Boost
+                  {/* Optimized Bullet */}
+                  <div className="p-4 rounded-xl bg-white border-2 border-emerald-500/80 shadow-sm relative">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <div className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1">
+                        <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                        AI Executive Bullet
+                      </div>
+                      <span className="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
+                        +44% ATS Boost
+                      </span>
                     </div>
-                    <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1">
-                      <Sparkles className="w-3 h-3 text-emerald-400" />
-                      <span>✓ Optimized Executive Result</span>
-                    </div>
-                    <p className="text-emerald-100 font-medium leading-relaxed text-[13px]">
+                    <p className="text-gray-900 text-xs font-semibold leading-relaxed">
                       "{current.optimized}"
                     </p>
                   </div>
 
-                  {/* Live Activity Ticker */}
-                  <div className="pt-2 flex items-center justify-between text-[11px] text-gray-400">
-                    <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                      <span>Live Recruiter View: <strong>Stripe Recruiter</strong> opened profile 2m ago</span>
+                  {/* Bottom Footer Ticker */}
+                  <div className="pt-2 flex items-center justify-between text-xs text-gray-500">
+                    <span className="flex items-center gap-1.5">
+                      <ShieldCheck className="w-4 h-4 text-blue-600" /> Tested on Greenhouse, Workday & Lever
                     </span>
-                    <Link href="/auth?mode=register" className="text-blue-400 font-bold hover:underline">
-                      Try on your resume →
+                    <Link href="/auth?mode=register" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">
+                      Start building for free →
                     </Link>
                   </div>
 
@@ -292,4 +281,5 @@ export default function Hero() {
     </section>
   );
 }
+
 
