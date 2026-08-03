@@ -1,182 +1,145 @@
 "use client";
-
 import React from "react";
-import {
-  FileText,
-  SearchCode,
-  Trello,
-  Mic,
-  Globe,
-  Compass,
-  ArrowRight,
-} from "lucide-react";
+import { FileText, SearchCode, Trello, Mic, Globe, Compass, ArrowRight, Check } from "lucide-react";
 import { ScrollReveal } from "./Animations";
-
-const featuresList = [
-  {
-    icon: FileText,
-    label: "01",
-    color: "blue",
-    title: "AI Resume Builder",
-    description: "Draft high-impact resumes with designer layouts. Move or reorder sections dynamically with full drag-and-drop support.",
-    tags: ["Notion-style", "Instant PDF"],
-    link: "#resume-builder-demo",
-    iconBg: "from-blue-500/20 to-blue-600/5",
-    iconColor: "text-blue-400",
-    glowColor: "rgba(79,110,247,0.12)",
-    borderHover: "hover:border-blue-500/25",
-    tagColor: "text-blue-400 bg-blue-500/[0.08] border-blue-500/15",
-    linkColor: "text-blue-400",
-  },
-  {
-    icon: SearchCode,
-    label: "02",
-    color: "emerald",
-    title: "ATS Score Analyzer",
-    description: "Scan your resume against job postings. Audit key coverage densities, syntax structures, and readability meters.",
-    tags: ["Keyword Audit", "Parser Scanner"],
-    link: "#ats-resume-checker",
-    iconBg: "from-emerald-500/20 to-emerald-600/5",
-    iconColor: "text-emerald-400",
-    glowColor: "rgba(16,185,129,0.1)",
-    borderHover: "hover:border-emerald-500/25",
-    tagColor: "text-emerald-400 bg-emerald-500/[0.08] border-emerald-500/15",
-    linkColor: "text-emerald-400",
-  },
-  {
-    icon: Trello,
-    label: "03",
-    color: "amber",
-    title: "Kanban Job Tracker",
-    description: "Manage applications in a centralized workspace. Move columns, log task deadlines, and document network notes.",
-    tags: ["Pipeline Tracking", "Due Reminders"],
-    link: "#job-tracker-kanban",
-    iconBg: "from-amber-500/20 to-amber-600/5",
-    iconColor: "text-amber-400",
-    glowColor: "rgba(245,158,11,0.1)",
-    borderHover: "hover:border-amber-500/25",
-    tagColor: "text-amber-400 bg-amber-500/[0.08] border-amber-500/15",
-    linkColor: "text-amber-400",
-  },
-  {
-    icon: Mic,
-    label: "04",
-    color: "violet",
-    title: "Voice Mock Interview",
-    description: "Practice answering tech questions aloud. Track speech pace, acoustic tones, and filler word alerts in real time.",
-    tags: ["Speech Acoustics", "Score Metrics"],
-    link: "#ai-interview-coach",
-    iconBg: "from-violet-500/20 to-violet-600/5",
-    iconColor: "text-violet-400",
-    glowColor: "rgba(139,92,246,0.12)",
-    borderHover: "hover:border-violet-500/25",
-    tagColor: "text-violet-400 bg-violet-500/[0.08] border-violet-500/15",
-    linkColor: "text-violet-400",
-  },
-  {
-    icon: Globe,
-    label: "05",
-    color: "rose",
-    title: "Portfolio Builder",
-    description: "Deploy an elegant portfolio website synced to your resume data. Attach custom domains with simple DNS configs.",
-    tags: ["Web Hosting", "Custom Domains"],
-    link: "#portfolio-builder",
-    iconBg: "from-rose-500/20 to-rose-600/5",
-    iconColor: "text-rose-400",
-    glowColor: "rgba(244,63,94,0.1)",
-    borderHover: "hover:border-rose-500/25",
-    tagColor: "text-rose-400 bg-rose-500/[0.08] border-rose-500/15",
-    linkColor: "text-rose-400",
-  },
-  {
-    icon: Compass,
-    label: "06",
-    color: "cyan",
-    title: "AI Career Advisor",
-    description: "Receive optimized career paths based on overlap matrices. Learn missing tools and view salary index metrics.",
-    tags: ["Skills Gap Analysis", "Roadmaps"],
-    link: "#features",
-    iconBg: "from-cyan-500/20 to-cyan-600/5",
-    iconColor: "text-cyan-400",
-    glowColor: "rgba(34,211,238,0.1)",
-    borderHover: "hover:border-cyan-500/25",
-    tagColor: "text-cyan-400 bg-cyan-500/[0.08] border-cyan-500/15",
-    linkColor: "text-cyan-400",
-  },
-];
 
 export default function Features() {
   return (
-    <section id="features" className="py-28 px-6 bg-[#060A14] relative z-10 overflow-hidden">
-      {/* Ambient background glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] orb orb-blue opacity-20 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[400px] orb orb-violet opacity-15 pointer-events-none" />
+    <section id="features" className="py-28 bg-gray-50 relative z-10">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <ScrollReveal variant="fade-up" delay={100}>
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/[0.07] bg-white/[0.04] text-[11px] font-bold text-[#7A8BA8] uppercase tracking-wider mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-              Core Feature Suite
-            </div>
-            <h2 className="text-3xl font-black tracking-tight text-white sm:text-5xl mb-5">
-              Everything for your{" "}
-              <span className="text-gradient">career transition</span>
+        {/* Section header */}
+        <ScrollReveal variant="fade-up" delay={0}>
+          <div className="max-w-2xl mb-16">
+            <span className="eyebrow text-blue-600 mb-3 block">Feature Suite</span>
+            <h2 className="display-lg text-gray-900 mb-5">
+              One platform.<br />
+              <span className="text-gradient-primary">Every career tool.</span>
             </h2>
-            <p className="text-sm sm:text-base text-[#7A8BA8] max-w-2xl mx-auto font-normal leading-relaxed">
-              Forget messy spreadsheets and disjointed documents. ResumeFlow AI is a unified system engineered to manage your entire job search pipeline.
+            <p className="text-lg text-gray-500 leading-relaxed font-normal">
+              Forget juggling ten different apps. ResumeFlow AI gives you everything from resume building to interview practice in a single workspace.
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuresList.map((feature, idx) => {
-            const Icon = feature.icon;
-            return (
-              <ScrollReveal
-                key={feature.title}
-                variant="fade-up"
-                delay={idx * 60}
-                className={`luxury-card p-8 flex flex-col justify-between items-start group cursor-default border border-white/[0.06] ${feature.borderHover}`}
-                style={{ "--hover-glow": feature.glowColor } as React.CSSProperties}
-              >
-                <div className="w-full">
-                  {/* Header row */}
-                  <div className="flex items-start justify-between mb-6">
-                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${feature.iconBg} border border-white/[0.07] flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className={`w-5 h-5 ${feature.iconColor} stroke-[1.8]`} />
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+          {/* Large feature card — Resume Builder */}
+          <ScrollReveal variant="fade-up" delay={0} className="lg:col-span-2">
+            <div className="bento-card p-8 h-full min-h-[280px] flex flex-col justify-between bg-white group">
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="icon-wrap-blue w-11 h-11 flex items-center justify-center">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">AI Resume Builder</h3>
+                    <p className="text-xs text-gray-400 font-medium">Notion-style editor • PDF export</p>
+                  </div>
+                </div>
+                <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-lg">
+                  Drag-and-drop sections, pick from 40+ designer templates, and let AI rewrite your bullet points to be impact-first and ATS-compliant.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["Smart bullet rewriting", "40+ templates", "Instant PDF", "Real-time preview"].map(t => (
+                    <span key={t} className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-full">
+                      <Check className="w-3 h-3 stroke-[3]" />{t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <a href="#resume-builder-demo" className="flex items-center gap-1.5 text-sm font-bold text-blue-600 mt-6 group-hover:gap-2.5 transition-all">
+                Explore builder <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </ScrollReveal>
+
+          {/* ATS Checker */}
+          <ScrollReveal variant="fade-up" delay={80}>
+            <div className="bento-card p-8 h-full min-h-[280px] flex flex-col justify-between bg-gradient-to-br from-white to-emerald-50/40 group">
+              <div>
+                <div className="icon-wrap-green w-11 h-11 flex items-center justify-center mb-5">
+                  <SearchCode className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">ATS Score Analyzer</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">Scan against real job postings. See exactly which keywords are missing and fix them in one click.</p>
+              </div>
+              {/* Mini visual */}
+              <div className="mt-5 space-y-2">
+                {[["React / Next.js", 100, "text-emerald-600"], ["TypeScript", 92, "text-emerald-600"], ["GraphQL", 54, "text-amber-600"]].map(([label, pct, cls]) => (
+                  <div key={label as string} className="flex items-center gap-2 text-[11px] font-semibold">
+                    <span className="text-gray-500 w-24 truncate">{label as string}</span>
+                    <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full rounded-full bg-current transition-all" style={{ width: `${pct}%` }} />
                     </div>
-                    <span className="text-[10px] font-black text-[#2A3A54] tracking-wider">{feature.label}</span>
+                    <span className={cls as string}>{pct}%</span>
                   </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
 
-                  <h3 className="text-lg font-bold text-white mb-3">{feature.title}</h3>
-                  <p className="text-sm text-[#7A8BA8] leading-relaxed mb-6">{feature.description}</p>
-                </div>
-
-                <div className="w-full">
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {feature.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className={`text-[10px] font-bold px-2.5 py-1 rounded-lg border ${feature.tagColor}`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
+          {/* Kanban Tracker */}
+          <ScrollReveal variant="fade-up" delay={120}>
+            <div className="bento-card p-8 flex flex-col justify-between bg-gradient-to-br from-white to-amber-50/30 group">
+              <div className="icon-wrap-amber w-11 h-11 flex items-center justify-center mb-5">
+                <Trello className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Kanban Job Tracker</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">Drag cards across stages — Applied, Screening, Interview, Offer. Never lose track of a pipeline again.</p>
+              </div>
+              <div className="flex gap-2 mt-5">
+                {["Applied", "Interview", "Offer"].map((col, ci) => (
+                  <div key={col} className={`flex-1 rounded-xl p-2 text-center text-[10px] font-bold ${ci === 0 ? "bg-blue-50 text-blue-600" : ci === 1 ? "bg-violet-50 text-violet-600" : "bg-emerald-50 text-emerald-700"}`}>
+                    {col}
                   </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
 
-                  <a
-                    href={feature.link}
-                    className={`text-xs font-bold ${feature.linkColor} flex items-center gap-1.5 hover:gap-2.5 transition-all duration-200 group/link`}
-                  >
-                    Explore Tool
-                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
-                  </a>
-                </div>
-              </ScrollReveal>
-            );
-          })}
+          {/* Voice Coach */}
+          <ScrollReveal variant="fade-up" delay={160}>
+            <div className="bento-card p-8 flex flex-col justify-between bg-gradient-to-br from-white to-violet-50/30 group">
+              <div className="icon-wrap-purple w-11 h-11 flex items-center justify-center mb-5">
+                <Mic className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">AI Voice Interview Coach</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">Practice real interview questions aloud. Get scored on pacing, clarity, and filler words.</p>
+              </div>
+              <div className="flex gap-1.5 mt-5">
+                {[60, 80, 45, 90, 70, 85, 55, 95, 65].map((h, i) => (
+                  <div key={i} className="flex-1 bg-violet-200 rounded-full" style={{ height: `${h * 0.3}px` }} />
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Portfolio + Career — two small cards side by side inside one cell */}
+          <ScrollReveal variant="fade-up" delay={200} className="flex flex-col gap-5">
+            <div className="bento-card p-6 flex gap-4 items-start bg-gradient-to-br from-white to-rose-50/30 group flex-1">
+              <div className="icon-wrap-rose w-10 h-10 flex items-center justify-center shrink-0">
+                <Globe className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-gray-900 mb-1">Portfolio Builder</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">Deploy a portfolio site with a custom domain in minutes.</p>
+              </div>
+            </div>
+            <div className="bento-card p-6 flex gap-4 items-start bg-gradient-to-br from-white to-cyan-50/20 group flex-1">
+              <div className="icon-wrap-cyan w-10 h-10 flex items-center justify-center shrink-0">
+                <Compass className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-gray-900 mb-1">AI Career Advisor</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">Skills gap analysis and salary benchmarks personalized to your goals.</p>
+              </div>
+            </div>
+          </ScrollReveal>
+
         </div>
       </div>
     </section>

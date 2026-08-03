@@ -2,119 +2,87 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Menu, X, Zap } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
+
+const navLinks = [
+  { label: "Features", href: "#features" },
+  { label: "Templates", href: "#templates" },
+  { label: "Tools", href: "#interactive-tools" },
+  { label: "Pricing", href: "#pricing" },
+];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const fn = () => setScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", fn);
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const navLinks = [
-    { label: "Features", href: "#features" },
-    { label: "Templates", href: "#templates" },
-    { label: "Tools", href: "#interactive-tools" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "FAQ", href: "#faq" },
-  ];
-
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-500 w-full ${
-        isScrolled
-          ? "bg-[#060A14]/85 backdrop-blur-xl border-b border-white/[0.06] py-3 shadow-[0_1px_0_rgba(255,255,255,0.04),0_4px_30px_rgba(0,0,0,0.4)]"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled ? "bg-white/95 backdrop-blur-md shadow-[0_1px_0_#E5E7EB]" : "bg-transparent"}`}>
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="relative w-9 h-9">
-            {/* Glow ring */}
-            <div className="absolute inset-0 rounded-xl bg-blue-500/30 blur-md group-hover:bg-blue-400/50 transition-all duration-500 animate-glow-pulse" />
-            <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-[#4F6EF7] to-[#6B4FD9] flex items-center justify-center text-white font-black text-lg shadow-[0_4px_15px_rgba(79,110,247,0.35)] group-hover:shadow-[0_6px_25px_rgba(79,110,247,0.55)] transition-all duration-300 group-hover:scale-105">
-              R
-            </div>
+        <Link href="/" className="flex items-center gap-2.5 shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-[#1A1A2E] flex items-center justify-center text-white font-black text-sm tracking-tight">
+            R
           </div>
-          <span className="font-bold text-lg tracking-tight text-white">
-            ResumeFlow <span className="text-gradient-blue">AI</span>
+          <span className="font-bold text-[15px] tracking-tight text-gray-900">
+            Resume<span className="text-blue-600">Flow</span>
           </span>
         </Link>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+        {/* Center nav */}
+        <nav className="hidden md:flex items-center gap-1">
+          {navLinks.map((l) => (
             <a
-              key={link.label}
-              href={link.href}
-              className="relative text-sm font-medium text-[#7A8BA8] hover:text-white transition-colors duration-200 group"
+              key={l.label}
+              href={l.href}
+              className="px-3.5 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all"
             >
-              {link.label}
-              <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-gradient-to-r from-blue-400 to-violet-400 group-hover:w-full transition-all duration-300 ease-out" />
+              {l.label}
             </a>
           ))}
         </nav>
 
-        {/* Buttons */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="/auth"
-            className="px-4 py-2 text-sm font-medium text-[#7A8BA8] hover:text-white transition-colors duration-200"
-          >
-            Sign In
+        {/* Right CTA */}
+        <div className="hidden md:flex items-center gap-2">
+          <Link href="/auth" className="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors">
+            Sign in
           </Link>
-          <Link
-            href="/auth?mode=register"
-            className="btn-glow px-5 py-2.5 text-sm flex items-center gap-1.5"
-          >
-            <Zap className="w-3.5 h-3.5" />
-            Get Started <ArrowRight className="w-3.5 h-3.5" />
+          <Link href="/auth?mode=register" className="btn-primary text-sm px-5 py-2.5">
+            Get started free <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile hamburger */}
         <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm text-[#7A8BA8] hover:text-white hover:bg-white/10 transition-all"
+          onClick={() => setOpen(!open)}
+          className="md:hidden p-2 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50"
         >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
-      {/* Mobile Menu Panel */}
-      {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-[#060A14]/95 backdrop-blur-xl border-b border-white/[0.07] p-6 flex flex-col gap-4 shadow-2xl">
-          {navLinks.map((link) => (
+      {/* Mobile drawer */}
+      {open && (
+        <div className="md:hidden border-t border-gray-100 bg-white px-5 py-4 space-y-1">
+          {navLinks.map((l) => (
             <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-base font-semibold text-[#7A8BA8] hover:text-white transition-colors py-1.5 border-b border-white/[0.04] last:border-0"
+              key={l.label}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="block px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-blue-600 rounded-xl hover:bg-blue-50 transition-all"
             >
-              {link.label}
+              {l.label}
             </a>
           ))}
-          <div className="flex flex-col gap-2.5 pt-2">
-            <Link
-              href="/auth"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 text-sm font-semibold text-[#7A8BA8] rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.07] transition-all"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/auth?mode=register"
-              onClick={() => setMobileMenuOpen(false)}
-              className="btn-glow w-full py-2.5 text-sm flex items-center justify-center gap-1.5"
-            >
-              Get Started <ArrowRight className="w-4 h-4" />
-            </Link>
+          <div className="pt-3 space-y-2 border-t border-gray-100 mt-2">
+            <Link href="/auth" onClick={() => setOpen(false)} className="block text-center py-2.5 text-sm font-semibold text-gray-700 bg-gray-50 rounded-xl">Sign in</Link>
+            <Link href="/auth?mode=register" onClick={() => setOpen(false)} className="btn-primary w-full justify-center">Get started free</Link>
           </div>
         </div>
       )}

@@ -1,115 +1,74 @@
 "use client";
-
 import React, { useState } from "react";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { ScrollReveal } from "./Animations";
 
 const faqs = [
-  {
-    q: "How does the AI Resume Analyzer score my resume?",
-    a: "Our parser runs keyword coverage overlays, reads structural density, evaluates section tags, and tests readability ratings exactly like corporate applicant tracking systems (Greenhouse, Workday, etc.), showing precise bullet improvements.",
-  },
-  {
-    q: "Can I export my resume back to PDF and DOCX format?",
-    a: "Yes. All resumes compile to printer-ready, margins-tested PDF documents that preserve styling boundaries and compile clean raw text data for tracking parser bots.",
-  },
-  {
-    q: "What is the AI Voice Mock Interview tool?",
-    a: "It is an interactive audio practice sandbox. The browser reads situational mock queries, activates your microphone to record response files, and grades verbal speech pace, pronunciation acoustics, and filler word flags.",
-  },
-  {
-    q: "Does it support custom domains for the portfolio website?",
-    a: "Yes. Pro and Enterprise members can host personal portfolio portals synced directly to their resume data, using custom domains with simple DNS configs.",
-  },
-  {
-    q: "Is my data secure and private?",
-    a: "Absolutely. All data is encrypted at rest and in transit using AES-256 encryption. We never sell or share your data with third parties. You can delete your account and all associated data at any time.",
-  },
+  { q: "How does the AI Resume Analyzer score my resume?", a: "Our parser runs keyword coverage overlays, reads structural density, evaluates section tags, and tests readability ratings exactly like corporate ATS systems (Greenhouse, Workday), showing precise bullet-by-bullet improvements." },
+  { q: "Can I export my resume to PDF and DOCX?", a: "Yes. All resumes compile to printer-ready, margins-tested PDF documents that preserve your styling, and clean raw text DOCX files optimized for parsing bots." },
+  { q: "What is the AI Voice Mock Interview tool?", a: "An interactive audio practice sandbox. It reads situational mock queries, activates your microphone, records responses, and grades verbal speech pace, pronunciation acoustics, and filler word flags in real time." },
+  { q: "Does it support custom domains for the portfolio?", a: "Yes. Pro and Enterprise members can deploy personal portfolio websites synced to their resume data, using custom domains with a simple DNS CNAME record setup." },
+  { q: "Is my data secure?", a: "All data is encrypted at rest (AES-256) and in transit (TLS 1.3). We never sell or share your data with third parties, and you can permanently delete your account and all data at any time." },
 ];
 
 export default function FAQ() {
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [active, setActive] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-28 bg-[#060A14] relative z-10 border-t border-white/[0.05] overflow-hidden">
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] orb orb-violet opacity-10 pointer-events-none" />
+    <section id="faq" className="py-28 bg-white relative z-10">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
 
-      <div className="max-w-3xl mx-auto px-6 relative z-10">
-        <ScrollReveal variant="fade-up" delay={100}>
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/[0.07] bg-white/[0.04] text-[11px] font-bold text-[#7A8BA8] uppercase tracking-wider mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              Frequently Asked Questions
+        {/* Two-column layout */}
+        <div className="grid lg:grid-cols-[320px_1fr] gap-16 items-start">
+
+          {/* Left sticky heading */}
+          <ScrollReveal variant="fade-right" delay={0}>
+            <div className="lg:sticky lg:top-24">
+              <span className="eyebrow text-blue-600 block mb-3">FAQ</span>
+              <h2 className="display-md text-gray-900 mb-5">
+                Common<br />questions,<br />
+                <span className="text-gradient-primary">answered.</span>
+              </h2>
+              <p className="text-gray-500 text-sm leading-relaxed font-normal mb-6">
+                Can&apos;t find what you need? Reach us at{" "}
+                <a href="mailto:hello@resumeflow.ai" className="text-blue-600 font-semibold hover:underline">
+                  hello@resumeflow.ai
+                </a>
+              </p>
+              <div className="w-12 h-1 rounded-full bg-gradient-to-r from-blue-500 to-violet-500" />
             </div>
-            <h2 className="text-3xl font-black tracking-tight text-white sm:text-5xl mb-4">
-              Everything you need{" "}
-              <span className="text-gradient">to know</span>
-            </h2>
-            <p className="text-sm text-[#7A8BA8] font-normal">
-              Fast answers regarding optimization, voice graders, and hosting capabilities.
-            </p>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
 
-        <div className="space-y-3">
-          {faqs.map((faq, idx) => {
-            const isOpen = activeFaq === idx;
-            return (
-              <ScrollReveal
-                key={idx}
-                variant="fade-up"
-                delay={idx * 60}
-              >
-                <div
-                  className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-                    isOpen
-                      ? "border-blue-500/25 bg-[#0B1328] shadow-[0_0_25px_rgba(79,110,247,0.08)]"
-                      : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.1] hover:bg-white/[0.04]"
-                  }`}
-                >
-                  <button
-                    onClick={() => setActiveFaq(isOpen ? null : idx)}
-                    className="w-full flex items-center justify-between p-5 text-left focus:outline-none cursor-pointer group"
-                  >
-                    <span className="flex items-center gap-3">
-                      <span className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 ${
-                        isOpen
-                          ? "bg-blue-500/15 border border-blue-500/25"
-                          : "bg-white/[0.04] border border-white/[0.07]"
-                      }`}>
-                        <HelpCircle className={`w-3.5 h-3.5 transition-colors duration-300 ${isOpen ? "text-blue-400" : "text-[#7A8BA8]"}`} />
-                      </span>
-                      <span className={`text-sm font-semibold transition-colors duration-200 ${isOpen ? "text-white" : "text-[#C4D4F0] group-hover:text-white"}`}>
+          {/* Right FAQ list */}
+          <div className="space-y-3">
+            {faqs.map((faq, i) => {
+              const isOpen = active === i;
+              return (
+                <ScrollReveal key={i} variant="fade-up" delay={i * 50}>
+                  <div className={`card-flat overflow-hidden transition-all duration-300 ${isOpen ? "border-blue-200 bg-blue-50/30 shadow-sm" : ""}`}>
+                    <button
+                      onClick={() => setActive(isOpen ? null : i)}
+                      className="w-full flex items-center justify-between p-5 text-left cursor-pointer"
+                    >
+                      <span className={`text-sm font-semibold transition-colors duration-200 pr-4 ${isOpen ? "text-blue-700" : "text-gray-800"}`}>
                         {faq.q}
                       </span>
-                    </span>
-                    <ChevronDown
-                      className={`w-4 h-4 shrink-0 ml-4 transition-all duration-300 ${
-                        isOpen ? "rotate-180 text-blue-400" : "text-[#7A8BA8]"
-                      }`}
-                    />
-                  </button>
-
-                  {/* Smooth expand */}
-                  <div
-                    className={`overflow-hidden transition-all duration-400 ease-in-out ${
-                      isOpen ? "max-h-60" : "max-h-0"
-                    }`}
-                  >
-                    {/* Left accent bar */}
-                    <div className="px-5 pb-5 flex gap-4">
-                      <div className="w-px bg-gradient-to-b from-blue-500/50 to-transparent ml-3 shrink-0" />
-                      <p className="text-sm text-[#7A8BA8] font-normal leading-relaxed pl-2">
+                      <span className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-500"}`}>
+                        {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+                      </span>
+                    </button>
+                    <div className={`overflow-hidden transition-all duration-350 ease-in-out ${isOpen ? "max-h-52" : "max-h-0"}`}>
+                      <p className="px-5 pb-5 text-sm text-gray-500 leading-relaxed font-normal">
                         {faq.a}
                       </p>
                     </div>
                   </div>
-                </div>
-              </ScrollReveal>
-            );
-          })}
+                </ScrollReveal>
+              );
+            })}
+          </div>
         </div>
+
       </div>
     </section>
   );

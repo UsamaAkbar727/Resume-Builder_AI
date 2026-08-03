@@ -2,235 +2,197 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles, Check, Star, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, Check, Star, Sparkles, TrendingUp } from "lucide-react";
 import { ScrollReveal } from "./Animations";
 
 export default function Hero() {
   const [atsScore, setAtsScore] = useState(0);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      let current = 0;
-      const interval = setInterval(() => {
-        current += 2;
-        if (current >= 98) {
-          setAtsScore(98);
-          clearInterval(interval);
-        } else {
-          setAtsScore(current);
-        }
-      }, 25);
-      return () => clearInterval(interval);
-    }, 800);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 10,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    const t = setTimeout(() => {
+      let c = 0;
+      const i = setInterval(() => {
+        c += 2;
+        if (c >= 94) { setAtsScore(94); clearInterval(i); }
+        else setAtsScore(c);
+      }, 20);
+      return () => clearInterval(i);
+    }, 600);
+    return () => clearTimeout(t);
   }, []);
 
   return (
-    <section className="relative pt-16 pb-28 md:pb-36 px-6 overflow-hidden bg-[#060A14]">
-      {/* Animated Mesh Grid */}
-      <div className="absolute inset-0 bg-mesh-grid opacity-100 pointer-events-none" />
+    <section className="relative overflow-hidden bg-white">
+      {/* Dot grid background */}
+      <div className="absolute inset-0 bg-dot-grid opacity-60 pointer-events-none" />
 
-      {/* Ambient Orb Blobs — parallax on mouse */}
-      <div
-        className="absolute top-[-15%] left-[-5%] w-[55vw] h-[55vw] orb orb-blue animate-pulse-slow pointer-events-none z-0"
-        style={{ transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)` }}
-      />
-      <div
-        className="absolute top-[5%] right-[-10%] w-[45vw] h-[45vw] orb orb-violet pointer-events-none z-0"
-        style={{ transform: `translate(${-mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)`, animationDelay: "3s", filter: "blur(90px)" }}
-      />
-      <div className="absolute bottom-[0%] left-[30%] w-[30vw] h-[30vw] orb orb-cyan pointer-events-none z-0" />
+      {/* Large decorative blobs */}
+      <div className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-full blur-3xl opacity-70 pointer-events-none" />
+      <div className="absolute top-1/2 -left-48 w-[400px] h-[400px] bg-gradient-to-br from-blue-50 to-cyan-50 rounded-full blur-3xl opacity-50 pointer-events-none" />
 
-      {/* Horizontal shimmer line */}
-      <div className="absolute top-[38%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/15 to-transparent pointer-events-none" />
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-8 pt-20 pb-0">
 
-      <div className="max-w-7xl mx-auto text-center relative z-10">
+        {/* Two-column split layout */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-        {/* Animated Badge */}
-        <ScrollReveal variant="fade-up" delay={100}>
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/[0.08] text-xs font-bold text-blue-300 mb-10 shimmer-badge relative overflow-hidden">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-400" />
-            </span>
-            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-            <span>AI-Powered Career Engine • ATS Optimization Included</span>
+          {/* ── Left Column — Copy ── */}
+          <div className="relative z-10">
+            {/* Eyebrow badge */}
+            <ScrollReveal variant="fade-up" delay={0}>
+              <div className="flex items-center gap-2 mb-8">
+                <span className="badge badge-blue">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-500" />
+                  </span>
+                  AI-Powered Career Platform
+                </span>
+                <span className="badge badge-green">
+                  <TrendingUp className="w-3 h-3" /> 95% ATS Pass Rate
+                </span>
+              </div>
+            </ScrollReveal>
+
+            {/* Main headline — big, bold, specific */}
+            <ScrollReveal variant="fade-up" delay={80}>
+              <h1 className="display-xl text-gray-900 mb-6">
+                Your resume,<br />
+                <span className="text-gradient-primary">engineered</span><br />
+                to get hired.
+              </h1>
+            </ScrollReveal>
+
+            <ScrollReveal variant="fade-up" delay={160}>
+              <p className="text-lg text-gray-500 mb-10 leading-relaxed max-w-md font-normal">
+                Build ATS-beating resumes, track every application in a Kanban board, practice interviews with our AI Voice Coach — all in one place.
+              </p>
+            </ScrollReveal>
+
+            {/* CTAs */}
+            <ScrollReveal variant="fade-up" delay={220}>
+              <div className="flex flex-wrap gap-3 mb-12">
+                <Link href="/auth?mode=register" className="btn-primary">
+                  Build my resume — free <ArrowRight className="w-4 h-4" />
+                </Link>
+                <a href="#interactive-tools" className="btn-outline">
+                  See it in action
+                </a>
+              </div>
+            </ScrollReveal>
+
+            {/* Social proof row */}
+            <ScrollReveal variant="fade-up" delay={280}>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                <div className="flex -space-x-2.5">
+                  {["MA", "SJ", "DC", "RP", "KL"].map((initials, i) => (
+                    <div
+                      key={initials}
+                      className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-black text-white shadow-sm"
+                      style={{ background: ["#6366F1","#EC4899","#14B8A6","#F59E0B","#3B82F6"][i] }}
+                    >
+                      {initials}
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <div className="flex items-center gap-1 mb-0.5">
+                    {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />)}
+                    <span className="text-sm font-bold text-gray-900 ml-1">4.9</span>
+                  </div>
+                  <p className="text-xs text-gray-500 font-medium">Loved by 5,000+ engineers & designers</p>
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
-        </ScrollReveal>
 
-        {/* Main Headline */}
-        <ScrollReveal variant="fade-up" delay={200}>
-          <h1 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tight leading-[1.04] mb-7 max-w-5xl mx-auto">
-            <span className="text-white">Land your dream</span>
-            <br />
-            <span className="text-gradient">offer with AI</span>
-          </h1>
-        </ScrollReveal>
+          {/* ── Right Column — Visual Product Card ── */}
+          <ScrollReveal variant="fade-left" delay={200} duration={800}>
+            <div className="relative lg:mt-0 mt-10 pb-16">
 
-        {/* Subheadline */}
-        <ScrollReveal variant="fade-up" delay={300}>
-          <p className="text-base sm:text-lg md:text-xl text-[#7A8BA8] max-w-2xl mx-auto mb-12 leading-relaxed font-normal">
-            Build high-ATS resumes, analyze keyword density against job descriptions, track your pipeline, and ace interviews with our AI Voice Coach — all in one workspace.
-          </p>
-        </ScrollReveal>
+              {/* Main dashboard card */}
+              <div className="relative card p-5 shadow-[0_24px_80px_-12px_rgba(0,0,0,0.12)] border-gray-100">
 
-        {/* CTA Buttons */}
-        <ScrollReveal variant="fade-up" delay={400}>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-14">
-            <Link
-              href="/auth?mode=register"
-              className="btn-glow px-9 py-4 text-sm font-semibold text-white w-full sm:w-auto flex items-center justify-center gap-2 group"
-            >
-              <Zap className="w-4 h-4" />
-              Build My Resume — Free
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <a
-              href="#interactive-tools"
-              className="btn-ghost px-8 py-4 text-sm font-semibold w-full sm:w-auto flex items-center justify-center gap-2"
-            >
-              Explore Tools
-              <ArrowRight className="w-4 h-4 opacity-60" />
-            </a>
-          </div>
-        </ScrollReveal>
-
-        {/* Trust Badges */}
-        <ScrollReveal variant="fade-up" delay={450}>
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-20 text-xs text-[#7A8BA8] font-medium">
-            <div className="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.07] px-4 py-2 rounded-full backdrop-blur-sm">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-              ))}
-              <span className="font-bold text-white ml-1">4.9/5</span>
-              <span className="text-[#7A8BA8]">by 5,000+ users</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.07] px-4 py-2 rounded-full backdrop-blur-sm">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>100% Secure & Private</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.07] px-4 py-2 rounded-full backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Trusted at Vercel, Stripe, Linear</span>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Mockup with Floating Widgets */}
-        <ScrollReveal variant="scale-in" delay={500} duration={900}>
-          <div className="relative mt-6 max-w-5xl mx-auto perspective-1000">
-            {/* Deep glow behind mockup */}
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-600/15 via-violet-600/8 to-transparent rounded-3xl filter blur-3xl pointer-events-none scale-90 z-0" />
-
-            {/* Dashboard Wrapper */}
-            <div className="relative rounded-2xl p-[1px] z-10 bg-gradient-to-br from-white/10 via-white/[0.03] to-blue-500/10">
-              <div className="rounded-2xl border border-white/[0.06] bg-[#0B1022]/90 backdrop-blur-sm p-2.5 shadow-[0_40px_100px_rgba(0,0,0,0.7)] transform rotate-x-6 rotate-y-neg-4 transition-transform duration-500 hover:rotate-x-3 hover:rotate-y-neg-2">
-                <div className="w-full h-8 flex items-center px-4 gap-2 border-b border-white/[0.05] mb-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/70" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
-                  <div className="w-3 h-3 rounded-full bg-green-500/70" />
-                  <div className="flex-1 mx-4 h-4 rounded-md bg-white/[0.04] border border-white/[0.05]" />
+                {/* Fake browser chrome */}
+                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                  </div>
+                  <div className="flex-1 h-5 rounded-lg bg-gray-100 mx-4 flex items-center px-2.5">
+                    <span className="text-[9px] text-gray-400 font-medium">app.resumeflow.ai/dashboard</span>
+                  </div>
+                  <div className="w-6 h-5 rounded-md bg-blue-100 flex items-center justify-center">
+                    <Sparkles className="w-3 h-3 text-blue-500" />
+                  </div>
                 </div>
 
-                <img
-                  src="/resumeflow_dashboard_mockup.png"
-                  alt="ResumeFlow AI Workspace Interface Preview"
-                  className="w-full h-auto rounded-xl border border-white/[0.06] opacity-90"
-                />
+                {/* Resume preview area */}
+                <div className="bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-2xl p-4 mb-4">
+                  <img
+                    src="/resumeflow_dashboard_mockup.png"
+                    alt="ResumeFlow AI Dashboard"
+                    className="w-full h-auto rounded-xl shadow-sm"
+                  />
+                </div>
 
-                {/* Floating Widget 1: ATS Score */}
-                <div className="absolute -top-7 -right-5 md:-right-12 bg-[#0D1628]/95 backdrop-blur-xl p-4 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.06)] flex items-center gap-3 animate-float max-w-[175px] text-left border border-white/[0.06]">
-                  <div className="relative w-12 h-12 flex items-center justify-center shrink-0">
-                    <svg className="w-full h-full transform -rotate-90">
-                      <circle cx="24" cy="24" r="20" className="text-white/[0.06]" strokeWidth="3" stroke="currentColor" fill="transparent" />
-                      <circle
-                        cx="24" cy="24" r="20"
-                        strokeWidth="3"
-                        strokeDasharray={125.6}
-                        strokeDashoffset={125.6 - (125.6 * atsScore) / 100}
-                        strokeLinecap="round"
-                        stroke="url(#atsGrad)"
-                        fill="transparent"
-                        className="transition-all duration-1000"
-                      />
-                      <defs>
-                        <linearGradient id="atsGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#4F6EF7" />
-                          <stop offset="100%" stopColor="#A78BFA" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <span className="absolute text-[11px] font-black text-white">{atsScore}%</span>
+                {/* Keyword bar at bottom */}
+                <div className="flex items-center gap-3 bg-gray-50 rounded-xl p-3">
+                  <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5 text-blue-600 stroke-[3]" />
                   </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[11px] font-bold text-gray-700 mb-1">Keyword Match — React, TypeScript, GraphQL</div>
+                    <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full" style={{ width: "87%" }} />
+                    </div>
+                  </div>
+                  <span className="text-[11px] font-black text-blue-600 shrink-0">87%</span>
+                </div>
+              </div>
+
+              {/* Floating widget 1 — ATS Score */}
+              <div
+                className="absolute -top-6 -left-8 w-[155px] card p-4 shadow-[0_12px_30px_rgba(0,0,0,0.1)] animate-float"
+              >
+                <p className="eyebrow text-gray-400 mb-2">ATS Score</p>
+                <div className="flex items-end gap-1">
+                  <span className="text-3xl font-black text-gray-900 leading-none">{atsScore}</span>
+                  <span className="text-sm font-bold text-gray-400 mb-0.5">%</span>
+                </div>
+                <div className="mt-2 w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-700"
+                    style={{ width: `${atsScore}%` }}
+                  />
+                </div>
+                <p className="text-[10px] font-semibold text-emerald-600 mt-1.5">✓ Highly Compatible</p>
+              </div>
+
+              {/* Floating widget 2 — Interview booked */}
+              <div
+                className="absolute -bottom-4 -right-6 w-[195px] card p-3.5 shadow-[0_12px_30px_rgba(0,0,0,0.1)] animate-float"
+                style={{ animationDelay: "2s" }}
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-violet-100 flex items-center justify-center shrink-0 text-sm font-black text-violet-700">S</div>
                   <div>
-                    <h4 className="text-[11px] font-bold text-white leading-tight">ATS Score</h4>
-                    <p className="text-[9px] text-emerald-400 mt-0.5 font-semibold">✓ Highly Compatible</p>
-                  </div>
-                </div>
-
-                {/* Floating Widget 2: Keywords */}
-                <div
-                  className="absolute bottom-12 -left-5 md:-left-14 bg-[#0D1628]/95 backdrop-blur-xl p-4 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.06)] text-left animate-float z-20 max-w-[195px] border border-white/[0.06]"
-                  style={{ animationDelay: "1.5s" }}
-                >
-                  <h4 className="text-[11px] font-bold text-white mb-2.5 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Keyword Match
-                  </h4>
-                  <div className="space-y-2 text-[9px] font-semibold">
-                    <div className="flex justify-between items-center gap-4">
-                      <span className="text-[#7A8BA8]">React / Next.js</span>
-                      <span className="text-emerald-400 flex items-center gap-0.5">
-                        <Check className="w-3 h-3 stroke-[3]" /> 100%
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center gap-4">
-                      <span className="text-[#7A8BA8]">TypeScript</span>
-                      <span className="text-emerald-400 flex items-center gap-0.5">
-                        <Check className="w-3 h-3 stroke-[3]" /> 100%
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center gap-4">
-                      <span className="text-[#7A8BA8]">GraphQL</span>
-                      <span className="text-blue-400 font-bold">Audit</span>
-                    </div>
-                    <div className="mt-2 w-full h-1 rounded-full bg-white/[0.06] overflow-hidden">
-                      <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-blue-500 to-violet-500" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Floating Widget 3: Interview */}
-                <div
-                  className="absolute bottom-28 -right-6 md:-right-16 bg-[#0D1628]/95 backdrop-blur-xl px-4 py-3 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.06)] flex items-center gap-3 text-left animate-float max-w-[215px] border border-white/[0.06]"
-                  style={{ animationDelay: "3s" }}
-                >
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500/20 to-blue-500/20 border border-violet-500/20 flex items-center justify-center text-violet-300 text-[11px] font-black shrink-0">
-                    S
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold text-white leading-tight">Stripe Interview</p>
-                    <p className="text-[8px] text-[#7A8BA8] mt-0.5">Systems design scheduled 🎉</p>
+                    <p className="text-[11px] font-bold text-gray-900 leading-tight">Stripe · Systems Design</p>
+                    <p className="text-[10px] text-gray-400 mt-0.5">Interview scheduled 🎉</p>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Bottom fade gradient */}
-            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#060A14] to-transparent pointer-events-none z-20 rounded-b-2xl" />
-          </div>
-        </ScrollReveal>
+            </div>
+          </ScrollReveal>
+        </div>
+      </div>
+
+      {/* Bottom wave transition */}
+      <div className="relative h-24 bg-white">
+        <svg className="absolute bottom-0 w-full" viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none">
+          <path d="M0 60V30C360 0 720 60 1080 30C1260 15 1380 30 1440 30V60H0Z" fill="#F9FAFB" />
+        </svg>
       </div>
     </section>
   );
