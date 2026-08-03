@@ -1,41 +1,56 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Root-level gitignore to ignore build artifacts and dependencies in subfolders
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# Root dependencies & build
+node_modules/
+.next/
+tsconfig.tsbuildinfo
 
-# testing
-/coverage
+# Frontend subdirectory dependencies & builds
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/tsconfig.tsbuildinfo
+frontend/next-env.d.ts
 
-# next.js
-/.next/
-/out/
+# Backend subdirectory dependencies & builds
+backend/vendor/
+backend/node_modules/
+backend/public/build/
+backend/public/hot/
+backend/public/storage/
+backend/.phpunit.cache/
+backend/storage/*.key
+backend/storage/pail
 
-# production
-/build
-
-# misc
+# System and IDE configuration
 .DS_Store
-*.pem
+Thumbs.db
+.idea/
+.vscode/
+.zed/
+.fleet/
+.nova/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
+# Environment and secrets
 .env*
+backend/.env
+backend/.env.backup
+backend/.env.production
+frontend/.env*
+auth.json
 
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Logs and tests
+*.log
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+backend/.phpunit.result.cache
