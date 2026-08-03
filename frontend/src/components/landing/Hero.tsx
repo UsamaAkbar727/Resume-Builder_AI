@@ -35,42 +35,47 @@ const roleDemos = {
   }
 };
 
-{/* Auto-Rotating Dotted Globe Icon Component */}
+{/* Auto-Rotating Large White Dotted Globe Graphic */}
 function RotatingGlobe() {
   return (
-    <span className="inline-flex items-center justify-center align-middle ml-2 relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 -mt-2 shrink-0">
-      {/* Outer ambient soft glow */}
-      <span className="absolute inset-0 rounded-full bg-blue-400/20 blur-md pointer-events-none" />
-
-      {/* Rotating Dotted Globe SVG */}
-      <svg 
-        className="w-full h-full text-blue-600 animate-[spin_18s_linear_infinite] relative z-10" 
-        viewBox="0 0 100 100" 
-        fill="none" 
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* Dotted Orbit Outer Rings */}
-        <circle cx="50" cy="50" r="46" stroke="#2563EB" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.6" />
-        <circle cx="50" cy="50" r="38" stroke="#3B82F6" strokeWidth="1.2" strokeDasharray="4 3" opacity="0.5" />
+    <span className="inline-flex items-center justify-center align-middle mx-3 relative shrink-0">
+      {/* Outer ambient glowing pill backdrop for high contrast */}
+      <span className="relative p-3 md:p-4 bg-gray-900 border border-gray-800 rounded-3xl shadow-xl flex items-center justify-center">
         
-        {/* Latitudes & Longitudes Wireframe */}
-        <ellipse cx="50" cy="50" rx="46" ry="18" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.7" />
-        <ellipse cx="50" cy="50" rx="18" ry="46" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.7" />
-        <ellipse cx="50" cy="50" rx="46" ry="32" stroke="#60A5FA" strokeWidth="1" strokeDasharray="2 3" opacity="0.4" />
-        <ellipse cx="50" cy="50" rx="32" ry="46" stroke="#60A5FA" strokeWidth="1" strokeDasharray="2 3" opacity="0.4" />
-        <line x1="4" y1="50" x2="96" y2="50" stroke="#3B82F6" strokeWidth="1.2" strokeDasharray="2 2" opacity="0.5" />
-        <line x1="50" y1="4" x2="50" y2="96" stroke="#3B82F6" strokeWidth="1.2" strokeDasharray="2 2" opacity="0.5" />
+        {/* Soft radial white glow behind globe */}
+        <span className="absolute inset-0 rounded-3xl bg-blue-500/20 blur-lg pointer-events-none" />
 
-        {/* Glowing Dotted Location Nodes */}
-        <circle cx="50" cy="4" r="3" fill="#2563EB" />
-        <circle cx="96" cy="50" r="3" fill="#2563EB" />
-        <circle cx="50" cy="96" r="3" fill="#2563EB" />
-        <circle cx="4" cy="50" r="3" fill="#2563EB" />
-        <circle cx="28" cy="28" r="2.5" fill="#10B981" />
-        <circle cx="72" cy="72" r="2.5" fill="#10B981" />
-        <circle cx="72" cy="28" r="2" fill="#6366F1" />
-        <circle cx="28" cy="72" r="2" fill="#6366F1" />
-      </svg>
+        {/* Large Pure White Rotating Dotted Globe SVG */}
+        <svg 
+          className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-white animate-[spin_20s_linear_infinite] relative z-10 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]" 
+          viewBox="0 0 100 100" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* White Outer Dotted Orbits */}
+          <circle cx="50" cy="50" r="47" stroke="#FFFFFF" strokeWidth="2" strokeDasharray="4 3" opacity="0.95" />
+          <circle cx="50" cy="50" r="38" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.8" />
+          <circle cx="50" cy="50" r="28" stroke="#FFFFFF" strokeWidth="1.2" strokeDasharray="3 2" opacity="0.6" />
+
+          {/* White Latitudes & Longitudes Wireframe */}
+          <ellipse cx="50" cy="50" rx="47" ry="18" stroke="#FFFFFF" strokeWidth="1.8" strokeDasharray="3 3" opacity="0.9" />
+          <ellipse cx="50" cy="50" rx="18" ry="47" stroke="#FFFFFF" strokeWidth="1.8" strokeDasharray="3 3" opacity="0.9" />
+          <ellipse cx="50" cy="50" rx="47" ry="33" stroke="#FFFFFF" strokeWidth="1.2" strokeDasharray="2 3" opacity="0.65" />
+          <ellipse cx="50" cy="50" rx="33" ry="47" stroke="#FFFFFF" strokeWidth="1.2" strokeDasharray="2 3" opacity="0.65" />
+          <line x1="3" y1="50" x2="97" y2="50" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="2 2" opacity="0.7" />
+          <line x1="50" y1="3" x2="50" y2="97" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="2 2" opacity="0.7" />
+
+          {/* Glowing Pure White Dotted Nodes */}
+          <circle cx="50" cy="3" r="3.5" fill="#FFFFFF" />
+          <circle cx="97" cy="50" r="3.5" fill="#FFFFFF" />
+          <circle cx="50" cy="97" r="3.5" fill="#FFFFFF" />
+          <circle cx="3" cy="50" r="3.5" fill="#FFFFFF" />
+          <circle cx="27" cy="27" r="3" fill="#FFFFFF" />
+          <circle cx="73" cy="73" r="3" fill="#FFFFFF" />
+          <circle cx="73" cy="27" r="2.5" fill="#3B82F6" />
+          <circle cx="27" cy="73" r="2.5" fill="#10B981" />
+        </svg>
+      </span>
     </span>
   );
 }
