@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { 
-  Brain, Search, Cpu, BarChart3, DollarSign, Target, 
+import React from "react";
+import {
+  Brain, Search, Cpu, BarChart3, DollarSign, Target,
   Sparkles, QrCode, ArrowRight, CheckCircle2, ShieldCheck, Zap
 } from "lucide-react";
 import { ScrollReveal } from "./Animations";
@@ -55,69 +55,68 @@ const HUB_FEATURES = [
 export default function Features() {
   return (
     <section id="features" className="relative py-20 lg:py-28 bg-zinc-950 text-white overflow-hidden border-b border-zinc-800">
-      
-      {/* ── Ambient Radial Yellow Glow & Carbon Texture ── */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Glossy Top-Right & Bottom-Left Diagonal Corner Strips (Matching Image) */}
+      <div className="absolute -top-16 -right-16 w-64 h-64 bg-gradient-to-br from-zinc-800 to-zinc-900 rotate-45 border-b-4 border-amber-400 shadow-2xl pointer-events-none opacity-80" />
+      <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-gradient-to-tr from-zinc-800 to-zinc-900 rotate-45 border-t-4 border-amber-400 shadow-2xl pointer-events-none opacity-80" />
+
+      {/* Carbon Texture Dot Overlay */}
       <div className="absolute inset-0 bg-dot-grid opacity-15 pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Top Header & QR Code Bar (Matching Image Header) */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-16 border-b border-zinc-800/80 pb-6">
-          
-          <div className="space-y-2 text-left">
-            <ScrollReveal variant="fade-up" delay={0}>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-widest border border-amber-400/30">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                COMPLETE AI SUITE INFOGRAPHIC
-              </div>
-            </ScrollReveal>
 
-            <ScrollReveal variant="fade-up" delay={60}>
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-                6-Core AI Engine Architecture
+        {/* ── TOP BAR: QR CODE & HEADLINE ANNUAL REPORT (Matching Image Top Bar) ── */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-16 border-b border-zinc-800/80 pb-6">
+
+          <div className="flex items-center gap-3">
+            <div className="bg-white p-2 rounded-xl text-black shadow-lg">
+              <QrCode className="w-7 h-7" />
+            </div>
+            <div>
+              <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-none">
+                headline <span className="text-amber-400 font-bold block text-sm mt-0.5">annual report</span>
               </h2>
-            </ScrollReveal>
+            </div>
           </div>
 
-          {/* Top Left/Right QR Code Badge (Matching Image Top Bar) */}
-          <ScrollReveal variant="fade-up" delay={120}>
-            <div className="bg-black/90 p-3 rounded-2xl border border-amber-400/50 shadow-xl flex items-center gap-3">
-              <div className="bg-amber-400 p-1.5 rounded-xl text-black">
-                <QrCode className="w-6 h-6" />
-              </div>
-              <div className="text-left">
-                <p className="text-xs font-black text-white uppercase tracking-wider">headline annual report</p>
-                <p className="text-[11px] text-amber-400 font-semibold">Scan for 2026 SaaS Report</p>
-              </div>
-            </div>
-          </ScrollReveal>
+          <div className="text-left sm:text-right max-w-sm">
+            <p className="text-xs text-zinc-400 font-medium leading-relaxed">
+              Consolidated 2026 SaaS recruitment benchmark & ATS performance architecture report.
+            </p>
+          </div>
 
         </div>
 
         {/* ── 6-STEP RADIAL CENTRAL HUB INFOGRAPHIC GRID ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative my-12">
-          
-          {/* LEFT 3 NODES (01, 02, 03) */}
-          <div className="lg:col-span-4 space-y-6 sm:space-y-8 text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center relative my-12">
+
+          {/* Orbital Thin SVG Ring Connection Background */}
+          <div className="absolute inset-0 hidden lg:flex items-center justify-center pointer-events-none z-0">
+            <svg className="w-[500px] h-[500px] text-amber-400/30 animate-spin-slow" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="85" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" fill="none" />
+            </svg>
+          </div>
+
+          {/* LEFT SIDE: 3 SOLID AMBER-YELLOW PILLS (01, 02, 03) */}
+          <div className="lg:col-span-5 space-y-6 sm:space-y-8 text-left z-10">
             {HUB_FEATURES.filter(f => f.side === "left").map((feat, idx) => {
               const Icon = feat.icon;
               return (
                 <ScrollReveal key={feat.num} variant="fade-right" delay={idx * 100}>
-                  <div className="group relative bg-black/90 p-4 sm:p-5 rounded-2xl border-2 border-amber-400/70 shadow-xl hover:border-amber-400 transition-all flex items-center justify-between gap-4">
-                    
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xl font-black text-amber-400 tracking-tight">{feat.num}</span>
-                        <h4 className="text-sm font-black text-white uppercase tracking-wider">{feat.title}</h4>
+                  <div className="relative bg-amber-400 rounded-3xl p-5 sm:p-6 shadow-2xl text-black flex items-center justify-between gap-4 transition-transform hover:-translate-y-1">
+
+                    <div className="flex-1 pr-6">
+                      <div className="flex items-center gap-3 mb-1">
+                        <span className="text-2xl sm:text-3xl font-black text-black tracking-tight">{feat.num}</span>
+                        <h3 className="text-sm sm:text-base font-black text-black uppercase tracking-tight">{feat.title}</h3>
                       </div>
-                      <p className="text-xs text-zinc-400 leading-relaxed font-normal">{feat.desc}</p>
+                      <p className="text-xs text-zinc-900 font-semibold leading-relaxed">{feat.desc}</p>
                     </div>
 
-                    {/* 3D Black Circle Node Icon */}
-                    <div className="relative shrink-0">
-                      <div className="w-12 h-12 rounded-full bg-zinc-950 border-2 border-amber-400 shadow-xl flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
-                        <Icon className="w-6 h-6 stroke-[2]" />
+                    {/* Overlapping 3D Black Circle Node on Right Edge */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-zinc-950 border-4 border-amber-300 shadow-2xl flex items-center justify-center text-amber-400">
+                        <Icon className="w-7 h-7 stroke-[2]" />
                       </div>
                     </div>
 
@@ -127,49 +126,45 @@ export default function Features() {
             })}
           </div>
 
-          {/* CENTER BIG 3D HUB CIRCLE */}
-          <div className="lg:col-span-4 flex justify-center items-center my-8 lg:my-0">
+          {/* CENTER BIG 3D BLACK HUB CIRCLE */}
+          <div className="lg:col-span-2 flex justify-center items-center my-10 lg:my-0 z-10">
             <ScrollReveal variant="scale-in" delay={150}>
-              <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full bg-zinc-950 border-8 border-amber-400 shadow-2xl flex flex-col items-center justify-center p-6 text-center shadow-amber-400/20 animate-pulse-slow">
-                
-                {/* Inner Glowing Yellow Arc Ring */}
-                <div className="absolute inset-2 rounded-full border-2 border-dashed border-amber-400/50 pointer-events-none" />
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-full bg-zinc-950 border-[10px] border-amber-400 shadow-[0_0_60px_rgba(245,158,11,0.35)] flex flex-col items-center justify-center p-6 text-center">
 
-                <div className="w-12 h-12 rounded-full bg-amber-400 text-black flex items-center justify-center mb-2 shadow-lg">
-                  <Zap className="w-6 h-6 fill-current" />
-                </div>
+                {/* Inner Dashed Ring */}
+                <div className="absolute inset-2 rounded-full border-2 border-dashed border-amber-400/40 pointer-events-none" />
 
-                <p className="text-xs font-black text-amber-400 uppercase tracking-widest">Business Steps</p>
-                <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tighter leading-tight my-1">
-                  INFOGRAPHIC
+                <p className="text-[11px] font-black text-amber-400 uppercase tracking-widest">Business</p>
+                <h3 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tighter my-0.5 leading-none">
+                  Steps
                 </h3>
-                <p className="text-[11px] font-bold text-zinc-400">ResumeFlow AI Suite</p>
+                <p className="text-xs font-extrabold text-amber-400 uppercase tracking-widest">INFOGRAPHIC</p>
 
               </div>
             </ScrollReveal>
           </div>
 
-          {/* RIGHT 3 NODES (04, 05, 06) */}
-          <div className="lg:col-span-4 space-y-6 sm:space-y-8 text-left">
+          {/* RIGHT SIDE: 3 SOLID AMBER-YELLOW PILLS (04, 05, 06) */}
+          <div className="lg:col-span-5 space-y-6 sm:space-y-8 text-left z-10">
             {HUB_FEATURES.filter(f => f.side === "right").map((feat, idx) => {
               const Icon = feat.icon;
               return (
                 <ScrollReveal key={feat.num} variant="fade-left" delay={idx * 100}>
-                  <div className="group relative bg-black/90 p-4 sm:p-5 rounded-2xl border-2 border-amber-400/70 shadow-xl hover:border-amber-400 transition-all flex items-center justify-between gap-4">
-                    
-                    {/* 3D Black Circle Node Icon */}
-                    <div className="relative shrink-0">
-                      <div className="w-12 h-12 rounded-full bg-zinc-950 border-2 border-amber-400 shadow-xl flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
-                        <Icon className="w-6 h-6 stroke-[2]" />
+                  <div className="relative bg-amber-400 rounded-3xl p-5 sm:p-6 shadow-2xl text-black flex items-center justify-between gap-4 transition-transform hover:-translate-y-1">
+
+                    {/* Overlapping 3D Black Circle Node on Left Edge */}
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-zinc-950 border-4 border-amber-300 shadow-2xl flex items-center justify-center text-amber-400">
+                        <Icon className="w-7 h-7 stroke-[2]" />
                       </div>
                     </div>
 
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xl font-black text-amber-400 tracking-tight">{feat.num}</span>
-                        <h4 className="text-sm font-black text-white uppercase tracking-wider">{feat.title}</h4>
+                    <div className="flex-1 pl-6">
+                      <div className="flex items-center gap-3 mb-1">
+                        <span className="text-2xl sm:text-3xl font-black text-black tracking-tight">{feat.num}</span>
+                        <h3 className="text-sm sm:text-base font-black text-black uppercase tracking-tight">{feat.title}</h3>
                       </div>
-                      <p className="text-xs text-zinc-400 leading-relaxed font-normal">{feat.desc}</p>
+                      <p className="text-xs text-zinc-900 font-semibold leading-relaxed">{feat.desc}</p>
                     </div>
 
                   </div>
@@ -180,10 +175,10 @@ export default function Features() {
 
         </div>
 
-        {/* Bottom Description Footer */}
-        <div className="mt-12 text-center border-t border-zinc-800/80 pt-6">
-          <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl mx-auto font-medium">
-            Every component in our 6-step architecture is engineered to pass ATS algorithms, impress recruiters, and accelerate your job search.
+        {/* ── BOTTOM RIGHT EXPLANATORY PARAGRAPH (Matching Image Bottom Right Text) ── */}
+        <div className="mt-16 pt-6 border-t border-zinc-800/80 flex flex-col md:flex-row justify-end items-center text-right">
+          <p className="text-xs text-zinc-400 max-w-md font-medium leading-relaxed">
+            Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
           </p>
         </div>
 
