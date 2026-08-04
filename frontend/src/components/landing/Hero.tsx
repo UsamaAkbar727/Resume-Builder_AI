@@ -1,322 +1,404 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { 
-  ArrowRight, Check, Star, Sparkles, TrendingUp, Zap, ShieldCheck, 
-  Terminal, Play, Eye, FileText, SearchCode, Trello, Mic, Award, CheckCircle2, Globe
+  ArrowRight, Check, Star, Sparkles, ShieldCheck, 
+  FileText, CheckCircle2, Download, Upload, Layout,
+  Briefcase, GraduationCap, Award, Eye, Zap, MousePointerClick
 } from "lucide-react";
 import { ScrollReveal } from "./Animations";
 
+// Role demo content for real-time interactive preview
 const roleDemos = {
   software: {
-    role: "Staff Software Engineer",
-    company: "Stripe",
+    name: "Alex Morgan",
+    title: "Senior Full-Stack Engineer",
+    location: "San Francisco, CA • alex.morgan@email.com",
+    summary: "Senior Engineer with 7+ years of experience building high-scale cloud services and responsive UI applications. Proven track record of improving system latency by 45% and leading cross-functional teams.",
     atsScore: 98,
-    keywords: ["React 19", "Distributed Systems", "PostgreSQL", "Go / Rust"],
-    original: "Worked on database performance and updated APIs for team.",
-    optimized: "Architected distributed PostgreSQL caching layer, reducing global API p99 latency by 48% across 12M daily requests.",
+    templateName: "Executive Tech",
+    skills: ["React 19 / Next.js", "TypeScript", "Node.js", "PostgreSQL", "AWS / Docker", "System Architecture"],
+    experience: [
+      {
+        role: "Senior Software Engineer",
+        company: "Stripe",
+        period: "2022 — Present",
+        bullets: [
+          "Architected distributed microservices handling 15M+ daily API requests with 99.99% uptime.",
+          "Reduced frontend p99 load times by 48% by optimizing bundle sizes and implementing server components.",
+          "Mentored 6 junior engineers and established automated CI/CD deployment pipelines."
+        ]
+      },
+      {
+        role: "Full-Stack Developer",
+        company: "Vercel",
+        period: "2019 — 2022",
+        bullets: [
+          "Developed core dashboard features used by over 2M global developers.",
+          "Integrated Stripe billing system resulting in +28% increase in self-serve enterprise conversions."
+        ]
+      }
+    ]
   },
   design: {
-    role: "Lead Product Designer",
-    company: "Linear",
+    name: "Sophia Chen",
+    title: "Lead Product Designer",
+    location: "New York, NY • sophia.design@email.com",
+    summary: "Design leader with 6+ years creating end-to-end user experiences for SaaS products. Expert in design system architecture, rapid interactive prototyping, and data-driven UX optimization.",
     atsScore: 96,
-    keywords: ["Design Systems", "Figma Variables", "Prototyping", "User Research"],
-    original: "Designed components and worked with engineering team.",
-    optimized: "Led unified design system migration adopted by 40+ engineers, cutting feature shipping cycles from 3 weeks to 4 days.",
+    templateName: "Modern Minimalist",
+    skills: ["Figma Design Systems", "User Research", "Prototyping", "UI Animation", "HTML/CSS", "Design Tokens"],
+    experience: [
+      {
+        role: "Lead Product Designer",
+        company: "Linear",
+        period: "2021 — Present",
+        bullets: [
+          "Spearheaded multi-platform design system redesign, reducing feature build cycles across engineering by 35%.",
+          "Conducted 40+ user testing sessions to optimize core workflow, lifting weekly active user retention by 22%.",
+          "Collaborated directly with founders to define product vision and visual brand identity."
+        ]
+      },
+      {
+        role: "Senior UX Designer",
+        company: "Figma",
+        period: "2018 — 2021",
+        bullets: [
+          "Designed collaborative canvas tools used daily by 500k+ design professionals.",
+          "Created accessibility component guidelines meeting WCAG 2.1 AA standards across all web apps."
+        ]
+      }
+    ]
   },
   pm: {
-    role: "Principal Product Manager",
-    company: "Vercel",
-    atsScore: 95,
-    keywords: ["PLG Growth", "Roadmap Strategy", "SQL Analytics", "A/B Testing"],
-    original: "Managed feature launch and checked analytics metrics.",
-    optimized: "Spearheaded self-serve team onboard funnel, driving +34% MoM conversion and $2.4M ARR expansion in Q3.",
+    name: "Marcus Vance",
+    title: "Principal Product Manager",
+    location: "Austin, TX • marcus.vance@email.com",
+    summary: "Product strategist with 8+ years scaling B2B SaaS products from zero to $10M+ ARR. Skilled in product-led growth (PLG), cross-functional roadmap execution, and quantitative analytics.",
+    atsScore: 97,
+    templateName: "Corporate Leader",
+    skills: ["PLG Growth Strategy", "Roadmap Execution", "SQL / Mixpanel", "A/B Testing", "Agile / Scrum", "User Acquisition"],
+    experience: [
+      {
+        role: "Principal Product Manager",
+        company: "Notion",
+        period: "2022 — Present",
+        bullets: [
+          "Owned self-serve team onboard growth funnel, driving +34% MoM conversion and $3.2M in new expansion ARR.",
+          "Launched enterprise workspace governance tools adopted by 450+ Fortune 500 enterprise customers.",
+          "Managed roadmap for a cross-functional team of 14 engineers, 3 designers, and 2 data analysts."
+        ]
+      },
+      {
+        role: "Senior Product Manager",
+        company: "Atlassian",
+        period: "2019 — 2022",
+        bullets: [
+          "Led Jira team productivity feature launch, increasing daily active user engagement by 26%.",
+          "Executed global pricing experiment that boosted average revenue per account (ARPA) by 18%."
+        ]
+      }
+    ]
   }
 };
 
-{/* Auto-Rotating Large White Dotted Globe Graphic */}
-function RotatingGlobe() {
-  return (
-    <span className="inline-flex items-center justify-center align-middle mx-3 relative shrink-0">
-      {/* Outer ambient glowing pill backdrop for high contrast */}
-      <span className="relative p-3 md:p-4 bg-gray-900 border border-gray-800 rounded-3xl shadow-xl flex items-center justify-center">
-        
-        {/* Soft radial white glow behind globe */}
-        <span className="absolute inset-0 rounded-3xl bg-blue-500/20 blur-lg pointer-events-none" />
-
-        {/* Large Pure White Rotating Dotted Globe SVG */}
-        <svg 
-          className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-white animate-[spin_20s_linear_infinite] relative z-10 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]" 
-          viewBox="0 0 100 100" 
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* White Outer Dotted Orbits */}
-          <circle cx="50" cy="50" r="47" stroke="#FFFFFF" strokeWidth="2" strokeDasharray="4 3" opacity="0.95" />
-          <circle cx="50" cy="50" r="38" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.8" />
-          <circle cx="50" cy="50" r="28" stroke="#FFFFFF" strokeWidth="1.2" strokeDasharray="3 2" opacity="0.6" />
-
-          {/* White Latitudes & Longitudes Wireframe */}
-          <ellipse cx="50" cy="50" rx="47" ry="18" stroke="#FFFFFF" strokeWidth="1.8" strokeDasharray="3 3" opacity="0.9" />
-          <ellipse cx="50" cy="50" rx="18" ry="47" stroke="#FFFFFF" strokeWidth="1.8" strokeDasharray="3 3" opacity="0.9" />
-          <ellipse cx="50" cy="50" rx="47" ry="33" stroke="#FFFFFF" strokeWidth="1.2" strokeDasharray="2 3" opacity="0.65" />
-          <ellipse cx="50" cy="50" rx="33" ry="47" stroke="#FFFFFF" strokeWidth="1.2" strokeDasharray="2 3" opacity="0.65" />
-          <line x1="3" y1="50" x2="97" y2="50" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="2 2" opacity="0.7" />
-          <line x1="50" y1="3" x2="50" y2="97" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="2 2" opacity="0.7" />
-
-          {/* Glowing Pure White Dotted Nodes */}
-          <circle cx="50" cy="3" r="3.5" fill="#FFFFFF" />
-          <circle cx="97" cy="50" r="3.5" fill="#FFFFFF" />
-          <circle cx="50" cy="97" r="3.5" fill="#FFFFFF" />
-          <circle cx="3" cy="50" r="3.5" fill="#FFFFFF" />
-          <circle cx="27" cy="27" r="3" fill="#FFFFFF" />
-          <circle cx="73" cy="73" r="3" fill="#FFFFFF" />
-          <circle cx="73" cy="27" r="2.5" fill="#3B82F6" />
-          <circle cx="27" cy="73" r="2.5" fill="#10B981" />
-        </svg>
-      </span>
-    </span>
-  );
-}
+const colorAccents = [
+  { id: "blue", hex: "#2563EB", bgClass: "bg-blue-600", borderClass: "border-blue-600", lightBg: "bg-blue-50", textClass: "text-blue-600" },
+  { id: "navy", hex: "#1E293B", bgClass: "bg-slate-800", borderClass: "border-slate-800", lightBg: "bg-slate-100", textClass: "text-slate-800" },
+  { id: "emerald", hex: "#059669", bgClass: "bg-emerald-600", borderClass: "border-emerald-600", lightBg: "bg-emerald-50", textClass: "text-emerald-600" },
+  { id: "violet", hex: "#7C3AED", bgClass: "bg-violet-600", borderClass: "border-violet-600", lightBg: "bg-violet-50", textClass: "text-violet-600" },
+  { id: "rose", hex: "#E11D48", bgClass: "bg-rose-600", borderClass: "border-rose-600", lightBg: "bg-rose-50", textClass: "text-rose-600" }
+];
 
 export default function Hero() {
   const [activeRole, setActiveRole] = useState<"software" | "design" | "pm">("software");
-  const [atsScoreDisplay, setAtsScoreDisplay] = useState(0);
+  const [activeAccent, setActiveAccent] = useState(colorAccents[0]);
 
   const current = roleDemos[activeRole];
 
-  useEffect(() => {
-    let currentVal = 0;
-    const target = current.atsScore;
-    const timer = setInterval(() => {
-      currentVal += 2;
-      if (currentVal >= target) {
-        setAtsScoreDisplay(target);
-        clearInterval(timer);
-      } else {
-        setAtsScoreDisplay(currentVal);
-      }
-    }, 15);
-    return () => clearInterval(timer);
-  }, [activeRole, current.atsScore]);
-
   return (
-    <section className="relative overflow-hidden bg-white pt-16 pb-24 border-b border-gray-100">
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50/60 pt-10 pb-20 md:pt-14 md:pb-28 border-b border-gray-200/80">
       
-      {/* Subtle Background Accent */}
-      <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-gradient-to-b from-blue-50/70 via-indigo-50/30 to-transparent rounded-full blur-3xl pointer-events-none" />
-      
-      <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
+      {/* Background Decorators */}
+      <div className="absolute inset-0 bg-dot-grid opacity-35 pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-b from-blue-100/40 via-indigo-50/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Top Centered Hero Header */}
-        <div className="text-center max-w-4xl mx-auto mb-14">
+        {/* Top Centered Hero Content */}
+        <div className="text-center max-w-4xl mx-auto mb-12">
           
-          {/* Release Badge */}
+          {/* Social Proof Badge */}
           <ScrollReveal variant="fade-up" delay={0}>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold shadow-sm mb-6">
-              <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
-              <span>ResumeFlow 2.0</span>
-              <span className="text-blue-300 font-normal">•</span>
-              <span className="text-blue-900 font-medium">Engineered to get you shortlisted</span>
-              <ArrowRight className="w-3.5 h-3.5 text-blue-600" />
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm mb-6 text-xs sm:text-sm font-semibold text-gray-700">
+              <div className="flex -space-x-1.5 items-center">
+                <span className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-[10px] text-white font-bold">A</span>
+                <span className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] text-white font-bold">M</span>
+                <span className="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center text-[10px] text-white font-bold">S</span>
+              </div>
+              <div className="flex items-center text-amber-400 gap-0.5">
+                <Star className="w-3.5 h-3.5 fill-current" />
+                <Star className="w-3.5 h-3.5 fill-current" />
+                <Star className="w-3.5 h-3.5 fill-current" />
+                <Star className="w-3.5 h-3.5 fill-current" />
+                <Star className="w-3.5 h-3.5 fill-current" />
+              </div>
+              <span className="text-gray-900 font-bold">4.9/5</span>
+              <span className="text-gray-300">|</span>
+              <span className="text-gray-600 font-medium">Trusted by 50,000+ Job Seekers</span>
             </div>
           </ScrollReveal>
 
-          {/* Main Giant Editorial Headline with Auto-Rotating Dotted Globe */}
+          {/* Clean Commercial Title */}
           <ScrollReveal variant="fade-up" delay={60}>
-            <h1 className="display-hero text-gray-900 mb-6 text-balance inline-flex flex-wrap items-center justify-center gap-x-2">
-              <span>Stop applying into the void.</span>
-              <span className="inline-flex items-center gap-1">
-                <span className="text-gradient-primary">Engineered to get hired.</span>
-                <RotatingGlobe />
-              </span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight leading-[1.12] mb-6 text-balance">
+              Only 2% of resumes pass the first round. <br className="hidden sm:inline" />
+              <span className="text-gradient-primary">Yours will be one of them.</span>
             </h1>
           </ScrollReveal>
 
           {/* Subtitle */}
           <ScrollReveal variant="fade-up" delay={120}>
-            <p className="text-lg md:text-xl text-gray-500 leading-relaxed font-normal max-w-2xl mx-auto mb-10 text-balance">
-              The AI Career Operating System. Build ATS-beating resumes, track application pipelines in real-time, and practice voice interviews with AI.
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8 font-normal text-balance">
+              Create professional, ATS-optimized resumes in 5 minutes with AI assistance. Crafted to get you noticed by top recruiters and land 3x more interview callbacks.
             </p>
           </ScrollReveal>
 
           {/* Call to Actions */}
           <ScrollReveal variant="fade-up" delay={180}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-              <Link href="/auth?mode=register" className="btn-primary w-full sm:w-auto px-8 py-4 text-base justify-center shadow-lg shadow-blue-500/20">
-                Build my resume free <ArrowRight className="w-4 h-4" />
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-8">
+              <Link 
+                href="/auth?mode=register" 
+                className="btn-blue w-full sm:w-auto px-8 py-4 text-base font-bold justify-center shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 transition-all"
+              >
+                Create My Resume Free <ArrowRight className="w-5 h-5 ml-1" />
               </Link>
-              <a href="#interactive-tools" className="btn-outline w-full sm:w-auto px-7 py-4 text-base justify-center">
-                Explore interactive tools
-              </a>
+              <Link 
+                href="/auth?mode=register" 
+                className="btn-outline w-full sm:w-auto px-7 py-4 text-base font-semibold justify-center bg-white hover:bg-gray-50 text-gray-800 border-gray-300"
+              >
+                <Upload className="w-4 h-4 text-gray-500 mr-1" /> Import Existing Resume
+              </Link>
             </div>
           </ScrollReveal>
 
-          {/* Social Proof Line */}
+          {/* Micro Trust Bullets */}
           <ScrollReveal variant="fade-up" delay={240}>
-            <div className="flex items-center justify-center gap-6 text-xs text-gray-500 font-medium">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-gray-500 font-medium">
               <span className="flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-500 stroke-[3]" /> No credit card required
+                <Check className="w-4 h-4 text-emerald-600 stroke-[3]" /> No credit card required
               </span>
               <span className="hidden sm:inline text-gray-300">•</span>
               <span className="flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-500 stroke-[3]" /> 95% ATS Pass Rate
+                <Check className="w-4 h-4 text-emerald-600 stroke-[3]" /> 100% ATS Parsing Guarantee
               </span>
               <span className="hidden sm:inline text-gray-300">•</span>
               <span className="flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-500 stroke-[3]" /> Free plan available
+                <Check className="w-4 h-4 text-emerald-600 stroke-[3]" /> Free PDF & Word Export
               </span>
             </div>
           </ScrollReveal>
 
         </div>
 
-        {/* ── High-End Crisp Light Mode Workspace Mockup ── */}
+        {/* ── Interactive Live Resume Editor Showcase ── */}
         <ScrollReveal variant="fade-up" delay={300}>
           <div className="relative max-w-5xl mx-auto">
             
             {/* Outer Glow Halo */}
-            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-100/60 via-indigo-100/40 to-slate-100/60 blur-xl opacity-80 pointer-events-none" />
+            <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-blue-200/50 via-indigo-100/40 to-slate-200/50 blur-2xl opacity-70 pointer-events-none" />
 
-            {/* Main Interactive App Container — Crisp Light Card */}
-            <div className="relative bg-white rounded-2xl border border-gray-200 shadow-[0_24px_70px_-15px_rgba(0,0,0,0.08)] overflow-hidden">
+            {/* Main Interactive App Container */}
+            <div className="relative bg-white rounded-2xl border border-gray-200 shadow-2xl overflow-hidden">
               
-              {/* Top Window Header Chrome */}
-              <div className="flex flex-col sm:flex-row items-center justify-between px-5 py-3.5 bg-gray-50/90 border-b border-gray-200/80 gap-3">
+              {/* Interactive Header Toolbar */}
+              <div className="bg-slate-900 text-white px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b border-slate-800">
                 
-                {/* Dots + Window Title */}
+                {/* Left: Window Dots & App Status */}
                 <div className="flex items-center gap-3">
                   <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-red-400" />
-                    <div className="w-3 h-3 rounded-full bg-amber-400" />
-                    <div className="w-3 h-3 rounded-full bg-emerald-400" />
+                    <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
                   </div>
-                  <div className="px-3 py-1 bg-white rounded-md border border-gray-200 text-[11px] font-mono text-gray-500 flex items-center gap-1.5 shadow-2xs">
-                    <Sparkles className="w-3 h-3 text-blue-500" />
-                    resumeflow.ai/editor
-                  </div>
+                  <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-700">
+                    <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                    Live Builder Studio
+                  </span>
                 </div>
 
-                {/* Role Switcher Pills inside Hero Chrome */}
-                <div className="flex items-center bg-gray-100 p-1 rounded-lg border border-gray-200 text-xs">
-                  <span className="text-[10px] text-gray-400 uppercase px-2 font-bold tracking-wider">Role Preview:</span>
+                {/* Center: Role Switcher Tabs */}
+                <div className="flex items-center bg-slate-800 p-1 rounded-lg border border-slate-700 text-xs">
+                  <span className="hidden md:inline-block text-[10px] text-slate-400 uppercase font-bold px-2 tracking-wider">
+                    Role:
+                  </span>
                   {(["software", "design", "pm"] as const).map((r) => (
                     <button
                       key={r}
                       onClick={() => setActiveRole(r)}
-                      className={`px-3 py-1 rounded-md font-semibold transition-all cursor-pointer ${
+                      className={`px-3 py-1 rounded-md font-medium transition-all cursor-pointer ${
                         activeRole === r 
-                          ? "bg-white text-gray-900 shadow-sm border border-gray-200" 
-                          : "text-gray-500 hover:text-gray-900"
+                          ? "bg-blue-600 text-white shadow-sm font-semibold" 
+                          : "text-slate-300 hover:text-white"
                       }`}
                     >
-                      {r === "software" ? "Engineering" : r === "design" ? "Product Design" : "Product Mgmt"}
+                      {r === "software" ? "Software Eng" : r === "design" ? "Product Design" : "Product Mgmt"}
                     </button>
                   ))}
                 </div>
 
+                {/* Right: Accent Color Picker */}
+                <div className="flex items-center gap-2">
+                  <span className="hidden lg:inline-block text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                    Theme Accent:
+                  </span>
+                  <div className="flex items-center gap-1.5 bg-slate-800 p-1.5 rounded-lg border border-slate-700">
+                    {colorAccents.map((acc) => (
+                      <button
+                        key={acc.id}
+                        onClick={() => setActiveAccent(acc)}
+                        title={`Switch accent to ${acc.id}`}
+                        className={`w-4 h-4 rounded-full transition-transform cursor-pointer ${acc.bgClass} ${
+                          activeAccent.id === acc.id ? "scale-125 ring-2 ring-white ring-offset-1 ring-offset-slate-900" : "hover:scale-110 opacity-70"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
               </div>
 
-              {/* Workspace Body */}
-              <div className="p-6 md:p-8 grid md:grid-cols-12 gap-6 items-center bg-warm">
+              {/* Resume Document Studio Workspace */}
+              <div className="bg-slate-100 p-4 sm:p-8 md:p-10 relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
-                {/* Left Col: Paper Resume Preview Card */}
-                <div className="md:col-span-5 bg-white p-6 rounded-xl border border-gray-200/90 shadow-sm space-y-5">
-                  
-                  {/* Candidate Header */}
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 block mb-0.5">Target Title</span>
-                      <h3 className="text-base font-bold text-gray-900">{current.role}</h3>
-                      <p className="text-xs text-gray-400">Targeting {current.company}</p>
+                {/* FLOATING BADGE 1: ATS Live Score */}
+                <div className="absolute top-6 right-6 lg:right-10 z-20 bg-white rounded-xl p-3 shadow-lg border border-gray-200 flex items-center gap-3 animate-float hidden sm:flex">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 font-black text-sm">
+                    {current.atsScore}%
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-gray-900 flex items-center gap-1">
+                      ATS Verified <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
                     </div>
-                    
-                    {/* Live ATS Pill */}
-                    <div className="px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-xl text-center">
-                      <div className="text-xs font-black text-emerald-700">{atsScoreDisplay}%</div>
-                      <div className="text-[9px] font-bold text-emerald-600 uppercase">ATS Score</div>
+                    <div className="text-[11px] text-gray-500">Greenhouse & Workday Ready</div>
+                  </div>
+                </div>
+
+                {/* FLOATING BADGE 2: AI Bullet Enhancer */}
+                <div className="absolute bottom-6 left-6 lg:left-10 z-20 bg-white rounded-xl p-3 shadow-lg border border-gray-200 items-center gap-3 hidden md:flex">
+                  <div className="w-9 h-9 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
+                    <Zap className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-gray-900 flex items-center gap-1">
+                      AI Action Verbs Active
+                    </div>
+                    <div className="text-[11px] text-gray-500">+45% Quantified Impact Score</div>
+                  </div>
+                </div>
+
+                {/* REAL RESUME DOCUMENT PREVIEW CANVAS (A4 Paper Style) */}
+                <div className="lg:col-span-12 bg-white rounded-lg shadow-xl border border-gray-200/80 p-6 sm:p-10 text-gray-800 font-sans max-w-3xl mx-auto w-full transition-all">
+                  
+                  {/* Resume Header Banner with Active Accent */}
+                  <div className="border-b pb-6 mb-6" style={{ borderColor: activeAccent.hex }}>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div>
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+                          {current.name}
+                        </h2>
+                        <p className="text-base font-bold mt-1" style={{ color: activeAccent.hex }}>
+                          {current.title}
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          {current.location}
+                        </p>
+                      </div>
+                      
+                      <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 border-t sm:border-t-0 pt-3 sm:pt-0 border-gray-100">
+                        <span className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-gray-100 text-gray-600 flex items-center gap-1">
+                          <FileText className="w-3.5 h-3.5" /> PDF Clean Format
+                        </span>
+                        <span className="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                          Match Score: 98%
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Professional Summary */}
+                    <div className="mt-4 p-3 rounded-lg bg-slate-50 border border-slate-100 text-xs sm:text-sm text-gray-600 leading-relaxed">
+                      <span className="font-semibold text-gray-900 block mb-0.5">Professional Profile:</span>
+                      {current.summary}
                     </div>
                   </div>
 
-                  <hr className="border-gray-100" />
-
-                  {/* Matched Keywords Grid */}
-                  <div>
-                    <div className="text-[11px] font-bold text-gray-500 mb-2 flex items-center justify-between">
-                      <span>Matched ATS Keywords:</span>
-                      <span className="text-emerald-600 text-[10px] font-bold">4/4 Matched</span>
-                    </div>
+                  {/* Skills Section */}
+                  <div className="mb-6">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2.5 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: activeAccent.hex }} />
+                      Core Competencies & Keywords
+                    </h3>
                     <div className="flex flex-wrap gap-1.5">
-                      {current.keywords.map((kw) => (
-                        <span key={kw} className="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> {kw}
+                      {current.skills.map((skill) => (
+                        <span 
+                          key={skill}
+                          className="text-xs font-semibold px-2.5 py-1 rounded-md border text-gray-700 bg-gray-50 border-gray-200 flex items-center gap-1"
+                        >
+                          <Check className="w-3 h-3 text-emerald-500 stroke-[3]" />
+                          {skill}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  {/* Candidate Status Indicator */}
-                  <div className="p-3 bg-gray-50 rounded-lg border border-gray-100 text-xs flex items-center gap-2.5 text-gray-600">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                    </span>
-                    <span className="font-medium">ATS Formatting: 100% Clean Vector PDF</span>
+                  {/* Experience Section */}
+                  <div>
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: activeAccent.hex }} />
+                      Work Experience
+                    </h3>
+
+                    <div className="space-y-5">
+                      {current.experience.map((exp, idx) => (
+                        <div key={idx} className="relative pl-4 border-l-2" style={{ borderColor: idx === 0 ? activeAccent.hex : "#E2E8F0" }}>
+                          <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
+                            <span className="text-sm font-bold text-gray-900">{exp.role}</span>
+                            <span className="text-xs font-semibold text-gray-400">{exp.period}</span>
+                          </div>
+                          <div className="text-xs font-semibold mb-2" style={{ color: activeAccent.hex }}>
+                            {exp.company}
+                          </div>
+                          <ul className="space-y-1.5 text-xs text-gray-600 list-disc list-inside leading-relaxed">
+                            {exp.bullets.map((b, bIdx) => (
+                              <li key={bIdx} className="text-gray-700">
+                                <span className={bIdx === 0 ? "bg-amber-50 text-gray-900 px-1 py-0.5 rounded font-medium border border-amber-200/60" : ""}>
+                                  {b}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
                 </div>
 
-                {/* Right Col: AI Rewriting Panel — shifted slightly to the left */}
-                <div className="md:col-span-7 space-y-4 md:-ml-2">
-                  
-                  {/* Title Bar */}
-                  <div className="flex items-center justify-between text-xs text-gray-500 pb-1">
-                    <span className="font-bold text-gray-800">AI Metric-First Bullet Rewriter</span>
-                    <span className="text-blue-600 font-semibold flex items-center gap-1 text-[11px]">
-                      <Sparkles className="w-3.5 h-3.5" /> Instant Optimization
-                    </span>
-                  </div>
+              </div>
 
-                  {/* Original Bullet */}
-                  <div className="p-4 rounded-xl bg-white border border-red-200/80 shadow-2xs">
-                    <div className="text-[10px] font-bold text-red-600 uppercase tracking-wider mb-1">
-                      Original Draft (Unquantified)
-                    </div>
-                    <p className="text-gray-500 text-xs leading-relaxed font-normal">
-                      "{current.original}"
-                    </p>
-                  </div>
-
-                  {/* Optimized Bullet */}
-                  <div className="p-4 rounded-xl bg-white border-2 border-emerald-500/80 shadow-sm relative">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1">
-                        <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                        AI Executive Bullet
-                      </div>
-                      <span className="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
-                        +44% ATS Boost
-                      </span>
-                    </div>
-                    <p className="text-gray-900 text-xs font-semibold leading-relaxed">
-                      "{current.optimized}"
-                    </p>
-                  </div>
-
-                  {/* Bottom Footer Ticker */}
-                  <div className="pt-2 flex items-center justify-between text-xs text-gray-500">
-                    <span className="flex items-center gap-1.5">
-                      <ShieldCheck className="w-4 h-4 text-blue-600" /> Tested on Greenhouse, Workday & Lever
-                    </span>
-                    <Link href="/auth?mode=register" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">
-                      Start building for free →
-                    </Link>
-                  </div>
-
+              {/* Bottom Interactive Toolbar Footer */}
+              <div className="bg-slate-50 border-t border-gray-200 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-600">
+                <div className="flex items-center gap-2 font-medium">
+                  <MousePointerClick className="w-4 h-4 text-blue-600" />
+                  <span>Click role tabs or theme accents above to test live customization</span>
                 </div>
-
+                <div className="flex items-center gap-3 font-semibold">
+                  <span className="text-gray-400">Export Ready:</span>
+                  <Link href="/auth?mode=register" className="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-800 transition-colors font-bold">
+                    <Download className="w-4 h-4" /> Download This Resume PDF →
+                  </Link>
+                </div>
               </div>
 
             </div>
@@ -329,6 +411,3 @@ export default function Hero() {
     </section>
   );
 }
-
-
-
