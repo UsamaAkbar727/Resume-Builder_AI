@@ -5,8 +5,8 @@ import Link from "next/link";
 import { 
   ArrowRight, Check, Star, Sparkles, ShieldCheck, 
   FileText, CheckCircle2, Download, Upload,
-  Zap, MousePointerClick, Globe, Navigation, MessageSquare, Plus,
-  ChevronLeft, ChevronRight, Pause, Play
+  Zap, MousePointerClick, Globe, Navigation,
+  Pause, Play
 } from "lucide-react";
 import { ScrollReveal } from "./Animations";
 
@@ -210,13 +210,13 @@ export default function Hero() {
 
           </div>
 
-          {/* ── RIGHT COLUMN: Auto-Rotating CV Template Showcase ── */}
+          {/* ── RIGHT COLUMN: PURE REAL CV TEMPLATE SHOWCASE ── */}
           <div className="lg:col-span-6 relative flex flex-col justify-center items-center">
             
             {/* Outer Ambient Glow */}
             <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-blue-200/40 via-indigo-100/30 to-purple-200/40 blur-2xl pointer-events-none" />
 
-            {/* Top Auto-Changing Headline Badge */}
+            {/* Top Auto-Changing Template Name Header */}
             <div className="mb-3.5 z-20 flex items-center justify-between w-full max-w-lg bg-slate-900/90 text-white px-4 py-2.5 rounded-2xl backdrop-blur-md border border-slate-800 shadow-md">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-blue-400 animate-spin-slow" />
@@ -224,36 +224,34 @@ export default function Hero() {
                   Template #{slideIndex + 1}: {activeTemplate.name}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
-                  title={isPlaying ? "Pause rotation" : "Play rotation"}
-                >
-                  {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                </button>
-              </div>
+              <button
+                onClick={() => setIsPlaying(!isPlaying)}
+                className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
+                title={isPlaying ? "Pause rotation" : "Play rotation"}
+              >
+                {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+              </button>
             </div>
 
-            {/* REAL CV DOCUMENT PREVIEW CANVAS WITH BOTTOM-TO-TOP SLIDE ANIMATION */}
+            {/* PRISTINE REAL CV DOCUMENT CANVAS WITH SMOOTH SLIDE ANIMATION */}
             <div className="relative w-full max-w-lg overflow-hidden">
               
               <div 
                 key={activeTemplate.id}
-                className="relative bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-gray-200/80 space-y-5 text-left animate-in fade-in slide-in-from-bottom-8 duration-700"
+                className="bg-white rounded-3xl p-7 sm:p-9 shadow-2xl border border-gray-200/90 space-y-6 text-left animate-in fade-in slide-in-from-bottom-8 duration-700"
               >
                 
-                {/* Header & Photo Badge */}
-                <div className="flex justify-between items-start border-b pb-4 border-gray-200">
+                {/* CV Header & Candidate Avatar Photo */}
+                <div className="flex justify-between items-start border-b pb-5 border-gray-200">
                   <div>
-                    <h3 className="text-2xl font-extrabold text-gray-900">{activeTemplate.candidateName}</h3>
+                    <h3 className="text-2xl font-extrabold text-gray-900 tracking-tight">{activeTemplate.candidateName}</h3>
                     <p className="text-xs font-bold uppercase tracking-wider mt-0.5" style={{ color: activeTemplate.accentColor }}>
                       {activeTemplate.candidateTitle}
                     </p>
                     <p className="text-[11px] text-gray-500 mt-1">{activeTemplate.location}</p>
                   </div>
 
-                  {/* Candidate Avatar Photo Badge */}
+                  {/* Candidate Avatar Photo */}
                   <div className="relative shrink-0">
                     <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-blue-500 via-indigo-500 to-purple-500 blur-xs" />
                     <img
@@ -285,40 +283,12 @@ export default function Hero() {
                   ))}
                 </div>
 
-                {/* ── FLOATING LIVE BADGES ── */}
-
-                {/* 1. ATS SCORE BADGE */}
-                <div className="absolute -top-3 -left-3 z-20 bg-white rounded-2xl p-2 shadow-xl border border-gray-200 flex items-center gap-2 animate-float">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center">
-                    {activeTemplate.atsScore}%
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-black text-gray-900">Resume Score</p>
-                    <p className="text-[9px] text-emerald-600 font-bold">Top 2% Candidate</p>
-                  </div>
-                </div>
-
-                {/* 2. ATS PERFECT PILL */}
-                <div className="absolute top-12 -right-3 z-20 bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-3 py-1 rounded-full shadow-lg font-bold text-xs flex items-center gap-1 animate-float-delayed">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                  <span>ATS Perfect</span>
-                </div>
-
-                {/* 3. ASK AI COACH BADGE */}
-                <div className="absolute -bottom-3 -left-3 z-20 bg-white/95 backdrop-blur-md rounded-xl px-3 py-1.5 shadow-xl border border-gray-200 flex items-center gap-2 text-xs font-semibold text-gray-700 animate-float">
-                  <MessageSquare className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Ask AI coach anything...</span>
-                </div>
-
-                {/* 4. SKILLS CHIPS */}
-                <div className="absolute -bottom-5 -right-3 z-20 bg-white rounded-2xl p-2.5 shadow-xl border border-gray-200 space-y-1.5 min-w-[160px]">
-                  <div className="flex justify-between items-center text-[11px] font-bold text-gray-900 border-b pb-1">
-                    <span>Skills</span>
-                    <span className="text-[9px] text-blue-600 font-semibold">{activeTemplate.skills.length} Listed</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1 text-[10px]">
-                    {activeTemplate.skills.slice(0, 3).map((s) => (
-                      <span key={s} className="bg-slate-100 text-slate-700 font-semibold px-2 py-0.5 rounded text-left">
+                {/* Skills Chips */}
+                <div className="space-y-1.5 pt-2 border-t border-gray-100">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Skills & Competencies</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {activeTemplate.skills.map((s) => (
+                      <span key={s} className="bg-slate-100 text-slate-800 text-[10px] font-bold px-2.5 py-1 rounded-md border border-slate-200">
                         {s}
                       </span>
                     ))}
