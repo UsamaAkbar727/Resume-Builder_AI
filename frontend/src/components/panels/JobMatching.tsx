@@ -98,14 +98,14 @@ export default function JobMatching({ resumeData, onNavigate, showToast, onAddJo
     try {
       // If no query, use user's preferred role or skills
       const q = keyword || userTitle || (userSkills.slice(0, 2).join(" "));
-      const url = `/api/jobs?query=${encodeURIComponent(q)}&location=${encodeURIComponent(locationQuery)}`;
+      const url = `/api/jobs/feed?search=${encodeURIComponent(q)}&remote=${selectedRemote === 'Remote Only' ? 'true' : 'false'}`;
       
       const res = await fetch(url);
       if (!res.ok) throw new Error("Network response failed");
       const data = await res.json();
       
-      // Parse, filter, and score jobs
-      const rawJobs = data.jobs || [];
+      // Parse real backend API jobs data
+      const rawJobs = data.data || [];
       
       const processed = rawJobs.map((job: any) => {
         // Calculate AI matching scores & parameters

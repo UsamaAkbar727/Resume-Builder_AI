@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { ArrowLeft, Sparkles, ChevronDown, Check, Globe, Download, Settings2, Palette, Eye, Layout, FileCode } from "lucide-react";
+import { downloadPortfolioHTML, PortfolioData } from "@/utils/portfolioExporter";
 
 interface PortfolioBuilderProps {
   resumeData?: any;
