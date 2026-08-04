@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { 
   ArrowRight, Check, Star, Sparkles, ShieldCheck, 
-  FileText, CheckCircle2, Download, Upload, Layout,
-  Briefcase, GraduationCap, Award, Eye, Zap, MousePointerClick
+  FileText, CheckCircle2, Download, Upload,
+  Zap, MousePointerClick, Globe, Compass, Navigation, MapPin
 } from "lucide-react";
 import { ScrollReveal } from "./Animations";
 
@@ -111,6 +111,69 @@ const colorAccents = [
   { id: "rose", hex: "#E11D48", bgClass: "bg-rose-600", borderClass: "border-rose-600", lightBg: "bg-rose-50", textClass: "text-rose-600" }
 ];
 
+{/* Large Animated World Globe Vector Background Component */}
+function BackgroundLeftWorldGlobe() {
+  return (
+    <div className="absolute top-6 -left-28 sm:-left-36 md:-left-44 lg:-left-52 w-[420px] h-[420px] sm:w-[550px] sm:h-[550px] lg:w-[720px] lg:h-[720px] pointer-events-none z-0 opacity-20 sm:opacity-25 lg:opacity-30">
+      
+      {/* Ambient Pulsing Radial Aura behind Left Globe */}
+      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400/20 via-indigo-500/10 to-transparent blur-3xl animate-pulse-slow" />
+
+      {/* Rotating Dotted Global Wireframe SVG */}
+      <svg 
+        className="w-full h-full text-blue-600 animate-[spin_80s_linear_infinite]" 
+        viewBox="0 0 200 200" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Outer Orbit Circles */}
+        <circle cx="100" cy="100" r="95" stroke="currentColor" strokeWidth="1.2" strokeDasharray="6 4" opacity="0.6" />
+        <circle cx="100" cy="100" r="82" stroke="currentColor" strokeWidth="1" strokeDasharray="4 3" opacity="0.5" />
+        <circle cx="100" cy="100" r="65" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3 3" opacity="0.4" />
+        <circle cx="100" cy="100" r="45" stroke="currentColor" strokeWidth="0.6" strokeDasharray="2 3" opacity="0.3" />
+
+        {/* Latitudes & Longitudes Wireframe */}
+        <ellipse cx="100" cy="100" rx="95" ry="38" stroke="currentColor" strokeWidth="1.2" strokeDasharray="5 4" opacity="0.65" />
+        <ellipse cx="100" cy="100" rx="38" ry="95" stroke="currentColor" strokeWidth="1.2" strokeDasharray="5 4" opacity="0.65" />
+        <ellipse cx="100" cy="100" rx="95" ry="70" stroke="currentColor" strokeWidth="0.9" strokeDasharray="4 3" opacity="0.45" />
+        <ellipse cx="100" cy="100" rx="70" ry="95" stroke="currentColor" strokeWidth="0.9" strokeDasharray="4 3" opacity="0.45" />
+        <line x1="5" y1="100" x2="195" y2="100" stroke="currentColor" strokeWidth="1" strokeDasharray="4 2" opacity="0.5" />
+        <line x1="100" y1="5" x2="100" y2="195" stroke="currentColor" strokeWidth="1" strokeDasharray="4 2" opacity="0.5" />
+
+        {/* Global Network Nodes & Connection Lines */}
+        <line x1="45" y1="65" x2="135" y2="40" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="3 2" opacity="0.7" />
+        <line x1="135" y1="40" x2="155" y2="120" stroke="#6366F1" strokeWidth="1.5" strokeDasharray="3 2" opacity="0.7" />
+        <line x1="155" y1="120" x2="65" y2="155" stroke="#10B981" strokeWidth="1.5" strokeDasharray="3 2" opacity="0.7" />
+        <line x1="65" y1="155" x2="45" y2="65" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="3 2" opacity="0.7" />
+
+        {/* Glowing Network Location Pins/Nodes */}
+        <circle cx="100" cy="5" r="4" fill="#2563EB" />
+        <circle cx="195" cy="100" r="4" fill="#3B82F6" />
+        <circle cx="100" cy="195" r="4" fill="#10B981" />
+        <circle cx="5" cy="100" r="4" fill="#6366F1" />
+
+        <circle cx="45" cy="65" r="3.5" fill="#2563EB" />
+        <circle cx="135" cy="40" r="3.5" fill="#6366F1" />
+        <circle cx="155" cy="120" r="3.5" fill="#10B981" />
+        <circle cx="65" cy="155" r="3.5" fill="#F59E0B" />
+        <circle cx="100" cy="100" r="4.5" fill="#2563EB" />
+      </svg>
+
+      {/* Floating Auxiliary World Badges on Left Background */}
+      <div className="absolute top-16 left-28 p-3 rounded-2xl bg-white/80 backdrop-blur-md border border-blue-100 shadow-md text-blue-600 animate-float hidden sm:flex items-center gap-2 text-xs font-bold">
+        <Globe className="w-4 h-4 text-blue-600 animate-spin-slow" />
+        <span>50+ Countries</span>
+      </div>
+
+      <div className="absolute bottom-24 left-16 p-2.5 rounded-2xl bg-white/80 backdrop-blur-md border border-emerald-100 shadow-md text-emerald-600 animate-float-delayed hidden md:flex items-center gap-2 text-xs font-bold">
+        <Navigation className="w-4 h-4 text-emerald-600" />
+        <span>Global Remote Hire</span>
+      </div>
+
+    </div>
+  );
+}
+
 export default function Hero() {
   const [activeRole, setActiveRole] = useState<"software" | "design" | "pm">("software");
   const [activeAccent, setActiveAccent] = useState(colorAccents[0]);
@@ -118,20 +181,32 @@ export default function Hero() {
   const current = roleDemos[activeRole];
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50/60 pt-10 pb-20 md:pt-14 md:pb-28 border-b border-gray-200/80">
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50/70 pt-10 pb-20 md:pt-14 md:pb-28 border-b border-gray-200/80">
       
-      {/* Background Decorators */}
-      <div className="absolute inset-0 bg-dot-grid opacity-35 pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-b from-blue-100/40 via-indigo-50/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+      {/* ── Premium Background Animations ── */}
+      
+      {/* 1. Interactive Mesh Dot Grid */}
+      <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none z-0" />
+      
+      {/* 2. Top Centered Soft Aura Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[500px] bg-gradient-to-b from-blue-100/50 via-indigo-100/20 to-transparent rounded-full blur-3xl pointer-events-none z-0" />
+      
+      {/* 3. Floating Ambient Animated Color Blobs (Pulsing) */}
+      <div className="absolute top-12 left-1/4 w-96 h-96 rounded-full bg-gradient-to-tr from-blue-400/20 via-indigo-300/15 to-purple-300/10 blur-3xl animate-float pointer-events-none z-0" />
+      <div className="absolute top-20 right-1/4 w-[480px] h-[480px] rounded-full bg-gradient-to-bl from-indigo-300/20 via-blue-200/15 to-emerald-200/10 blur-3xl animate-float-delayed pointer-events-none z-0" />
+      <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] rounded-full bg-blue-500/10 blur-3xl animate-pulse-slow pointer-events-none z-0" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 4. Left Side Big World / Globe Background Animation */}
+      <BackgroundLeftWorldGlobe />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Centered Hero Content */}
         <div className="text-center max-w-4xl mx-auto mb-12">
           
           {/* Social Proof Badge */}
           <ScrollReveal variant="fade-up" delay={0}>
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm mb-6 text-xs sm:text-sm font-semibold text-gray-700">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 shadow-sm mb-6 text-xs sm:text-sm font-semibold text-gray-700">
               <div className="flex -space-x-1.5 items-center">
                 <span className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-[10px] text-white font-bold">A</span>
                 <span className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] text-white font-bold">M</span>
@@ -146,7 +221,7 @@ export default function Hero() {
               </div>
               <span className="text-gray-900 font-bold">4.9/5</span>
               <span className="text-gray-300">|</span>
-              <span className="text-gray-600 font-medium">Trusted by 50,000+ Job Seekers</span>
+              <span className="text-gray-600 font-medium">Trusted by 50,000+ Job Seekers Worldwide</span>
             </div>
           </ScrollReveal>
 
@@ -176,7 +251,7 @@ export default function Hero() {
               </Link>
               <Link 
                 href="/auth?mode=register" 
-                className="btn-outline w-full sm:w-auto px-7 py-4 text-base font-semibold justify-center bg-white hover:bg-gray-50 text-gray-800 border-gray-300"
+                className="btn-outline w-full sm:w-auto px-7 py-4 text-base font-semibold justify-center bg-white/90 backdrop-blur-sm hover:bg-gray-50 text-gray-800 border-gray-300"
               >
                 <Upload className="w-4 h-4 text-gray-500 mr-1" /> Import Existing Resume
               </Link>
