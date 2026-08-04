@@ -25,9 +25,9 @@ interface OverviewProps {
   onNavigate: (tab: string) => void;
 }
 
-// Canva Templates Quick List for Dashboard Quick Start
+// Pro Templates Quick List for Dashboard Quick Start
 const QUICK_TEMPLATES = [
-  { id: "canva_modern", name: "Canva Modern", color: "bg-blue-600", tag: "Popular" },
+  { id: "studio_modern", name: "Studio Modern", color: "bg-blue-600", tag: "Popular" },
   { id: "executive", name: "Executive Leadership", color: "bg-slate-800", tag: "Serif" },
   { id: "tech_specialist", name: "Tech Specialist", color: "bg-emerald-600", tag: "Developer" },
   { id: "creative_visual", name: "Creative Visual", color: "bg-violet-600", tag: "Designer" },
@@ -158,7 +158,7 @@ export default function DashboardOverview({ jobs, language = "en", onNavigate }:
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-              <Grid className="w-4 h-4 text-blue-600" /> Canva Resume Templates Quick Launch
+              <Grid className="w-4 h-4 text-blue-600" /> Pro Resume Templates Quick Launch
             </h3>
             <p className="text-xs text-gray-500">
               Select any design template to open directly in the real-time AI Resume Builder

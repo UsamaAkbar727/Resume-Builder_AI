@@ -15,14 +15,14 @@ interface ResumeBuilderProps {
   showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
 
-// 10 Canva-level Template Presets
+// 10 Pro-level Template Presets
 const TEMPLATE_PRESETS = [
-  { id: "canva_modern", name: "Canva Modern Bold", category: "Canva Popular", desc: "Top primary color banner block with 2-column layout" },
+  { id: "studio_modern", name: "Studio Modern Bold", category: "Featured", desc: "Top primary color banner block with 2-column layout" },
   { id: "executive", name: "Executive Leadership", category: "Executive", desc: "Elegant serif typography with formal gold/navy accent borders" },
   { id: "tech_specialist", name: "Tech Specialist (Developer)", category: "Tech", desc: "Dark sidebar, code font tags, terminal style project cards" },
   { id: "creative_visual", name: "Creative Visual Designer", category: "Creative", desc: "Pastel gradient header, initial avatar badge, skill meters" },
   { id: "swiss_minimal", name: "Swiss Clean Minimal", category: "Minimal", desc: "Asymmetric grid layout, crisp typography, clean whitespace" },
-  { id: "corporate_split", name: "Corporate Split 2-Column", category: "Canva Popular", desc: "Distinct accent sidebar for contact & skills, right white main panel" },
+  { id: "corporate_split", name: "Corporate Split 2-Column", category: "Featured", desc: "Distinct accent sidebar for contact & skills, right white main panel" },
   { id: "infographic_metrics", name: "Infographic Impact", category: "Tech", desc: "Highlighted callout metric boxes alongside experience bullets" },
   { id: "academic_serif", name: "Academic & Legal Serif", category: "Executive", desc: "Traditional Playfair/Times serif layout with formal rules" },
   { id: "startup_hybrid", name: "Startup Growth Lead", category: "Modern", desc: "Vibrant pill tags for skills and project achievement badges" },
@@ -50,7 +50,7 @@ const FONT_OPTIONS = [
 
 export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, showToast }: ResumeBuilderProps) {
   const [activeTab, setActiveTab] = useState<"details" | "experience" | "skills" | "projects" | "education">("details");
-  const [template, setTemplate] = useState<string>("canva_modern");
+  const [template, setTemplate] = useState<string>("studio_modern");
   const [primaryColor, setPrimaryColor] = useState<string>("#2563EB");
   const [customFont, setCustomFont] = useState<string>("sans");
   const [fontSize, setFontSize] = useState<"compact" | "normal" | "spacious">("normal");
@@ -166,7 +166,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
             <div className="flex items-center gap-2">
               <h1 className="text-2xl font-extrabold text-gray-900">AI Resume Builder Studio</h1>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 uppercase border border-blue-200">
-                Canva Pro Engine
+                Executive Studio Engine
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-0.5">
@@ -180,7 +180,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
             onClick={() => setShowTemplateModal(true)}
             className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-blue-500/20 hover:opacity-95 transition-all cursor-pointer"
           >
-            <Grid className="w-3.5 h-3.5" /> Browse 10+ Canva Templates
+            <Grid className="w-3.5 h-3.5" /> Browse 10+ Pro Templates
           </button>
 
           <button
@@ -548,9 +548,9 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
             >
               
               {/* ────────────────────────────────────────────────
-                  TEMPLATE 1: CANVA MODERN BOLD
+                  TEMPLATE 1: STUDIO MODERN BOLD
                  ──────────────────────────────────────────────── */}
-              {template === "canva_modern" && (
+              {template === "studio_modern" && (
                 <div className="space-y-6 text-left">
                   {/* Top Color Banner */}
                   <div className="p-6 rounded-xl text-white shadow-sm" style={{ backgroundColor: primaryColor }}>
@@ -730,7 +730,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
               )}
 
               {/* FALLBACK FOR OTHER TEMPLATES */}
-              {!["canva_modern", "executive", "tech_specialist"].includes(template) && (
+              {!["studio_modern", "executive", "tech_specialist"].includes(template) && (
                 <div className="space-y-6 text-left">
                   <div className="border-b-2 pb-4" style={{ borderColor: primaryColor }}>
                     <h2 className="text-3xl font-bold text-gray-900">{resumeData.name}</h2>
@@ -769,7 +769,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
       </div>
 
       {/* ────────────────────────────────────────────────
-          CANVA TEMPLATE SELECTION MODAL
+          PRO TEMPLATE SELECTION MODAL
          ──────────────────────────────────────────────── */}
       {showTemplateModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
@@ -779,7 +779,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
             <div className="p-6 border-b border-gray-200 flex items-center justify-between bg-slate-900 text-white">
               <div>
                 <h3 className="text-xl font-extrabold flex items-center gap-2">
-                  <Grid className="w-5 h-5 text-blue-400" /> Choose Canva Resume Template
+                  <Grid className="w-5 h-5 text-blue-400" /> Choose Pro Resume Template
                 </h3>
                 <p className="text-xs text-slate-300 mt-0.5">
                   Select from 10+ recruiter-approved ATS template designs
@@ -795,7 +795,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
 
             {/* Category Filter Pills */}
             <div className="px-6 py-3 bg-gray-50 border-b border-gray-200 flex gap-2 overflow-x-auto text-xs font-semibold">
-              {["All", "Canva Popular", "Executive", "Tech", "Creative", "Minimal", "Modern"].map((cat) => (
+              {["All", "Featured", "Executive", "Tech", "Creative", "Minimal", "Modern"].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setTemplateCategoryFilter(cat)}
