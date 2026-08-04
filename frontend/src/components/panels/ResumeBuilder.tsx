@@ -561,7 +561,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
           <div className="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
             
             {/* Modal Header */}
-            <div className="p-6 border-b border-gray-200 bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="p-6 border-b border-gray-200 bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shrink-0">
               <div>
                 <h3 className="text-xl font-extrabold flex items-center gap-2">
                   <Grid className="w-5 h-5 text-blue-400" /> 100+ Pro Resume Template Library
@@ -594,7 +594,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
             </div>
 
             {/* Category Filter Pills */}
-            <div className="px-6 py-3 bg-gray-50 border-b border-gray-200 flex gap-2 overflow-x-auto text-xs font-semibold">
+            <div className="px-6 py-3.5 bg-slate-100 border-b border-gray-200 flex gap-2 overflow-x-auto text-xs font-semibold shrink-0 z-10 shadow-xs">
               {[
                 "All", "ATS Certified", "Tech & Software", "Design & Creative", 
                 "Management", "Marketing & Sales", "Finance & Corporate", 
@@ -603,10 +603,10 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
                 <button
                   key={cat}
                   onClick={() => setTemplateCategoryFilter(cat)}
-                  className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer ${
+                  className={`px-3.5 py-2 rounded-xl whitespace-nowrap transition-all cursor-pointer shadow-xs ${
                     templateCategoryFilter === cat
-                      ? "bg-blue-600 text-white font-bold"
-                      : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-100"
+                      ? "bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20"
+                      : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-blue-600"
                   }`}
                 >
                   {cat}
