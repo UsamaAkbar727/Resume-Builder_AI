@@ -6,6 +6,7 @@ import Hero from "@/components/landing/Hero";
 import Logos from "@/components/landing/Logos";
 import Stats from "@/components/landing/Stats";
 import Features from "@/components/landing/Features";
+import HowItWorks from "@/components/landing/HowItWorks";
 import ResumeDemo from "@/components/landing/ResumeDemo";
 import ATSChecker from "@/components/landing/ATSChecker";
 import Templates from "@/components/landing/Templates";
@@ -38,6 +39,9 @@ export default function LandingPage() {
 
         {/* 4. Core Features Grid */}
         <Features />
+
+        {/* 5. 5-Step Yellow & Black S-Curve Infographic Roadmap */}
+        <HowItWorks />
 
         {/* Anchor point for Interactive Tools */}
         <div id="interactive-tools" className="scroll-mt-20">
