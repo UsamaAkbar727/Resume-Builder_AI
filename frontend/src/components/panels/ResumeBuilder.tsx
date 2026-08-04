@@ -631,8 +631,15 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
                   }`}
                 >
                   <div>
-                    {/* REAL Mini Vector Visual Preview */}
-                    <TemplateMiniPreview template={t} primaryColor={primaryColor} />
+                    {/* Realistic Full-Document Preview with Hover Overlay */}
+                    <div className="relative group/card">
+                      <TemplateMiniPreview template={t} primaryColor={primaryColor} />
+                      <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] opacity-0 group-hover/card:opacity-100 transition-opacity rounded-xl flex items-center justify-center pointer-events-none mb-3">
+                        <span className="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs shadow-lg transform -translate-y-1 group-hover/card:translate-y-0 transition-transform">
+                          Use this template
+                        </span>
+                      </div>
+                    </div>
 
                     <div className="flex items-center justify-between">
                       <h4 className="font-bold text-xs text-gray-900 truncate pr-1">{t.name}</h4>
