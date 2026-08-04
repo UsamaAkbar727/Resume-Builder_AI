@@ -5,8 +5,12 @@ import {
   Download, FileText, ArrowLeft, ChevronDown, Check, Sparkles, 
   Palette, Type, Layout, Eye, Grid, Plus, Trash2, Zap, 
   Copy, Printer, Award, GraduationCap, Briefcase, Code, Sliders,
-  CheckCircle2, X
+  CheckCircle2, X, Search
 } from "lucide-react";
+
+import { TEMPLATES_DATA, ResumeTemplate } from "@/data/templatesData";
+import TemplateMiniPreview from "@/components/panels/TemplateMiniPreview";
+import ResumeCanvasRenderers from "@/components/panels/ResumeCanvasRenderers";
 
 interface ResumeBuilderProps {
   resumeData: any;
@@ -14,20 +18,6 @@ interface ResumeBuilderProps {
   onNavigate: (tab: string) => void;
   showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
-
-// 10 Distinct Template Presets
-const TEMPLATE_PRESETS = [
-  { id: "studio_modern", name: "Studio Modern Bold", category: "Featured", desc: "Top primary color banner block with 2-column layout" },
-  { id: "executive", name: "Executive Leadership", category: "Executive", desc: "Elegant serif typography with formal gold/navy accent borders" },
-  { id: "tech_specialist", name: "Tech Specialist (Developer)", category: "Tech", desc: "Dark sidebar, code font tags, terminal style project cards" },
-  { id: "creative_visual", name: "Creative Visual Designer", category: "Creative", desc: "Pastel gradient header, initial avatar badge, skill meters" },
-  { id: "swiss_minimal", name: "Swiss Clean Minimal", category: "Minimal", desc: "Asymmetric grid layout, crisp typography, clean whitespace" },
-  { id: "corporate_split", name: "Corporate Split 2-Column", category: "Featured", desc: "Distinct accent sidebar for contact & skills, right white main panel" },
-  { id: "infographic_metrics", name: "Infographic Impact", category: "Tech", desc: "Highlighted callout metric boxes alongside experience bullets" },
-  { id: "academic_serif", name: "Academic & Legal Serif", category: "Executive", desc: "Traditional Playfair/Times serif layout with formal rules" },
-  { id: "startup_hybrid", name: "Startup Growth Lead", category: "Modern", desc: "Vibrant pill tags for skills and project achievement badges" },
-  { id: "compact_onepage", name: "Compact Single Page", category: "Minimal", desc: "Optimized density to fit full career details seamlessly on 1 page" },
-];
 
 // Curated Color Themes
 const COLOR_THEMES = [
@@ -48,109 +38,18 @@ const FONT_OPTIONS = [
   { id: "mono", label: "Fira Code (Developer Mono)", class: "font-mono" },
 ];
 
-/**
- * Mini Real Visual Preview Helper for Modal Thumbnails
- */
-function TemplateMiniPreview({ templateId, primaryColor = "#2563EB" }: { templateId: string; primaryColor?: string }) {
-  if (templateId === "tech_specialist" || templateId === "corporate_split") {
-    return (
-      <div className="h-36 bg-white rounded-xl mb-3 border border-gray-200 overflow-hidden grid grid-cols-12 shadow-xs">
-        <div className="col-span-4 bg-slate-900 p-2 text-white flex flex-col justify-between">
-          <div className="space-y-1">
-            <div className="w-6 h-6 rounded-full bg-blue-500/80 mb-1" />
-            <div className="w-10 h-1.5 rounded bg-blue-300" />
-            <div className="w-8 h-1 rounded bg-slate-500" />
-          </div>
-          <div className="space-y-1">
-            <div className="w-full h-1 rounded bg-slate-700" />
-            <div className="w-3/4 h-1 rounded bg-slate-700" />
-          </div>
-        </div>
-        <div className="col-span-8 p-2.5 bg-gray-50 flex flex-col justify-between">
-          <div className="space-y-1.5">
-            <div className="w-20 h-2 rounded bg-slate-800" />
-            <div className="w-full h-1 rounded bg-slate-300" />
-            <div className="w-5/6 h-1 rounded bg-slate-300" />
-          </div>
-          <div className="space-y-1">
-            <div className="w-14 h-1.5 rounded bg-slate-700" />
-            <div className="w-full h-1 rounded bg-slate-200" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (templateId === "executive" || templateId === "academic_serif") {
-    return (
-      <div className="h-36 bg-amber-50/40 rounded-xl mb-3 border border-amber-200/80 p-3 flex flex-col justify-between text-center shadow-xs">
-        <div className="border-b-2 border-amber-700/40 pb-1.5 flex flex-col items-center">
-          <div className="w-24 h-2.5 rounded bg-slate-900 mb-1 font-serif" />
-          <div className="w-16 h-1.5 rounded bg-amber-700" />
-        </div>
-        <div className="space-y-1 text-left">
-          <div className="w-full h-1 rounded bg-slate-300" />
-          <div className="w-5/6 h-1 rounded bg-slate-300" />
-          <div className="w-4/6 h-1 rounded bg-slate-300" />
-        </div>
-        <div className="border-t border-amber-200 pt-1 flex justify-between">
-          <div className="w-10 h-1 rounded bg-slate-400" />
-          <div className="w-10 h-1 rounded bg-slate-400" />
-        </div>
-      </div>
-    );
-  }
-
-  if (templateId === "creative_visual") {
-    return (
-      <div className="h-36 bg-white rounded-xl mb-3 border border-gray-200 overflow-hidden p-2.5 flex flex-col justify-between shadow-xs">
-        <div className="bg-gradient-to-r from-purple-500 to-indigo-500 p-2 rounded-lg text-white flex items-center gap-2">
-          <div className="w-5 h-5 rounded-full bg-white/30 shrink-0" />
-          <div className="space-y-1 w-full">
-            <div className="w-14 h-1.5 rounded bg-white" />
-            <div className="w-10 h-1 rounded bg-white/70" />
-          </div>
-        </div>
-        <div className="space-y-1">
-          <div className="w-full h-1 rounded bg-slate-200" />
-          <div className="w-3/4 h-1 rounded bg-slate-200" />
-        </div>
-        <div className="flex gap-1">
-          <div className="w-8 h-2 rounded bg-purple-100 border border-purple-200" />
-          <div className="w-8 h-2 rounded bg-indigo-100 border border-indigo-200" />
-        </div>
-      </div>
-    );
-  }
-
-  // Default Studio Modern / Swiss Minimal / Infographic
-  return (
-    <div className="h-36 bg-white rounded-xl mb-3 border border-gray-200 overflow-hidden p-3 flex flex-col justify-between shadow-xs">
-      <div className="p-2 rounded-md text-white flex justify-between items-center" style={{ backgroundColor: primaryColor }}>
-        <div className="w-16 h-2 rounded bg-white" />
-        <div className="w-6 h-1.5 rounded bg-white/80" />
-      </div>
-      <div className="space-y-1">
-        <div className="w-full h-1 rounded bg-slate-300" />
-        <div className="w-5/6 h-1 rounded bg-slate-300" />
-        <div className="w-4/6 h-1 rounded bg-slate-300" />
-      </div>
-      <div className="flex justify-between items-center pt-1 border-t border-gray-100">
-        <div className="w-12 h-1 rounded bg-slate-400" />
-        <div className="w-8 h-1.5 rounded bg-emerald-400" />
-      </div>
-    </div>
-  );
-}
-
 export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, showToast }: ResumeBuilderProps) {
-  const [activeTab, setActiveTab] = useState<"details" | "experience" | "skills" | "projects" | "education">("details");
-  const [template, setTemplate] = useState<string>("studio_modern");
+  const [activeTab, setActiveTab] = useState<"details" | "experience" | "skills" | "projects">("details");
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>("ats_pro_classic");
   const [primaryColor, setPrimaryColor] = useState<string>("#2563EB");
-  const [customFont, setCustomFont] = useState<string>("sans");
+  const [customFont, setCustomFont] = useState<"sans" | "serif" | "mono">("sans");
   const [showTemplateModal, setShowTemplateModal] = useState<boolean>(false);
+  const [templateSearchQuery, setTemplateSearchQuery] = useState<string>("");
   const [templateCategoryFilter, setTemplateCategoryFilter] = useState<string>("All");
   const [exporting, setExporting] = useState<boolean>(false);
+
+  // Active template object
+  const activeTemplate = TEMPLATES_DATA.find(t => t.id === selectedTemplateId) || TEMPLATES_DATA[0];
 
   // Field change handler
   const handleInputChange = (field: string, value: any) => {
@@ -229,16 +128,21 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
     if (resumeData.email) score += 5;
     if (resumeData.summary && resumeData.summary.length > 50) score += 10;
     if (resumeData.experience && resumeData.experience.length >= 2) score += 10;
-    if (resumeData.skills && resumeData.skills.length > 20) score += 5;
+    if (resumeData.skills && (typeof resumeData.skills === "string" ? resumeData.skills.length > 20 : resumeData.skills.length > 3)) score += 5;
     return Math.min(score, 98);
   };
 
   const atsScore = calculateLiveATS();
 
-  // Filter templates by category
-  const filteredTemplates = templateCategoryFilter === "All" 
-    ? TEMPLATE_PRESETS 
-    : TEMPLATE_PRESETS.filter(t => t.category === templateCategoryFilter);
+  // Filter templates by category & search query
+  const filteredTemplates = TEMPLATES_DATA.filter(t => {
+    const matchesCat = templateCategoryFilter === "All" || t.category === templateCategoryFilter;
+    const matchesSearch = !templateSearchQuery || 
+      t.name.toLowerCase().includes(templateSearchQuery.toLowerCase()) || 
+      t.category.toLowerCase().includes(templateSearchQuery.toLowerCase()) ||
+      t.description.toLowerCase().includes(templateSearchQuery.toLowerCase());
+    return matchesCat && matchesSearch;
+  });
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
@@ -259,11 +163,11 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
             <div className="flex items-center gap-2">
               <h1 className="text-2xl font-extrabold text-gray-900">AI Resume Builder Studio</h1>
               <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 uppercase border border-blue-200">
-                Executive Studio Engine
+                100+ Pro Templates Engine
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-0.5">
-              10+ Professional Templates • Real-Time Editing • Live ATS Optimization
+              100+ Recruiter-Approved ATS Templates • Real-Time Editing • Live ATS Optimization
             </p>
           </div>
         </div>
@@ -273,7 +177,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
             onClick={() => setShowTemplateModal(true)}
             className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-blue-500/20 hover:opacity-95 transition-all cursor-pointer"
           >
-            <Grid className="w-3.5 h-3.5" /> Browse 10+ Pro Templates
+            <Grid className="w-3.5 h-3.5" /> Browse 100+ Templates Gallery
           </button>
 
           <button
@@ -305,20 +209,20 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
               <span className="text-xs font-bold uppercase tracking-wider text-gray-500 flex items-center gap-1.5">
                 <Palette className="w-3.5 h-3.5 text-blue-600" /> Design & Formatting
               </span>
-              <span className="text-[11px] font-semibold text-blue-600">
-                Active: {TEMPLATE_PRESETS.find(t => t.id === template)?.name}
+              <span className="text-[11px] font-semibold text-blue-600 truncate max-w-[180px]">
+                Active: {activeTemplate.name}
               </span>
             </div>
 
             {/* Template Selector Quick Dropdown */}
             <div>
-              <label className="block text-[11px] font-bold text-gray-600 uppercase mb-1.5">Select Template Style</label>
+              <label className="block text-[11px] font-bold text-gray-600 uppercase mb-1.5">Select Template</label>
               <select
-                value={template}
-                onChange={(e) => setTemplate(e.target.value)}
+                value={selectedTemplateId}
+                onChange={(e) => setSelectedTemplateId(e.target.value)}
                 className="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-xs font-bold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                {TEMPLATE_PRESETS.map((t) => (
+                {TEMPLATES_DATA.slice(0, 20).map((t) => (
                   <option key={t.id} value={t.id}>
                     {t.name} ({t.category})
                   </option>
@@ -348,7 +252,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
                 <label className="block text-[11px] font-bold text-gray-600 uppercase mb-1.5">Font Style</label>
                 <select
                   value={customFont}
-                  onChange={(e) => setCustomFont(e.target.value)}
+                  onChange={(e) => setCustomFont(e.target.value as any)}
                   className="w-full bg-gray-50 border border-gray-300 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-gray-800"
                 >
                   {FONT_OPTIONS.map((f) => (
@@ -368,7 +272,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
                   <div className="text-xs font-bold flex items-center gap-1">
                     Live ATS Compliance <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                   </div>
-                  <div className="text-[10px] text-slate-400">Greenhouse, Workday & Lever Ready</div>
+                  <div className="text-[10px] text-slate-400">Greenhouse, Workday & Lever Verified</div>
                 </div>
               </div>
               <button 
@@ -549,7 +453,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
                   </label>
                   <textarea
                     rows={6}
-                    value={resumeData.skills || ""}
+                    value={typeof resumeData.skills === "string" ? resumeData.skills : (resumeData.skills || []).join(", ")}
                     onChange={(e) => handleInputChange("skills", e.target.value)}
                     placeholder="e.g. React 19, TypeScript, Next.js, PostgreSQL, System Design, GraphQL, AWS, CI/CD"
                     className="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-xs font-mono text-gray-900 leading-relaxed"
@@ -629,238 +533,20 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
               <Eye className="w-3.5 h-3.5 text-blue-600" /> Live Paper Resume Canvas
             </span>
             <span className="font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-              Template: {TEMPLATE_PRESETS.find(t => t.id === template)?.name}
+              Template: {activeTemplate.name}
             </span>
           </div>
 
           {/* Paper Canvas Shadow Box */}
           <div className="bg-slate-200/70 p-4 sm:p-8 rounded-2xl border border-gray-300 shadow-inner overflow-x-auto">
-            
-            <div
-              className={`bg-white rounded-lg shadow-2xl border border-gray-300 p-8 sm:p-12 min-h-[840px] max-w-3xl mx-auto text-gray-900 transition-all ${
-                customFont === "serif" ? "font-serif" : customFont === "mono" ? "font-mono" : "font-sans"
-              }`}
-            >
-              
-              {/* ────────────────────────────────────────────────
-                  1. STUDIO MODERN BOLD
-                 ──────────────────────────────────────────────── */}
-              {template === "studio_modern" && (
-                <div className="space-y-6 text-left">
-                  <div className="p-6 rounded-xl text-white shadow-sm" style={{ backgroundColor: primaryColor }}>
-                    <h2 className="text-3xl font-extrabold tracking-tight">{resumeData.name || "Alex Morgan"}</h2>
-                    <p className="text-sm font-semibold opacity-90 mt-1 uppercase tracking-wider">
-                      {resumeData.title || "Senior Full-Stack Engineer"}
-                    </p>
-                    <div className="flex flex-wrap gap-4 text-xs mt-3 opacity-80 pt-2 border-t border-white/20">
-                      <span>{resumeData.email || "alex@example.com"}</span>
-                      <span>•</span>
-                      <span>{resumeData.location || "San Francisco, CA"}</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="font-bold text-xs uppercase tracking-wider mb-2 border-b pb-1" style={{ color: primaryColor, borderColor: primaryColor }}>
-                      Professional Summary
-                    </h4>
-                    <p className="text-xs text-gray-700 leading-relaxed font-normal">{resumeData.summary}</p>
-                  </div>
-
-                  <div>
-                    <h4 className="font-bold text-xs uppercase tracking-wider mb-3 border-b pb-1" style={{ color: primaryColor, borderColor: primaryColor }}>
-                      Work Experience
-                    </h4>
-                    <div className="space-y-4">
-                      {(resumeData.experience || []).map((exp: any, i: number) => (
-                        <div key={i} className="space-y-1">
-                          <div className="flex justify-between font-bold text-xs text-gray-900">
-                            <span>{exp.role} — <span style={{ color: primaryColor }}>{exp.company}</span></span>
-                            <span className="text-gray-400 font-normal">{exp.duration}</span>
-                          </div>
-                          <p className="text-xs text-gray-700 leading-relaxed">{exp.description}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="font-bold text-xs uppercase tracking-wider mb-2 border-b pb-1" style={{ color: primaryColor, borderColor: primaryColor }}>
-                      Skills & Keywords
-                    </h4>
-                    <div className="flex flex-wrap gap-1.5">
-                      {typeof resumeData.skills === "string" && resumeData.skills.split(",").map((s: string, idx: number) => (
-                        <span key={idx} className="bg-gray-100 text-gray-800 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-gray-200">
-                          {s.trim()}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* ────────────────────────────────────────────────
-                  2. EXECUTIVE LEADERSHIP
-                 ──────────────────────────────────────────────── */}
-              {template === "executive" && (
-                <div className="space-y-6 text-center">
-                  <div className="border-b-2 pb-4" style={{ borderColor: primaryColor }}>
-                    <h2 className="text-3xl font-serif font-extrabold text-gray-900 tracking-wide">{resumeData.name}</h2>
-                    <p className="text-xs font-bold uppercase tracking-widest mt-1 text-gray-600" style={{ color: primaryColor }}>
-                      {resumeData.title}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-2 font-serif">{resumeData.email}  |  {resumeData.location}</p>
-                  </div>
-
-                  <div className="text-left space-y-5">
-                    <div>
-                      <h3 className="text-xs font-bold uppercase tracking-wider border-b border-gray-200 pb-1 mb-2 text-gray-800">
-                        Executive Profile
-                      </h3>
-                      <p className="text-xs text-gray-700 leading-relaxed italic">{resumeData.summary}</p>
-                    </div>
-
-                    <div>
-                      <h3 className="text-xs font-bold uppercase tracking-wider border-b border-gray-200 pb-1 mb-3 text-gray-800">
-                        Professional Leadership & Experience
-                      </h3>
-                      <div className="space-y-4">
-                        {(resumeData.experience || []).map((exp: any, i: number) => (
-                          <div key={i}>
-                            <div className="flex justify-between text-xs font-bold text-gray-900">
-                              <span>{exp.company} — {exp.role}</span>
-                              <span className="text-gray-500 font-normal">{exp.duration}</span>
-                            </div>
-                            <p className="text-xs text-gray-700 mt-1 leading-relaxed">{exp.description}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* ────────────────────────────────────────────────
-                  3. TECH SPECIALIST / DEVELOPER
-                 ──────────────────────────────────────────────── */}
-              {template === "tech_specialist" && (
-                <div className="grid grid-cols-12 gap-6 text-left">
-                  <div className="col-span-4 bg-slate-900 text-white p-5 rounded-xl space-y-5 text-xs">
-                    <div>
-                      <h3 className="text-base font-bold text-white">{resumeData.name}</h3>
-                      <p className="text-[11px] text-blue-400 font-mono mt-0.5">{resumeData.title}</p>
-                    </div>
-                    <hr className="border-slate-800" />
-                    <div>
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Contact</span>
-                      <p className="text-[11px] text-slate-300 break-all">{resumeData.email}</p>
-                      <p className="text-[11px] text-slate-400 mt-1">{resumeData.location}</p>
-                    </div>
-                    <div>
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block mb-2">Tech Keywords</span>
-                      <div className="flex flex-wrap gap-1">
-                        {typeof resumeData.skills === "string" && resumeData.skills.split(",").map((s: string, idx: number) => (
-                          <span key={idx} className="bg-slate-800 text-blue-300 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-700">
-                            {s.trim()}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-span-8 space-y-5 text-xs">
-                    <div>
-                      <h4 className="font-bold text-xs uppercase tracking-wider text-gray-900 border-b pb-1 mb-2">Summary</h4>
-                      <p className="text-gray-700 leading-relaxed">{resumeData.summary}</p>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-xs uppercase tracking-wider text-gray-900 border-b pb-1 mb-3">Work History</h4>
-                      <div className="space-y-4">
-                        {(resumeData.experience || []).map((exp: any, i: number) => (
-                          <div key={i}>
-                            <div className="flex justify-between font-bold text-gray-900">
-                              <span>{exp.role} @ {exp.company}</span>
-                              <span className="text-gray-400 text-[10px]">{exp.duration}</span>
-                            </div>
-                            <p className="text-gray-600 mt-1 leading-relaxed">{exp.description}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* ────────────────────────────────────────────────
-                  4. CREATIVE VISUAL DESIGNER
-                 ──────────────────────────────────────────────── */}
-              {template === "creative_visual" && (
-                <div className="space-y-6 text-left">
-                  <div className="p-6 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md flex items-center justify-between">
-                    <div>
-                      <h2 className="text-3xl font-black">{resumeData.name}</h2>
-                      <p className="text-xs font-bold uppercase tracking-widest text-purple-200 mt-1">{resumeData.title}</p>
-                      <p className="text-xs text-white/80 mt-2">{resumeData.email} • {resumeData.location}</p>
-                    </div>
-                    <div className="w-14 h-14 rounded-full bg-white/20 border-2 border-white/40 flex items-center justify-center font-black text-xl text-white">
-                      {(resumeData.name || "A").charAt(0)}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="font-extrabold text-xs uppercase tracking-wider text-purple-700 mb-2 border-b-2 border-purple-200 pb-1">Design Vision</h4>
-                    <p className="text-xs text-gray-700 leading-relaxed">{resumeData.summary}</p>
-                  </div>
-
-                  <div>
-                    <h4 className="font-extrabold text-xs uppercase tracking-wider text-purple-700 mb-3 border-b-2 border-purple-200 pb-1">Experience</h4>
-                    <div className="space-y-4">
-                      {(resumeData.experience || []).map((exp: any, i: number) => (
-                        <div key={i} className="p-3.5 rounded-xl bg-purple-50/50 border border-purple-100">
-                          <div className="flex justify-between font-bold text-xs text-gray-900">
-                            <span>{exp.role} — <span className="text-purple-700">{exp.company}</span></span>
-                            <span className="text-purple-500 font-medium">{exp.duration}</span>
-                          </div>
-                          <p className="text-xs text-gray-600 mt-1 leading-relaxed">{exp.description}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* FALLBACK RENDER FOR OTHER TEMPLATES */}
-              {!["studio_modern", "executive", "tech_specialist", "creative_visual"].includes(template) && (
-                <div className="space-y-6 text-left">
-                  <div className="border-b-2 pb-4" style={{ borderColor: primaryColor }}>
-                    <h2 className="text-3xl font-bold text-gray-900">{resumeData.name}</h2>
-                    <p className="text-sm font-semibold mt-1" style={{ color: primaryColor }}>{resumeData.title}</p>
-                    <p className="text-xs text-gray-500 mt-1">{resumeData.email} • {resumeData.location}</p>
-                  </div>
-
-                  <div>
-                    <h4 className="font-bold text-xs uppercase tracking-wider mb-2" style={{ color: primaryColor }}>Summary</h4>
-                    <p className="text-xs text-gray-700 leading-relaxed">{resumeData.summary}</p>
-                  </div>
-
-                  <div>
-                    <h4 className="font-bold text-xs uppercase tracking-wider mb-3" style={{ color: primaryColor }}>Experience</h4>
-                    <div className="space-y-4">
-                      {(resumeData.experience || []).map((exp: any, i: number) => (
-                        <div key={i}>
-                          <div className="flex justify-between font-bold text-xs text-gray-900">
-                            <span>{exp.role} — {exp.company}</span>
-                            <span className="text-gray-400">{exp.duration}</span>
-                          </div>
-                          <p className="text-xs text-gray-600 mt-1">{exp.description}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
+            <div className="bg-white rounded-lg shadow-2xl border border-gray-300 p-8 sm:p-12 min-h-[840px] max-w-3xl mx-auto transition-all">
+              <ResumeCanvasRenderers
+                template={activeTemplate}
+                resumeData={resumeData}
+                primaryColor={primaryColor}
+                customFont={customFont}
+              />
             </div>
-
           </div>
 
         </div>
@@ -868,37 +554,56 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
       </div>
 
       {/* ────────────────────────────────────────────────
-          PRO TEMPLATE SELECTION MODAL WITH REAL PREVIEWS
+          100+ TEMPLATE SELECTION MODAL GALLERY
          ──────────────────────────────────────────────── */}
       {showTemplateModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
             
             {/* Modal Header */}
-            <div className="p-6 border-b border-gray-200 flex items-center justify-between bg-slate-900 text-white">
+            <div className="p-6 border-b border-gray-200 bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h3 className="text-xl font-extrabold flex items-center gap-2">
-                  <Grid className="w-5 h-5 text-blue-400" /> Choose Pro Resume Template
+                  <Grid className="w-5 h-5 text-blue-400" /> 100+ Pro Resume Template Library
                 </h3>
                 <p className="text-xs text-slate-300 mt-0.5">
-                  Select from 10+ recruiter-approved ATS template designs
+                  Select from recruiter-approved ATS templates across 50+ career categories
                 </p>
               </div>
-              <button
-                onClick={() => setShowTemplateModal(false)}
-                className="p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
+
+              <div className="flex items-center gap-3">
+                {/* Search Input */}
+                <div className="relative min-w-[200px]">
+                  <Search className="w-3.5 h-3.5 absolute left-3 top-3 text-slate-400" />
+                  <input
+                    type="text"
+                    value={templateSearchQuery}
+                    onChange={(e) => setTemplateSearchQuery(e.target.value)}
+                    placeholder="Search templates & roles..."
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <button
+                  onClick={() => setShowTemplateModal(false)}
+                  className="p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {/* Category Filter Pills */}
             <div className="px-6 py-3 bg-gray-50 border-b border-gray-200 flex gap-2 overflow-x-auto text-xs font-semibold">
-              {["All", "Featured", "Executive", "Tech", "Creative", "Minimal", "Modern"].map((cat) => (
+              {[
+                "All", "ATS Certified", "Tech & Software", "Design & Creative", 
+                "Management", "Marketing & Sales", "Finance & Corporate", 
+                "Healthcare & Medical", "Legal & Public", "Academic & Students", "Executive & Founders"
+              ].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setTemplateCategoryFilter(cat)}
-                  className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer ${
                     templateCategoryFilter === cat
                       ? "bg-blue-600 text-white font-bold"
                       : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-100"
@@ -915,37 +620,37 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
                 <div
                   key={t.id}
                   onClick={() => {
-                    setTemplate(t.id);
+                    setSelectedTemplateId(t.id);
                     setShowTemplateModal(false);
                     showToast?.(`Switched template to "${t.name}"!`, "success");
                   }}
                   className={`border-2 rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between ${
-                    template === t.id
+                    selectedTemplateId === t.id
                       ? "border-blue-600 bg-blue-50/50 shadow-md"
                       : "border-gray-200 hover:border-blue-300 bg-white"
                   }`}
                 >
                   <div>
-                    {/* REAL Mini Visual Preview */}
-                    <TemplateMiniPreview templateId={t.id} primaryColor={primaryColor} />
+                    {/* REAL Mini Vector Visual Preview */}
+                    <TemplateMiniPreview template={t} primaryColor={primaryColor} />
 
                     <div className="flex items-center justify-between">
-                      <h4 className="font-bold text-xs text-gray-900">{t.name}</h4>
-                      <span className="text-[9px] font-bold px-2 py-0.5 bg-gray-100 text-gray-600 rounded">
+                      <h4 className="font-bold text-xs text-gray-900 truncate pr-1">{t.name}</h4>
+                      <span className="text-[9px] font-bold px-2 py-0.5 bg-gray-100 text-gray-600 rounded shrink-0">
                         {t.category}
                       </span>
                     </div>
-                    <p className="text-[11px] text-gray-500 mt-1 leading-normal">{t.desc}</p>
+                    <p className="text-[11px] text-gray-500 mt-1 leading-normal line-clamp-2">{t.description}</p>
                   </div>
 
                   <button
                     className={`w-full mt-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
-                      template === t.id
+                      selectedTemplateId === t.id
                         ? "bg-blue-600 text-white"
                         : "bg-gray-100 text-gray-800 hover:bg-blue-600 hover:text-white"
                     }`}
                   >
-                    {template === t.id ? "Selected" : "Use Template"}
+                    {selectedTemplateId === t.id ? "Selected" : "Use Template"}
                   </button>
                 </div>
               ))}

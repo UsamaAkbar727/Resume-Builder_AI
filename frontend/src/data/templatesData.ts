@@ -13,7 +13,8 @@ export interface ResumeTemplate {
     | "academic_serif" 
     | "compact_dense" 
     | "modern_pill" 
-    | "corporate_split";
+    | "corporate_split"
+    | "creative_visual";
   defaultColor: string;
   fontFamily: "sans" | "serif" | "mono";
   isAtsFriendly: boolean;
