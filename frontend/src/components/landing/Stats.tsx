@@ -11,22 +11,22 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="py-20 bg-white relative z-10">
+    <section className="py-20 bg-zinc-950 text-white relative z-10 border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
 
         {/* Horizontal number bar — not cards, unique layout */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-y lg:divide-y-0 divide-gray-100 border border-gray-100 rounded-3xl overflow-hidden bg-white shadow-[0_2px_20px_rgba(0,0,0,0.04)]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-y lg:divide-y-0 divide-zinc-800 border border-zinc-800 rounded-3xl overflow-hidden bg-black shadow-2xl">
           {stats.map((s, i) => (
             <ScrollReveal key={s.label} variant="fade-up" delay={i * 60}>
-              <div className="px-8 py-10 relative group hover:bg-gray-50 transition-colors duration-300">
+              <div className="px-8 py-10 relative group hover:bg-zinc-900/40 transition-colors duration-300">
                 {/* Top colored bar */}
-                <div className={`absolute top-0 left-8 right-8 h-[3px] rounded-b-full ${s.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                <div className="absolute top-0 left-8 right-8 h-[3px] rounded-b-full bg-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                <div className={`text-5xl font-black ${s.color} leading-none mb-2`}>
+                <div className="text-5xl font-black text-amber-400 leading-none mb-2">
                   <AnimatedCounter value={s.value} suffix={s.suffix} duration={1600} />
                 </div>
-                <p className="text-sm font-bold text-gray-800 mb-0.5">{s.label}</p>
-                <p className="text-xs text-gray-400 font-medium">{s.desc}</p>
+                <p className="text-sm font-bold text-white mb-0.5">{s.label}</p>
+                <p className="text-xs text-zinc-500 font-medium">{s.desc}</p>
               </div>
             </ScrollReveal>
           ))}
