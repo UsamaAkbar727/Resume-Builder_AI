@@ -33,8 +33,9 @@ export default function FAQ() {
               </h2>
               <p className="text-stone-550 text-stone-500 text-sm leading-relaxed font-medium mb-6">
                 Can&apos;t find what you need? Reach us at{" "}
-                <a href="mailto:hello@resumeflow.ai" className="text-stone-900 font-black hover:underline">
-                  hello@resumeflow.ai
+                <a href="mailto:hello@                  usamaakbarjaatt@gmail.com
+.ai" className="text-stone-900 font-black hover:underline">
+                  usamaakbarjaatt@gmail.com
                 </a>
               </p>
               <div className="w-12 h-1 rounded-full bg-[#E87A36]" />

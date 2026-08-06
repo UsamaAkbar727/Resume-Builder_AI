@@ -76,6 +76,210 @@ export default function ResumeDemo() {
 
   const styleClasses = getStyleClasses();
 
+  const renderResumeSandbox = () => {
+    switch (selectedStyle) {
+      case "creative":
+        return (
+          <div className="w-full h-full bg-white flex text-stone-850 text-left font-sans overflow-hidden">
+            {/* Dark Sidebar */}
+            <div className="w-1/3 bg-stone-900 text-white p-4 flex flex-col justify-between">
+              <div>
+                <div className="w-8 h-8 rounded-full bg-stone-800 border border-stone-700 mb-3 flex items-center justify-center font-bold text-amber-400 text-xs">
+                  SJ
+                </div>
+                <h4 className="font-black leading-tight text-[9px] text-white">{name}</h4>
+                <div className="text-stone-400 text-[6.5px] uppercase tracking-wider mt-0.5">{title}</div>
+              </div>
+
+              {/* Skills */}
+              <div className="mt-4">
+                <div className="text-stone-450 text-[6.5px] font-bold uppercase tracking-wider mb-2">Skills</div>
+                <div className="flex flex-wrap gap-1">
+                  {skills.map((skill) => (
+                    <span key={skill} className="text-[6.5px] font-bold px-1.5 py-0.5 rounded-sm bg-stone-850 text-stone-300">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="text-[6px] text-stone-500 font-bold uppercase tracking-wider">
+                s.jenkins@company.com
+              </div>
+            </div>
+
+            {/* Main Area */}
+            <div className="flex-1 p-5 bg-stone-50/50 flex flex-col justify-between overflow-y-auto">
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-black text-[#E87A36] uppercase tracking-wider border-b border-[#E87A36]/10 pb-0.5 text-[8px]">
+                    Professional Summary
+                  </h4>
+                  <p className="text-[8px] leading-relaxed text-stone-600 mt-1">{summary}</p>
+                </div>
+
+                <div>
+                  <h4 className="font-black text-[#E87A36] uppercase tracking-wider border-b border-[#E87A36]/10 pb-0.5 text-[8px]">
+                    Experience
+                  </h4>
+                  <div className="space-y-2 mt-1.5">
+                    <div>
+                      <div className="flex justify-between items-center text-[7.5px] font-black text-stone-800">
+                        <span>Lead Engineer @ Stripe</span>
+                        <span className="text-stone-450 text-stone-400">2024 - Pres</span>
+                      </div>
+                      <p className="text-[7px] text-stone-600 mt-0.5 leading-normal">
+                        Scaled transaction payment components managing $2B+ in annual capital.
+                      </p>
+                    </div>
+                    <div>
+                      <div className="flex justify-between items-center text-[7.5px] font-black text-stone-800">
+                        <span>Software Engineer @ Notion</span>
+                        <span className="text-stone-450 text-stone-400">2022 - 2024</span>
+                      </div>
+                      <p className="text-[7px] text-stone-600 mt-0.5 leading-normal">
+                        Designed core collaborative elements, improving sync performance by 25%.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case "executive":
+        return (
+          <div className="w-full h-full bg-[#FCFBF7] text-stone-800 p-6 flex flex-col justify-between text-left font-serif overflow-y-auto">
+            <div>
+              {/* Centered Header */}
+              <div className="pb-3 border-b border-stone-300 mb-3 text-center">
+                <h4 className="font-bold tracking-tight text-stone-900 text-base">{name}</h4>
+                <div className="font-semibold uppercase tracking-wider text-[#6E4A35] text-[8px] mt-0.5">
+                  {title}
+                </div>
+                <div className="text-[7px] text-stone-500 mt-1 flex justify-center gap-3">
+                  <span>s.jenkins@company.com</span>
+                  <span>•</span>
+                  <span>San Francisco, CA</span>
+                </div>
+              </div>
+
+              {/* Summary */}
+              <div className="mb-3.5">
+                <h5 className="font-bold uppercase tracking-wider text-[#6E4A35] border-b border-stone-200 pb-0.5 text-[8px]">Summary</h5>
+                <p className="text-[8px] leading-relaxed text-stone-600 mt-1">{summary}</p>
+              </div>
+
+              {/* Experience */}
+              <div className="mb-3.5">
+                <h5 className="font-bold uppercase tracking-wider text-[#6E4A35] border-b border-stone-200 pb-0.5 text-[8px]">Experience</h5>
+                <div className="space-y-2 mt-1">
+                  <div>
+                    <div className="flex justify-between items-center text-[7.5px] font-bold text-stone-800">
+                      <span>Lead Software Engineer — Stripe</span>
+                      <span className="text-stone-450 text-stone-400">2024 - Present</span>
+                    </div>
+                    <p className="text-[7px] text-stone-600 mt-0.5 leading-relaxed">
+                      Scaled transaction payment components managing $2B+ in annual capital.
+                    </p>
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-center text-[7.5px] font-bold text-stone-800">
+                      <span>Software Engineer II — Notion</span>
+                      <span className="text-stone-450 text-stone-400">2022 - 2024</span>
+                    </div>
+                    <p className="text-[7px] text-stone-600 mt-0.5 leading-relaxed">
+                      Designed core collaborative elements, improving offline sync benchmarks by 25%.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Skills */}
+            <div>
+              <h5 className="font-bold uppercase tracking-wider text-[#6E4A35] border-b border-stone-200 pb-0.5 text-[8px]">Skills</h5>
+              <div className="flex flex-wrap gap-1 mt-1">
+                {skills.map((skill) => (
+                  <span key={skill} className="text-[7px] font-bold border border-stone-250 bg-stone-50 px-1.5 py-0.5 rounded-sm">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      case "tech":
+      default:
+        return (
+          <div className="w-full h-full bg-white text-stone-850 p-6 flex flex-col justify-between text-left font-sans overflow-y-auto">
+            <div>
+              {/* Left Aligned Header */}
+              <div className="pb-3 border-b border-stone-200 mb-3">
+                <h4 className="font-black tracking-tight text-stone-900 text-base">{name}</h4>
+                <div className="font-bold uppercase tracking-wide text-[#67B0A7] text-[8px] mt-0.5">
+                  {title}
+                </div>
+                <div className="text-[7.5px] text-stone-405 text-stone-400 mt-1 flex gap-3">
+                  <span>s.jenkins@company.com</span>
+                  <span>•</span>
+                  <span>SF, CA</span>
+                </div>
+              </div>
+
+              {/* Grid System for two column */}
+              <div className="grid grid-cols-12 gap-3">
+                <div className="col-span-8 space-y-3.5">
+                  {/* Summary */}
+                  <div>
+                    <h5 className="font-bold uppercase tracking-wider text-stone-900 border-b border-stone-100 pb-0.5 text-[8px]">Summary</h5>
+                    <p className="text-[8px] leading-relaxed text-stone-600 mt-1">{summary}</p>
+                  </div>
+                  {/* Experience */}
+                  <div>
+                    <h5 className="font-bold uppercase tracking-wider text-stone-900 border-b border-stone-100 pb-0.5 text-[8px]">Experience</h5>
+                    <div className="space-y-2 mt-1">
+                      <div>
+                        <div className="font-bold text-stone-850 text-[8px]">Lead Software Engineer @ Stripe</div>
+                        <p className="text-[7px] text-stone-600 mt-0.5 leading-relaxed">
+                          Scaled payment components managing $2B+ capital.
+                        </p>
+                      </div>
+                      <div>
+                        <div className="font-bold text-stone-850 text-[8px]">Software Engineer @ Notion</div>
+                        <p className="text-[7px] text-stone-600 mt-0.5 leading-relaxed">
+                          Improved Notion offline sync benchmarks by 25%.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sidebar Column */}
+                <div className="col-span-4 space-y-3">
+                  <h5 className="font-bold uppercase tracking-wider text-stone-900 border-b border-stone-100 pb-0.5 text-[8px]">Tech Stack</h5>
+                  <div className="flex flex-wrap gap-1">
+                    {skills.map((skill) => (
+                      <span key={skill} className="text-[7px] font-bold px-1.5 py-0.5 rounded-sm border border-stone-150 bg-stone-50">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-stone-400 pt-2 border-t flex justify-between text-[7px] mt-2">
+              <span>sarahjenkins.dev</span>
+              <span>SF, CA</span>
+            </div>
+          </div>
+        );
+    }
+  };
+
   return (
     <section id="resume-builder-demo" className="py-24 bg-[#F5F2EC] relative z-10 border-t border-stone-200/90">
       <div className="max-w-7xl mx-auto px-6">
@@ -192,7 +396,7 @@ export default function ResumeDemo() {
                         />
                         <button
                           type="submit"
-                          className="px-3.5 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-850 flex items-center justify-center shadow-sm cursor-pointer"
+                          className="px-3.5 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-855 hover:bg-stone-850 flex items-center justify-center shadow-sm cursor-pointer"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -228,8 +432,8 @@ export default function ResumeDemo() {
                         }`}
                       >
                         <div>
-                          <h4 className="text-xs font-bold text-stone-850">The Technologist (Default)</h4>
-                          <p className="text-[10px] text-stone-450 mt-0.5">Clean sans-serif fonts with modern blue accents.</p>
+                          <h4 className="text-xs font-bold text-stone-855 text-stone-850">The Technologist (Default)</h4>
+                          <p className="text-[10px] text-stone-450 mt-0.5">Clean sans-serif fonts with modern two-column layout.</p>
                         </div>
                         {selectedStyle === "tech" && <CheckCircle2 className="w-4 h-4 text-[#67B0A7] shrink-0" />}
                       </button>
@@ -244,7 +448,7 @@ export default function ResumeDemo() {
                         }`}
                       >
                         <div>
-                          <h4 className="text-xs font-bold text-stone-850">The Executive (Academic)</h4>
+                          <h4 className="text-xs font-bold text-stone-855 text-stone-850">The Executive (Academic)</h4>
                           <p className="text-[10px] text-stone-450 mt-0.5">Formal serif styling with centered branding headers.</p>
                         </div>
                         {selectedStyle === "executive" && <CheckCircle2 className="w-4 h-4 text-[#67B0A7] shrink-0" />}
@@ -260,8 +464,8 @@ export default function ResumeDemo() {
                         }`}
                       >
                         <div>
-                          <h4 className="text-xs font-bold text-stone-850">The Creative Developer</h4>
-                          <p className="text-[10px] text-stone-450 mt-0.5">Left sidebar highlighting with vibrant indigo borders.</p>
+                          <h4 className="text-xs font-bold text-stone-855 text-stone-850">The Creative Developer</h4>
+                          <p className="text-[10px] text-stone-450 mt-0.5">High-contrast layout with a left sidebar profile column.</p>
                         </div>
                         {selectedStyle === "creative" && <CheckCircle2 className="w-4 h-4 text-[#67B0A7] shrink-0" />}
                       </button>
@@ -284,67 +488,9 @@ export default function ResumeDemo() {
             {/* Resume Sheet Preview Area */}
             <div className="lg:col-span-7 bg-[#D1C7BD] p-4 sm:p-8 rounded-3xl flex items-center justify-center border border-stone-300 shadow-[inset_0_2px_10px_rgba(0,0,0,0.06)] min-h-[500px]">
               <div
-                className={`w-full max-w-[500px] aspect-[1/1.414] rounded-xs shadow-2xl p-6 sm:p-8 overflow-hidden transition-all duration-300 ${styleClasses.wrapper}`}
+                className="w-full max-w-[500px] aspect-[1/1.414] rounded-xs shadow-2xl overflow-hidden transition-all duration-300 bg-white"
               >
-                {/* Header Segment */}
-                <div className={styleClasses.header}>
-                  <h3 className={styleClasses.name}>{name}</h3>
-                  <div className={styleClasses.title}>{title}</div>
-                  <div className="text-[9px] text-stone-400 mt-1 flex justify-center gap-3">
-                    <span>s.jenkins@company.com</span>
-                    <span>•</span>
-                    <span>San Francisco, CA</span>
-                  </div>
-                </div>
-
-                {/* Summary Segment */}
-                <div className="mb-4">
-                  <h4 className={styleClasses.sectionHeading}>Summary</h4>
-                  <p className="text-[9.5px] leading-relaxed text-stone-600">{summary}</p>
-                </div>
-
-                {/* Work Experience */}
-                <div className="mb-4">
-                  <h4 className={styleClasses.sectionHeading}>Experience</h4>
-                  <div className="space-y-3">
-                    <div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-[10px] font-bold text-stone-900">Lead Software Engineer</span>
-                        <span className="text-[9px] text-stone-400 font-semibold">2024 - Present</span>
-                      </div>
-                      <div className="text-[9.5px] font-semibold text-stone-550">Stripe</div>
-                      <p className="text-[9px] text-stone-600 mt-0.5 leading-relaxed">
-                        Scaled transaction payment components managing $2B+ in annual capital. Led microservice deployments inside containerized node architectures.
-                      </p>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-[10px] font-bold text-stone-900">Software Engineer II</span>
-                        <span className="text-[9px] text-stone-400 font-semibold">2022 - 2024</span>
-                      </div>
-                      <div className="text-[9.5px] font-semibold text-stone-550">Notion</div>
-                      <p className="text-[9px] text-stone-600 mt-0.5 leading-relaxed">
-                        Designed core collaborative elements, improving offline offline sync performance benchmarks by 25%.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Skills Grid */}
-                <div>
-                  <h4 className={styleClasses.sectionHeading}>Skills</h4>
-                  <div className="flex flex-wrap gap-1">
-                    {skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="text-[9px] font-bold bg-stone-100 text-stone-700 px-2 py-0.5 rounded-sm border border-stone-200"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                {renderResumeSandbox()}
               </div>
             </div>
 
