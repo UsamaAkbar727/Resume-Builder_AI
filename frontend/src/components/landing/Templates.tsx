@@ -208,28 +208,28 @@ export default function Templates() {
 
       case "creative":
         return (
-          <div className="w-full h-full bg-white flex text-slate-800 text-left font-sans overflow-hidden">
+          <div className="w-full h-full bg-white flex text-stone-850 text-left font-sans overflow-hidden">
             {/* Dark Accent Sidebar */}
-            <div className={`w-1/3 bg-slate-900 text-white flex flex-col justify-between ${paddingClass}`}>
+            <div className={`w-1/3 bg-stone-900 text-white flex flex-col justify-between ${paddingClass}`}>
               <div>
-                <div className={`w-8 h-8 rounded-full bg-slate-700 border border-slate-600 mb-3 flex items-center justify-center font-bold text-white ${isLarge ? "text-xs" : "text-[8px]"}`}>
+                <div className={`w-8 h-8 rounded-full bg-stone-800 border border-stone-700 mb-3 flex items-center justify-center font-bold text-white ${isLarge ? "text-xs" : "text-[8px]"}`}>
                   SJ
                 </div>
                 <h4 className={`font-black leading-tight ${isLarge ? "text-xs" : "text-[8px]"}`}>Sarah Jenkins</h4>
-                <div className={`text-slate-400 mt-0.5 ${isLarge ? "text-[8px]" : "text-[5px]"}`}>Developer</div>
+                <div className={`text-stone-400 mt-0.5 ${isLarge ? "text-[8px]" : "text-[5px]"}`}>Developer</div>
               </div>
 
               {/* Visual skill bars */}
               <div className="space-y-2">
                 <div className="space-y-0.5">
-                  <div className={`text-slate-400 uppercase tracking-wider font-bold ${isLarge ? "text-[7px]" : "text-[4.5px]"}`}>React</div>
-                  <div className="h-1 bg-slate-700 rounded-full overflow-hidden w-full">
+                  <div className={`text-stone-400 uppercase tracking-wider font-bold ${isLarge ? "text-[7px]" : "text-[4.5px]"}`}>React</div>
+                  <div className="h-1 bg-stone-800 rounded-full overflow-hidden w-full">
                     <div className={`h-full rounded-full transition-colors ${accentBg}`} style={{ width: "95%" }}></div>
                   </div>
                 </div>
                 <div className="space-y-0.5">
-                  <div className={`text-slate-400 uppercase tracking-wider font-bold ${isLarge ? "text-[7px]" : "text-[4.5px]"}`}>Node.js</div>
-                  <div className="h-1 bg-slate-700 rounded-full overflow-hidden w-full">
+                  <div className={`text-stone-400 uppercase tracking-wider font-bold ${isLarge ? "text-[7px]" : "text-[4.5px]"}`}>Node.js</div>
+                  <div className="h-1 bg-stone-800 rounded-full overflow-hidden w-full">
                     <div className={`h-full rounded-full transition-colors ${accentBg}`} style={{ width: "85%" }}></div>
                   </div>
                 </div>
@@ -237,7 +237,7 @@ export default function Templates() {
             </div>
 
             {/* Main Area */}
-            <div className={`flex-1 flex flex-col justify-between ${paddingClass} bg-slate-50/50`}>
+            <div className={`flex-1 flex flex-col justify-between ${paddingClass} bg-stone-50/50`}>
               <div className="space-y-3">
                 {/* Accent boundary label */}
                 <div>
@@ -245,7 +245,7 @@ export default function Templates() {
                     Experience
                   </h4>
                   <div className="space-y-1 mt-1">
-                    <div className={`font-bold text-slate-800 ${textSizeClass}`}>Lead Developer @ Stripe</div>
+                    <div className={`font-bold text-stone-800 ${textSizeClass}`}>Lead Developer @ Stripe</div>
                     <p className={`mt-0.5 opacity-70 leading-normal ${isLarge ? "text-[7.5px]" : "text-[4.5px] scale-95 origin-left"}`}>
                       Designed transaction systems processing $2B+ payments.
                     </p>
@@ -257,7 +257,7 @@ export default function Templates() {
                     Key Projects
                   </h4>
                   <div className="space-y-1 mt-1">
-                    <div className={`font-bold text-slate-800 ${textSizeClass}`}>Portfolio Generator</div>
+                    <div className={`font-bold text-stone-800 ${textSizeClass}`}>Portfolio Generator</div>
                     <p className={`mt-0.5 opacity-70 leading-normal ${isLarge ? "text-[7.5px]" : "text-[4.5px] scale-95 origin-left"}`}>
                       Open-source system translating YAML data to active portfolios.
                     </p>
@@ -265,7 +265,7 @@ export default function Templates() {
                 </div>
               </div>
 
-              <div className={`text-[5px] text-slate-400 font-bold uppercase tracking-wider pt-2 ${isLarge ? "text-[7px]" : "text-[5px]"}`}>
+              <div className={`text-[5px] text-stone-400 font-bold uppercase tracking-wider pt-2 ${isLarge ? "text-[7px]" : "text-[5px]"}`}>
                 sarahjenkins.dev
               </div>
             </div>
@@ -275,11 +275,11 @@ export default function Templates() {
       case "technologist":
       default:
         return (
-          <div className={`w-full h-full bg-white text-slate-800 flex flex-col justify-between text-left font-sans ${paddingClass}`}>
+          <div className={`w-full h-full bg-white text-stone-850 flex flex-col justify-between text-left font-sans ${paddingClass}`}>
             <div>
               {/* Header */}
               <div className={`pb-3 border-b-2 transition-colors mb-3 ${borderCol}`}>
-                <h4 className={`font-black tracking-tight text-slate-900 ${isLarge ? "text-lg" : "text-[10px]"}`}>Sarah Jenkins</h4>
+                <h4 className={`font-black tracking-tight text-stone-900 ${isLarge ? "text-lg" : "text-[10px]"}`}>Sarah Jenkins</h4>
                 <div className={`font-bold uppercase tracking-wide transition-colors ${accentText} ${isLarge ? "text-[8px]" : "text-[5.5px]"}`}>
                   Senior Full Stack Developer
                 </div>
@@ -289,9 +289,9 @@ export default function Templates() {
               <div className="grid grid-cols-12 gap-3">
                 <div className="col-span-8 space-y-2.5">
                   <div>
-                    <h5 className={`font-bold uppercase tracking-wider text-slate-900 ${isLarge ? "text-[8px]" : "text-[6px]"}`}>Experience</h5>
+                    <h5 className={`font-bold uppercase tracking-wider text-stone-900 ${isLarge ? "text-[8px]" : "text-[6px]"}`}>Experience</h5>
                     <div className="mt-1">
-                      <div className={`font-bold text-slate-800 leading-tight ${textSizeClass}`}>Lead Software Engineer @ Stripe</div>
+                      <div className={`font-bold text-stone-800 leading-tight ${textSizeClass}`}>Lead Software Engineer @ Stripe</div>
                       <p className={`mt-0.5 opacity-70 leading-normal ${isLarge ? "text-[7.5px]" : "text-[4.5px] scale-95 origin-left"}`}>
                         Spearheaded the migration of core payment checkout APIs to scale checkout availability.
                       </p>
@@ -301,12 +301,12 @@ export default function Templates() {
 
                 {/* Right side stacks list */}
                 <div className="col-span-4 space-y-2">
-                  <h5 className={`font-bold uppercase tracking-wider text-slate-900 ${isLarge ? "text-[8px]" : "text-[6px]"}`}>Tech Stack</h5>
+                  <h5 className={`font-bold uppercase tracking-wider text-stone-900 ${isLarge ? "text-[8px]" : "text-[6px]"}`}>Tech Stack</h5>
                   <div className="flex flex-wrap gap-0.5">
                     {["React", "Next.js", "TS", "Postgres", "AWS", "Node"].map((stack) => (
                       <span
                         key={stack}
-                        className={`text-[5px] font-bold px-1 py-0.5 rounded-sm border border-slate-100 bg-slate-50 transition-all ${textSizeClass}`}
+                        className={`text-[5px] font-bold px-1 py-0.5 rounded-sm border border-stone-200 bg-stone-100 transition-all ${textSizeClass}`}
                       >
                         {stack}
                       </span>
@@ -317,7 +317,7 @@ export default function Templates() {
             </div>
 
             {/* Bottom contact bar */}
-            <div className={`text-slate-400 mt-2 pt-2 border-t flex justify-between ${isLarge ? "text-[8px]" : "text-[5px]"}`}>
+            <div className={`text-stone-400 mt-2 pt-2 border-t flex justify-between ${isLarge ? "text-[8px]" : "text-[5px]"}`}>
               <span>sarah@jenkins.com</span>
               <span>SF, CA</span>
             </div>
@@ -327,10 +327,10 @@ export default function Templates() {
   };
 
   return (
-    <section id="templates" className="py-28 bg-[#F8FAFC] relative z-10 border-t border-slate-200/50 overflow-hidden">
+    <section id="templates" className="py-28 bg-[#F5F2EC] relative z-10 border-t border-stone-200/90 overflow-hidden">
       {/* Background Subtle Decorative Gradients without clutter */}
-      <div className="absolute top-[20%] left-[-15%] w-[40vw] h-[40vw] rounded-full bg-blue-500/5 filter blur-[120px] pointer-events-none z-0"></div>
-      <div className="absolute bottom-[20%] right-[-15%] w-[40vw] h-[40vw] rounded-full bg-indigo-500/5 filter blur-[120px] pointer-events-none z-0"></div>
+      <div className="absolute top-[20%] left-[-15%] w-[40vw] h-[40vw] rounded-full bg-[#E87A36]/3 filter blur-[120px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-[20%] right-[-15%] w-[40vw] h-[40vw] rounded-full bg-[#67B0A7]/3 filter blur-[120px] pointer-events-none z-0"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
@@ -338,21 +338,21 @@ export default function Templates() {
         <ScrollReveal variant="fade-up" delay={100}>
           <div className="flex flex-col lg:flex-row items-center lg:items-end justify-between gap-8 mb-16">
             <div className="text-center lg:text-left max-w-xl">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-bold text-blue-700 mb-4 shadow-sm">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-stone-900 text-amber-300 text-xs font-black uppercase tracking-widest border border-stone-850 shadow-md mb-4 w-fit">
+                <Layout className="w-4 h-4 text-amber-400" />
                 Premium Resume Showcase
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-black text-stone-900 mb-3 tracking-tight leading-tight">
                 Recruiter-tested layout gallery
               </h2>
-              <p className="text-sm sm:text-base text-slate-500 font-medium leading-relaxed">
+              <p className="text-sm sm:text-base text-stone-600 font-medium leading-relaxed">
                 Every template is specifically optimized to rank high on search parses while presenting clean, professional layouts. Toggle live colors below:
               </p>
             </div>
 
             {/* Theme Color Picker */}
-            <div className="flex items-center gap-3 bg-white border border-slate-200 px-4 py-2.5 rounded-2xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mr-1.5 select-none">Accent Theme</span>
+            <div className="flex items-center gap-3 bg-white border border-stone-200 px-4 py-2.5 rounded-2xl shadow-lg">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 mr-1.5 select-none">Accent Theme</span>
               <div className="flex gap-2">
                 {colors.map((color) => (
                   <button
@@ -360,7 +360,7 @@ export default function Templates() {
                     onClick={() => setSelectedColor(color.id as any)}
                     className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all cursor-pointer ${
                       selectedColor === color.id
-                        ? "border-blue-600 scale-110 shadow-md shadow-blue-500/20"
+                        ? "border-stone-900 scale-110 shadow-md shadow-stone-900/10"
                         : "border-transparent hover:scale-105"
                     } ${color.class}`}
                     title={color.label}
@@ -380,10 +380,10 @@ export default function Templates() {
               key={tpl.id}
               variant="fade-up"
               delay={idx * 100}
-              className="group bg-white border border-slate-200/80 rounded-[24px] p-5 shadow-[0_4px_25px_-5px_rgba(15,23,42,0.02)] hover:shadow-[0_20px_45px_-12px_rgba(37,99,235,0.18)] hover:-translate-y-2 hover:border-blue-500/35 transition-all duration-500 flex flex-col justify-between relative overflow-hidden"
+              className="group bg-white border border-stone-250 rounded-3xl p-5 shadow-xl hover:-translate-y-2 hover:border-stone-400 transition-all duration-500 flex flex-col justify-between relative overflow-hidden"
             >
               {/* Thumbnail Container */}
-              <div className="bg-slate-100 rounded-2xl mb-5 aspect-[1/1.22] flex items-center justify-center overflow-hidden border border-slate-200/50 relative shadow-[inset_0_2px_8px_rgba(0,0,0,0.02)]">
+              <div className="bg-stone-50 rounded-2xl mb-5 aspect-[1/1.22] flex items-center justify-center overflow-hidden border border-stone-250 relative shadow-[inset_0_2px_8px_rgba(0,0,0,0.02)]">
                 {/* Live CSS Thumbnail rendering */}
                 <div className="w-full h-full shadow-[0_2px_15px_-3px_rgba(0,0,0,0.06)] group-hover:scale-[1.01] transition-transform duration-500">
                   {renderResumeThumbnail(tpl.id)}
@@ -393,15 +393,15 @@ export default function Templates() {
                 <div className="absolute top-3.5 left-3.5 right-3.5 flex justify-between items-center pointer-events-none select-none">
                   {/* Badge */}
                   {tpl.badge ? (
-                    <span className="bg-blue-600 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md shadow-[0_4px_8px_rgba(37,99,235,0.25)]">
+                    <span className="bg-[#E87A36] text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md shadow-md">
                       {tpl.badge}
                     </span>
                   ) : (
                     <span></span>
                   )}
                   {/* Score */}
-                  <span className="bg-slate-900/90 backdrop-blur-sm text-white text-[8px] font-black px-2 py-1 rounded-md shadow-xs border border-white/5 flex items-center gap-0.5">
-                    <ShieldCheck className="w-2.5 h-2.5 text-emerald-400 stroke-[3]" /> ATS {tpl.atsScore}%
+                  <span className="bg-stone-900/90 backdrop-blur-sm text-white text-[8px] font-black px-2 py-1 rounded-md shadow-xs border border-stone-850 flex items-center gap-0.5">
+                    <ShieldCheck className="w-2.5 h-2.5 text-[#67B0A7] stroke-[3]" /> ATS {tpl.atsScore}%
                   </span>
                 </div>
               </div>
@@ -409,13 +409,13 @@ export default function Templates() {
               {/* Template details */}
               <div className="text-left flex-1 flex flex-col justify-between mb-5">
                 <div>
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200/50">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-stone-500 bg-stone-50 px-2.5 py-1 rounded-lg border border-stone-200">
                     {tpl.type}
                   </span>
-                  <h3 className="text-base font-extrabold text-slate-900 mt-3 mb-1.5 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-base font-black text-stone-900 mt-3 mb-1.5 group-hover:text-[#E87A36] transition-colors">
                     {tpl.name}
                   </h3>
-                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                  <p className="text-xs text-stone-600 leading-relaxed font-medium">
                     {tpl.desc}
                   </p>
                 </div>
@@ -425,13 +425,13 @@ export default function Templates() {
               <div className="grid grid-cols-2 gap-2.5 pt-1.5">
                 <button
                   onClick={() => setPreviewTemplate(tpl)}
-                  className="clay-btn-secondary py-2.5 rounded-xl text-xs font-semibold hover:bg-slate-50 border border-slate-200 flex items-center justify-center gap-1 cursor-pointer"
+                  className="px-4 py-2.5 rounded-xl text-xs font-black uppercase text-stone-700 bg-white hover:bg-stone-50 border border-stone-300 flex items-center justify-center gap-1 cursor-pointer transition-all shadow-sm"
                 >
                   <Eye className="w-3.5 h-3.5" /> Preview
                 </button>
                 <a
                   href="/auth?mode=register"
-                  className="clay-btn-primary py-2.5 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-1 shadow-md hover:shadow-lg transition-transform"
+                  className="px-4 py-2.5 rounded-xl text-xs font-black uppercase text-white bg-stone-900 hover:bg-stone-850 flex items-center justify-center gap-1 transition-all shadow-md"
                 >
                   Use Layout
                 </a>
@@ -444,15 +444,15 @@ export default function Templates() {
 
       {/* Large Interactive Preview Modal */}
       {previewTemplate && (
-        <div className="fixed inset-0 z-55 flex items-center justify-center bg-slate-950/60 backdrop-blur-md p-4 animate-fade-in">
+        <div className="fixed inset-0 z-55 flex items-center justify-center bg-stone-950/60 backdrop-blur-md p-4 animate-fade-in">
           <div
-            className="bg-white border border-slate-200/80 rounded-[28px] shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col relative animate-scale-in"
+            className="bg-white border border-stone-200/90 rounded-[28px] shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col relative animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setPreviewTemplate(null)}
-              className="absolute top-4 right-4 p-2 rounded-full border border-slate-200 bg-white text-slate-400 hover:text-slate-800 hover:bg-slate-50 cursor-pointer z-50 transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-full border border-stone-250 bg-white text-stone-400 hover:text-stone-800 hover:bg-stone-50 cursor-pointer z-50 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -461,31 +461,31 @@ export default function Templates() {
             <div className="grid grid-cols-1 md:grid-cols-12 overflow-y-auto">
               
               {/* Detailed information sidebar (Left) */}
-              <div className="md:col-span-5 p-8 text-left bg-slate-50 border-r border-slate-100 flex flex-col justify-between">
+              <div className="md:col-span-5 p-8 text-left bg-stone-50 border-r border-stone-200 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="bg-blue-500/10 border border-blue-500/20 text-blue-700 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md">
+                    <span className="bg-[#67B0A7]/10 border border-[#67B0A7]/20 text-[#67B0A7] text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md">
                       ATS Verified {previewTemplate.atsScore}%
                     </span>
                     {previewTemplate.badge && (
-                      <span className="bg-amber-500/10 border border-amber-500/20 text-amber-700 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md">
+                      <span className="bg-[#E87A36]/10 border border-[#E87A36]/20 text-[#E87A36] text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md">
                         {previewTemplate.badge}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="text-2xl font-extrabold text-slate-900 mb-2">{previewTemplate.name}</h3>
-                  <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-4">{previewTemplate.type}</p>
+                  <h3 className="text-2xl font-black text-stone-900 mb-2">{previewTemplate.name}</h3>
+                  <p className="text-xs text-stone-400 font-bold uppercase tracking-widest mb-4">{previewTemplate.type}</p>
                   
-                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium mb-6">
+                  <p className="text-xs sm:text-sm text-stone-650 text-stone-600 leading-relaxed font-medium mb-6">
                     {previewTemplate.desc}
                   </p>
 
-                  <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3">Key Highlights</h4>
+                  <h4 className="text-[10px] font-black uppercase tracking-wider text-stone-400 mb-3">Key Highlights</h4>
                   <ul className="space-y-3 mb-8">
                     {previewTemplate.highlights.map((highlight) => (
-                      <li key={highlight} className="flex items-start gap-2.5 text-xs text-slate-700 font-semibold">
-                        <Check className="w-4 h-4 text-emerald-500 shrink-0 stroke-[3]" />
+                      <li key={highlight} className="flex items-start gap-2.5 text-xs text-[#67B0A7] text-stone-700 font-semibold">
+                        <Check className="w-4 h-4 text-[#67B0A7] shrink-0 stroke-[3]" />
                         <span>{highlight}</span>
                       </li>
                     ))}
@@ -495,13 +495,13 @@ export default function Templates() {
                 <div className="flex flex-col gap-2.5">
                   <a
                     href="/auth?mode=register"
-                    className="clay-btn-primary py-3.5 w-full text-xs text-white font-bold uppercase tracking-wide flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/10 hover:shadow-blue-500/20"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-stone-900 hover:bg-stone-800 text-white font-black text-sm uppercase tracking-wider shadow-xl transition-all cursor-pointer w-full"
                   >
-                    Use This Template <ArrowRight className="w-4 h-4" />
+                    Use This Template <ArrowRight className="w-4 h-4 text-amber-400" />
                   </a>
                   <button
                     onClick={() => setPreviewTemplate(null)}
-                    className="clay-btn-secondary py-3.5 w-full text-xs font-semibold text-slate-700 hover:bg-slate-50 border border-slate-200 cursor-pointer"
+                    className="px-8 py-4 rounded-2xl bg-white border border-stone-300 text-stone-700 hover:bg-stone-50 font-black text-sm uppercase tracking-wider flex items-center justify-center transition-all cursor-pointer w-full"
                   >
                     Back to Gallery
                   </button>
@@ -509,7 +509,7 @@ export default function Templates() {
               </div>
 
               {/* Render large realistic mockup (Right) */}
-              <div className="md:col-span-7 bg-[#E2E8F0] p-6 sm:p-10 flex items-center justify-center max-h-[80vh] md:max-h-none overflow-y-auto">
+              <div className="md:col-span-7 bg-[#D1C7BD] p-6 sm:p-10 flex items-center justify-center max-h-[80vh] md:max-h-none overflow-y-auto">
                 <div className="w-full max-w-[450px] shadow-2xl rounded-xs overflow-hidden transition-all duration-300">
                   {renderResumeThumbnail(previewTemplate.id, true)}
                 </div>

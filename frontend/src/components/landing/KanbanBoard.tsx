@@ -82,9 +82,9 @@ export default function KanbanBoard() {
 
   const getPriorityColor = (prio: string) => {
     switch (prio) {
-      case "High": return "bg-red-500/10 text-red-600 border-red-150";
-      case "Medium": return "bg-amber-500/10 text-amber-600 border-amber-150";
-      default: return "bg-slate-100 text-slate-500 border-slate-200";
+      case "High": return "bg-[#E87A36]/10 text-[#E87A36] border-[#E87A36]/20";
+      case "Medium": return "bg-[#6E4A35]/10 text-[#6E4A35] border-[#6E4A35]/20";
+      default: return "bg-stone-100 text-stone-500 border-stone-250";
     }
   };
 
@@ -94,36 +94,37 @@ export default function KanbanBoard() {
       case "N": return "bg-slate-900 text-white";
       case "V": return "bg-black text-white";
       case "L": return "bg-indigo-600 text-white";
-      default: return "bg-slate-100 text-slate-900";
+      default: return "bg-stone-100 text-stone-900";
     }
   };
 
   return (
-    <section id="job-tracker-kanban" className="py-24 bg-slate-50 relative z-10 border-t border-gray-100">
+    <section id="job-tracker-kanban" className="py-24 bg-[#F5F2EC] relative z-10 border-t border-stone-200/90">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Info Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
           <div className="lg:col-span-5 text-left order-last lg:order-first">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-200 flex items-center justify-center text-amber-600 mb-6 shadow-xs">
-              <Trello className="w-5 h-5 stroke-[2.2]" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-stone-900 text-amber-300 text-xs font-black uppercase tracking-widest border border-stone-850 shadow-md mb-6">
+              <Trello className="w-4 h-4 text-amber-400" />
+              JOB TRACKER KANBAN BOARD
             </div>
-            <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl mb-4 leading-tight">
+            <h2 className="text-3xl sm:text-5xl font-black text-stone-900 tracking-tight leading-tight mb-4">
               Organize applications on a Kanban board
             </h2>
-            <p className="text-sm sm:text-base text-slate-500 leading-relaxed font-medium mb-6">
+            <p className="text-sm sm:text-base text-stone-600 leading-relaxed font-medium mb-6">
               Ditch messy spreadsheets. Drag and drop jobs through status columns, link specific resume versions to each application, set due reminders, and store interview notes.
             </p>
-            <div className="bg-white border border-slate-200 p-4 rounded-2xl flex items-center gap-3 shadow-xs">
-              <ShieldCheck className="w-5 h-5 text-emerald-500 shrink-0" />
-              <p className="text-xs text-slate-500 font-medium">
+            <div className="bg-white border border-stone-200/90 p-4 rounded-2xl flex items-center gap-3 shadow-sm">
+              <ShieldCheck className="w-5 h-5 text-[#67B0A7] shrink-0" />
+              <p className="text-xs text-stone-600 font-medium">
                 Click on any job card in the board to advance it to the next pipeline stage.
               </p>
             </div>
           </div>
 
           {/* Interactive Kanban Board Screen */}
-          <div className="lg:col-span-7 bg-[#EDF2F7]/60 border border-slate-200/80 p-5 rounded-3xl overflow-x-auto shadow-[inset_0_2px_8px_rgba(0,0,0,0.02)] min-w-full lg:min-w-0">
+          <div className="lg:col-span-7 bg-[#D1C7BD] border border-stone-300 p-5 rounded-3xl overflow-x-auto shadow-[inset_0_2px_10px_rgba(0,0,0,0.06)] min-w-full lg:min-w-0">
             <div className="grid grid-cols-4 gap-4 min-w-[640px]">
               
               {columns.map((col) => {
@@ -134,21 +135,21 @@ export default function KanbanBoard() {
                     {/* Column Header */}
                     <div className="flex justify-between items-center px-1">
                       <div className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-slate-400"></span>
-                        <h4 className="text-xs font-bold text-slate-800">{col.label}</h4>
+                        <span className="w-2 h-2 rounded-full bg-stone-500"></span>
+                        <h4 className="text-xs font-black text-stone-900">{col.label}</h4>
                       </div>
-                      <span className="text-[10px] font-bold text-slate-400 bg-slate-100 border px-1.5 py-0.5 rounded-sm">
+                      <span className="text-[10px] font-black text-stone-800 bg-white border border-stone-250 px-1.5 py-0.5 rounded-sm">
                         {colCards.length}
                       </span>
                     </div>
 
                     {/* Cards Container */}
-                    <div className="bg-[#EEF2F6]/60 rounded-2xl p-2.5 flex-1 min-h-[220px] flex flex-col gap-2.5">
+                    <div className="bg-stone-50/50 rounded-2xl p-2.5 flex-1 min-h-[220px] flex flex-col gap-2.5">
                       {colCards.map((card) => (
                         <div
                           key={card.id}
                           onClick={() => moveCard(card.id)}
-                          className="bg-white border border-slate-200/85 hover:border-blue-500/30 p-3.5 rounded-xl text-left shadow-xs cursor-pointer hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 select-none relative group"
+                          className="bg-white border border-stone-200/85 hover:border-stone-400 p-3.5 rounded-xl text-left shadow-sm cursor-pointer hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 select-none relative group"
                         >
                           <div className="flex justify-between items-start gap-2 mb-2">
                             <div className="flex items-center gap-2">
@@ -156,8 +157,8 @@ export default function KanbanBoard() {
                                 {card.logo}
                               </span>
                               <div>
-                                <h5 className="text-[10px] font-black text-slate-900 leading-none">{card.company}</h5>
-                                <p className="text-[8px] text-slate-400 font-semibold mt-0.5">{card.role}</p>
+                                <h5 className="text-[10px] font-black text-stone-900 leading-none">{card.company}</h5>
+                                <p className="text-[8px] text-stone-500 font-semibold mt-0.5">{card.role}</p>
                               </div>
                             </div>
                             <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-sm border shrink-0 ${getPriorityColor(card.priority)}`}>
@@ -165,24 +166,24 @@ export default function KanbanBoard() {
                             </span>
                           </div>
 
-                          <div className="flex justify-between items-center text-[8px] font-semibold text-slate-400 pt-2 border-t border-slate-100">
-                            <span className="text-slate-800">{card.salary}</span>
-                            <span className="flex items-center gap-0.5">
-                              <Calendar className="w-2.5 h-2.5 text-slate-400" /> {card.date}
+                          <div className="flex justify-between items-center text-[8px] font-semibold text-stone-400 pt-2 border-t border-stone-100">
+                            <span className="text-stone-800 font-extrabold">{card.salary}</span>
+                            <span className="flex items-center gap-0.5 text-stone-500">
+                              <Calendar className="w-2.5 h-2.5 text-stone-400" /> {card.date}
                             </span>
                           </div>
 
                           {/* Hover action guide */}
-                          <div className="absolute inset-0 bg-blue-600/5 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
-                            <span className="bg-slate-900/90 text-[8px] font-bold text-white px-2 py-1 rounded-md flex items-center gap-1 shadow-sm uppercase tracking-wider">
-                              Move <ChevronRight className="w-2.5 h-2.5" />
+                          <div className="absolute inset-0 bg-[#67B0A7]/10 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                            <span className="bg-stone-900 text-[8px] font-black text-white px-2 py-1 rounded-md flex items-center gap-1 shadow-sm uppercase tracking-wider">
+                              Move <ChevronRight className="w-2.5 h-2.5 text-amber-400" />
                             </span>
                           </div>
                         </div>
                       ))}
 
                       {/* Add card button placeholder */}
-                      <button className="py-2 border border-dashed border-slate-350 hover:border-slate-400 rounded-xl text-slate-400 hover:text-slate-600 flex items-center justify-center gap-1 text-[10px] font-bold transition-all bg-white/40">
+                      <button className="py-2 border border-dashed border-stone-305 hover:border-stone-400 border-stone-300 rounded-xl text-stone-550 hover:text-stone-705 text-stone-500 hover:text-stone-700 flex items-center justify-center gap-1 text-[10px] font-bold transition-all bg-white cursor-pointer">
                         <Plus className="w-3.5 h-3.5" /> Add Job
                       </button>
                     </div>
