@@ -42,10 +42,10 @@ const companyColors: Record<string, string> = {
 };
 
 const stepThemes = [
-  { num: "01", stepLabel: "STEP", color: "bg-[#047857]", darkColor: "bg-[#064e3b]", textCol: "text-[#047857]" }, // Green
-  { num: "02", stepLabel: "STEP", color: "bg-[#D97706]", darkColor: "bg-[#78350f]", textCol: "text-[#D97706]" }, // Orange
-  { num: "03", stepLabel: "STEP", color: "bg-[#2563EB]", darkColor: "bg-[#1e3a8a]", textCol: "text-[#2563EB]" }, // Blue
-  { num: "04", stepLabel: "STEP", color: "bg-[#DC2626]", darkColor: "bg-[#7f1d1d]", textCol: "text-[#DC2626]" }, // Red
+  { num: "01", stepLabel: "STEP", color: "#047857", darkColor: "#024733", textCol: "text-[#047857]" }, // Green
+  { num: "02", stepLabel: "STEP", color: "#D97706", darkColor: "#78350f", textCol: "text-[#D97706]" }, // Orange
+  { num: "03", stepLabel: "STEP", color: "#2563EB", darkColor: "#173fa3", textCol: "text-[#2563EB]" }, // Blue
+  { num: "04", stepLabel: "STEP", color: "#DC2626", darkColor: "#7f1d1d", textCol: "text-[#DC2626]" }, // Red
 ];
 
 export default function Testimonials() {
@@ -64,7 +64,7 @@ export default function Testimonials() {
             </span>
           </div>
           <Quote className="w-6 h-6 text-stone-100 fill-stone-100 mb-2" />
-          <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-medium">
+          <p className="text-stone-605 text-stone-600 text-xs sm:text-sm leading-relaxed font-semibold">
             {t.text}
           </p>
         </div>
@@ -95,9 +95,9 @@ export default function Testimonials() {
         <span
           className="text-[9px] font-black uppercase px-2.5 py-1 rounded border inline-block"
           style={{
-            color: theme.textCol.replace("text-[", "").replace("]", ""),
-            backgroundColor: `${theme.textCol.replace("text-[", "").replace("]", "")}10`,
-            borderColor: `${theme.textCol.replace("text-[", "").replace("]", "")}30`
+            color: theme.color,
+            backgroundColor: `${theme.color}10`,
+            borderColor: `${theme.color}30`
           }}
         >
           {t.company} Offer Loop
@@ -112,7 +112,7 @@ export default function Testimonials() {
 
   return (
     <section className="py-20 lg:py-28 bg-[#F5F2EC] text-stone-900 relative z-10 border-t border-stone-200/90 overflow-hidden">
-      <div className="max-w-5xl mx-auto px-5 sm:px-8">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
 
         {/* Header — left aligned */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20">
@@ -144,8 +144,8 @@ export default function Testimonials() {
         {/* ── VERTICAL FOLDED RIBBON INFOGRAPHIC TIMELINE ── */}
         <div className="relative my-8 space-y-16">
           
-          {/* Vertical Center Connecting Shadow Line */}
-          <div className="absolute left-1/2 top-4 bottom-4 w-1 bg-stone-300/40 -translate-x-1/2 hidden md:block z-0" />
+          {/* Vertical Center Connecting Line */}
+          <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-stone-300 -translate-x-1/2 hidden md:block z-0" />
 
           {testimonials.map((t, i) => {
             const isOdd = i % 2 === 0;
@@ -156,47 +156,49 @@ export default function Testimonials() {
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_80px_1fr] gap-6 md:gap-0 items-center relative">
                   
                   {/* Left Column (Odd: Card, Even: Info) */}
-                  <div className={`order-2 md:order-1 ${isOdd ? "block" : "hidden md:block"}`}>
+                  <div className={`order-2 md:order-1 w-full flex justify-end ${isOdd ? "md:-mr-4 relative z-10" : "hidden md:block"}`}>
                     {isOdd ? renderCard(t) : renderInfo(t, theme, false)}
                   </div>
 
                   {/* Center Folded Ribbon Column */}
-                  <div className="order-1 md:order-2 flex justify-center z-10">
-                    <div className="relative flex flex-col items-center justify-center select-none shrink-0">
-                      
-                      {/* Tilted vertical main ribbon container */}
-                      <div className={`w-14 h-24 ${theme.color} text-white flex flex-col items-center justify-center font-black relative shadow-2xl z-20 ${
-                        isOdd ? "transform -skew-y-12" : "transform skew-y-12"
-                      }`}>
-                        
-                        {/* Upright text inside skewed ribbon */}
-                        <div className={`flex flex-col items-center ${isOdd ? "transform skew-y-12" : "transform -skew-y-12"}`}>
-                          <span className="text-xl font-black leading-none">{theme.num}</span>
-                          <span className="text-[7.5px] font-black uppercase tracking-wider mt-1">{theme.stepLabel}</span>
-                        </div>
-
-                        {/* Ribbon Fold-back dark 3D triangles */}
-                        {isOdd ? (
-                          <>
-                            {/* Fold back at bottom-left */}
-                            <div className={`absolute bottom-[-6px] left-0 w-3 h-1.5 ${theme.darkColor} transform skew-y-12 origin-top-left`} style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%)" }} />
-                            {/* Fold back at top-right */}
-                            <div className={`absolute top-[-6px] right-0 w-3 h-1.5 ${theme.darkColor} transform skew-y-12 origin-bottom-right`} style={{ clipPath: "polygon(0 0, 0 100%, 100% 100%)" }} />
-                          </>
-                        ) : (
-                          <>
-                            {/* Fold back at bottom-right */}
-                            <div className={`absolute bottom-[-6px] right-0 w-3 h-1.5 ${theme.darkColor} transform -skew-y-12 origin-top-right`} style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }} />
-                            {/* Fold back at top-left */}
-                            <div className={`absolute top-[-6px] left-0 w-3 h-1.5 ${theme.darkColor} transform -skew-y-12 origin-bottom-left`} style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%)" }} />
-                          </>
-                        )}
-                      </div>
-                    </div>
+                  <div className="order-1 md:order-2 flex justify-center z-20">
+                    {isOdd ? (
+                      /* Direction A (Odd: slanted down-left) */
+                      <svg width="80" height="120" viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-20 h-auto">
+                        {/* Dark folds underneath */}
+                        <path d="M 64,8 L 76,12 L 64,20 Z" fill={theme.darkColor} />
+                        <path d="M 16,100 L 4,96 L 16,88 Z" fill={theme.darkColor} />
+                        {/* Front banner */}
+                        <path d="M 16,20 L 64,8 L 64,88 L 16,100 Z" fill={theme.color} />
+                        {/* Text labels */}
+                        <text x="40" y="52" textAnchor="middle" fontWeight="900" fontSize="16" fontFamily="sans-serif" fill="white">
+                          {theme.num}
+                        </text>
+                        <text x="40" y="65" textAnchor="middle" fontWeight="900" fontSize="7" fontFamily="sans-serif" fill="white" letterSpacing="1">
+                          {theme.stepLabel}
+                        </text>
+                      </svg>
+                    ) : (
+                      /* Direction B (Even: slanted down-right) */
+                      <svg width="80" height="120" viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-20 h-auto">
+                        {/* Dark folds underneath */}
+                        <path d="M 16,8 L 4,12 L 16,20 Z" fill={theme.darkColor} />
+                        <path d="M 64,100 L 76,96 L 64,88 Z" fill={theme.darkColor} />
+                        {/* Front banner */}
+                        <path d="M 16,8 L 64,20 L 64,100 L 16,88 Z" fill={theme.color} />
+                        {/* Text labels */}
+                        <text x="40" y="52" textAnchor="middle" fontWeight="900" fontSize="16" fontFamily="sans-serif" fill="white">
+                          {theme.num}
+                        </text>
+                        <text x="40" y="65" textAnchor="middle" fontWeight="900" fontSize="7" fontFamily="sans-serif" fill="white" letterSpacing="1">
+                          {theme.stepLabel}
+                        </text>
+                      </svg>
+                    )}
                   </div>
 
                   {/* Right Column (Odd: Info, Even: Card) */}
-                  <div className={`order-3 ${isOdd ? "hidden md:block" : "block"}`}>
+                  <div className={`order-3 w-full flex justify-start ${isOdd ? "hidden md:block" : "md:-ml-4 relative z-10"}`}>
                     {isOdd ? renderInfo(t, theme, true) : renderCard(t)}
                   </div>
 
