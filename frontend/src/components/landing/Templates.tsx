@@ -15,14 +15,14 @@ interface Template {
 }
 
 export default function Templates() {
-  const [selectedColor, setSelectedColor] = useState<"navy" | "green" | "slate" | "charcoal">("navy");
+  const [selectedColor, setSelectedColor] = useState<"orange" | "teal" | "brown" | "charcoal">("orange");
   const [previewTemplate, setPreviewTemplate] = useState<Template | null>(null);
 
   const colors = [
-    { id: "navy", class: "bg-blue-600", border: "border-blue-200", label: "Ocean Navy" },
-    { id: "green", class: "bg-emerald-600", border: "border-emerald-200", label: "Forest Emerald" },
-    { id: "slate", class: "bg-slate-500", border: "border-slate-200", label: "Slate Gray" },
-    { id: "charcoal", class: "bg-slate-900", border: "border-slate-800", label: "Charcoal Black" },
+    { id: "orange", class: "bg-[#E87A36]", border: "border-[#E87A36]/40", label: "Burnt Orange" },
+    { id: "teal", class: "bg-[#67B0A7]", border: "border-[#67B0A7]/40", label: "Sage Teal" },
+    { id: "brown", class: "bg-[#6E4A35]", border: "border-[#6E4A35]/40", label: "Chocolate Brown" },
+    { id: "charcoal", class: "bg-stone-900", border: "border-stone-850", label: "Deep Stone" },
   ];
 
   const templatesList: Template[] = [
@@ -64,34 +64,34 @@ export default function Templates() {
 
   const getAccentBg = () => {
     switch (selectedColor) {
-      case "green": return "bg-emerald-600";
-      case "slate": return "bg-slate-500";
-      case "charcoal": return "bg-slate-900";
-      case "navy":
+      case "teal": return "bg-[#67B0A7]";
+      case "brown": return "bg-[#6E4A35]";
+      case "charcoal": return "bg-stone-900";
+      case "orange":
       default:
-        return "bg-blue-600";
+        return "bg-[#E87A36]";
     }
   };
 
   const getAccentText = () => {
     switch (selectedColor) {
-      case "green": return "text-emerald-600";
-      case "slate": return "text-slate-500";
-      case "charcoal": return "text-slate-900";
-      case "navy":
+      case "teal": return "text-[#67B0A7]";
+      case "brown": return "text-[#6E4A35]";
+      case "charcoal": return "text-stone-900";
+      case "orange":
       default:
-        return "text-blue-600";
+        return "text-[#E87A36]";
     }
   };
 
   const getBorderColor = () => {
     switch (selectedColor) {
-      case "green": return "border-emerald-100";
-      case "slate": return "border-slate-100";
-      case "charcoal": return "border-slate-200";
-      case "navy":
+      case "teal": return "border-[#67B0A7]/20";
+      case "brown": return "border-[#6E4A35]/20";
+      case "charcoal": return "border-stone-250";
+      case "orange":
       default:
-        return "border-blue-100";
+        return "border-[#E87A36]/20";
     }
   };
 
