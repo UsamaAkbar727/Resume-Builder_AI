@@ -10,8 +10,49 @@ import {
 } from "lucide-react";
 import { ScrollReveal } from "./Animations";
 
+interface BaseTemplate {
+  id: string;
+  name: string;
+  category: string;
+  accentColor: string;
+  atsScore: number;
+  candidateName: string;
+  candidateTitle: string;
+  location: string;
+  address: string;
+  email: string;
+  avatar: string;
+  summary: string;
+  education: { school: string; degree: string; duration: string }[];
+}
+
+interface HusnainTemplate extends BaseTemplate {
+  id: "husnain_yousaf";
+  secEmail: string;
+  skills: { name: string; level: string }[];
+  awards: { school: string; title: string; duration: string }[];
+  experience: { role: string; company: string; desc: string[] }[];
+}
+
+interface UsamaTemplate extends BaseTemplate {
+  id: "usama_akbar";
+  github: string;
+  skills: string[];
+  experience: { role: string; company: string; duration: string; desc: string[] }[];
+}
+
+interface SahibTemplate extends BaseTemplate {
+  id: "sahib_khan";
+  skills: string[];
+  techSkills: string[];
+  languages: string[];
+  hobbies: string[];
+}
+
+type ShowcaseTemplate = HusnainTemplate | UsamaTemplate | SahibTemplate;
+
 // Real Showcase Templates for Auto-Rotating Right Side (Customized from User Screenshots)
-const SHOWCASE_TEMPLATES = [
+const SHOWCASE_TEMPLATES: ShowcaseTemplate[] = [
   {
     id: "husnain_yousaf",
     name: "Husnain Yousaf",
