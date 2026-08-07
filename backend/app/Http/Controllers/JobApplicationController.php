@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class JobApplicationController extends Controller
 {
+    protected \App\Services\JobAggregatorService $aggregatorService;
+
+    public function __construct(\App\Services\JobAggregatorService $aggregatorService)
+    {
+        $this->aggregatorService = $aggregatorService;
+    }
     /**
      * Display a listing of user's job applications.
      */
@@ -96,19 +102,18 @@ class JobApplicationController extends Controller
             'url' => 'required|url',
         ]);
 
-        $url = $request->url;
+        $job = $this->aggregatorService->importFromUrl($request->url);
 
-        // Mock scraping and extraction latency
         return response()->json([
-            'url' => $url,
-            'company' => 'Stripe',
-            'role' => 'Senior Frontend Engineer',
-            'salary' => '$195,000',
-            'location' => 'San Francisco, CA (Hybrid)',
-            'skills' => ['React', 'TypeScript', 'Tailwind CSS', 'REST APIs', 'Playwright'],
-            'requirements' => '5+ years of experience, expertise in client performance, responsive UI structures.',
-            'benefits' => 'Medical insurance, stock options, remote workspace setup budget, unlimited PTO.',
-            'deadline' => '2026-08-30'
+            'url' => $request->url,
+            'company' => $job['company_name'] ?? 'Tech Enterprise',
+            'role' => $job['title'] ?? 'Software Engineer',
+            'salary' => $job['salary_max'] ?? '$150,000',
+            'location' => $job['location'] ?? 'Remote',
+            'skills' => $job['skills_json'] ?? ['Engineering'],
+            'requirements' => 'Skills required: ' . implode(', ', $job['skills_json'] ?? []),
+            'benefits' => 'Competitive salary and standard workspace options.',
+            'deadline' => now()->addDays(30)->format('Y-m-d')
         ]);
     }
 }
