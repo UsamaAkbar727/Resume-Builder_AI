@@ -210,89 +210,178 @@ export default function Hero() {
 
           </div>
 
-          {/* ── RIGHT COLUMN: PURE REAL CV TEMPLATE SHOWCASE ── */}
-          <div className="lg:col-span-6 relative flex flex-col justify-center items-center">
+          {/* ── RIGHT COLUMN: PURE REAL CV TEMPLATE SHOWCASE (REDESIGNED PREMIUM SaaS WORKSPACE) ── */}
+          <div className="lg:col-span-6 relative flex flex-col justify-center items-center w-full">
             
             {/* Outer Ambient Glow */}
-            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-amber-400/10 via-yellow-400/5 to-amber-300/10 blur-2xl pointer-events-none" />
+            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-amber-400/10 via-yellow-450/5 to-amber-300/10 blur-2xl pointer-events-none" />
 
-            {/* Top Auto-Changing Template Name Header */}
-            <div className="mb-3.5 z-20 flex items-center justify-between w-full max-w-lg bg-zinc-900/90 text-white px-4 py-2.5 rounded-2xl backdrop-blur-md border border-zinc-850 shadow-md">
+            {/* Redesigned template tracker header */}
+            <div className="mb-4 z-20 flex items-center justify-between w-full max-w-lg bg-zinc-900/90 text-white px-4 py-2.5 rounded-2xl backdrop-blur-md border border-zinc-800/80 shadow-md">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-amber-400 animate-spin-slow" />
-                <span className="text-xs font-extrabold text-amber-300 uppercase tracking-wider">
-                  Template #{slideIndex + 1}: {activeTemplate.name}
+                <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                <span className="text-[10px] font-black text-amber-350 uppercase tracking-widest">
+                  Live Showcase: {activeTemplate.name}
                 </span>
               </div>
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="p-1 rounded bg-zinc-800 hover:bg-zinc-700 text-slate-350 transition-colors"
+                className="p-1.5 rounded-xl bg-zinc-850 hover:bg-zinc-800 text-zinc-300 hover:text-white transition-colors cursor-pointer flex items-center gap-1 text-[10px] font-bold border border-zinc-800/60"
                 title={isPlaying ? "Pause rotation" : "Play rotation"}
               >
                 {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+                <span>{isPlaying ? "Pause" : "Play"}</span>
               </button>
             </div>
 
-            {/* PRISTINE REAL CV DOCUMENT CANVAS WITH SMOOTH SLIDE ANIMATION */}
-            <div className="relative w-full max-w-lg overflow-hidden">
+            {/* FLOATING INTERACTIVE WIDGET 1: ATS SCORE METER (TOP-RIGHT OVERLAPPING) */}
+            <div className="absolute -top-5 -right-2 sm:-right-4 z-25 bg-zinc-900/95 backdrop-blur-md border border-zinc-800/80 text-white rounded-2xl p-3 shadow-[0_10px_30px_rgba(0,0,0,0.4)] flex items-center gap-3.5 animate-float max-w-[170px]">
+              <div className="relative flex items-center justify-center shrink-0">
+                <svg className="w-10 h-10 transform -rotate-90">
+                  <circle cx="20" cy="20" r="16" stroke="#27272a" strokeWidth="2.5" fill="transparent" />
+                  <circle 
+                    cx="20" 
+                    cy="20" 
+                    r="16" 
+                    stroke="#F59E0B" 
+                    strokeWidth="2.5" 
+                    fill="transparent"
+                    strokeDasharray="100.5" 
+                    strokeDashoffset={100.5 * (1 - activeTemplate.atsScore / 100)}
+                    strokeLinecap="round"
+                    className="transition-all duration-700 ease-out"
+                  />
+                </svg>
+                <span className="absolute text-[10px] font-black">{activeTemplate.atsScore}%</span>
+              </div>
+              <div className="min-w-0">
+                <p className="text-[8px] font-black text-amber-400 uppercase tracking-widest leading-none">ATS Score</p>
+                <p className="text-[10px] font-black text-white mt-1 truncate">Excellent Match</p>
+              </div>
+            </div>
+
+            {/* FLOATING INTERACTIVE WIDGET 2: AI AUDIT CHECKLIST (MID-LEFT OVERLAPPING) */}
+            <div className="absolute top-1/4 -left-4 sm:-left-8 z-25 bg-zinc-900/95 backdrop-blur-md border border-zinc-800/80 text-white rounded-2xl p-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] space-y-2 animate-float-delayed max-w-[180px] hidden sm:block">
+              <div className="flex items-center gap-1.5 border-b border-zinc-800 pb-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span className="text-[8px] font-black uppercase tracking-wider text-zinc-400">AI Checklist</span>
+              </div>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-[7px]">✓</div>
+                  <span className="text-[9px] font-bold text-zinc-300">Action Verbs (+12%)</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-[7px]">✓</div>
+                  <span className="text-[9px] font-bold text-zinc-300">Metrics Quantified</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-[7px]">✓</div>
+                  <span className="text-[9px] font-bold text-zinc-300">No Clichés Found</span>
+                </div>
+              </div>
+            </div>
+
+            {/* FLOATING INTERACTIVE WIDGET 3: EXPORT STATUS (BOTTOM-LEFT OVERLAPPING) */}
+            <div className="absolute bottom-10 -left-2 sm:-left-6 z-25 bg-zinc-900/95 backdrop-blur-md border border-zinc-800/80 text-white rounded-2xl px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] flex items-center gap-2.5 animate-float">
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="flex flex-col">
+                <span className="text-[8px] font-black uppercase tracking-widest text-zinc-500 leading-none">Status</span>
+                <span className="text-[10px] font-black text-zinc-200 mt-0.5">LaTeX Export Ready</span>
+              </div>
+            </div>
+
+            {/* Redesigned Premium Editor Window Frame */}
+            <div className="relative w-full max-w-lg bg-zinc-900/90 border border-zinc-800/80 rounded-3xl shadow-[0_24px_50px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col z-10">
               
-              <div 
-                key={activeTemplate.id}
-                className="bg-zinc-900/95 text-zinc-100 rounded-3xl p-7 sm:p-9 shadow-2xl border border-zinc-800/80 space-y-6 text-left animate-in fade-in slide-in-from-bottom-8 duration-700"
-              >
+              {/* Editor Tab Bar & Window Header */}
+              <div className="flex items-center justify-between border-b border-zinc-850/80 px-4 py-3 bg-zinc-950/40">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 rounded-full bg-red-500/80 border border-red-600/30" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-500/80 border border-yellow-600/30" />
+                  <span className="w-3 h-3 rounded-full bg-green-500/80 border border-green-600/30" />
+                </div>
                 
-                {/* CV Header & Candidate Avatar Photo */}
-                <div className="flex justify-between items-start border-b pb-5 border-zinc-800">
-                  <div>
-                    <h3 className="text-2xl font-extrabold text-white tracking-tight">{activeTemplate.candidateName}</h3>
-                    <p className="text-xs font-bold uppercase tracking-wider mt-0.5" style={{ color: activeTemplate.accentColor === "#1E3A8A" ? "#F59E0B" : activeTemplate.accentColor }}>
-                      {activeTemplate.candidateTitle}
-                    </p>
-                    <p className="text-[11px] text-zinc-400 mt-1">{activeTemplate.location}</p>
-                  </div>
-
-                  {/* Candidate Avatar Photo */}
-                  <div className="relative shrink-0">
-                    <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-amber-400 via-yellow-400 to-amber-300 blur-xs" />
-                    <img
-                      src={activeTemplate.avatar}
-                      alt={activeTemplate.candidateName}
-                      className="relative w-14 h-14 rounded-full object-cover border-2 border-zinc-900 shadow-md"
-                    />
-                  </div>
+                <div className="flex items-center gap-1 bg-zinc-950/65 px-3 py-1 rounded-lg border border-zinc-800 text-[10px] text-zinc-400 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>resumeflow.ai/editor</span>
                 </div>
 
-                {/* Profile Summary */}
-                <div className="space-y-1">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Professional Summary</p>
-                  <p className="text-xs text-zinc-300 leading-relaxed font-normal">{activeTemplate.summary}</p>
+                <div className="flex items-center gap-1">
+                  <span className="text-[9px] font-black uppercase text-amber-400 tracking-wide bg-amber-450/10 px-2 py-0.5 rounded border border-amber-450/20">
+                    Live Preview
+                  </span>
                 </div>
+              </div>
 
-                {/* Work Experience */}
-                <div className="space-y-2">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Employment History</p>
-                  {activeTemplate.experience.map((exp, idx) => (
-                    <div key={idx} className="pl-3 border-l-2" style={{ borderColor: activeTemplate.accentColor === "#1E3A8A" ? "#F59E0B" : activeTemplate.accentColor }}>
-                      <div className="flex justify-between text-xs font-bold text-white">
-                        <span>{exp.role}</span>
-                        <span className="text-zinc-500 text-[10px]">{exp.duration}</span>
-                      </div>
-                      <p className="text-[11px] font-semibold" style={{ color: activeTemplate.accentColor === "#1E3A8A" ? "#F59E0B" : activeTemplate.accentColor }}>{exp.company}</p>
-                      <p className="text-xs text-zinc-300 mt-0.5 leading-relaxed">{exp.desc}</p>
+              {/* Editor Canvas Area */}
+              <div className="p-4 sm:p-6 bg-zinc-950/25 relative">
+                
+                {/* Crisp Printable Resume Sheet */}
+                <div 
+                  key={activeTemplate.id}
+                  className="bg-white text-slate-800 rounded-2xl p-6 sm:p-7 shadow-[0_12px_36px_rgba(0,0,0,0.3)] border border-slate-100 space-y-4 sm:space-y-5 text-left animate-in fade-in slide-in-from-bottom-6 duration-500 relative overflow-hidden"
+                >
+                  {/* Decorative faint background pattern for paper feel */}
+                  <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none rounded-2xl" />
+
+                  {/* CV Header & Candidate Avatar Photo */}
+                  <div className="flex justify-between items-start border-b pb-4 border-slate-100 relative z-10">
+                    <div className="space-y-0.5">
+                      <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-none">{activeTemplate.candidateName}</h3>
+                      <p className="text-[11px] sm:text-xs font-bold uppercase tracking-wider mt-2.5" style={{ color: activeTemplate.accentColor }}>
+                        {activeTemplate.candidateTitle}
+                      </p>
+                      <p className="text-[10px] text-slate-400 font-medium mt-1">{activeTemplate.location}</p>
                     </div>
-                  ))}
-                </div>
 
-                {/* Skills Chips */}
-                <div className="space-y-1.5 pt-2 border-t border-zinc-800">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Skills & Competencies</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {activeTemplate.skills.map((s) => (
-                      <span key={s} className="bg-zinc-950 text-zinc-300 text-[10px] font-bold px-2.5 py-1 rounded-md border border-zinc-850">
-                        {s}
-                      </span>
+                    {/* Candidate Photo */}
+                    <div className="relative shrink-0">
+                      <div className="absolute -inset-0.5 rounded-full bg-gradient-to-tr from-amber-400 via-yellow-450 to-amber-300 blur-xs" />
+                      <img
+                        src={activeTemplate.avatar}
+                        alt={activeTemplate.candidateName}
+                        className="relative w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Profile Summary */}
+                  <div className="space-y-1 relative z-10">
+                    <p className="text-[9px] font-extrabold uppercase tracking-widest text-slate-400">Professional Summary</p>
+                    <p className="text-[11px] text-slate-650 leading-relaxed font-normal">{activeTemplate.summary}</p>
+                  </div>
+
+                  {/* Work Experience */}
+                  <div className="space-y-2.5 relative z-10">
+                    <p className="text-[9px] font-extrabold uppercase tracking-widest text-slate-400">Employment History</p>
+                    {activeTemplate.experience.map((exp, idx) => (
+                      <div key={idx} className="pl-3 border-l-2" style={{ borderColor: activeTemplate.accentColor }}>
+                        <div className="flex justify-between text-[11px] font-bold text-slate-800 leading-none">
+                          <span>{exp.role}</span>
+                          <span className="text-slate-400 text-[9px] font-medium">{exp.duration}</span>
+                        </div>
+                        <p className="text-[10px] font-semibold mt-0.5" style={{ color: activeTemplate.accentColor }}>{exp.company}</p>
+                        <p className="text-[10px] text-slate-600 mt-1 leading-relaxed">{exp.desc}</p>
+                      </div>
                     ))}
                   </div>
+
+                  {/* Skills */}
+                  <div className="space-y-1.5 pt-2 border-t border-slate-100 relative z-10">
+                    <p className="text-[9px] font-extrabold uppercase tracking-widest text-slate-400">Skills & Competencies</p>
+                    <div className="flex flex-wrap gap-1">
+                      {activeTemplate.skills.map((s) => (
+                        <span 
+                          key={s} 
+                          className="bg-slate-50 text-slate-700 text-[9px] font-bold px-2.5 py-0.5 rounded-md border border-slate-150 transition-all hover:bg-slate-100 hover:text-slate-900"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
                 </div>
 
               </div>
@@ -306,7 +395,7 @@ export default function Hero() {
                   key={t.id}
                   onClick={() => setSlideIndex(idx)}
                   className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                    slideIndex === idx ? "w-8 bg-amber-400 shadow-md shadow-amber-500/30" : "w-2.5 bg-zinc-800 hover:bg-zinc-700"
+                    slideIndex === idx ? "w-8 bg-amber-400 shadow-md shadow-amber-500/30" : "w-2.5 bg-zinc-800 hover:bg-zinc-750"
                   }`}
                   title={t.name}
                 />
