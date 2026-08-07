@@ -22,7 +22,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled ? "bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80 shadow-[0_1px_0_rgba(255,255,255,0.05)]" : "bg-transparent"}`}>
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled ? "bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80 shadow-[0_4px_25px_rgba(0,0,0,0.5)]" : "bg-zinc-950 border-b border-zinc-900/50"}`}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
 
         {/* Logo */}
