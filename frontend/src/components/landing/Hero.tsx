@@ -334,70 +334,302 @@ export default function Hero() {
               {/* Editor Canvas Area */}
               <div className="p-4 sm:p-6 bg-zinc-950/25 relative">
                 
-                {/* Crisp Printable Resume Sheet */}
+                {/* Crisp Printable Resume Sheet (Customized Layouts from User Screenshots) */}
                 <div 
                   key={activeTemplate.id}
-                  className="bg-white text-slate-800 rounded-2xl p-6 sm:p-7 shadow-[0_12px_36px_rgba(0,0,0,0.3)] border border-slate-100 space-y-4 sm:space-y-5 text-left animate-in fade-in slide-in-from-bottom-6 duration-500 relative overflow-hidden"
+                  className="bg-white text-slate-800 rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.3)] border border-slate-100 min-h-[385px] text-left animate-in fade-in slide-in-from-bottom-6 duration-500 relative overflow-hidden grid grid-cols-12 z-10"
                 >
                   {/* Decorative faint background pattern for paper feel */}
-                  <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none rounded-2xl" />
+                  <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none rounded-2xl z-0" />
 
-                  {/* CV Header & Candidate Avatar Photo */}
-                  <div className="flex justify-between items-start border-b pb-4 border-slate-100 relative z-10">
-                    <div className="space-y-0.5">
-                      <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-none">{activeTemplate.candidateName}</h3>
-                      <p className="text-[11px] sm:text-xs font-bold uppercase tracking-wider mt-2.5" style={{ color: activeTemplate.accentColor }}>
-                        {activeTemplate.candidateTitle}
-                      </p>
-                      <p className="text-[10px] text-slate-400 font-medium mt-1">{activeTemplate.location}</p>
-                    </div>
-
-                    {/* Candidate Photo */}
-                    <div className="relative shrink-0">
-                      <div className="absolute -inset-0.5 rounded-full bg-gradient-to-tr from-amber-400 via-yellow-450 to-amber-300 blur-xs" />
-                      <img
-                        src={activeTemplate.avatar}
-                        alt={activeTemplate.candidateName}
-                        className="relative w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Profile Summary */}
-                  <div className="space-y-1 relative z-10">
-                    <p className="text-[9px] font-extrabold uppercase tracking-widest text-slate-400">Professional Summary</p>
-                    <p className="text-[11px] text-slate-650 leading-relaxed font-normal">{activeTemplate.summary}</p>
-                  </div>
-
-                  {/* Work Experience */}
-                  <div className="space-y-2.5 relative z-10">
-                    <p className="text-[9px] font-extrabold uppercase tracking-widest text-slate-400">Employment History</p>
-                    {activeTemplate.experience.map((exp, idx) => (
-                      <div key={idx} className="pl-3 border-l-2" style={{ borderColor: activeTemplate.accentColor }}>
-                        <div className="flex justify-between text-[11px] font-bold text-slate-800 leading-none">
-                          <span>{exp.role}</span>
-                          <span className="text-slate-400 text-[9px] font-medium">{exp.duration}</span>
+                  {activeTemplate.id === "husnain_yousaf" && (
+                    <>
+                      {/* Teal/Dark Green Sidebar (Left Column) */}
+                      <div className="col-span-5 bg-[#0d3c33] text-white p-3 space-y-4 relative z-10 flex flex-col justify-start">
+                        {/* Profile Photo */}
+                        <div className="flex justify-center my-1 shrink-0">
+                          <div className="relative w-14 h-14 rounded-full border-2 border-[#165046] overflow-hidden shadow-sm">
+                            <img src={activeTemplate.avatar} alt={activeTemplate.candidateName} className="w-full h-full object-cover" />
+                          </div>
                         </div>
-                        <p className="text-[10px] font-semibold mt-0.5" style={{ color: activeTemplate.accentColor }}>{exp.company}</p>
-                        <p className="text-[10px] text-slate-600 mt-1 leading-relaxed">{exp.desc}</p>
-                      </div>
-                    ))}
-                  </div>
 
-                  {/* Skills */}
-                  <div className="space-y-1.5 pt-2 border-t border-slate-100 relative z-10">
-                    <p className="text-[9px] font-extrabold uppercase tracking-widest text-slate-400">Skills & Competencies</p>
-                    <div className="flex flex-wrap gap-1">
-                      {activeTemplate.skills.map((s) => (
-                        <span 
-                          key={s} 
-                          className="bg-slate-50 text-slate-700 text-[9px] font-bold px-2.5 py-0.5 rounded-md border border-slate-150 transition-all hover:bg-slate-100 hover:text-slate-900"
-                        >
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                        {/* Contact */}
+                        <div className="space-y-1 shrink-0">
+                          <div className="bg-[#165046] text-white font-extrabold py-0.5 px-2 rounded-r-full -ml-3 w-fit text-[8px] uppercase tracking-wider">
+                            Contact
+                          </div>
+                          <div className="space-y-1 text-[7.5px] text-zinc-300 leading-tight">
+                            <p className="truncate">📞 {activeTemplate.location}</p>
+                            <p className="truncate">✉️ {activeTemplate.email}</p>
+                            <p className="truncate text-zinc-400">🌐 {activeTemplate.secEmail}</p>
+                            <p className="text-[7px] leading-snug line-clamp-2">📍 {activeTemplate.address}</p>
+                          </div>
+                        </div>
+
+                        {/* Education */}
+                        <div className="space-y-1 shrink-0">
+                          <div className="bg-[#165046] text-white font-extrabold py-0.5 px-2 rounded-r-full -ml-3 w-fit text-[8px] uppercase tracking-wider">
+                            Education
+                          </div>
+                          <div className="space-y-2 text-[7px] text-zinc-300 leading-snug">
+                            {activeTemplate.education.map((edu, idx) => (
+                              <div key={idx} className="space-y-0.5">
+                                <p className="font-extrabold text-white text-[7.5px] leading-tight">{edu.school}</p>
+                                <p className="text-[6.5px] text-zinc-355">{edu.degree}</p>
+                                <p className="text-[6.5px] text-zinc-450 font-semibold">{edu.duration}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Award */}
+                        <div className="space-y-1 shrink-0">
+                          <div className="bg-[#165046] text-white font-extrabold py-0.5 px-2 rounded-r-full -ml-3 w-fit text-[8px] uppercase tracking-wider">
+                            Award
+                          </div>
+                          <div className="space-y-0.5 text-[7px] text-zinc-300 leading-snug">
+                            {activeTemplate.awards.map((aw, idx) => (
+                              <div key={idx} className="space-y-0.5">
+                                <p className="font-extrabold text-white text-[7.5px] leading-tight">{aw.school}</p>
+                                <p className="text-amber-350 text-[6.5px] font-bold">{aw.title} | {aw.duration}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Right Main Body */}
+                      <div className="col-span-7 bg-white p-3 space-y-3 relative z-10 flex flex-col justify-start">
+                        {/* Header block */}
+                        <div className="bg-[#0d3c33] text-white p-3 -mx-3 -mt-3 rounded-tr-2xl space-y-0.5 shrink-0">
+                          <h3 className="text-sm sm:text-base font-black tracking-tight leading-none">Husnain Yousaf</h3>
+                          <p className="text-[9px] font-extrabold uppercase tracking-widest text-emerald-350">Graphic Designer</p>
+                          <p className="text-[7.5px] text-zinc-300 leading-relaxed font-medium pt-1 border-t border-emerald-900/60 mt-1 line-clamp-2">
+                            {activeTemplate.summary}
+                          </p>
+                        </div>
+
+                        {/* Work Experience */}
+                        <div className="space-y-1 shrink-0">
+                          <div className="bg-[#0d3c33] text-white font-extrabold py-0.5 px-2 rounded-full w-fit text-[7.5px] uppercase tracking-widest mb-1">
+                            Work Experience
+                          </div>
+                          <div className="space-y-1.5">
+                            {activeTemplate.experience.map((exp, idx) => (
+                              <div key={idx} className="space-y-0.5">
+                                <p className="text-[8px] font-black text-slate-800 leading-tight">{exp.role}</p>
+                                <p className="text-[7.5px] font-bold text-[#0d3c33]">{exp.company}</p>
+                                <ul className="list-disc pl-3 text-[7px] text-slate-500 space-y-0.5 font-medium leading-none">
+                                  {exp.desc.map((d, i) => (
+                                    <li key={i}>{d}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Skills */}
+                        <div className="space-y-1 shrink-0">
+                          <div className="bg-[#0d3c33] text-white font-extrabold py-0.5 px-2 rounded-full w-fit text-[7.5px] uppercase tracking-widest mb-1">
+                            Skills
+                          </div>
+                          <div className="space-y-1">
+                            {activeTemplate.skills.map((sk, idx) => (
+                              <div key={idx} className="flex items-center gap-1.5">
+                                <span className="text-[7px] font-bold text-slate-700 w-20 truncate leading-none">{sk.name}</span>
+                                <div className="flex-1 bg-slate-100 rounded-full h-1 overflow-hidden">
+                                  <div className="bg-[#0d3c33] h-full rounded-full" style={{ width: sk.level }} />
+                                </div>
+                                <span className="text-[6.5px] font-bold text-slate-400 leading-none shrink-0">{sk.level}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {activeTemplate.id === "usama_akbar" && (
+                    <>
+                      {/* Dark Gray/Black Sidebar (Left Column) */}
+                      <div className="col-span-5 bg-zinc-950 text-white p-3 space-y-4 relative z-10 flex flex-col justify-start">
+                        {/* Profile Photo - Rectangular */}
+                        <div className="w-full aspect-[4/3] overflow-hidden rounded-lg shadow-sm border border-zinc-800 shrink-0">
+                          <img src={activeTemplate.avatar} alt={activeTemplate.candidateName} className="w-full h-full object-cover" />
+                        </div>
+
+                        {/* Contact */}
+                        <div className="space-y-1.5 shrink-0">
+                          <h4 className="text-[8px] font-black tracking-wider text-zinc-400 border-b border-zinc-850 pb-1 uppercase">Contact</h4>
+                          <div className="space-y-1 text-[7px] text-zinc-400 leading-tight">
+                            <p className="truncate">📞 {activeTemplate.location}</p>
+                            <p className="truncate">✉️ {activeTemplate.email}</p>
+                            <p className="truncate">🔗 github.com/UsamaAkbar727</p>
+                            <p className="text-[6.5px] leading-snug line-clamp-2">📍 {activeTemplate.address}</p>
+                          </div>
+                        </div>
+
+                        {/* Skills */}
+                        <div className="space-y-1.5 shrink-0">
+                          <h4 className="text-[8px] font-black tracking-wider text-zinc-400 border-b border-zinc-850 pb-1 uppercase">Skills</h4>
+                          <div className="space-y-1 text-zinc-350 text-[7px] leading-snug font-medium">
+                            {activeTemplate.skills.map((sk, idx) => (
+                              <div key={idx} className="flex items-center gap-1.5">
+                                <span className="w-1 h-1 rounded-full border border-amber-400 flex-shrink-0" />
+                                <span className="truncate">{sk}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Education */}
+                        <div className="space-y-1.5 shrink-0">
+                          <h4 className="text-[8px] font-black tracking-wider text-zinc-400 border-b border-zinc-850 pb-1 uppercase">Education</h4>
+                          <div className="space-y-2 text-[7px] text-zinc-400 leading-snug">
+                            {activeTemplate.education.map((edu, idx) => (
+                              <div key={idx} className="space-y-0.5">
+                                <p className="font-extrabold text-white text-[7.5px] leading-tight">{edu.school}</p>
+                                <p className="text-zinc-350 text-[6.5px] leading-snug">{edu.degree}</p>
+                                <p className="text-zinc-550 font-bold text-[6.5px]">{edu.duration}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Right Main Body */}
+                      <div className="col-span-7 bg-white p-3 space-y-3 relative z-10 flex flex-col justify-start">
+                        {/* Header Banner */}
+                        <div className="bg-[#967b66] text-white p-3 -mx-3 -mt-3 rounded-tr-2xl space-y-0.5 shrink-0">
+                          <h3 className="text-sm sm:text-base font-black tracking-tight uppercase leading-none">USAMA AKBAR</h3>
+                          <p className="text-[8.5px] font-extrabold tracking-widest italic opacity-95 text-[#fcd34d]">Full-Stack Web Developer</p>
+                        </div>
+
+                        {/* About Me */}
+                        <div className="space-y-1 shrink-0">
+                          <h4 className="text-[8.5px] font-black tracking-wider text-slate-900 border-b border-slate-100 pb-0.5 uppercase">ABOUT ME</h4>
+                          <p className="text-[7.5px] text-slate-650 leading-relaxed font-normal line-clamp-3">{activeTemplate.summary}</p>
+                        </div>
+
+                        {/* Experience */}
+                        <div className="space-y-1.5 shrink-0">
+                          <h4 className="text-[8.5px] font-black tracking-wider text-slate-900 border-b border-slate-100 pb-0.5 uppercase">EXPERIENCE</h4>
+                          <div className="space-y-2">
+                            {activeTemplate.experience.map((exp, idx) => (
+                              <div key={idx} className="space-y-0.5">
+                                <p className="text-[8px] font-black text-slate-900 leading-tight">{exp.role}</p>
+                                <div className="flex justify-between items-center text-[6.5px] font-bold text-slate-500">
+                                  <span>{exp.company}</span>
+                                  <span>{exp.duration}</span>
+                                </div>
+                                <ul className="list-disc pl-3 text-[7px] text-slate-500 space-y-0.5 font-medium leading-tight">
+                                  {exp.desc.slice(0, 3).map((d, i) => (
+                                    <li key={i} className="line-clamp-2">{d}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {activeTemplate.id === "sahib_khan" && (
+                    <>
+                      {/* Purple Sidebar (Left Column) */}
+                      <div className="col-span-5 bg-[#582f60] text-white p-3 space-y-4 relative z-10 flex flex-col justify-start">
+                        {/* Profile Photo - Rounded pill wrapper */}
+                        <div className="flex justify-center my-1 shrink-0">
+                          <div className="bg-white/10 p-0.5 rounded-2xl">
+                            <div className="w-12 h-12 rounded-full overflow-hidden border border-white/60 shadow-sm">
+                              <img src={activeTemplate.avatar} alt={activeTemplate.candidateName} className="w-full h-full object-cover" />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Contact */}
+                        <div className="space-y-1.5 shrink-0">
+                          <h4 className="text-[8px] font-black tracking-wider text-white border-b border-purple-800 pb-0.5 uppercase">Contact</h4>
+                          <div className="space-y-1 text-[7px] text-purple-200 leading-tight">
+                            <p className="truncate">📞 {activeTemplate.location}</p>
+                            <p className="truncate">✉️ {activeTemplate.email}</p>
+                            <p className="truncate text-purple-300">📍 {activeTemplate.address}</p>
+                          </div>
+                        </div>
+
+                        {/* Personal Skills */}
+                        <div className="space-y-1.5 shrink-0">
+                          <h4 className="text-[8px] font-black tracking-wider text-white border-b border-purple-800 pb-0.5 uppercase">Personal Skills</h4>
+                          <ul className="list-disc pl-3 text-purple-200 text-[7px] space-y-0.5 leading-snug font-medium">
+                            {activeTemplate.skills.slice(0, 5).map((sk, idx) => (
+                              <li key={idx} className="truncate">{sk}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Languages */}
+                        <div className="space-y-1.5 shrink-0">
+                          <h4 className="text-[8px] font-black tracking-wider text-white border-b border-purple-800 pb-0.5 uppercase">Language</h4>
+                          <div className="flex flex-wrap gap-1 text-[7px] text-purple-200 font-bold">
+                            {activeTemplate.languages.map((ln, idx) => (
+                              <span key={idx} className="bg-purple-900/60 border border-purple-800/80 px-1 py-0.2 rounded">{ln}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Right Main Body */}
+                      <div className="col-span-7 bg-white p-3 space-y-2.5 relative z-10 flex flex-col justify-start">
+                        {/* Header name block */}
+                        <div className="space-y-0.5 border-b pb-1.5 border-slate-100 shrink-0">
+                          <h3 className="text-sm sm:text-base font-black tracking-tight text-[#582f60] uppercase leading-none">SAHIB KHAN</h3>
+                          <p className="text-[8.5px] font-extrabold text-slate-500 uppercase tracking-widest mt-1">Graphic Designer</p>
+                        </div>
+
+                        {/* Career Objective */}
+                        <div className="space-y-1 shrink-0">
+                          <h4 className="text-[8px] font-black tracking-wider text-[#582f60] uppercase flex items-center gap-1.5">💼 Career Objective</h4>
+                          <p className="text-[7.5px] text-slate-650 leading-relaxed font-normal line-clamp-3">{activeTemplate.summary}</p>
+                        </div>
+
+                        {/* Education */}
+                        <div className="space-y-1 shrink-0">
+                          <h4 className="text-[8px] font-black tracking-wider text-[#582f60] uppercase flex items-center gap-1.5">🎓 Education</h4>
+                          <div className="space-y-1.5">
+                            {activeTemplate.education.slice(0, 2).map((edu, idx) => (
+                              <div key={idx} className="space-y-0.5">
+                                <div className="flex justify-between items-center text-[7.5px] font-extrabold text-slate-800">
+                                  <span className="truncate max-w-[120px]">{edu.school}</span>
+                                  <span className="text-[6.5px] text-slate-400 font-bold shrink-0">{edu.duration}</span>
+                                </div>
+                                <p className="text-[6.5px] text-slate-500 font-medium leading-none">{edu.degree}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Technical Skills */}
+                        <div className="space-y-1 shrink-0">
+                          <h4 className="text-[8px] font-black tracking-wider text-[#582f60] uppercase flex items-center gap-1.5">💻 Technical Skills</h4>
+                          <ul className="list-disc pl-3.5 text-[7px] text-slate-500 space-y-0.5 font-medium leading-none">
+                            {activeTemplate.techSkills.map((ts, idx) => (
+                              <li key={idx} className="truncate">{ts}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Hobbies */}
+                        <div className="space-y-1 shrink-0">
+                          <h4 className="text-[8px] font-black tracking-wider text-[#582f60] uppercase flex items-center gap-1.5">🎭 Hobbies</h4>
+                          <div className="flex flex-wrap gap-1 text-[7px] text-slate-600 font-medium leading-none">
+                            {activeTemplate.hobbies.join(" • ")}
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
 
                 </div>
 
