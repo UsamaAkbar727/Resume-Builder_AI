@@ -339,9 +339,9 @@ export default function DashboardWrapper() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F5F7FB] flex text-[#111827] font-sans">
+    <div className="h-screen bg-[#F5F7FB] flex text-[#111827] font-sans overflow-hidden">
       {/* Sidebar navigation */}
-      <aside className="hidden lg:flex flex-col w-64 bg-white dark:bg-[#0B0F19] border-r border-[#E5E7EB]/60 dark:border-slate-800/80 shrink-0 p-5 justify-between min-h-screen shadow-[1px_0_5px_rgba(0,0,0,0.015)]">
+      <aside className="hidden lg:flex flex-col w-64 bg-white dark:bg-[#0B0F19] border-r border-[#E5E7EB]/60 dark:border-slate-800/80 shrink-0 p-5 justify-between h-screen sticky top-0 shadow-[1px_0_5px_rgba(0,0,0,0.015)]">
         <div className="space-y-6 flex flex-col">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 px-2 shrink-0">
@@ -410,7 +410,7 @@ export default function DashboardWrapper() {
       </aside>
 
       {/* Main Workspace content */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col h-screen overflow-y-auto">
         {/* Top Navbar */}
         <header className="sticky top-0 z-40 bg-[#F5F7FB]/95 backdrop-blur-md border-b border-[#E5E7EB]/40 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
