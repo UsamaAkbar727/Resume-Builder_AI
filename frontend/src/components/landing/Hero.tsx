@@ -10,70 +10,87 @@ import {
 } from "lucide-react";
 import { ScrollReveal } from "./Animations";
 
-// Real Showcase Templates for Auto-Rotating Right Side
+// Real Showcase Templates for Auto-Rotating Right Side (Customized from User Screenshots)
 const SHOWCASE_TEMPLATES = [
   {
-    id: "exec_leadership",
-    name: "Executive Leadership",
-    category: "Executive Series",
-    accentColor: "#1E3A8A",
+    id: "husnain_yousaf",
+    name: "Husnain Yousaf",
+    category: "Graphic Designer",
+    accentColor: "#0d3c33",
     atsScore: 98,
-    candidateName: "Vince Murray",
-    candidateTitle: "Executive Operations Director",
-    location: "New York, NY • vince.murray@email.com",
-    avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop",
-    summary: "Senior operations executive with 8+ years scaling enterprise teams, optimizing P&L efficiency by 34%, and leading cross-functional strategic initiatives.",
-    skills: ["Enterprise Leadership", "P&L Management", "Strategic Growth", "Cross-functional Ops"],
+    candidateName: "Husnain Yousaf",
+    candidateTitle: "Graphic Designer",
+    location: "03137840221",
+    email: "husnainy258@gmail.com",
+    secEmail: "contacthusnainyousaf@email.com",
+    address: "P-31 Quzafi Bad St No.1 Satyana road FSD",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop",
+    summary: "I'm a creative Graphic Designer with expertise in branding, digital design, and visual communication, passionate about delivering innovative solutions.",
+    skills: [
+      { name: "Social Media Posts", level: "90%" },
+      { name: "Banners", level: "75%" },
+      { name: "LinkedIn Graphics", level: "85%" },
+      { name: "Blog Visuals", level: "88%" }
+    ],
+    education: [
+      { school: "Eagle Eye Incubation Center", degree: "EEIC Degree in Graphic Designer", duration: "2024 - 2025" },
+      { school: "Eagle Eye Incubation Center", degree: "Master's Degree In Graphic Designer", duration: "2024 - 2025" }
+    ],
+    awards: [
+      { school: "Eagle Eye Incubation Center", title: "First CERTIFICATE", duration: "2025" }
+    ],
     experience: [
-      { role: "Director of Operations", company: "SpaceX", duration: "2021 — Present", desc: "Overseeing 120+ team members, driving throughput gains and operational cost reductions of $4.2M." }
+      { role: "Graphic Designer Internship", company: "Brandclickx.com (2024 - 2025)", desc: ["Creating Visual Designs", "Collaborating with Teams"] },
+      { role: "Junior Graphic Designer", company: "Brandclickx.com (2024 - 2025)", desc: ["Design Creation", "Revising and Editing"] },
+      { role: "Senior Graphic Designer", company: "Brandclickx.com (2024 - 2025)", desc: ["Leading Design Projects", "Mentoring Junior Designers"] }
     ]
   },
   {
-    id: "awesome_cv_tech",
-    name: "Awesome CV (LaTeX Tech)",
-    category: "Software Series",
-    accentColor: "#DC2626",
+    id: "usama_akbar",
+    name: "Usama Akbar",
+    category: "Full-Stack Web Developer",
+    accentColor: "#967b66",
     atsScore: 99,
-    candidateName: "Alice Hart",
-    candidateTitle: "Senior Staff Engineer",
-    location: "San Francisco, CA • alice.hart@email.com",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop",
-    summary: "Staff Engineer with 7+ years building cloud microservices & high-throughput APIs. Improved API throughput by 45% for 15M daily users.",
-    skills: ["React 19 / Next.js", "TypeScript", "System Architecture", "AWS / Docker", "PostgreSQL"],
+    candidateName: "USAMA AKBAR",
+    candidateTitle: "Full-Stack Web Developer",
+    location: "+92 3098643058",
+    address: "Jahanian, Punjab, Pakistan",
+    email: "usamaakbarjaatt@gmail.com",
+    github: "https://github.com/UsamaAkbar727",
+    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=300&auto=format&fit=crop",
+    summary: "I am a passionate full-stack web developer experienced in building modern, responsive, and scalable web applications. I work with technologies including HTML, CSS, JavaScript, React.js, Bootstrap, Tailwind CSS, Node.js, Express.js, PHP, MySQL, and MongoDB to develop complete web solutions.",
+    skills: ["Frontend & Backend Development", "Programming Languages", "Database Management", "GitHub & Version Control", "Responsive Web Design"],
+    education: [
+      { school: "Secondary School (Science)", degree: "Government High School, Jahanian, Punjab", duration: "Completed: 2018" },
+      { school: "Intermediate", degree: "Government Degree College, Jahanian, Punjab", duration: "Completed: 2020" },
+      { school: "Bachelor of Computer Science", degree: "Bahauddin Zakariya University (BZU), Multan", duration: "Graduated: 2024" }
+    ],
     experience: [
-      { role: "Senior Full-Stack Engineer", company: "Stripe", duration: "2022 — Present", desc: "Architected distributed caching services handling 15M+ daily API requests with 99.99% uptime." }
+      { role: "Junior Web Developer (Intern)", company: "Career Institute, Faisalabad", duration: "January 2024 - August 2025", desc: ["Designed and developed responsive web pages and small-scale applications using HTML, CSS, Bootstrap, JavaScript, PHP, and Laravel.", "Assisted in building full-stack solutions with clean, maintainable code practices.", "Partnered with senior developers to implement and refine frontend and backend features.", "Worked with MySQL databases for data management and query optimization.", "Integrated and tested RESTful APIs to connect frontend interfaces with backend services."] },
+      { role: "Full Stack Web Developer", company: "Optify Studio Software House, Multan", duration: "February 2025 - Present", desc: ["Engineered web applications with React.js, Node.js, Express.js, and MongoDB.", "Developed dynamic features and optimized scalable backend APIs.", "Integrated RESTful APIs and external services for added functionality.", "Designed efficient MongoDB databases for data storage and retrieval.", "Collaborated in agile teams, using GitHub for version control and deployment."] }
     ]
   },
   {
-    id: "creative_designer",
-    name: "Creative Visual Designer",
-    category: "Design Series",
-    accentColor: "#7C3AED",
-    atsScore: 96,
-    candidateName: "Sophia Chen",
-    candidateTitle: "Lead Product Designer",
-    location: "New York, NY • sophia.design@email.com",
-    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=300&auto=format&fit=crop",
-    summary: "Design leader with 6+ years creating end-to-end user experiences for SaaS products. Expert in design system architecture & data-driven UX.",
-    skills: ["Figma Design Systems", "User Research", "UI Animation", "Design Tokens"],
-    experience: [
-      { role: "Lead Product Designer", company: "Linear", duration: "2021 — Present", desc: "Spearheaded design system redesign, reducing feature build cycles across engineering by 35%." }
-    ]
-  },
-  {
-    id: "corporate_split",
-    name: "Corporate Split 2-Column",
-    category: "Healthcare & Legal",
-    accentColor: "#059669",
+    id: "sahib_khan",
+    name: "Sahib Khan",
+    category: "Graphic Designer",
+    accentColor: "#582f60",
     atsScore: 97,
-    candidateName: "Alex Ellison",
-    candidateTitle: "Clinical Lead & Registered Nurse",
-    location: "Chicago, IL • alex.ellison@email.com",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop",
-    summary: "Clinical nurse specialist with 6+ years in high-volume ICU environments. Experienced in bedside care, triage management, and patient advocacy.",
-    skills: ["Patient Care", "Emergency Triage", "ICU / CCU Care", "BLS / ACLS Certified"],
-    experience: [
-      { role: "Nursing Supervisor", company: "St. Jude Medical", duration: "2020 — Present", desc: "Directing 18 nurses in fast-paced ICU unit while maintaining 99% patient satisfaction rating." }
+    candidateName: "SAHIB KHAN",
+    candidateTitle: "Graphic Designer",
+    location: "+91 8054400000",
+    email: "24billions@mail.com",
+    address: "New Delhi, India",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop",
+    summary: "Enthusiastic individual eager to start a promising career. Looking for an entry-level position where I can contribute positively to a team and gain valuable experience, whether it's in sales, administration, or any other field.",
+    skills: ["Communication Skills", "Teamwork", "Adaptability", "Problem Solving", "Time Management", "Organizational Skills", "Initiative", "Dependability", "Positive Attitude"],
+    techSkills: ["Computer Skills", "Internet Browsing", "Email Communication", "File Management"],
+    languages: ["Hindi", "English", "French"],
+    hobbies: ["Reading Books", "Sports and Fitness", "Music", "Cooking"],
+    education: [
+      { school: "Bachelor of Technology in Computer Science", degree: "Sunshine Engineering College, Mumbai, Maharashtra", duration: "May 2022" },
+      { school: "Higher Secondary Education (12th Grade)", degree: "Golden Valley Senior Secondary School, Pune, Maharashtra", duration: "May 2018" },
+      { school: "Secondary Education (10th Grade)", degree: "Bright Horizon Middle School, Pune, Maharashtra", duration: "May 2016" }
     ]
   }
 ];
