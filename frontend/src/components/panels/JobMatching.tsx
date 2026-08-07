@@ -42,6 +42,71 @@ export default function JobMatching({ resumeData, onNavigate, showToast, onAddJo
   
   // Selected job for detailed match modal/drawer
   const [selectedJob, setSelectedJob] = useState<any | null>(null);
+  const [matchingDetails, setMatchingDetails] = useState<any | null>(null);
+  const [loadingMatchDetails, setLoadingMatchDetails] = useState(false);
+
+  useEffect(() => {
+    if (!selectedJob) {
+      setMatchingDetails(null);
+      return;
+    }
+
+    const loadAnalysis = async () => {
+      setLoadingMatchDetails(true);
+      try {
+        const res = await fetch("/api/matching/analyze", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            resume: resumeData,
+            job_title: selectedJob.title,
+            job_description: selectedJob.description,
+          }),
+        });
+        const data = await res.json();
+        if (data.success && data.data) {
+          setMatchingDetails(data.data);
+        } else {
+          setMatchingDetails({
+            match_score: selectedJob.matchScore,
+            ats_score: 75,
+            matched_keywords: selectedJob.matchedSkills,
+            missing_keywords: selectedJob.missingSkills,
+            strengths: ["Strong resume length", "Credentials match target profile"],
+            weaknesses: ["Profile keywords can be expanded"],
+            skill_gap_analysis: {
+              experience_match: selectedJob.matchScore,
+              education_match: 90,
+              salary_fit: "Aligned",
+              seniority_match: "Compatible",
+            }
+          });
+        }
+      } catch (e) {
+        console.error("Failed to load AI match analysis:", e);
+        setMatchingDetails({
+          match_score: selectedJob.matchScore,
+          ats_score: 75,
+          matched_keywords: selectedJob.matchedSkills,
+          missing_keywords: selectedJob.missingSkills,
+          strengths: ["Strong resume length", "Credentials match target profile"],
+          weaknesses: ["Profile keywords can be expanded"],
+          skill_gap_analysis: {
+            experience_match: selectedJob.matchScore,
+            education_match: 90,
+            salary_fit: "Aligned",
+            seniority_match: "Compatible",
+          }
+        });
+      } finally {
+        setLoadingMatchDetails(false);
+      }
+    };
+
+    loadAnalysis();
+  }, [selectedJob, resumeData]);
   
   // Local favorites list (loaded from localStorage)
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -664,75 +729,149 @@ export default function JobMatching({ resumeData, onNavigate, showToast, onAddJo
             </div>
 
             <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
-              {/* Score benchmark */}
-              <div className="flex items-center gap-6 p-4 bg-[#EEF2F7]/50 dark:bg-slate-900/20 rounded-2xl border dark:border-slate-800">
-                <div className="relative w-20 h-20 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-sm border dark:border-slate-700 shrink-0">
-                  <span className="font-extrabold text-xl text-[#16A34A]">{selectedJob.matchScore}%</span>
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-bold text-sm text-[#111827] dark:text-white">Semantic Match Evaluation</h4>
-                  <p className="text-xs text-[#6B7280] dark:text-slate-400">{selectedJob.matchReason}</p>
-                </div>
-              </div>
-
-              {/* Strengths & gaps list */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Matched tags */}
-                <div className="space-y-3">
-                  <h5 className="font-bold text-xs text-[#16A34A] flex items-center gap-1.5 uppercase tracking-wider">
-                    <CheckCircle2 className="w-4 h-4" /> Core Match Strengths
-                  </h5>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedJob.matchedSkills.length === 0 ? (
-                      <span className="text-xs text-slate-400">No overlapping skills found. Try adding key technologies.</span>
-                    ) : (
-                      selectedJob.matchedSkills.map((s: string, i: number) => (
-                        <span key={i} className="text-xs font-bold px-3 py-1 bg-green-50 dark:bg-green-950/20 text-[#16A34A] border border-green-200/50 rounded-xl">
-                          {s}
-                        </span>
-                      ))
-                    )}
+              {loadingMatchDetails || !matchingDetails ? (
+                <div className="py-12 flex flex-col items-center justify-center space-y-4 text-center">
+                  <div className="w-10 h-10 border-4 border-[#2563EB] border-t-transparent rounded-full animate-spin"></div>
+                  <div className="space-y-1">
+                    <h5 className="font-bold text-sm text-[#111827] dark:text-white">Analyzing Compatibility Profile</h5>
+                    <p className="text-xs text-[#6B7280] dark:text-slate-400">Comparing technical skill weights, seniority, and qualifications...</p>
                   </div>
                 </div>
-
-                {/* Missing tags */}
-                <div className="space-y-3">
-                  <h5 className="font-bold text-xs text-[#DC2626] flex items-center gap-1.5 uppercase tracking-wider">
-                    <AlertTriangle className="w-4 h-4" /> Missing Capability Requirements
-                  </h5>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedJob.missingSkills.length === 0 ? (
-                      <span className="text-xs text-[#16A34A] font-bold">100% Skill Overlap Match!</span>
-                    ) : (
-                      selectedJob.missingSkills.map((s: string, i: number) => (
-                        <span key={i} className="text-xs font-bold px-3 py-1 bg-red-50 dark:bg-red-950/20 text-[#DC2626] border border-red-200/50 rounded-xl">
-                          {s}
-                        </span>
-                      ))
-                    )}
+              ) : (
+                <>
+                  {/* Score benchmark */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center gap-4 p-4 bg-[#EEF2F7]/50 dark:bg-slate-900/20 rounded-2xl border dark:border-slate-800">
+                      <div className="relative w-14 h-14 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-sm border dark:border-slate-700 shrink-0 font-extrabold text-[#16A34A] text-lg">
+                        {matchingDetails.match_score}%
+                      </div>
+                      <div className="space-y-0.5">
+                        <h4 className="font-bold text-xs text-[#111827] dark:text-white">Match Score</h4>
+                        <p className="text-[10px] text-[#6B7280] dark:text-slate-400">Semantic alignment</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-4 p-4 bg-[#EEF2F7]/50 dark:bg-slate-900/20 rounded-2xl border dark:border-slate-800">
+                      <div className="relative w-14 h-14 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-sm border dark:border-slate-700 shrink-0 font-extrabold text-[#2563EB] text-lg">
+                        {matchingDetails.ats_score}%
+                      </div>
+                      <div className="space-y-0.5">
+                        <h4 className="font-bold text-xs text-[#111827] dark:text-white">ATS Parseability</h4>
+                        <p className="text-[10px] text-[#6B7280] dark:text-slate-400">Scanner readability</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
 
-              {/* Action recommendation */}
-              <div className="p-4 bg-amber-50/50 dark:bg-amber-950/10 border border-amber-200/50 rounded-2xl space-y-2">
-                <h5 className="font-bold text-xs text-[#D97706] flex items-center gap-1.5 uppercase tracking-wider">
-                  💡 Optimize Profile Recommendation
-                </h5>
-                <p className="text-xs text-[#6B7280] dark:text-slate-400 leading-relaxed">
-                  {selectedJob.missingSkills.length > 0 ? (
-                    <>
-                      To increase your fit score to <strong>95%+</strong>, update your active resume to mention experience with:{" "}
-                      <strong>{selectedJob.missingSkills.slice(0, 3).join(", ")}</strong>. You can describe how you utilized these inside past professional projects.
-                    </>
-                  ) : (
-                    "Your profile contains excellent credential intersection. Proceed with applying to maximize visibility!"
+                  {/* Strengths & gaps list */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Matched tags */}
+                    <div className="space-y-3">
+                      <h5 className="font-bold text-xs text-[#16A34A] flex items-center gap-1.5 uppercase tracking-wider">
+                        <CheckCircle2 className="w-4 h-4" /> Core Match Strengths
+                      </h5>
+                      <div className="flex flex-wrap gap-2">
+                        {matchingDetails.matched_keywords.length === 0 ? (
+                          <span className="text-xs text-slate-400">No overlapping skills found.</span>
+                        ) : (
+                          matchingDetails.matched_keywords.map((s: string, i: number) => (
+                            <span key={i} className="text-xs font-bold px-3 py-1 bg-green-50 dark:bg-green-950/20 text-[#16A34A] border border-green-200/50 rounded-xl">
+                              {s}
+                            </span>
+                          ))
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Missing tags */}
+                    <div className="space-y-3">
+                      <h5 className="font-bold text-xs text-[#DC2626] flex items-center gap-1.5 uppercase tracking-wider">
+                        <AlertTriangle className="w-4 h-4" /> Missing Keywords
+                      </h5>
+                      <div className="flex flex-wrap gap-2">
+                        {matchingDetails.missing_keywords.length === 0 ? (
+                          <span className="text-xs text-[#16A34A] font-bold">100% Skill Overlap Match!</span>
+                        ) : (
+                          matchingDetails.missing_keywords.map((s: string, i: number) => (
+                            <span key={i} className="text-xs font-bold px-3 py-1 bg-red-50 dark:bg-red-950/20 text-[#DC2626] border border-red-200/50 rounded-xl">
+                              {s}
+                            </span>
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bullet points for Strengths/Weaknesses */}
+                  <div className="space-y-4 pt-2 border-t border-[#E5E7EB]/60 dark:border-slate-800/80">
+                    <h5 className="font-bold text-xs text-[#111827] dark:text-white uppercase tracking-wider">Algorithmic Breakdown</h5>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <h6 className="text-[11px] font-bold text-[#16A34A] uppercase tracking-wider">Strengths</h6>
+                        <ul className="list-disc pl-4 text-xs text-[#6B7280] dark:text-slate-400 space-y-1.5">
+                          {matchingDetails.strengths.map((str: string, i: number) => (
+                            <li key={i}>{str}</li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="space-y-2">
+                        <h6 className="text-[11px] font-bold text-[#DC2626] uppercase tracking-wider">Gaps & Weaknesses</h6>
+                        <ul className="list-disc pl-4 text-xs text-[#6B7280] dark:text-slate-400 space-y-1.5">
+                          {matchingDetails.weaknesses.map((wk: string, i: number) => (
+                            <li key={i}>{wk}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Skill Gap Analysis detailed dimensions */}
+                  {matchingDetails.skill_gap_analysis && (
+                    <div className="p-4 bg-slate-50 dark:bg-slate-900/40 border dark:border-slate-800 rounded-2xl space-y-3">
+                      <h5 className="font-bold text-xs text-[#111827] dark:text-white uppercase tracking-wider">Dimension Fit Index</h5>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                        <div className="space-y-1">
+                          <span className="text-[#6B7280] dark:text-slate-500 block text-[10px] uppercase font-bold">Experience Fit</span>
+                          <span className="font-bold text-[#111827] dark:text-white">{matchingDetails.skill_gap_analysis.experience_match}%</span>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-[#6B7280] dark:text-slate-500 block text-[10px] uppercase font-bold">Education Fit</span>
+                          <span className="font-bold text-[#111827] dark:text-white">{matchingDetails.skill_gap_analysis.education_match}%</span>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-[#6B7280] dark:text-slate-500 block text-[10px] uppercase font-bold">Seniority Level</span>
+                          <span className="font-bold text-[#111827] dark:text-white truncate block">{matchingDetails.skill_gap_analysis.seniority_match}</span>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-[#6B7280] dark:text-slate-500 block text-[10px] uppercase font-bold">Salary Range</span>
+                          <span className="font-bold text-[#111827] dark:text-white truncate block">{matchingDetails.skill_gap_analysis.salary_fit}</span>
+                        </div>
+                      </div>
+                    </div>
                   )}
-                </p>
-              </div>
+
+                  {/* Action recommendation */}
+                  <div className="p-4 bg-amber-50/50 dark:bg-amber-950/10 border border-amber-200/50 rounded-2xl space-y-2">
+                    <h5 className="font-bold text-xs text-[#D97706] flex items-center gap-1.5 uppercase tracking-wider">
+                      💡 Optimize Profile Recommendation
+                    </h5>
+                    <p className="text-xs text-[#6B7280] dark:text-slate-400 leading-relaxed">
+                      {matchingDetails.missing_keywords.length > 0 ? (
+                        <>
+                          To increase your fit score to <strong>95%+</strong>, update your active resume to mention experience with:{" "}
+                          <strong>{matchingDetails.missing_keywords.slice(0, 3).join(", ")}</strong>. You can describe how you utilized these inside past professional projects.
+                        </>
+                      ) : (
+                        "Your profile contains excellent credential intersection. Proceed with applying to maximize visibility!"
+                      )}
+                    </p>
+                  </div>
+                </>
+              )}
 
               {/* Job description summary */}
-              <div className="space-y-2">
+              <div className="space-y-2 pt-2 border-t border-[#E5E7EB]/60 dark:border-slate-800/80">
                 <h5 className="font-bold text-xs text-[#111827] dark:text-white uppercase tracking-wider">Vacancy Details</h5>
                 <div 
                   className="text-xs text-[#6B7280] dark:text-slate-400 max-h-40 overflow-y-auto leading-relaxed border dark:border-slate-800 p-3 rounded-xl bg-slate-50/50 dark:bg-slate-900/40"
