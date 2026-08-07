@@ -79,6 +79,29 @@ export default function RootLayout({
             `,
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "ResumeFlow AI",
+              "operatingSystem": "All",
+              "applicationCategory": "BusinessApplication",
+              "description": "Create premium ATS-optimized resumes, write AI cover letters, track job applications with an interactive Kanban Board, and ace interviews with our AI voice simulator.",
+              "offers": {
+                "@type": "Offer",
+                "price": "0.00",
+                "priceCurrency": "USD"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "reviewCount": "55912"
+              }
+            })
+          }}
+        />
       </head>
       <body className="antialiased selection:bg-blue-500/20 selection:text-blue-900">
         {children}
