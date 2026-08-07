@@ -39,6 +39,7 @@ export default function JobMatching({ resumeData, onNavigate, showToast, onAddJo
   const [selectedExp, setSelectedExp] = useState("All");
   const [selectedType, setSelectedType] = useState("All");
   const [selectedSalary, setSelectedSalary] = useState("All");
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   
   // Selected job for detailed match modal/drawer
   const [selectedJob, setSelectedJob] = useState<any | null>(null);
@@ -323,8 +324,13 @@ export default function JobMatching({ resumeData, onNavigate, showToast, onAddJo
       result = result.filter(j => j.salary !== "Not Specified");
     }
 
+    // Favorites filter
+    if (showFavoritesOnly) {
+      result = result.filter(j => favorites.includes(j.id));
+    }
+
     setFilteredJobs(result);
-  }, [searchQuery, locationQuery, selectedPlatform, selectedRemote, selectedExp, selectedType, selectedSalary, jobs]);
+  }, [searchQuery, locationQuery, selectedPlatform, selectedRemote, selectedExp, selectedType, selectedSalary, showFavoritesOnly, favorites, jobs]);
 
   // Toggle favorite status
   const handleToggleFavorite = (jobId: string) => {
@@ -544,6 +550,19 @@ export default function JobMatching({ resumeData, onNavigate, showToast, onAddJo
             <option value="All">Any Salary</option>
             <option value="Stipulated">Includes Salary Details</option>
           </select>
+
+          {/* Favorites Only Toggle */}
+          <button
+            onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-all cursor-pointer select-none ${
+              showFavoritesOnly 
+                ? "bg-rose-50 border-rose-200 text-rose-600 dark:bg-rose-950/20 dark:border-rose-900/30" 
+                : "bg-[#F8FAFC] dark:bg-slate-800 border-[#E5E7EB] dark:border-slate-700 text-[#6B7280] dark:text-slate-400 hover:text-rose-500"
+            }`}
+          >
+            <Heart className={`w-3.5 h-3.5 ${showFavoritesOnly ? "fill-rose-500 text-rose-500" : ""}`} />
+            <span>Favorites ({favorites.length})</span>
+          </button>
         </div>
       </div>
 
