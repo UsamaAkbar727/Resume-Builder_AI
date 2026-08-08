@@ -47,34 +47,30 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="relative py-20 lg:py-28 bg-zinc-950 text-white overflow-hidden border-b border-zinc-800">
+    <section id="how-it-works" className="relative py-20 lg:py-28 bg-[#06060c] text-white overflow-hidden border-b border-zinc-900">
       
-      {/* ── Background S-Curve Yellow Accent Wave ── */}
-      <div className="absolute top-0 left-0 bottom-0 w-full sm:w-1/2 bg-amber-400 pointer-events-none z-0 opacity-95 rounded-r-[100px] hidden md:block" />
-      <div className="absolute top-0 left-0 bottom-0 w-full bg-gradient-to-b from-amber-400 via-amber-500 to-amber-400 pointer-events-none z-0 opacity-90 md:hidden" />
-
       {/* Carbon Fiber Dot Grid Overlay */}
-      <div className="absolute inset-0 bg-dot-grid opacity-15 pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-dot-grid opacity-10 pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
           <ScrollReveal variant="fade-up" delay={0}>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/90 text-amber-400 text-xs font-black uppercase tracking-widest border border-amber-400/40 shadow-xl">
-              <Sparkles className="w-4 h-4 text-amber-400 animate-spin-slow" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-black uppercase tracking-widest border border-indigo-500/20 shadow-xl">
+              <Sparkles className="w-4 h-4 text-indigo-400 animate-spin-slow" />
               5-Step Success Roadmap
             </div>
           </ScrollReveal>
 
           <ScrollReveal variant="fade-up" delay={60}>
-            <h2 className="text-3xl sm:text-5xl font-black text-gray-900 md:text-white tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight font-display">
               How ResumeFlow AI Gets You Hired
             </h2>
           </ScrollReveal>
 
           <ScrollReveal variant="fade-up" delay={120}>
-            <p className="text-sm sm:text-base text-gray-900 md:text-zinc-300 font-medium">
+            <p className="text-sm sm:text-base text-zinc-400 font-medium">
               Follow our 5-step intelligent workflow to turn your experience into a recruiter-favorite resume.
             </p>
           </ScrollReveal>
@@ -84,7 +80,7 @@ export default function HowItWorks() {
         <div className="relative my-8 space-y-12 md:space-y-16">
           
           {/* Vertical Wave Center Line */}
-          <div className="absolute left-1/2 top-10 bottom-10 w-2.5 bg-amber-400/30 -translate-x-1/2 hidden md:block rounded-full" />
+          <div className="absolute left-1/2 top-10 bottom-10 w-[2px] bg-gradient-to-b from-indigo-500 via-violet-500 to-cyan-500 -translate-x-1/2 hidden md:block rounded-full opacity-45" />
 
           {STEPS.map((step, idx) => {
             const Icon = step.icon;
@@ -100,19 +96,19 @@ export default function HowItWorks() {
                   <div className={`w-full md:w-1/2 ${
                     isRight ? "text-left md:text-right" : "text-left"
                   }`}>
-                    <div className="bg-black/95 backdrop-blur-md p-6 sm:p-7 rounded-3xl border-2 border-amber-400/80 shadow-2xl space-y-2 relative overflow-hidden group hover:border-amber-400 transition-all">
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-amber-400/10 rounded-full blur-xl group-hover:bg-amber-400/20 transition-all" />
+                    <div className="bg-zinc-900/60 backdrop-blur-md p-6 sm:p-7 rounded-3xl border border-zinc-850 hover:border-indigo-500/40 shadow-2xl space-y-2 relative overflow-hidden group transition-all duration-300">
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-xl group-hover:bg-indigo-500/20 transition-all" />
                       
-                      <div className="flex items-center gap-3 justify-start md:justify-end">
-                        <span className="text-2xl sm:text-3xl font-black text-amber-400 tracking-wider">
+                      <div className={`flex items-center gap-3 ${isRight ? "justify-start md:justify-end" : "justify-start"}`}>
+                        <span className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent tracking-wider font-display">
                           {step.num}
                         </span>
-                        <h3 className="text-base sm:text-lg font-black text-white uppercase tracking-tight">
+                        <h3 className="text-base sm:text-lg font-black text-white uppercase tracking-tight font-display">
                           {step.title}
                         </h3>
                       </div>
 
-                      <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
+                      <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-normal">
                         {step.desc}
                       </p>
                     </div>
@@ -121,11 +117,11 @@ export default function HowItWorks() {
                   {/* Numbered Circular 3D Embossed Node Badge (Center) */}
                   <div className="relative shrink-0 z-20">
                     {/* Outer Glowing Yellow Pulse Arc */}
-                    <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-amber-400 to-amber-300 blur-sm animate-pulse-slow opacity-80" />
+                    <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 blur-sm animate-pulse-slow opacity-80" />
                     
                     {/* Dark Embossed Circle */}
-                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-zinc-950 border-4 border-amber-400 shadow-2xl flex items-center justify-center text-amber-400">
-                      <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-amber-400 stroke-[2]" />
+                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-zinc-950 border-4 border-indigo-500/40 shadow-2xl flex items-center justify-center text-indigo-400">
+                      <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-indigo-400 stroke-[2]" />
                     </div>
                   </div>
 
@@ -140,22 +136,22 @@ export default function HowItWorks() {
         </div>
 
         {/* Bottom Infographic Footer (QR Code & CTA) */}
-        <div className="mt-16 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-6 relative z-20">
+        <div className="mt-16 pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-6 relative z-20">
           
-          {/* QR Code Badge (Bottom Left - Matching Image) */}
-          <div className="bg-black/95 p-3.5 rounded-2xl border border-amber-400/60 shadow-xl flex items-center gap-3 text-left">
+          {/* QR Code Badge */}
+          <div className="bg-zinc-900/80 backdrop-blur-md p-3.5 rounded-2xl border border-zinc-850 shadow-xl flex items-center gap-3 text-left">
             <div className="bg-white p-2 rounded-xl text-black">
               <QrCode className="w-8 h-8" />
             </div>
             <div>
-              <p className="text-xs font-black text-white uppercase">Mobile Ready</p>
-              <p className="text-[11px] text-amber-400 font-semibold">Scan to build on iOS & Android</p>
+              <p className="text-xs font-black text-white uppercase font-display">Mobile Ready</p>
+              <p className="text-[11px] text-indigo-400 font-semibold font-display">Scan to build on iOS & Android</p>
             </div>
           </div>
 
           <a
             href="/auth?mode=register"
-            className="px-8 py-4 rounded-2xl bg-amber-400 hover:bg-amber-300 text-black font-black text-sm uppercase tracking-wider flex items-center gap-2 shadow-xl shadow-amber-400/20 transition-all cursor-pointer"
+            className="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-bold text-sm tracking-wide uppercase flex items-center gap-2 shadow-xl shadow-indigo-500/20 transition-all cursor-pointer"
           >
             Start 5-Step Builder Free <ArrowRight className="w-5 h-5" />
           </a>

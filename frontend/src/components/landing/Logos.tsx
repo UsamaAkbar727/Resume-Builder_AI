@@ -16,9 +16,9 @@ const allLogos = [...logos, ...logos];
 
 export default function Logos() {
   return (
-    <section className="bg-[#F5F2EC] border-b border-stone-200/90 py-10 overflow-hidden relative z-10">
+    <section className="bg-[#06060c] border-b border-zinc-900 py-10 overflow-hidden relative z-10">
       <ScrollReveal variant="fade" delay={0}>
-        <p className="text-center text-xs font-black uppercase tracking-widest text-stone-500 mb-7">
+        <p className="text-center text-[10px] font-black uppercase tracking-widest text-zinc-500 mb-7">
           Trusted by candidates landing at
         </p>
       </ScrollReveal>
@@ -26,8 +26,8 @@ export default function Logos() {
       {/* Marquee track */}
       <div className="relative">
         {/* Edge fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#F5F2EC] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#F5F2EC] to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#06060c] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#06060c] to-transparent z-10 pointer-events-none" />
 
         <div className="flex overflow-hidden">
           <div
@@ -37,7 +37,7 @@ export default function Logos() {
             {allLogos.map((logo, i) => (
               <div
                 key={`${logo.name}-${i}`}
-                className="shrink-0 opacity-40 hover:opacity-85 transition-opacity duration-300 filter contrast-125 grayscale hover:grayscale-0"
+                className="shrink-0 opacity-30 hover:opacity-70 transition-opacity duration-300 filter brightness-0 invert hover:opacity-100"
                 title={logo.name}
               >
                 {logo.svg}
