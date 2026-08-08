@@ -164,13 +164,13 @@ function BackgroundLeftWorldGlobe() {
         <circle cx="5" cy="100" r="4" fill="#06B6D4" />
       </svg>
 
-      <div className="absolute top-16 left-28 p-3 rounded-2xl bg-black/85 backdrop-blur-md border border-indigo-500/20 shadow-md text-indigo-300 animate-float hidden sm:flex items-center gap-2 text-xs font-bold">
-        <Globe className="w-4 h-4 text-indigo-400 animate-spin-slow" />
+      <div className="absolute top-16 left-28 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg text-indigo-600 animate-float hidden sm:flex items-center gap-2 text-xs font-bold z-10">
+        <Globe className="w-4 h-4 text-indigo-600 animate-spin-slow" />
         <span>50+ Countries</span>
       </div>
 
-      <div className="absolute bottom-24 left-16 p-2.5 rounded-2xl bg-black/85 backdrop-blur-md border border-indigo-500/20 shadow-md text-indigo-300 animate-float-delayed hidden md:flex items-center gap-2 text-xs font-bold">
-        <Navigation className="w-4 h-4 text-indigo-400" />
+      <div className="absolute bottom-24 left-16 p-2.5 rounded-2xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg text-indigo-600 animate-float-delayed hidden md:flex items-center gap-2 text-xs font-bold z-10">
+        <Navigation className="w-4 h-4 text-indigo-600" />
         <span>Global Remote Hire</span>
       </div>
     </div>
@@ -193,11 +193,11 @@ export default function Hero() {
   const activeTemplate = SHOWCASE_TEMPLATES[slideIndex];
 
   return (
-    <section className="relative overflow-hidden bg-[#06060c] text-white pt-10 pb-20 md:pt-16 md:pb-28 border-b border-zinc-900">
+    <section className="relative overflow-hidden bg-[#fbfbfc] text-zinc-900 pt-10 pb-20 md:pt-16 md:pb-28 border-b border-zinc-100">
       
       {/* Mesh Grid & World Globe Vector Background */}
-      <div className="absolute inset-0 bg-dot-grid opacity-10 pointer-events-none z-0" />
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-indigo-500/10 via-violet-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-dot-grid opacity-[0.03] pointer-events-none z-0" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-indigo-500/5 via-violet-500/3 to-transparent rounded-full blur-3xl pointer-events-none" />
       
       <BackgroundLeftWorldGlobe />
 
@@ -209,59 +209,59 @@ export default function Hero() {
           <div className="lg:col-span-6 space-y-6 text-left">
             
             <ScrollReveal variant="fade-up" delay={0}>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-900 tracking-tight leading-[1.12] font-display">
                 This resume builder gets you{" "}
-                <span className="relative inline-block bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent pb-1">
+                <span className="relative inline-block bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-600 bg-clip-text text-transparent pb-1">
                   promoted
-                  <span className="absolute bottom-1 left-0 right-0 h-1.5 bg-indigo-500/20 rounded-full" />
+                  <span className="absolute bottom-1 left-0 right-0 h-1.5 bg-indigo-500/10 rounded-full" />
                 </span>
               </h1>
             </ScrollReveal>
 
             <ScrollReveal variant="fade-up" delay={60}>
-              <p className="text-lg sm:text-xl text-zinc-300 font-medium leading-relaxed">
+              <p className="text-lg sm:text-xl text-zinc-600 font-medium leading-relaxed">
                 Only 2% of resumes win. Yours will be one of them.
               </p>
             </ScrollReveal>
 
             {/* Action Buttons */}
             <ScrollReveal variant="fade-up" delay={120}>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2 font-display">
                 <Link
                   href="/auth?mode=register"
-                  className="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-extrabold text-base text-center shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/35 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-extrabold text-base text-center shadow-lg shadow-indigo-600/15 hover:shadow-indigo-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   Create my resume <ArrowRight className="w-5 h-5 text-white" />
                 </Link>
 
                 <Link
                   href="/auth?mode=register"
-                  className="px-7 py-4 rounded-2xl bg-zinc-900 hover:bg-zinc-850 text-zinc-200 font-bold text-base text-center border border-zinc-850 hover:border-zinc-750 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="px-7 py-4 rounded-2xl bg-white hover:bg-zinc-50 text-zinc-800 font-bold text-base text-center border border-zinc-200 hover:border-zinc-300 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Upload className="w-4 h-4 text-zinc-350" /> Upload my resume
+                  <Upload className="w-4 h-4 text-zinc-600" /> Upload my resume
                 </Link>
               </div>
             </ScrollReveal>
 
             {/* Micro Social Proof Badges */}
             <ScrollReveal variant="fade-up" delay={180}>
-              <div className="space-y-2.5 pt-4 border-t border-zinc-900">
-                <div className="flex items-center gap-2 text-sm font-semibold text-zinc-300">
-                  <div className="w-5 h-5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 flex items-center justify-center font-bold text-xs">
+              <div className="space-y-2.5 pt-4 border-t border-zinc-200/80">
+                <div className="flex items-center gap-2 text-sm font-semibold text-zinc-650 text-zinc-600">
+                  <div className="w-5 h-5 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center font-bold text-xs">
                     ✓
                   </div>
-                  <span><strong className="text-white font-extrabold">39%</strong> more likely to land the job</span>
+                  <span><strong className="text-zinc-900 font-extrabold">39%</strong> more likely to land the job</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-sm font-semibold text-zinc-300">
-                  <div className="flex items-center text-indigo-400 gap-0.5">
-                    <Star className="w-4 h-4 fill-current" />
-                    <Star className="w-4 h-4 fill-current" />
-                    <Star className="w-4 h-4 fill-current" />
-                    <Star className="w-4 h-4 fill-current" />
-                    <Star className="w-4 h-4 fill-current" />
+                <div className="flex items-center gap-2 text-sm font-semibold text-zinc-650 text-zinc-600">
+                  <div className="flex items-center text-indigo-600 gap-0.5">
+                    <Star className="w-4 h-4 fill-current animate-pulse-slow" />
+                    <Star className="w-4 h-4 fill-current animate-pulse-slow" />
+                    <Star className="w-4 h-4 fill-current animate-pulse-slow" />
+                    <Star className="w-4 h-4 fill-current animate-pulse-slow" />
+                    <Star className="w-4 h-4 fill-current animate-pulse-slow" />
                   </div>
-                  <span><strong className="text-white font-extrabold">Trustpilot</strong> 4.9 out of 5 | 55,912 reviews</span>
+                  <span><strong className="text-zinc-900 font-extrabold">Trustpilot</strong> 4.9 out of 5 | 55,912 reviews</span>
                 </div>
               </div>
             </ScrollReveal>
@@ -272,19 +272,19 @@ export default function Hero() {
           <div className="lg:col-span-6 relative flex flex-col justify-center items-center w-full">
             
             {/* Outer Ambient Glow */}
-            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-indigo-500/10 via-violet-500/5 to-cyan-500/5 blur-2xl pointer-events-none" />
+            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-indigo-500/5 via-violet-500/3 to-cyan-500/3 blur-2xl pointer-events-none" />
 
             {/* Redesigned template tracker header */}
-            <div className="mb-4 z-20 flex items-center justify-between w-full max-w-lg bg-zinc-900/90 text-white px-4 py-2.5 rounded-2xl backdrop-blur-md border border-zinc-800/80 shadow-md">
+            <div className="mb-4 z-20 flex items-center justify-between w-full max-w-lg bg-white/95 text-zinc-900 px-4 py-2.5 rounded-2xl border border-zinc-200/80 shadow-xl shadow-zinc-200/25">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-                <span className="text-[10px] font-black text-indigo-300 uppercase tracking-widest">
+                <div className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
+                <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest font-display">
                   Live Showcase: {activeTemplate.name}
                 </span>
               </div>
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="p-1.5 rounded-xl bg-zinc-850 hover:bg-zinc-800 text-zinc-300 hover:text-white transition-colors cursor-pointer flex items-center gap-1 text-[10px] font-bold border border-zinc-800/60"
+                className="p-1.5 rounded-xl bg-zinc-50 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 transition-colors cursor-pointer flex items-center gap-1 text-[10px] font-bold border border-zinc-200"
                 title={isPlaying ? "Pause rotation" : "Play rotation"}
               >
                 {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
@@ -292,16 +292,16 @@ export default function Hero() {
               </button>
             </div>
 
-            {/* FLOATING INTERACTIVE WIDGET 1: ATS SCORE METER (TOP-RIGHT OVERLAPPING) */}
-            <div className="absolute -top-5 -right-2 sm:-right-4 z-25 bg-zinc-900/95 backdrop-blur-md border border-zinc-800/80 text-white rounded-2xl p-3 shadow-[0_10px_30px_rgba(0,0,0,0.4)] flex items-center gap-3.5 animate-float max-w-[170px]">
+            {/* FLOATING INTERACTIVE WIDGET 1: ATS SCORE METER */}
+            <div className="absolute -top-5 -right-2 sm:-right-4 z-25 bg-white/95 backdrop-blur-md border border-zinc-200/80 text-zinc-900 rounded-2xl p-3 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex items-center gap-3.5 animate-float max-w-[170px]">
               <div className="relative flex items-center justify-center shrink-0">
                 <svg className="w-10 h-10 transform -rotate-90">
-                  <circle cx="20" cy="20" r="16" stroke="#27272a" strokeWidth="2.5" fill="transparent" />
+                  <circle cx="20" cy="20" r="16" stroke="#f4f4f5" strokeWidth="2.5" fill="transparent" />
                   <circle 
                     cx="20" 
                     cy="20" 
                     r="16" 
-                    stroke="#6366F1" 
+                    stroke="#4f46e5" 
                     strokeWidth="2.5" 
                     fill="transparent"
                     strokeDasharray="100.5" 
@@ -313,72 +313,72 @@ export default function Hero() {
                 <span className="absolute text-[10px] font-black">{activeTemplate.atsScore}%</span>
               </div>
               <div className="min-w-0">
-                <p className="text-[8px] font-black text-indigo-400 uppercase tracking-widest leading-none">ATS Score</p>
-                <p className="text-[10px] font-black text-white mt-1 truncate">Excellent Match</p>
+                <p className="text-[8px] font-black text-indigo-600 uppercase tracking-widest leading-none font-display">ATS Score</p>
+                <p className="text-[10px] font-black text-zinc-800 mt-1 truncate">Excellent Match</p>
               </div>
             </div>
 
-            {/* FLOATING INTERACTIVE WIDGET 2: AI AUDIT CHECKLIST (MID-LEFT OVERLAPPING) */}
-            <div className="absolute top-1/4 -left-4 sm:-left-8 z-25 bg-zinc-900/95 backdrop-blur-md border border-zinc-800/80 text-white rounded-2xl p-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] space-y-2 animate-float-delayed max-w-[180px] hidden sm:block">
-              <div className="flex items-center gap-1.5 border-b border-zinc-800 pb-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-                <span className="text-[8px] font-black uppercase tracking-wider text-zinc-400">AI Checklist</span>
+            {/* FLOATING INTERACTIVE WIDGET 2: AI AUDIT CHECKLIST */}
+            <div className="absolute top-1/4 -left-4 sm:-left-8 z-25 bg-white/95 backdrop-blur-md border border-zinc-200/80 text-zinc-900 rounded-2xl p-3.5 shadow-[0_12px_40px_rgba(0,0,0,0.06)] space-y-2 animate-float-delayed max-w-[180px] hidden sm:block">
+              <div className="flex items-center gap-1.5 border-b border-zinc-100 pb-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-indigo-650 text-indigo-600" />
+                <span className="text-[8px] font-black uppercase tracking-wider text-zinc-400 font-display">AI Checklist</span>
               </div>
               <div className="space-y-1.5">
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-[7px]">✓</div>
-                  <span className="text-[9px] font-bold text-zinc-300">Action Verbs (+12%)</span>
+                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-[7px]">✓</div>
+                  <span className="text-[9px] font-bold text-zinc-600">Action Verbs (+12%)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-[7px]">✓</div>
-                  <span className="text-[9px] font-bold text-zinc-300">Metrics Quantified</span>
+                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-[7px]">✓</div>
+                  <span className="text-[9px] font-bold text-zinc-600">Metrics Quantified</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-[7px]">✓</div>
-                  <span className="text-[9px] font-bold text-zinc-300">No Clichés Found</span>
+                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-[7px]">✓</div>
+                  <span className="text-[9px] font-bold text-zinc-600">No Clichés Found</span>
                 </div>
               </div>
             </div>
 
-            {/* FLOATING INTERACTIVE WIDGET 3: EXPORT STATUS (BOTTOM-LEFT OVERLAPPING) */}
-            <div className="absolute bottom-10 -left-2 sm:-left-6 z-25 bg-zinc-900/95 backdrop-blur-md border border-zinc-800/80 text-white rounded-2xl px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.4)] flex items-center gap-2.5 animate-float">
+            {/* FLOATING INTERACTIVE WIDGET 3: EXPORT STATUS */}
+            <div className="absolute bottom-10 -left-2 sm:-left-6 z-25 bg-white/95 backdrop-blur-md border border-zinc-200/80 text-zinc-900 rounded-2xl px-3 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex items-center gap-2.5 animate-float">
               <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
               <div className="flex flex-col">
-                <span className="text-[8px] font-black uppercase tracking-widest text-zinc-500 leading-none">Status</span>
-                <span className="text-[10px] font-black text-zinc-200 mt-0.5">LaTeX Export Ready</span>
+                <span className="text-[8px] font-black uppercase tracking-widest text-zinc-450 text-zinc-500 leading-none font-display">Status</span>
+                <span className="text-[10px] font-black text-zinc-800 mt-0.5">LaTeX Export Ready</span>
               </div>
             </div>
 
             {/* Redesigned Premium Editor Window Frame */}
-            <div className="relative w-full max-w-lg bg-zinc-900/90 border border-zinc-800/80 rounded-3xl shadow-[0_24px_50px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col z-10">
+            <div className="relative w-full max-w-lg bg-zinc-100/60 backdrop-blur-md border border-zinc-200/80 rounded-3xl shadow-[0_24px_50px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col z-10">
               
               {/* Editor Tab Bar & Window Header */}
-              <div className="flex items-center justify-between border-b border-zinc-850/80 px-4 py-3 bg-zinc-950/40">
+              <div className="flex items-center justify-between border-b border-zinc-200/60 px-4 py-3 bg-zinc-50/50">
                 <div className="flex items-center gap-1.5">
                   <span className="w-3 h-3 rounded-full bg-red-500/80 border border-red-600/30" />
                   <span className="w-3 h-3 rounded-full bg-yellow-500/80 border border-yellow-600/30" />
                   <span className="w-3 h-3 rounded-full bg-green-500/80 border border-green-600/30" />
                 </div>
                 
-                <div className="flex items-center gap-1 bg-zinc-950/65 px-3 py-1 rounded-lg border border-zinc-800 text-[10px] text-zinc-400 font-medium">
+                <div className="flex items-center gap-1 bg-white px-3 py-1 rounded-lg border border-zinc-200 text-[10px] text-zinc-500 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span>resumeflow.ai/editor</span>
                 </div>
 
                 <div className="flex items-center gap-1">
-                  <span className="text-[9px] font-black uppercase text-indigo-300 tracking-wide bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
+                  <span className="text-[9px] font-black uppercase text-indigo-650 text-indigo-650 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 font-display">
                     Live Preview
                   </span>
                 </div>
               </div>
 
               {/* Editor Canvas Area */}
-              <div className="p-4 sm:p-6 bg-zinc-950/25 relative">
+              <div className="p-4 sm:p-6 bg-zinc-50/20 relative">
                 
                 {/* Crisp Printable Resume Sheet (Customized Layouts from User Screenshots) */}
                 <div 
                   key={activeTemplate.id}
-                  className="bg-white text-slate-800 rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.3)] border border-slate-100 min-h-[385px] text-left animate-in fade-in slide-in-from-bottom-6 duration-500 relative overflow-hidden grid grid-cols-12 z-10"
+                  className="bg-white text-slate-800 rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.06)] border border-zinc-200/60 min-h-[385px] text-left animate-in fade-in slide-in-from-bottom-6 duration-500 relative overflow-hidden grid grid-cols-12 z-10"
                 >
                   {/* Decorative faint background pattern for paper feel */}
                   <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none rounded-2xl z-0" />

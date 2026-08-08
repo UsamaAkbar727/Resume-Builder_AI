@@ -4,17 +4,17 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #06060a;
-  --foreground: #f4f4f6;
-  --primary: #6366F1;
-  --primary-hover: #4F46E5;
-  --primary-light: rgba(99, 102, 241, 0.15);
+  --background: #fbfbfc;
+  --foreground: #0f172a;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: rgba(79, 70, 229, 0.08);
   --success: #10B981;
   --warning: #F59E0B;
   --danger: #EF4444;
-  --text-muted: #9CA3AF;
-  --border: rgba(255, 255, 255, 0.08);
-  --card-bg: #0d0d15;
+  --text-muted: #64748b;
+  --border: rgba(0, 0, 0, 0.06);
+  --card-bg: #ffffff;
 }
 
 @theme {
