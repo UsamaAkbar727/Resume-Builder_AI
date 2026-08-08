@@ -426,30 +426,6 @@ class JobAggregatorService
         return $jobData;
     }
 
-        } catch (\Exception $e) {
-            Log::error('Import URL error: ' . $e->getMessage());
-
-            // Absolute basic fallback to not crash the UI
-            return [
-                'external_id' => 'url_' . md5($url),
-                'source' => 'Import Error Fallback',
-                'company_name' => 'Global Technology Corp',
-                'company_logo' => 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=100&auto=format&fit=crop',
-                'title' => 'Senior Engineer',
-                'location' => 'Remote',
-                'salary_min' => '$130,000',
-                'salary_max' => '$185,000',
-                'employment_type' => 'Full-time',
-                'is_remote' => true,
-                'skills_json' => ['System Engineering', 'Cloud Architecture'],
-                'experience_level' => 'Professional',
-                'application_url' => $url,
-                'description' => "Imported job listing. Scale client architectures and API structures.",
-                'dedup_hash' => md5('ImportError' . $url),
-                'posted_at' => now(),
-            ];
-        }
-    }
 
     /**
      * Parses JSON-LD script blocks looking for @type JobPosting.
