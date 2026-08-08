@@ -53,55 +53,62 @@ export default function ATSChecker() {
         
         {/* Header */}
         <ScrollReveal variant="fade-up" delay={100}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
-            <div className="lg:col-span-6 text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-550 bg-indigo-50 text-indigo-700 text-xs font-black uppercase tracking-widest border border-indigo-100 shadow-sm mb-6">
-                <SearchCode className="w-4 h-4 text-indigo-600" />
-                ATS RESUME CHECKER
+          <div className="max-w-3xl text-left mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-black uppercase tracking-widest border border-indigo-100 shadow-sm mb-6">
+              <SearchCode className="w-4 h-4 text-indigo-600" />
+              ATS RESUME CHECKER
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-zinc-900 tracking-tight leading-tight mb-4 font-display">
+              Verify keyword coverage before applying
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-550 text-zinc-500 leading-relaxed font-semibold font-display">
+              Upload your resume, paste the target job description, and watch our parser overlay keyword matrices, evaluate section weight, and flag clunky formatting.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        {/* 2-Column Split Workspace */}
+        <ScrollReveal variant="fade-up" delay={150}>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            {/* Left Column: Checklist & Info Card */}
+            <div className="lg:col-span-5 text-left space-y-8">
+              <div className="space-y-6">
+                <h3 className="text-lg font-black text-zinc-900 uppercase tracking-tight leading-none font-display">
+                  Advanced audit checklist parameters
+                </h3>
+                <ul className="space-y-4 text-xs font-semibold text-zinc-650 text-zinc-600 font-display">
+                  <li className="flex items-center gap-3 text-indigo-600">
+                    <Check className="w-4 h-4 stroke-[3]" /> Keyword density overlay scans
+                  </li>
+                  <li className="flex items-center gap-3 text-indigo-600">
+                    <Check className="w-4 h-4 stroke-[3]" /> Action verb index checks
+                  </li>
+                  <li className="flex items-center gap-3 text-indigo-600">
+                    <Check className="w-4 h-4 stroke-[3]" /> Quantifiable achievements count
+                  </li>
+                  <li className="flex items-center gap-3 text-indigo-600">
+                    <Check className="w-4 h-4 stroke-[3]" /> Avoid buzzwords & clutter
+                  </li>
+                  <li className="flex items-center gap-3 text-indigo-600">
+                    <Check className="w-4 h-4 stroke-[3]" /> Recruiter parseability testing
+                  </li>
+                  <li className="flex items-center gap-3 text-indigo-600">
+                    <Check className="w-4 h-4 stroke-[3]" /> Custom template sections format parser check
+                  </li>
+                </ul>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-black text-zinc-900 tracking-tight leading-tight mb-4 font-display">
-                Verify keyword coverage before applying
-              </h2>
-              <p className="text-sm sm:text-base text-zinc-500 leading-relaxed font-semibold font-display mb-6">
-                Upload your resume, paste the target job description, and watch our parser overlay keyword matrices, evaluate section weight, and flag clunky formatting.
-              </p>
-              <div className="bg-white border border-zinc-200 p-4 rounded-2xl flex items-center gap-3 shadow-lg shadow-zinc-200/20">
+
+              <div className="bg-white border border-zinc-200 p-5 rounded-2xl flex items-center gap-3 shadow-lg shadow-zinc-200/20">
                 <Sparkles className="w-5 h-5 text-indigo-600 shrink-0" />
-                <p className="text-xs text-zinc-600 font-semibold font-display">
+                <p className="text-xs text-zinc-605 text-zinc-600 font-semibold font-display">
                   Our scanner mimics corporate ATS filters (Greenhouse, Lever) to show you exactly how bots read your background.
                 </p>
               </div>
             </div>
 
-            {/* Checklist lists details */}
-            <div className="lg:col-span-6 text-left space-y-6">
-              <h3 className="text-lg font-black text-zinc-900 uppercase tracking-tight leading-none font-display">
-                Advanced audit checklist parameters
-              </h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-semibold text-zinc-600 font-display">
-                <li className="flex items-center gap-3 text-indigo-600">
-                  <Check className="w-4 h-4 stroke-[3]" /> Keyword density overlay scans
-                </li>
-                <li className="flex items-center gap-3 text-indigo-600">
-                  <Check className="w-4 h-4 stroke-[3]" /> Action verb index checks
-                </li>
-                <li className="flex items-center gap-3 text-indigo-600">
-                  <Check className="w-4 h-4 stroke-[3]" /> Quantifiable achievements count
-                </li>
-                <li className="flex items-center gap-3 text-indigo-600">
-                  <Check className="w-4 h-4 stroke-[3]" /> Avoid buzzwords & clutter
-                </li>
-                <li className="flex items-center gap-3 text-indigo-600">
-                  <Check className="w-4 h-4 stroke-[3]" /> Recruiter parseability testing
-                </li>
-                <li className="flex items-center gap-3 text-indigo-600">
-                  <Check className="w-4 h-4 stroke-[3]" /> Custom template sections format parser check
-                </li>
-              </ul>
-            </div>
-
-            {/* ATS Sandbox Screen */}
-            <div className="lg:col-span-6 bg-zinc-100/70 border border-zinc-200/60 p-6 rounded-3xl shadow-xl shadow-zinc-200/10 relative overflow-hidden group">
+            {/* Right Column: ATS Sandbox Screen */}
+            <div className="lg:col-span-7 bg-zinc-100/70 border border-zinc-200/60 p-6 rounded-3xl shadow-xl shadow-zinc-200/10 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/2 rounded-full blur-xl group-hover:bg-indigo-500/5 transition-all pointer-events-none" />
               
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-stretch">
