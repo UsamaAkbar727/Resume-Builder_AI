@@ -317,11 +317,16 @@ export default function Templates() {
             </div>
 
             {/* Bottom contact bar */}
-            <div className={`text-stone-400 mt-2 pt-2 border-t flex justify-between ${isLarge ? "text-[8px]" : "text-[5px]"}`}>
+            <div className={`text-stone-450 text-stone-400 mt-2 pt-2 border-t flex justify-between ${isLarge ? "text-[8px]" : "text-[5px]"}`}>
               <span>sarah@jenkins.com</span>
               <span>SF, CA</span>
             </div>
-      return (
+          </div>
+        );
+    }
+  };
+
+  return (
     <section id="templates" className="py-28 bg-[#fbfbfc] relative z-10 border-t border-zinc-100 overflow-hidden">
       {/* Background Subtle Decorative Gradients without clutter */}
       <div className="absolute top-[20%] left-[-15%] w-[40vw] h-[40vw] rounded-full bg-indigo-500/1 filter blur-[120px] pointer-events-none z-0"></div>
