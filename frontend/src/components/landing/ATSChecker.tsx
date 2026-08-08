@@ -58,7 +58,7 @@ export default function ATSChecker() {
               <SearchCode className="w-4 h-4 text-indigo-600" />
               ATS RESUME CHECKER
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-zinc-900 tracking-tight leading-tight mb-4 font-display">
+            <h2 className="text-3xl sm:text-5xl font-black text-indigo-600 tracking-tight leading-tight mb-4 font-display">
               Verify keyword coverage before applying
             </h2>
             <p className="text-sm sm:text-base text-zinc-550 text-zinc-500 leading-relaxed font-semibold font-display">
@@ -74,7 +74,7 @@ export default function ATSChecker() {
             {/* Left Column: Checklist & Info Card */}
             <div className="lg:col-span-5 text-left space-y-8">
               <div className="space-y-6">
-                <h3 className="text-lg font-black text-zinc-900 uppercase tracking-tight leading-none font-display">
+                <h3 className="text-lg font-black text-indigo-600 uppercase tracking-tight leading-none font-display">
                   Advanced audit checklist parameters
                 </h3>
                 <ul className="space-y-4 text-xs font-semibold text-zinc-650 text-zinc-600 font-display">
