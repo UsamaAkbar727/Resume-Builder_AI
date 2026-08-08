@@ -129,17 +129,17 @@ export default function ResumeDemo() {
   };
 
   return (
-    <section id="resume-builder-demo" className="py-24 bg-zinc-950 text-white relative z-10 border-t border-zinc-800">
+    <section id="resume-builder-demo" className="py-24 bg-[#06060c] text-white relative z-10 border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Title */}
         <ScrollReveal variant="fade-up" delay={100}>
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/90 text-amber-450 text-xs font-black uppercase tracking-widest border border-amber-450/40 shadow-xl mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-amber-450" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-black uppercase tracking-widest border border-indigo-500/20 shadow-xl mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
               Interactive Sandbox Demo
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4 font-display">
               Real-time designer customization
             </h2>
             <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto font-medium">
@@ -153,10 +153,10 @@ export default function ResumeDemo() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             
             {/* Editor Control Panel */}
-            <div className="lg:col-span-5 bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl flex flex-col justify-between shadow-2xl">
+            <div className="lg:col-span-5 bg-zinc-900/60 border border-zinc-850 p-6 sm:p-8 rounded-3xl flex flex-col justify-between shadow-2xl">
               <div>
                 {/* Header Toggles */}
-                <div className="flex items-center justify-between pb-6 border-b border-zinc-800">
+                <div className="flex items-center justify-between pb-6 border-b border-zinc-850">
                   <div className="flex gap-2">
                     <button
                       onClick={() => setActiveTab("content")}
@@ -196,7 +196,7 @@ export default function ResumeDemo() {
                           type="text"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3.5 py-2 text-xs font-semibold text-white focus:outline-none focus:border-amber-450 focus:ring-1 focus:ring-amber-450/30"
+                          className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3.5 py-2 text-xs font-semibold text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30"
                         />
                       </div>
                       <div className="space-y-1.5">
@@ -205,7 +205,7 @@ export default function ResumeDemo() {
                           type="text"
                           value={title}
                           onChange={(e) => setTitle(e.target.value)}
-                          className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3.5 py-2 text-xs font-semibold text-white focus:outline-none focus:border-amber-450 focus:ring-1 focus:ring-amber-450/30"
+                          className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3.5 py-2 text-xs font-semibold text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30"
                         />
                       </div>
                     </div>
@@ -217,9 +217,9 @@ export default function ResumeDemo() {
                         <button
                           onClick={handleImproveSummary}
                           disabled={showSummaryAi}
-                          className="text-[10px] font-bold text-amber-400 flex items-center gap-1 hover:text-amber-350 bg-amber-450/10 px-2.5 py-1 rounded-md border border-amber-450/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                          className="text-[10px] font-bold text-indigo-400 flex items-center gap-1 hover:text-indigo-300 bg-indigo-500/10 px-2.5 py-1 rounded-md border border-indigo-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
                         >
-                          <Sparkles className="w-3 h-3 text-amber-400 animate-pulse" />
+                          <Sparkles className="w-3 h-3 text-indigo-400 animate-pulse" />
                           {showSummaryAi ? "Polishing..." : "AI Improve"}
                         </button>
                       </div>
@@ -227,7 +227,7 @@ export default function ResumeDemo() {
                         value={summary}
                         onChange={(e) => setSummary(e.target.value)}
                         rows={4}
-                        className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3.5 py-2 text-xs font-semibold text-white focus:outline-none focus:border-amber-450 focus:ring-1 focus:ring-amber-450/30 leading-relaxed resize-none"
+                        className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3.5 py-2 text-xs font-semibold text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30 leading-relaxed resize-none"
                       />
                     </div>
 
@@ -240,11 +240,11 @@ export default function ResumeDemo() {
                           placeholder="Add new skill..."
                           value={newSkill}
                           onChange={(e) => setNewSkill(e.target.value)}
-                          className="flex-1 bg-zinc-950 border border-zinc-850 rounded-xl px-3.5 py-2 text-xs font-semibold text-white focus:outline-none focus:border-amber-450 focus:ring-1 focus:ring-amber-450/30"
+                          className="flex-1 bg-zinc-950 border border-zinc-850 rounded-xl px-3.5 py-2 text-xs font-semibold text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30"
                         />
                         <button
                           type="submit"
-                          className="px-3.5 py-2 bg-amber-400 text-black rounded-xl text-xs font-bold hover:bg-amber-300 flex items-center justify-center shadow-sm cursor-pointer"
+                          className="px-3.5 py-2 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white rounded-xl text-xs font-bold flex items-center justify-center shadow-sm cursor-pointer"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -275,7 +275,7 @@ export default function ResumeDemo() {
                         onClick={() => setSelectedStyle("tech")}
                         className={`w-full p-4 rounded-xl border flex items-center justify-between text-left transition-all cursor-pointer ${
                           selectedStyle === "tech"
-                            ? "border-amber-450 bg-amber-450/5 shadow-xs"
+                            ? "border-indigo-500 bg-indigo-500/5 shadow-xs"
                             : "border-zinc-800 hover:border-zinc-700 hover:bg-zinc-850/50"
                         }`}
                       >
@@ -283,7 +283,7 @@ export default function ResumeDemo() {
                           <h4 className="text-xs font-bold text-white">The Technologist (Default)</h4>
                           <p className="text-[10px] text-zinc-400 mt-0.5">Clean sans-serif fonts with modern two-column layout.</p>
                         </div>
-                        {selectedStyle === "tech" && <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />}
+                        {selectedStyle === "tech" && <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" />}
                       </button>
 
                       {/* Executive Style Option */}
@@ -291,7 +291,7 @@ export default function ResumeDemo() {
                         onClick={() => setSelectedStyle("executive")}
                         className={`w-full p-4 rounded-xl border flex items-center justify-between text-left transition-all cursor-pointer ${
                           selectedStyle === "executive"
-                            ? "border-amber-450 bg-amber-450/5 shadow-xs"
+                            ? "border-indigo-500 bg-indigo-500/5 shadow-xs"
                             : "border-zinc-800 hover:border-zinc-700 hover:bg-zinc-850/50"
                         }`}
                       >
@@ -299,7 +299,7 @@ export default function ResumeDemo() {
                           <h4 className="text-xs font-bold text-white">The Executive (Academic)</h4>
                           <p className="text-[10px] text-zinc-400 mt-0.5">Formal serif styling with centered branding headers.</p>
                         </div>
-                        {selectedStyle === "executive" && <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />}
+                        {selectedStyle === "executive" && <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" />}
                       </button>
 
                       {/* Creative Style Option */}
@@ -307,7 +307,7 @@ export default function ResumeDemo() {
                         onClick={() => setSelectedStyle("creative")}
                         className={`w-full p-4 rounded-xl border flex items-center justify-between text-left transition-all cursor-pointer ${
                           selectedStyle === "creative"
-                            ? "border-amber-450 bg-amber-450/5 shadow-xs"
+                            ? "border-indigo-500 bg-indigo-500/5 shadow-xs"
                             : "border-zinc-800 hover:border-zinc-700 hover:bg-zinc-850/50"
                         }`}
                       >
@@ -315,7 +315,7 @@ export default function ResumeDemo() {
                           <h4 className="text-xs font-bold text-white">The Creative Developer</h4>
                           <p className="text-[10px] text-zinc-400 mt-0.5">High-contrast layout with a left sidebar profile column.</p>
                         </div>
-                        {selectedStyle === "creative" && <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />}
+                        {selectedStyle === "creative" && <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" />}
                       </button>
                     </div>
                   </div>
@@ -326,18 +326,18 @@ export default function ResumeDemo() {
               <div className="pt-6 border-t border-zinc-800 mt-8 text-center">
                 <Link
                   href="/auth?mode=register"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-sm uppercase tracking-wider shadow-xl transition-all cursor-pointer w-full"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-bold text-sm uppercase tracking-wide shadow-lg shadow-indigo-500/20 transition-all cursor-pointer w-full"
                 >
-                  <FileText className="w-4 h-4 text-black" /> Save PDF Layout Now
+                  <FileText className="w-4 h-4 text-white" /> Save PDF Layout Now
                 </Link>
               </div>
             </div>
 
             {/* Resume Sheet Preview Area with Browser Frame */}
-            <div className="lg:col-span-7 bg-zinc-900/40 p-4 sm:p-8 rounded-3xl flex items-center justify-center border border-zinc-800 shadow-[inset_0_2px_10px_rgba(0,0,0,0.4)] min-h-[500px]">
-              <div className="relative w-full max-w-[550px] bg-zinc-900 border border-zinc-800/80 rounded-2xl shadow-[0_24px_50px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col">
+            <div className="lg:col-span-7 bg-zinc-900/40 p-4 sm:p-8 rounded-3xl flex items-center justify-center border border-zinc-850 shadow-[inset_0_2px_10px_rgba(0,0,0,0.4)] min-h-[500px]">
+              <div className="relative w-full max-w-[550px] bg-zinc-900 border border-zinc-850 rounded-2xl shadow-[0_24px_50px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col">
                 {/* Browser Header Bar */}
-                <div className="flex items-center justify-between border-b border-zinc-850/80 px-4 py-2 bg-zinc-950/40 shrink-0 select-none">
+                <div className="flex items-center justify-between border-b border-zinc-850/85 px-4 py-2 bg-zinc-950/40 shrink-0 select-none">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-red-500/80" />
                     <span className="w-2 h-2 rounded-full bg-yellow-500/80" />
