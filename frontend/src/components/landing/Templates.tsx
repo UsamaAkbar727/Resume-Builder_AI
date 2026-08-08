@@ -321,12 +321,11 @@ export default function Templates() {
               <span>sarah@jenkins.com</span>
               <span>SF, CA</span>
             </div>
-          </div>
-        );  return (
-    <section id="templates" className="py-28 bg-[#06060c] relative z-10 border-t border-zinc-900 overflow-hidden">
+      return (
+    <section id="templates" className="py-28 bg-[#fbfbfc] relative z-10 border-t border-zinc-100 overflow-hidden">
       {/* Background Subtle Decorative Gradients without clutter */}
-      <div className="absolute top-[20%] left-[-15%] w-[40vw] h-[40vw] rounded-full bg-indigo-500/3 filter blur-[120px] pointer-events-none z-0"></div>
-      <div className="absolute bottom-[20%] right-[-15%] w-[40vw] h-[40vw] rounded-full bg-violet-500/3 filter blur-[120px] pointer-events-none z-0"></div>
+      <div className="absolute top-[20%] left-[-15%] w-[40vw] h-[40vw] rounded-full bg-indigo-500/1 filter blur-[120px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-[20%] right-[-15%] w-[40vw] h-[40vw] rounded-full bg-violet-500/1 filter blur-[120px] pointer-events-none z-0"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
@@ -334,21 +333,21 @@ export default function Templates() {
         <ScrollReveal variant="fade-up" delay={100}>
           <div className="flex flex-col lg:flex-row items-center lg:items-end justify-between gap-8 mb-16">
             <div className="text-center lg:text-left max-w-xl">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-black uppercase tracking-widest border border-indigo-500/20 shadow-xl mb-4 w-fit">
-                <Layout className="w-4 h-4 text-indigo-400" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-705 text-indigo-700 text-xs font-black uppercase tracking-widest border border-indigo-100 shadow-sm mb-4 w-fit">
+                <Layout className="w-4 h-4 text-indigo-600" />
                 Premium Resume Showcase
               </div>
-              <h2 className="text-3xl sm:text-5xl font-black text-white mb-3 tracking-tight leading-tight font-display">
+              <h2 className="text-3xl sm:text-5xl font-black text-zinc-900 mb-3 tracking-tight leading-tight font-display">
                 Recruiter-tested layout gallery
               </h2>
-              <p className="text-sm sm:text-base text-zinc-400 font-medium leading-relaxed">
+              <p className="text-sm sm:text-base text-zinc-500 font-semibold font-display leading-relaxed">
                 Every template is specifically optimized to rank high on search parses while presenting clean, professional layouts. Toggle live colors below:
               </p>
             </div>
 
             {/* Theme Color Picker */}
-            <div className="flex items-center gap-3 bg-zinc-900 border border-zinc-850 px-4 py-2.5 rounded-2xl shadow-lg">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mr-1.5 select-none font-display">Accent Theme</span>
+            <div className="flex items-center gap-3 bg-white border border-zinc-200 px-4 py-2.5 rounded-2xl shadow-xl shadow-zinc-200/20 text-zinc-900">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-550 text-zinc-500 mr-1.5 select-none font-display">Accent Theme</span>
               <div className="flex gap-2">
                 {colors.map((color) => (
                   <button
@@ -356,7 +355,7 @@ export default function Templates() {
                     onClick={() => setSelectedColor(color.id as any)}
                     className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all cursor-pointer ${
                       selectedColor === color.id
-                        ? "border-white scale-110 shadow-md shadow-indigo-500/10"
+                        ? "border-zinc-800 scale-110 shadow-sm"
                         : "border-transparent hover:scale-105"
                     } ${color.class}`}
                     title={color.label}
@@ -376,10 +375,10 @@ export default function Templates() {
               key={tpl.id}
               variant="fade-up"
               delay={idx * 100}
-              className="group bg-zinc-900/40 border border-zinc-850 hover:border-indigo-500/40 rounded-3xl p-5 shadow-xl hover:-translate-y-2 hover:bg-zinc-900/60 transition-all duration-550 flex flex-col justify-between relative overflow-hidden"
+              className="group bg-white border border-zinc-200 hover:border-indigo-500/40 rounded-3xl p-5 shadow-lg shadow-zinc-200/20 hover:-translate-y-2 hover:bg-white transition-all duration-550 flex flex-col justify-between relative overflow-hidden"
             >
               {/* Thumbnail Container */}
-              <div className="bg-zinc-950 rounded-2xl mb-5 aspect-[1/1.22] flex items-center justify-center overflow-hidden border border-zinc-850 relative shadow-[inset_0_2px_10px_rgba(0,0,0,0.4)]">
+              <div className="bg-zinc-100/50 rounded-2xl mb-5 aspect-[1/1.22] flex items-center justify-center overflow-hidden border border-zinc-200/80 relative shadow-[inset_0_2px_10px_rgba(0,0,0,0.02)]">
                 {/* Live CSS Thumbnail rendering */}
                 <div className="w-full h-full shadow-[0_2px_15px_-3px_rgba(0,0,0,0.06)] group-hover:scale-[1.01] transition-transform duration-500">
                   {renderResumeThumbnail(tpl.id)}
@@ -396,8 +395,8 @@ export default function Templates() {
                     <span></span>
                   )}
                   {/* Score */}
-                  <span className="bg-zinc-950/90 backdrop-blur-sm text-white text-[8px] font-black px-2 py-1 rounded-md shadow-xs border border-zinc-850 flex items-center gap-0.5 font-display">
-                    <ShieldCheck className="w-2.5 h-2.5 text-indigo-400 stroke-[3]" /> ATS {tpl.atsScore}%
+                  <span className="bg-white/95 text-zinc-900 text-[8px] font-black px-2 py-1 rounded-md shadow-xs border border-zinc-200/85 flex items-center gap-0.5 font-display">
+                    <ShieldCheck className="w-2.5 h-2.5 text-indigo-605 text-indigo-600 stroke-[3]" /> ATS {tpl.atsScore}%
                   </span>
                 </div>
               </div>
@@ -405,13 +404,13 @@ export default function Templates() {
               {/* Template details */}
               <div className="text-left flex-1 flex flex-col justify-between mb-5">
                 <div>
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-lg border border-indigo-500/20 font-display">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-indigo-650 text-indigo-605 text-indigo-650 text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100 font-display">
                     {tpl.type}
                   </span>
-                  <h3 className="text-base font-black text-white mt-3 mb-1.5 group-hover:text-indigo-400 transition-colors font-display">
+                  <h3 className="text-base font-black text-zinc-900 mt-3 mb-1.5 group-hover:text-indigo-600 transition-colors font-display">
                     {tpl.name}
                   </h3>
-                  <p className="text-xs text-zinc-400 leading-relaxed font-medium">
+                  <p className="text-xs text-zinc-500 leading-relaxed font-semibold">
                     {tpl.desc}
                   </p>
                 </div>
@@ -421,13 +420,13 @@ export default function Templates() {
               <div className="grid grid-cols-2 gap-2.5 pt-1.5">
                 <button
                   onClick={() => setPreviewTemplate(tpl)}
-                  className="px-4 py-2.5 rounded-xl text-xs font-black uppercase text-zinc-200 bg-zinc-950 hover:bg-zinc-900 border border-zinc-850 flex items-center justify-center gap-1 cursor-pointer transition-all shadow-sm font-display"
+                  className="px-4 py-2.5 rounded-xl text-xs font-black uppercase text-zinc-705 text-zinc-700 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 flex items-center justify-center gap-1 cursor-pointer transition-all shadow-sm font-display"
                 >
                   <Eye className="w-3.5 h-3.5" /> Preview
                 </button>
                 <a
                   href="/auth?mode=register"
-                  className="px-4 py-2.5 rounded-xl text-xs font-black uppercase text-white bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 flex items-center justify-center gap-1 transition-all shadow-md font-display"
+                  className="px-4 py-2.5 rounded-xl text-xs font-black uppercase text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 flex items-center justify-center gap-1 transition-all shadow-md font-display"
                 >
                   Use Layout
                 </a>
@@ -440,15 +439,15 @@ export default function Templates() {
 
       {/* Large Interactive Preview Modal */}
       {previewTemplate && (
-        <div className="fixed inset-0 z-55 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-fade-in">
+        <div className="fixed inset-0 z-55 flex items-center justify-center bg-zinc-900/60 backdrop-blur-md p-4 animate-fade-in">
           <div
-            className="bg-zinc-900 border border-zinc-800 rounded-[28px] shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col relative animate-scale-in"
+            className="bg-white border border-zinc-200 rounded-[28px] shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col relative animate-scale-in text-zinc-900"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setPreviewTemplate(null)}
-              className="absolute top-4 right-4 p-2 rounded-full border border-zinc-800 bg-zinc-950 text-zinc-400 hover:text-white hover:bg-zinc-900 cursor-pointer z-50 transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-full border border-zinc-200 bg-white text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 cursor-pointer z-50 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -457,31 +456,31 @@ export default function Templates() {
             <div className="grid grid-cols-1 md:grid-cols-12 overflow-y-auto">
               
               {/* Detailed information sidebar (Left) */}
-              <div className="md:col-span-5 p-8 text-left bg-zinc-950 border-r border-zinc-850 flex flex-col justify-between">
+              <div className="md:col-span-5 p-8 text-left bg-zinc-50/50 border-r border-zinc-200/80 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-450 text-[#6366F1] text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md font-display">
+                    <span className="bg-indigo-50 border border-indigo-100 text-indigo-600 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md font-display">
                       ATS Verified {previewTemplate.atsScore}%
                     </span>
                     {previewTemplate.badge && (
-                      <span className="bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md font-display">
+                      <span className="bg-violet-50 border border-violet-100 text-violet-650 text-violet-600 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md font-display">
                         {previewTemplate.badge}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="text-2xl font-black text-white mb-2 font-display">{previewTemplate.name}</h3>
-                  <p className="text-xs text-zinc-400 font-bold uppercase tracking-widest mb-4 font-display">{previewTemplate.type}</p>
+                  <h3 className="text-2xl font-black text-zinc-900 mb-2 font-display">{previewTemplate.name}</h3>
+                  <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest mb-4 font-display">{previewTemplate.type}</p>
                   
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-medium mb-6">
+                  <p className="text-xs sm:text-sm text-zinc-650 text-zinc-600 leading-relaxed font-semibold mb-6">
                     {previewTemplate.desc}
                   </p>
 
-                  <h4 className="text-[10px] font-black uppercase tracking-wider text-zinc-550 mb-3 font-display">Key Highlights</h4>
+                  <h4 className="text-[10px] font-black uppercase tracking-wider text-zinc-450 text-zinc-500 mb-3 font-display">Key Highlights</h4>
                   <ul className="space-y-3 mb-8">
                     {previewTemplate.highlights.map((highlight) => (
-                      <li key={highlight} className="flex items-start gap-2.5 text-xs text-zinc-350 font-semibold">
-                        <Check className="w-4 h-4 text-indigo-400 shrink-0 stroke-[3]" />
+                      <li key={highlight} className="flex items-start gap-2.5 text-xs text-zinc-705 text-zinc-700 font-semibold">
+                        <Check className="w-4 h-4 text-indigo-600 shrink-0 stroke-[3]" />
                         <span>{highlight}</span>
                       </li>
                     ))}
@@ -491,13 +490,13 @@ export default function Templates() {
                 <div className="flex flex-col gap-2.5">
                   <a
                     href="/auth?mode=register"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-black text-sm uppercase tracking-wider shadow-xl transition-all cursor-pointer w-full font-display"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-750 text-white font-black text-sm uppercase tracking-wider shadow-xl transition-all cursor-pointer w-full font-display"
                   >
                     Use This Template <ArrowRight className="w-4 h-4 text-white" />
                   </a>
                   <button
                     onClick={() => setPreviewTemplate(null)}
-                    className="px-8 py-4 rounded-2xl bg-zinc-950 border border-zinc-800 text-zinc-300 hover:bg-zinc-900 font-black text-sm uppercase tracking-wider flex items-center justify-center transition-all cursor-pointer w-full font-display"
+                    className="px-8 py-4 rounded-2xl bg-white border border-zinc-200 text-zinc-705 text-zinc-705 text-zinc-700 hover:bg-zinc-50 font-black text-sm uppercase tracking-wider flex items-center justify-center transition-all cursor-pointer w-full font-display"
                   >
                     Back to Gallery
                   </button>
@@ -505,7 +504,7 @@ export default function Templates() {
               </div>
 
               {/* Render large realistic mockup (Right) */}
-              <div className="md:col-span-7 bg-[#0f0f15] p-6 sm:p-10 flex items-center justify-center max-h-[80vh] md:max-h-none overflow-y-auto">
+              <div className="md:col-span-7 bg-zinc-100/80 p-6 sm:p-10 flex items-center justify-center max-h-[80vh] md:max-h-none overflow-y-auto">
                 <div className="w-full max-w-[450px] shadow-2xl rounded-xs overflow-hidden transition-all duration-300">
                   {renderResumeThumbnail(previewTemplate.id, true)}
                 </div>
