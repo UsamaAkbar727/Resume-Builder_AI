@@ -42,44 +42,44 @@ const companyColors: Record<string, string> = {
 };
 
 const stepThemes = [
-  { num: "01", stepLabel: "STEP", color: "#047857", darkColor: "#024733", textCol: "text-[#047857]" }, // Green
-  { num: "02", stepLabel: "STEP", color: "#D97706", darkColor: "#78350f", textCol: "text-[#D97706]" }, // Orange
-  { num: "03", stepLabel: "STEP", color: "#2563EB", darkColor: "#173fa3", textCol: "text-[#2563EB]" }, // Blue
-  { num: "04", stepLabel: "STEP", color: "#DC2626", darkColor: "#7f1d1d", textCol: "text-[#DC2626]" }, // Red
+  { num: "01", stepLabel: "OFFER", color: "#6366F1", darkColor: "#312E81", textCol: "text-indigo-400" }, // Indigo
+  { num: "02", stepLabel: "OFFER", color: "#8B5CF6", darkColor: "#4C1D95", textCol: "text-violet-400" }, // Violet
+  { num: "03", stepLabel: "OFFER", color: "#10B981", darkColor: "#064E3B", textCol: "text-emerald-400" }, // Emerald
+  { num: "04", stepLabel: "OFFER", color: "#06B6D4", darkColor: "#164E63", textCol: "text-cyan-400" }, // Cyan
 ];
 
 export default function Testimonials() {
   const renderCard = (t: typeof testimonials[0]) => {
     return (
-      <div className="bg-white border border-stone-250 p-6 sm:p-8 rounded-3xl flex flex-col gap-4 shadow-xl hover:-translate-y-1 transition-all duration-300 max-w-md mx-auto text-left relative z-10">
+      <div className="bg-zinc-900/60 border border-zinc-850 p-6 sm:p-8 rounded-3xl flex flex-col gap-4 shadow-2xl hover:-translate-y-1 hover:border-indigo-500/40 transition-all duration-300 max-w-md mx-auto text-left relative z-10">
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="flex gap-0.5">
               {[...Array(t.stars)].map((_, j) => (
-                <Star key={j} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <Star key={j} className="w-3.5 h-3.5 text-indigo-400 fill-indigo-400" />
               ))}
             </div>
-            <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-stone-100 border border-stone-200 text-stone-600">
+            <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-display">
               {t.tag}
             </span>
           </div>
-          <Quote className="w-6 h-6 text-stone-100 fill-stone-100 mb-2" />
-          <p className="text-stone-605 text-stone-600 text-xs sm:text-sm leading-relaxed font-semibold">
+          <Quote className="w-6 h-6 text-zinc-800 fill-zinc-800 mb-2" />
+          <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed font-semibold">
             {t.text}
           </p>
         </div>
 
-        <div className="flex items-center gap-3 pt-3 border-t border-stone-150 mt-auto">
-          <img src={t.avatar} alt={t.name} className="w-9 h-9 rounded-full object-cover ring-2 ring-stone-200" />
+        <div className="flex items-center gap-3 pt-3 border-t border-zinc-850 mt-auto">
+          <img src={t.avatar} alt={t.name} className="w-9 h-9 rounded-full object-cover ring-2 ring-zinc-800" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1">
-              <p className="text-xs font-black text-stone-900 truncate">{t.name}</p>
-              <BadgeCheck className="w-3.5 h-3.5 text-[#67B0A7] shrink-0" />
+              <p className="text-xs font-black text-white truncate font-display">{t.name}</p>
+              <BadgeCheck className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
             </div>
-            <p className="text-[10px] text-stone-500 font-semibold">{t.role}</p>
+            <p className="text-[10px] text-zinc-400 font-semibold">{t.role}</p>
           </div>
           <span
-            className="text-[9px] font-black px-2 py-0.5 rounded text-white shrink-0"
+            className="text-[9px] font-black px-2 py-0.5 rounded text-white shrink-0 font-display"
             style={{ background: companyColors[t.company] || "#000" }}
           >
             {t.company}
@@ -93,7 +93,7 @@ export default function Testimonials() {
     return (
       <div className={`max-w-xs py-4 ${isRight ? "text-left pl-8" : "text-right pr-8 ml-auto"}`}>
         <span
-          className="text-[9px] font-black uppercase px-2.5 py-1 rounded border inline-block"
+          className="text-[9px] font-black uppercase px-2.5 py-1 rounded border inline-block font-display"
           style={{
             color: theme.color,
             backgroundColor: `${theme.color}10`,
@@ -102,8 +102,8 @@ export default function Testimonials() {
         >
           {t.company} Offer Loop
         </span>
-        <h4 className="text-sm font-black text-stone-900 mt-2.5">{t.name}</h4>
-        <p className="text-[11px] text-stone-500 mt-1 leading-normal font-medium">
+        <h4 className="text-sm font-black text-white mt-2.5 font-display">{t.name}</h4>
+        <p className="text-[11px] text-zinc-400 mt-1 leading-normal font-medium">
           Secured {t.role} role at {t.company} using our AI {t.tag} engine.
         </p>
       </div>
@@ -111,31 +111,31 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="py-20 lg:py-28 bg-[#F5F2EC] text-stone-900 relative z-10 border-t border-stone-200/90 overflow-hidden">
+    <section className="py-20 lg:py-28 bg-[#06060c] text-white relative z-10 border-t border-zinc-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
 
         {/* Header — left aligned */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20">
           <ScrollReveal variant="fade-up" delay={0}>
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-stone-900 text-amber-300 text-xs font-black uppercase tracking-widest border border-stone-850 shadow-md mb-6 w-fit">
-                <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-black uppercase tracking-widest border border-indigo-500/20 shadow-xl mb-6 w-fit">
+                <Star className="w-4 h-4 text-indigo-400 fill-indigo-400" />
                 CANDIDATE TESTIMONIALS
               </div>
-              <h2 className="text-3xl sm:text-5xl font-black text-stone-900 tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight font-display">
                 What candidates say<br />
-                <span className="text-[#E87A36]">after landing their dream role</span>
+                <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">after landing their dream role</span>
               </h2>
             </div>
           </ScrollReveal>
           <ScrollReveal variant="fade-up" delay={80}>
             <div className="flex items-center gap-3 shrink-0 mb-2">
               <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />)}
+                {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 text-indigo-400 fill-indigo-400" />)}
               </div>
               <div>
-                <p className="text-sm font-black text-stone-900">4.9 / 5.0</p>
-                <p className="text-xs text-stone-500">from 5,000+ reviews</p>
+                <p className="text-sm font-black text-white font-display">4.9 / 5.0</p>
+                <p className="text-xs text-zinc-400 font-display">from 5,000+ reviews</p>
               </div>
             </div>
           </ScrollReveal>
@@ -145,7 +145,7 @@ export default function Testimonials() {
         <div className="relative my-8 space-y-16">
           
           {/* Vertical Center Connecting Line */}
-          <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-stone-300 -translate-x-1/2 hidden md:block z-0" />
+          <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-zinc-850 -translate-x-1/2 hidden md:block z-0" />
 
           {testimonials.map((t, i) => {
             const isOdd = i % 2 === 0;
@@ -164,7 +164,7 @@ export default function Testimonials() {
                   <div className="order-1 md:order-2 flex justify-center z-20">
                     {isOdd ? (
                       /* Direction A (Odd: slanted down-left) */
-                      <svg width="80" height="120" viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-20 h-auto">
+                      <svg width="80" height="120" viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-20 h-auto font-display">
                         {/* Dark folds underneath */}
                         <path d="M 64,8 L 76,12 L 64,20 Z" fill={theme.darkColor} />
                         <path d="M 16,100 L 4,96 L 16,88 Z" fill={theme.darkColor} />
@@ -180,7 +180,7 @@ export default function Testimonials() {
                       </svg>
                     ) : (
                       /* Direction B (Even: slanted down-right) */
-                      <svg width="80" height="120" viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-20 h-auto">
+                      <svg width="80" height="120" viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-20 h-auto font-display">
                         {/* Dark folds underneath */}
                         <path d="M 16,8 L 4,12 L 16,20 Z" fill={theme.darkColor} />
                         <path d="M 64,100 L 76,96 L 64,88 Z" fill={theme.darkColor} />

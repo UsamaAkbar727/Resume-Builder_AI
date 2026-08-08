@@ -23,7 +23,7 @@ export default function PortfolioShowcase() {
   };
 
   return (
-    <section id="portfolio-builder" className="py-24 bg-zinc-950 text-white relative z-10 border-t border-zinc-800">
+    <section id="portfolio-builder" className="py-24 bg-[#06060c] text-white relative z-10 border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-6">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -32,12 +32,12 @@ export default function PortfolioShowcase() {
           <div className="lg:col-span-7 flex flex-col items-center select-none w-full">
             
             {/* Viewport switchers & Domain toolbar */}
-            <ScrollReveal variant="scale-in" delay={100} className="w-full flex justify-between items-center bg-zinc-900 border border-zinc-850 p-3 rounded-2xl mb-6 shadow-xl gap-4 flex-wrap">
+            <ScrollReveal variant="scale-in" delay={100} className="w-full flex justify-between items-center bg-zinc-900/60 border border-zinc-850 p-3 rounded-2xl mb-6 shadow-xl gap-4 flex-wrap">
               <div className="flex items-center gap-1.5 bg-zinc-950 border border-zinc-850 p-1 rounded-xl">
                 <button
                   onClick={() => setViewMode("desktop")}
                   className={`p-2 rounded-lg text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                    viewMode === "desktop" ? "bg-zinc-900 text-amber-400 border border-zinc-800" : "text-zinc-550 hover:text-zinc-300"
+                    viewMode === "desktop" ? "bg-zinc-900 text-indigo-400 border border-zinc-800" : "text-zinc-500 hover:text-zinc-300"
                   }`}
                 >
                   <Monitor className="w-3.5 h-3.5" /> Desktop
@@ -45,7 +45,7 @@ export default function PortfolioShowcase() {
                 <button
                   onClick={() => setViewMode("mobile")}
                   className={`p-2 rounded-lg text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                    viewMode === "mobile" ? "bg-zinc-900 text-amber-400 border border-zinc-800" : "text-zinc-550 hover:text-zinc-300"
+                    viewMode === "mobile" ? "bg-zinc-900 text-indigo-400 border border-zinc-800" : "text-zinc-500 hover:text-zinc-300"
                   }`}
                 >
                   <Smartphone className="w-3.5 h-3.5" /> Mobile
@@ -61,13 +61,13 @@ export default function PortfolioShowcase() {
                     value={domainInput}
                     onChange={(e) => setDomainInput(e.target.value)}
                     placeholder="customdomain.com"
-                    className="w-full bg-zinc-950 border border-zinc-850 rounded-xl pl-8 pr-3 py-1.5 text-xs font-semibold text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-zinc-950 border border-zinc-850 rounded-xl pl-8 pr-3 py-1.5 text-xs font-semibold text-white focus:outline-none focus:border-indigo-500"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isConnecting}
-                  className="px-3 py-1.5 bg-amber-400 hover:bg-amber-300 text-black text-[10px] font-black uppercase rounded-xl shadow-xs shrink-0 cursor-pointer transition-colors"
+                  className="px-4 py-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white text-[10px] font-bold uppercase rounded-xl shadow-md shrink-0 cursor-pointer transition-colors"
                 >
                   {isConnecting ? "Validating..." : isConnected ? "Active" : "Connect"}
                 </button>
@@ -78,7 +78,7 @@ export default function PortfolioShowcase() {
             <ScrollReveal
               variant="scale-in"
               delay={200}
-              className={`border-2 border-zinc-800 rounded-3xl bg-black shadow-2xl overflow-hidden transition-all duration-500 ${
+              className={`border-2 border-zinc-850 rounded-3xl bg-black shadow-2xl overflow-hidden transition-all duration-500 ${
                 viewMode === "desktop" ? "w-full max-w-[620px]" : "w-[300px]"
               }`}
             >
@@ -89,7 +89,7 @@ export default function PortfolioShowcase() {
                   <span className="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
                   <span className="w-2.5 h-2.5 rounded-full bg-green-400"></span>
                 </div>
-                <div className="flex-1 bg-zinc-950 border border-zinc-850 rounded-md py-1 px-3 text-[9px] font-semibold text-zinc-550 truncate text-center select-all">
+                <div className="flex-1 bg-zinc-950 border border-zinc-850 rounded-md py-1 px-3 text-[9px] font-semibold text-zinc-500 truncate text-center select-all">
                   https://{isConnected ? domainInput : "sarahjenkins.resumeflow.me"}
                 </div>
               </div>
@@ -100,13 +100,13 @@ export default function PortfolioShowcase() {
                 <div>
                   <div className="flex justify-between items-center mb-6">
                     <span className="text-[10px] font-black text-white">S.J</span>
-                    <span className="text-[8px] font-black text-amber-400 uppercase tracking-wider">Available for work</span>
+                    <span className="text-[8px] font-black text-indigo-400 uppercase tracking-wider font-display">Available for work</span>
                   </div>
 
-                  <h3 className="text-sm sm:text-base font-black text-white leading-tight mb-2">
+                  <h3 className="text-sm sm:text-base font-black text-white leading-tight mb-2 font-display">
                     Sarah Jenkins • Senior Developer
                   </h3>
-                  <p className="text-[9px] text-zinc-405 text-zinc-400 leading-relaxed max-w-[280px]">
+                  <p className="text-[9px] text-zinc-400 leading-relaxed max-w-[280px]">
                     I build accessible software systems handling scales and payments. Experience leading product development at Notion and Stripe.
                   </p>
                 </div>
@@ -140,11 +140,11 @@ export default function PortfolioShowcase() {
           {/* Info Side */}
           <div className="lg:col-span-5 text-left">
             <ScrollReveal variant="fade-up" delay={100}>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/90 text-amber-400 text-xs font-black uppercase tracking-widest border border-amber-400/40 shadow-xl mb-6">
-                <Globe className="w-4 h-4 text-amber-400 animate-spin-slow" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-black uppercase tracking-widest border border-indigo-500/20 shadow-xl mb-6">
+                <Globe className="w-4 h-4 text-indigo-400 animate-spin-slow" />
                 PORTFOLIO BUILDER & HOSTING
               </div>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4 font-display">
                 Instantly deploy a professional portfolio
               </h2>
               <p className="text-sm sm:text-base text-zinc-400 leading-relaxed font-medium mb-6">
@@ -154,11 +154,11 @@ export default function PortfolioShowcase() {
 
             {/* Custom domain feedback alert */}
             {isConnected && (
-              <ScrollReveal variant="fade-up" className="p-4 bg-amber-400/10 border border-amber-400/20 rounded-2xl flex items-start gap-3 mt-4 text-left">
-                <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <ScrollReveal variant="fade-up" className="p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex items-start gap-3 mt-4 text-left">
+                <ShieldCheck className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
                 <div>
-                  <h5 className="text-[10px] font-black text-amber-300 uppercase tracking-wider">Domain Configured!</h5>
-                  <p className="text-xs text-zinc-300 leading-normal font-semibold">
+                  <h5 className="text-[10px] font-black text-indigo-300 uppercase tracking-wider font-display">Domain Configured!</h5>
+                  <p className="text-xs text-zinc-350 leading-normal font-semibold">
                     DNS registers check out. Your developer portfolio is live at <a href={`https://${domainInput}`} target="_blank" className="text-white font-black hover:underline">{domainInput}</a>.
                   </p>
                 </div>

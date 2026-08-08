@@ -15,7 +15,7 @@ export default function FAQ() {
   const [active, setActive] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-28 bg-[#F5F2EC] text-stone-900 relative z-10 border-t border-stone-200/90">
+    <section id="faq" className="py-28 bg-[#06060c] text-white relative z-10 border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
 
         {/* Two-column layout */}
@@ -24,21 +24,20 @@ export default function FAQ() {
           {/* Left sticky heading */}
           <ScrollReveal variant="fade-right" delay={0}>
             <div className="lg:sticky lg:top-24">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-stone-900 text-amber-300 text-xs font-black uppercase tracking-widest border border-stone-850 shadow-md mb-6 w-fit">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-black uppercase tracking-widest border border-indigo-500/20 shadow-xl mb-6 w-fit">
                 FAQ
               </div>
-              <h2 className="text-3xl sm:text-5xl font-black text-stone-900 mb-5 tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-5xl font-black text-white mb-5 tracking-tight leading-tight font-display">
                 Common<br />questions,<br />
-                <span className="text-[#E87A36]">answered.</span>
+                <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">answered.</span>
               </h2>
-              <p className="text-stone-550 text-stone-500 text-sm leading-relaxed font-medium mb-6">
+              <p className="text-zinc-400 text-sm leading-relaxed font-medium mb-6">
                 Can&apos;t find what you need? Reach us at{" "}
-                <a href="mailto:hello@                  usamaakbarjaatt@gmail.com
-.ai" className="text-stone-900 font-black hover:underline">
+                <a href="mailto:usamaakbarjaatt@gmail.com" className="text-white hover:text-indigo-400 font-bold transition-colors">
                   usamaakbarjaatt@gmail.com
                 </a>
               </p>
-              <div className="w-12 h-1 rounded-full bg-[#E87A36]" />
+              <div className="w-12 h-1 rounded-full bg-gradient-to-r from-indigo-500 to-violet-600" />
             </div>
           </ScrollReveal>
 
@@ -48,20 +47,20 @@ export default function FAQ() {
               const isOpen = active === i;
               return (
                 <ScrollReveal key={i} variant="fade-up" delay={i * 50}>
-                  <div className={`bg-white border border-stone-250 rounded-3xl overflow-hidden transition-all duration-300 shadow-sm ${isOpen ? "border-[#67B0A7] bg-[#67B0A7]/5 shadow-md scale-[1.01]" : ""}`}>
+                  <div className={`bg-zinc-900/60 border border-zinc-850 rounded-3xl overflow-hidden transition-all duration-300 shadow-sm ${isOpen ? "border-indigo-500 bg-indigo-500/5 shadow-md scale-[1.01]" : ""}`}>
                     <button
                       onClick={() => setActive(isOpen ? null : i)}
-                      className="w-full flex items-center justify-between p-5 text-left cursor-pointer"
+                      className="w-full flex items-center justify-between p-5 text-left cursor-pointer animate-fade-in"
                     >
-                      <span className={`text-sm transition-colors duration-200 pr-4 ${isOpen ? "text-[#67B0A7] font-black" : "text-stone-800 font-black"}`}>
+                      <span className={`text-sm transition-colors duration-200 pr-4 font-display ${isOpen ? "text-indigo-400 font-bold" : "text-white font-bold"}`}>
                         {faq.q}
                       </span>
-                      <span className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? "bg-[#67B0A7] text-white" : "bg-stone-100 text-stone-500 border border-stone-200"}`}>
+                      <span className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? "bg-indigo-600 text-white" : "bg-zinc-950 text-zinc-400 border border-zinc-850"}`}>
                         {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
                       </span>
                     </button>
                     <div className={`overflow-hidden transition-all duration-350 ease-in-out ${isOpen ? "max-h-52" : "max-h-0"}`}>
-                      <p className="px-5 pb-5 text-sm text-stone-605 text-stone-600 leading-relaxed font-medium">
+                      <p className="px-5 pb-5 text-sm text-zinc-400 leading-relaxed font-medium">
                         {faq.a}
                       </p>
                     </div>

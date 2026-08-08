@@ -55,7 +55,7 @@ Sarah Jenkins`;
   }, []);
 
   return (
-    <section className="py-24 bg-zinc-950 text-white relative z-10 border-t border-zinc-800">
+    <section className="py-24 bg-[#06060c] text-white relative z-10 border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-6">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -63,11 +63,11 @@ Sarah Jenkins`;
           {/* Controls side */}
           <div className="lg:col-span-5 text-left order-first">
             <ScrollReveal variant="fade-up" delay={100}>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/90 text-amber-400 text-xs font-black uppercase tracking-widest border border-amber-400/40 shadow-xl mb-6">
-                <Mail className="w-4 h-4 text-amber-400" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-black uppercase tracking-widest border border-indigo-500/20 shadow-xl mb-6">
+                <Mail className="w-4 h-4 text-indigo-400" />
                 AI COVER LETTER STUDIO
               </div>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4 font-display">
                 Draft tailormade cover letters in 5 seconds
               </h2>
               <p className="text-sm sm:text-base text-zinc-400 leading-relaxed font-medium mb-8">
@@ -76,7 +76,7 @@ Sarah Jenkins`;
             </ScrollReveal>
 
             {/* Input form */}
-            <ScrollReveal variant="fade-up" delay={200} className="space-y-4 bg-zinc-900 border border-zinc-800 p-6 rounded-3xl">
+            <ScrollReveal variant="fade-up" delay={200} className="space-y-4 bg-zinc-900/60 border border-zinc-850 p-6 rounded-3xl">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 block">Job Role</label>
@@ -84,7 +84,7 @@ Sarah Jenkins`;
                     type="text"
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
-                    className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-indigo-500"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -93,7 +93,7 @@ Sarah Jenkins`;
                     type="text"
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
-                    className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-indigo-500"
                   />
                 </div>
               </div>
@@ -104,7 +104,7 @@ Sarah Jenkins`;
                   <select
                     value={tone}
                     onChange={(e) => setTone(e.target.value)}
-                    className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3 py-2.5 text-xs font-semibold text-zinc-350 appearance-none focus:outline-none focus:border-amber-400"
+                    className="w-full bg-zinc-950 border border-zinc-850 rounded-xl px-3 py-2.5 text-xs font-semibold text-zinc-350 appearance-none focus:outline-none focus:border-indigo-500"
                   >
                     <option>Professional</option>
                     <option>Confident & Bold</option>
@@ -118,31 +118,31 @@ Sarah Jenkins`;
               <button
                 onClick={handleGenerate}
                 disabled={isGenerating}
-                className="w-full py-3 bg-amber-400 hover:bg-amber-300 text-black font-black uppercase tracking-wider rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-sm disabled:opacity-50 mt-4 cursor-pointer transition-all"
+                className="w-full py-3 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-bold uppercase tracking-wide rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-indigo-500/20 disabled:opacity-50 mt-4 cursor-pointer transition-all"
               >
-                <Sparkles className="w-4 h-4 text-black animate-pulse" />
+                <Sparkles className="w-4 h-4 text-white animate-pulse" />
                 {isGenerating ? "AI Writing Letter..." : "Write Cover Letter"}
               </button>
             </ScrollReveal>
           </div>
 
           {/* Letter layout sheet side */}
-          <div className="lg:col-span-7 bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl flex flex-col items-center justify-center min-h-[460px] shadow-2xl">
+          <div className="lg:col-span-7 bg-zinc-900/60 border border-zinc-850 p-6 sm:p-8 rounded-3xl flex flex-col items-center justify-center min-h-[460px] shadow-2xl">
             <ScrollReveal variant="scale-in" delay={300} className="w-full max-w-[500px]">
               <div className="bg-black rounded-xl shadow-2xl p-6 sm:p-8 border border-zinc-850 min-h-[400px] flex flex-col justify-between text-left">
                 {/* Paper header */}
-                <div className="flex justify-between items-center pb-4 border-b border-zinc-900 mb-4">
+                <div className="flex justify-between items-center pb-4 border-b border-zinc-900/80 mb-4">
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-amber-400"></div>
+                    <div className="w-2 h-2 rounded-full bg-indigo-400"></div>
                     <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">AI Written Copy</span>
                   </div>
                   <button
                     onClick={handleCopy}
-                    className="text-[10px] font-bold text-zinc-300 hover:text-white bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-all cursor-pointer"
+                    className="text-[10px] font-bold text-zinc-350 hover:text-white bg-zinc-950 hover:bg-zinc-900 border border-zinc-850 px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-all cursor-pointer"
                   >
                     {showCopySuccess ? (
                       <>
-                        <Check className="w-3.5 h-3.5 text-amber-400" /> Copied!
+                        <Check className="w-3.5 h-3.5 text-indigo-400" /> Copied!
                       </>
                     ) : (
                       "Copy Code"
@@ -155,7 +155,7 @@ Sarah Jenkins`;
                   <pre className="text-[10px] sm:text-xs font-medium text-zinc-300 leading-relaxed font-sans whitespace-pre-wrap">
                     {outputText}
                     {isGenerating && (
-                      <span className="inline-block w-1.5 h-3.5 bg-amber-400 ml-0.5 animate-pulse"></span>
+                      <span className="inline-block w-1.5 h-3.5 bg-indigo-400 ml-0.5 animate-pulse"></span>
                     )}
                   </pre>
                 </div>

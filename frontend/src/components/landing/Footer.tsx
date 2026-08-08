@@ -46,7 +46,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-zinc-950 text-white pt-20 pb-10 border-t border-zinc-900 relative z-10">
+    <footer className="bg-[#06060c] text-white pt-20 pb-10 border-t border-zinc-900 relative z-10 font-sans">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Main Grid */}
@@ -55,8 +55,8 @@ export default function Footer() {
           {/* Brand Info & Newsletter */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2.5 w-fit">
-              <span className="font-black text-xl text-white">
-                ResumeFlow<span className="text-amber-400">AI</span>
+              <span className="font-black text-xl text-white font-display">
+                ResumeFlow<span className="text-indigo-400">AI</span>
               </span>
             </Link>
             <p className="text-xs text-zinc-400 leading-relaxed max-w-xs font-medium">
@@ -65,26 +65,26 @@ export default function Footer() {
 
             {/* Newsletter */}
             <div className="pt-2">
-              <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-3">Subscribe to our newsletter</p>
+              <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-3 font-display">Subscribe to our newsletter</p>
               {subscribed ? (
-                <div className="flex items-center gap-2 text-xs text-[#67B0A7] font-semibold">
-                  <CheckCircle2 className="w-4 h-4 text-[#67B0A7]" /> You&apos;re subscribed!
+                <div className="flex items-center gap-2 text-xs text-indigo-450 text-indigo-400 font-semibold">
+                  <CheckCircle2 className="w-4 h-4 text-indigo-400" /> You&apos;re subscribed!
                 </div>
               ) : (
-                <form onSubmit={handleSubscribe} className="flex gap-2 max-w-xs">
+                <form onSubmit={handleSubscribe} className="flex gap-2 max-w-xs font-display">
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@domain.com"
-                    className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 transition-all font-medium"
+                    className="flex-1 bg-zinc-950 border border-zinc-850 rounded-xl px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500 transition-all font-medium"
                   />
                   <button
                     type="submit"
-                    className="p-2.5 bg-amber-400 hover:bg-amber-300 text-black rounded-xl transition-colors cursor-pointer flex items-center justify-center shrink-0"
+                    className="p-2.5 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white rounded-xl transition-colors cursor-pointer flex items-center justify-center shrink-0"
                   >
-                    <Send className="w-4 h-4 text-black" />
+                    <Send className="w-4 h-4 text-white" />
                   </button>
                 </form>
               )}

@@ -48,47 +48,69 @@ export default function ATSChecker() {
   };
 
   return (
-    <section id="ats-resume-checker" className="py-24 bg-zinc-950 text-white relative z-10 border-t border-zinc-800">
+    <section id="ats-resume-checker" className="py-24 bg-[#06060c] text-white relative z-10 border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Header */}
         <ScrollReveal variant="fade-up" delay={100}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
             <div className="lg:col-span-6 text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/90 text-amber-400 text-xs font-black uppercase tracking-widest border border-amber-400/40 shadow-xl mb-6">
-                <SearchCode className="w-4 h-4 text-amber-400" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-black uppercase tracking-widest border border-indigo-500/20 shadow-xl mb-6">
+                <SearchCode className="w-4 h-4 text-indigo-400" />
                 ATS RESUME CHECKER
               </div>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4">
-                Scan keyword densities raw like corporate ATS parsers
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4 font-display">
+                Verify keyword coverage before applying
               </h2>
               <p className="text-sm sm:text-base text-zinc-400 leading-relaxed font-medium mb-6">
-                Most companies filter resumes with robots before a human ever reads them. ResumeFlow AI replicates ATS algorithms to highlight syntax matches and improve your placement probabilities.
+                Upload your resume, paste the target job description, and watch our parser overlay keyword matrices, evaluate section weight, and flag clunky formatting.
               </p>
-              <ul className="space-y-3.5 text-sm font-semibold text-zinc-350">
-                <li className="flex items-center gap-3 text-amber-400">
-                  <Check className="w-4 h-4 stroke-[3]" /> Flesch readability calibration diagnostics
+              <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl flex items-center gap-3 shadow-sm">
+                <Sparkles className="w-5 h-5 text-indigo-400 shrink-0" />
+                <p className="text-xs text-zinc-350 font-medium">
+                  Our scanner mimics corporate ATS filters (Greenhouse, Lever) to show you exactly how bots read your background.
+                </p>
+              </div>
+            </div>
+
+            {/* Checklist lists details */}
+            <div className="lg:col-span-6 text-left space-y-6">
+              <h3 className="text-lg font-black text-white uppercase tracking-tight leading-none font-display">
+                Advanced audit checklist parameters
+              </h3>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-semibold text-zinc-300">
+                <li className="flex items-center gap-3 text-indigo-400">
+                  <Check className="w-4 h-4 stroke-[3]" /> Keyword density overlay scans
                 </li>
-                <li className="flex items-center gap-3 text-amber-400">
-                  <Check className="w-4 h-4 stroke-[3]" /> Targeted density audits for core skills
+                <li className="flex items-center gap-3 text-indigo-400">
+                  <Check className="w-4 h-4 stroke-[3]" /> Action verb index checks
                 </li>
-                <li className="flex items-center gap-3 text-amber-400">
+                <li className="flex items-center gap-3 text-indigo-400">
+                  <Check className="w-4 h-4 stroke-[3]" /> Quantifiable achievements count
+                </li>
+                <li className="flex items-center gap-3 text-indigo-400">
+                  <Check className="w-4 h-4 stroke-[3]" /> Avoid buzzwords & clutter
+                </li>
+                <li className="flex items-center gap-3 text-indigo-400">
+                  <Check className="w-4 h-4 stroke-[3]" /> Recruiter parseability testing
+                </li>
+                <li className="flex items-center gap-3 text-indigo-400">
                   <Check className="w-4 h-4 stroke-[3]" /> Custom template sections format parser check
                 </li>
               </ul>
             </div>
 
             {/* ATS Sandbox Screen */}
-            <div className="lg:col-span-6 bg-black border-2 border-zinc-800 p-6 rounded-3xl shadow-2xl relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-amber-400/5 rounded-full blur-xl group-hover:bg-amber-400/10 transition-all pointer-events-none" />
+            <div className="lg:col-span-6 bg-black border-2 border-zinc-850 p-6 rounded-3xl shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-xl group-hover:bg-indigo-500/10 transition-all pointer-events-none" />
               
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-stretch">
                 
                 {/* Resume side with active scan line beam */}
-                <div className="sm:col-span-6 bg-zinc-900/80 border border-zinc-800 rounded-2xl p-4 relative overflow-hidden min-h-[300px] flex flex-col justify-between">
+                <div className="sm:col-span-6 bg-zinc-900/80 border border-zinc-850 rounded-2xl p-4 relative overflow-hidden min-h-[300px] flex flex-col justify-between">
                   {/* Scan line animated bar */}
                   {isScanning && (
-                    <div className="absolute left-0 right-0 h-1.5 bg-amber-400/30 border-y border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.7)] animate-scan z-30 pointer-events-none"></div>
+                    <div className="absolute left-0 right-0 h-1.5 bg-indigo-500/30 border-y border-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.7)] animate-scan z-30 pointer-events-none"></div>
                   )}
 
                   {/* Header content mock */}
@@ -105,7 +127,7 @@ export default function ATSChecker() {
                     <div className="h-3 bg-zinc-850 rounded-sm w-full"></div>
                     {/* Active highlight matching animation */}
                     <div className={`h-3.5 rounded-sm w-5/6 transition-all duration-300 ${
-                      isScanning ? "bg-amber-400/10 border border-amber-400/20 animate-pulse text-[9px] font-black text-amber-400 flex items-center px-1.5" : "bg-zinc-800"
+                      isScanning ? "bg-indigo-500/10 border border-indigo-500/20 animate-pulse text-[9px] font-black text-indigo-400 flex items-center px-1.5" : "bg-zinc-800"
                     }`}>
                       {isScanning ? "Scanning keywords..." : ""}
                     </div>
@@ -116,7 +138,7 @@ export default function ATSChecker() {
                   <button
                     onClick={handleScan}
                     disabled={isScanning}
-                    className="w-full py-2.5 bg-amber-400 hover:bg-amber-300 text-black font-black uppercase rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-sm disabled:opacity-50 cursor-pointer transition-all"
+                    className="w-full py-2.5 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-bold uppercase rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-sm disabled:opacity-50 cursor-pointer transition-all"
                   >
                     {isScanning ? (
                       <>
@@ -124,14 +146,14 @@ export default function ATSChecker() {
                       </>
                     ) : (
                       <>
-                        <Play className="w-3.5 h-3.5 fill-black" /> Run ATS Audit
+                        <Play className="w-3.5 h-3.5 fill-white text-white" /> Run ATS Audit
                       </>
                     )}
                   </button>
                 </div>
 
                 {/* Score and matched keywords info */}
-                <div className="sm:col-span-6 bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 flex flex-col justify-between">
+                <div className="sm:col-span-6 bg-zinc-900/80 border border-zinc-850 rounded-2xl p-5 flex flex-col justify-between">
                   {/* Score circle */}
                   <div className="text-center pb-4 border-b border-zinc-850">
                     <div className="relative w-20 h-20 mx-auto flex items-center justify-center mb-2">
@@ -141,7 +163,7 @@ export default function ATSChecker() {
                           cx="40"
                           cy="40"
                           r="34"
-                          className="text-amber-400 transition-all duration-1000"
+                          className="text-indigo-400 transition-all duration-1000"
                           strokeWidth="6"
                           strokeDasharray={213.6}
                           strokeDashoffset={213.6 - (213.6 * currentScore) / 100}
@@ -161,7 +183,7 @@ export default function ATSChecker() {
                       <div key={kw.name} className="flex justify-between items-center text-[10px] font-bold">
                         <span className="text-zinc-350">{kw.name}</span>
                         {kw.found ? (
-                          <span className="text-amber-400 flex items-center gap-0.5 bg-amber-400/10 border border-amber-400/20 px-1.5 py-0.5 rounded-sm">
+                          <span className="text-indigo-400 flex items-center gap-0.5 bg-indigo-500/10 border border-indigo-500/20 px-1.5 py-0.5 rounded-sm">
                             <Check className="w-3.5 h-3.5 stroke-[3.5]" /> Match
                           </span>
                         ) : (
@@ -176,8 +198,8 @@ export default function ATSChecker() {
                   {/* Alert prompt based on scanning */}
                   <div className="text-[9px] bg-zinc-950 border border-zinc-850 rounded-lg p-2 font-medium text-zinc-400 leading-normal text-left">
                     {hasScanned ? (
-                      <span className="text-amber-400 font-semibold flex items-start gap-1">
-                        <Sparkles className="w-3 h-3 text-amber-400 shrink-0 mt-0.5" /> Great! TypeScript matched. Add &quot;Kubernetes&quot; to hit 100% density.
+                      <span className="text-indigo-400 font-semibold flex items-start gap-1">
+                        <Sparkles className="w-3 h-3 text-indigo-400 shrink-0 mt-0.5" /> Great! TypeScript matched. Add &quot;Kubernetes&quot; to hit 100% density.
                       </span>
                     ) : isScanning ? (
                       <span>Running diagnostics and checks...</span>
