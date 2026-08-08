@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, Mic, CheckCircle2, AlertTriangle, Info, Play, PenTool, Trash2, Settings, MessageSquareCode, Award, History, Volume2, Sparkles, ChevronRight, Check, X } from "lucide-react";
+import { ArrowLeft, Mic, CheckCircle2, AlertTriangle, Info, Play, PenTool, Trash2, Settings, MessageSquareCode, Award, History, Volume2, Sparkles, ChevronRight, Check, X, Zap } from "lucide-react";
 
 interface InterviewPrepProps {
   resumeData?: any;
@@ -428,7 +428,10 @@ export default function InterviewPrep({ resumeData, onNavigate, showToast }: Int
             onClick={handleStartInterview}
             className="w-full clay-btn-primary py-3 text-xs text-white font-bold tracking-wider uppercase cursor-pointer"
           >
-            ⚡ Start Interview Simulator
+            <span className="flex items-center justify-center gap-2">
+              <Zap className="w-3.5 h-3.5 fill-white text-white" />
+              <span>Start Interview Simulator</span>
+            </span>
           </button>
         </div>
       )}
