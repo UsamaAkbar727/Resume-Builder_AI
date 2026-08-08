@@ -73,6 +73,50 @@ export default function DashboardWrapper() {
   const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [language, setLanguage] = useState("en");
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  const addNotification = (title: string, desc: string, category: string = "system") => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("resumeflow_notifications");
+      let list = [];
+      if (saved) {
+        try {
+          list = JSON.parse(saved);
+        } catch (e) {}
+      }
+      const newNotif = {
+        id: Date.now().toString(),
+        title,
+        desc,
+        time: "Just now",
+        read: false,
+        category
+      };
+      list.unshift(newNotif);
+      localStorage.setItem("resumeflow_notifications", JSON.stringify(list));
+      window.dispatchEvent(new Event("storage"));
+    }
+  };
+
+  const updateUnreadCount = () => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("resumeflow_notifications");
+      if (saved) {
+        try {
+          const list = JSON.parse(saved);
+          setUnreadCount(list.filter((n: any) => !n.read).length);
+          return;
+        } catch (e) {}
+      }
+      setUnreadCount(1); // default seed count
+    }
+  };
+
+  useEffect(() => {
+    updateUnreadCount();
+    window.addEventListener("storage", updateUnreadCount);
+    return () => window.removeEventListener("storage", updateUnreadCount);
+  }, []);
 
   // Read language on mount
   useEffect(() => {
@@ -291,18 +335,71 @@ export default function DashboardWrapper() {
     }
   }, []);
 
-  // Save to localStorage when jobs update
+  const prevJobsRef = React.useRef<Job[]>([]);
+  const prevResumeRef = React.useRef<any>(null);
+  const isInitialMount = React.useRef(true);
+
+  // Save to localStorage and detect changes when jobs update
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("resumeflow_jobs", JSON.stringify(jobs));
     }
+
+    if (isInitialMount.current) {
+      prevJobsRef.current = jobs;
+      return;
+    }
+
+    // Compare and find modified/new jobs
+    jobs.forEach(job => {
+      const prevJob = prevJobsRef.current.find(j => j.id === job.id);
+      
+      // Status change alert
+      if (prevJob && prevJob.status !== job.status) {
+        let category = "system";
+        if (job.status === "Interview") category = "interview";
+        else if (job.status === "Applied" || job.status === "Offer") category = "tracker";
+        
+        let msg = `Your application status for ${job.role} at ${job.company} was updated to '${job.status}'.`;
+        if (job.status === "Interview") {
+          msg = `Congrats! Your interview process with ${job.company} for the ${job.role} position has officially started.`;
+        } else if (job.status === "Offer") {
+          msg = `Excellent news! You received an official job offer from ${job.company} for the ${job.role} role. 🎉`;
+        }
+
+        addNotification(
+          job.status === "Offer" ? "Offer Received! 🎉" : "Application Status Changed",
+          msg,
+          category
+        );
+      }
+    });
+
+    prevJobsRef.current = jobs;
   }, [jobs]);
 
-  // Save to localStorage when resume updates
+  // Save to localStorage and detect resume updates
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("resumeflow_resume", JSON.stringify(resumeData));
     }
+
+    if (isInitialMount.current) {
+      prevResumeRef.current = resumeData;
+      isInitialMount.current = false;
+      return;
+    }
+
+    if (prevResumeRef.current && JSON.stringify(prevResumeRef.current) !== JSON.stringify(resumeData)) {
+      const skillsPart = typeof resumeData.skills === "string" ? resumeData.skills.split(",").slice(0, 3).join(", ") : "skills";
+      addNotification(
+        "Resume Profile Updated",
+        `Your active resume profile has been updated. Key capabilities: ${skillsPart}...`,
+        "system"
+      );
+    }
+
+    prevResumeRef.current = resumeData;
   }, [resumeData]);
 
   const sidebarItems: SidebarItem[] = [
@@ -328,6 +425,11 @@ export default function DashboardWrapper() {
 
   const handleAddJob = (newJob: Job) => {
     setJobs([...jobs, newJob]);
+    addNotification(
+      "Job Added to Tracker", 
+      `Successfully added ${newJob.company} (${newJob.role}) to your Kanban tracker as '${newJob.status}'.`,
+      "tracker"
+    );
   };
 
   const handleNavigate = (tab: string) => {
@@ -456,10 +558,12 @@ export default function DashboardWrapper() {
 
             <button
               onClick={() => setActiveTab("notifications")}
-              className="w-9 h-9 rounded-xl bg-white border border-[#E5E7EB]/80 flex items-center justify-center text-sm relative hover:bg-[#EEF2F7]/50 text-[#6B7280] hover:text-[#111827] transition-colors"
+              className="w-9 h-9 rounded-xl bg-white border border-[#E5E7EB]/80 flex items-center justify-center text-sm relative hover:bg-[#EEF2F7]/50 text-[#6B7280] hover:text-[#111827] transition-colors cursor-pointer"
             >
               <LucideIcons.Bell className="w-4 h-4" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#DC2626]"></span>
+              {unreadCount > 0 && (
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#DC2626] animate-pulse"></span>
+              )}
             </button>
             <div className="hidden md:flex flex-col text-right">
               <span className="font-bold text-xs text-[#111827]">Sarah Jenkins</span>
