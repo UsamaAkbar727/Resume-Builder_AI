@@ -19,103 +19,105 @@ import Pricing from "@/components/landing/Pricing";
 import FAQ from "@/components/landing/FAQ";
 import CTA from "@/components/landing/CTA";
 import Footer from "@/components/landing/Footer";
+import SectionWrap from "@/components/landing/SectionWrap";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#fbfbfc] text-zinc-900 relative overflow-hidden flex flex-col font-sans antialiased">
+    <div className="min-h-screen text-zinc-900 relative flex flex-col font-sans antialiased overflow-x-hidden">
       {/* Premium Navbar */}
       <Navbar />
 
-      {/* Main landing sections in required structure */}
       <main className="flex-1">
-        {/* 1. Hero Section */}
-        <section className="section-wave">
+        {/* 1. Hero — soft blue bg + wave into warm cream */}
+        <SectionWrap index={0}>
           <Hero />
-        </section>
+        </SectionWrap>
 
-        {/* 2. Trusted Companies Logos */}
-        <section className="section-angled">
+        {/* 2. Logos — warm cream bg + angled into mint */}
+        <SectionWrap index={1}>
           <Logos />
-        </section>
+        </SectionWrap>
 
-        {/* 3. Statistics Section */}
-        <section className="section-diagonal">
+        {/* 3. Stats — mint bg + diagonal into lavender */}
+        <SectionWrap index={2}>
           <Stats />
-        </section>
+        </SectionWrap>
 
-        {/* 4. Core Features Grid */}
-        <section className="section-layered">
+        {/* 4. Features — lavender bg + blob into amber */}
+        <SectionWrap index={3}>
           <Features />
-        </section>
+        </SectionWrap>
 
-        {/* 5. 5-Step Yellow & Black S-Curve Infographic Roadmap */}
-        <section className="section-blob">
+        {/* 5. HowItWorks — amber bg + layered into sky blue */}
+        <SectionWrap index={4}>
           <HowItWorks />
-        </section>
+        </SectionWrap>
 
         {/* Anchor point for Interactive Tools */}
         <div id="interactive-tools" className="scroll-mt-20">
-          
-          {/* 5. Resume Builder Demo */}
-          <section className="section-gradient-fade">
+
+          {/* 6. ResumeDemo — sky blue bg + rounded into pink blush */}
+          <SectionWrap index={5}>
             <ResumeDemo />
-          </section>
+          </SectionWrap>
 
-          {/* 6. ATS Resume Checker */}
-          <section className="section-dotted">
+          {/* 7. ATSChecker — pink blush bg + zigzag into fresh green */}
+          <SectionWrap index={6}>
             <ATSChecker />
-          </section>
+          </SectionWrap>
 
-          {/* 7. Resume Templates Showcase */}
-          <section className="section-floating">
+          {/* 8. Templates — fresh green bg + asymmetric into lemon */}
+          <SectionWrap index={7}>
             <Templates />
-          </section>
+          </SectionWrap>
 
-          {/* 8. AI Cover Letter Generator */}
-          <section className="section-rounded-end">
+          {/* 9. CoverLetter — lemon bg + curve into blue */}
+          <SectionWrap index={8}>
             <CoverLetter />
-          </section>
+          </SectionWrap>
 
-          {/* 9. Job Tracker Kanban Board */}
-          <section className="section-asymmetric">
+          {/* 10. KanbanBoard — blue bg + mountain into purple */}
+          <SectionWrap index={9}>
             <KanbanBoard />
-          </section>
+          </SectionWrap>
 
-          {/* 10. AI Interview Coach */}
-          <section className="section-wave">
+          {/* 11. InterviewPrep — purple bg + wave into green */}
+          <SectionWrap index={10}>
             <InterviewPrep />
-          </section>
+          </SectionWrap>
 
-          {/* 11. Portfolio Builder */}
-          <section className="section-angled">
+          {/* 12. PortfolioShowcase — green bg + angled into gold */}
+          <SectionWrap index={11}>
             <PortfolioShowcase />
-          </section>
-          
+          </SectionWrap>
+
         </div>
 
-        {/* 12. Candidate Testimonials */}
-        <section className="section-diagonal">
+        {/* 13. Testimonials — gold bg + diagonal into blue */}
+        <SectionWrap index={12}>
           <Testimonials />
-        </section>
+        </SectionWrap>
 
-        {/* 13. Transparent Pricing */}
-        <section className="section-layered">
+        {/* 14. Pricing — blue bg + blob into neutral */}
+        <SectionWrap index={13}>
           <Pricing />
-        </section>
+        </SectionWrap>
 
-        {/* 14. Frequently Asked Questions */}
-        <section className="section-blob">
+        {/* 15. FAQ — neutral bg + layered into dark */}
+        <SectionWrap index={14}>
           <FAQ />
-        </section>
+        </SectionWrap>
 
-        {/* 15. Final Call To Action Banner */}
-        <section className="section-gradient-fade">
+        {/* 16. CTA — dark bg + rounded into footer */}
+        <SectionWrap index={15}>
           <CTA />
-        </section>
+        </SectionWrap>
       </main>
 
       {/* Premium Footer */}
-      <Footer />
+      <div style={{ background: "#0f172a" }}>
+        <Footer />
+      </div>
     </div>
   );
 }
