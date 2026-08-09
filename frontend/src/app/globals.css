@@ -111,10 +111,10 @@ h1, h2, h3, h4 {
   letter-spacing: -0.02em;
 }
 
-/* ── SectionWrap: strip the hardcoded bg-[#fbfbfc] from every inner
-   <section> or <div> so the coloured SectionWrap background shows through ── */
-[data-section-wrap] > section,
-[data-section-wrap] > div:not([data-svg-divider]) {
+/* ── SectionWrap: strip every hardcoded bg from inner landing <section>
+   elements so the coloured SectionWrap wrapper shows through ── */
+.section-inner-shell > section,
+.section-inner-shell > div > section {
   background: transparent !important;
   border-top-color: transparent !important;
   border-bottom-color: transparent !important;
