@@ -29,57 +29,89 @@ export default function LandingPage() {
       {/* Main landing sections in required structure */}
       <main className="flex-1">
         {/* 1. Hero Section */}
-        <Hero />
+        <section className="section-wave">
+          <Hero />
+        </section>
 
         {/* 2. Trusted Companies Logos */}
-        <Logos />
+        <section className="section-angled">
+          <Logos />
+        </section>
 
         {/* 3. Statistics Section */}
-        <Stats />
+        <section className="section-diagonal">
+          <Stats />
+        </section>
 
         {/* 4. Core Features Grid */}
-        <Features />
+        <section className="section-layered">
+          <Features />
+        </section>
 
         {/* 5. 5-Step Yellow & Black S-Curve Infographic Roadmap */}
-        <HowItWorks />
+        <section className="section-blob">
+          <HowItWorks />
+        </section>
 
         {/* Anchor point for Interactive Tools */}
         <div id="interactive-tools" className="scroll-mt-20">
           
           {/* 5. Resume Builder Demo */}
-          <ResumeDemo />
+          <section className="section-gradient-fade">
+            <ResumeDemo />
+          </section>
 
           {/* 6. ATS Resume Checker */}
-          <ATSChecker />
+          <section className="section-dotted">
+            <ATSChecker />
+          </section>
 
           {/* 7. Resume Templates Showcase */}
-          <Templates />
+          <section className="section-floating">
+            <Templates />
+          </section>
 
           {/* 8. AI Cover Letter Generator */}
-          <CoverLetter />
+          <section className="section-rounded-end">
+            <CoverLetter />
+          </section>
 
           {/* 9. Job Tracker Kanban Board */}
-          <KanbanBoard />
+          <section className="section-asymmetric">
+            <KanbanBoard />
+          </section>
 
           {/* 10. AI Interview Coach */}
-          <InterviewPrep />
+          <section className="section-wave">
+            <InterviewPrep />
+          </section>
 
           {/* 11. Portfolio Builder */}
-          <PortfolioShowcase />
+          <section className="section-angled">
+            <PortfolioShowcase />
+          </section>
           
         </div>
 
         {/* 12. Candidate Testimonials */}
-        <Testimonials />
+        <section className="section-diagonal">
+          <Testimonials />
+        </section>
 
         {/* 13. Transparent Pricing */}
-        <Pricing />
+        <section className="section-layered">
+          <Pricing />
+        </section>
 
         {/* 14. Frequently Asked Questions */}
-        <FAQ />
+        <section className="section-blob">
+          <FAQ />
+        </section>
 
         {/* 15. Final Call To Action Banner */}
-        <CTA />
+        <section className="section-gradient-fade">
+          <CTA />
+        </section>
       </main>
 
       {/* Premium Footer */}
