@@ -425,6 +425,176 @@ h1, h2, h3, h4 {
   border-radius: 2px;
 }
 
+/* ── Section Transition Utilities ── */
+
+/* Wave bottom transition */
+.section-wave {
+  position: relative;
+  overflow: hidden;
+}
+.section-wave::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: var(--color-background);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 0% 100%);
+}
+
+/* Angled/slanted divider */
+.section-angled {
+  position: relative;
+  overflow: hidden;
+}
+.section-angled::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: var(--color-background);
+  transform: skewY(-6deg);
+  transform-origin: bottom left;
+}
+
+/* Diagonal geometric cut */
+.section-diagonal {
+  position: relative;
+  overflow: hidden;
+}
+.section-diagonal::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: var(--color-background);
+  clip-path: polygon(0% 30%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+/* Layered overlapping shapes */
+.section-layered {
+  position: relative;
+  overflow: hidden;
+}
+.section-layered::after,
+.section-layered::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: var(--color-background);
+}
+.section-layered::after {
+  transform: translateY(20px) rotate(2deg);
+}
+.section-layered::before {
+  transform: translateY(40px) rotate(-2deg);
+}
+
+/* Soft curved blob transition */
+.section-blob {
+  position: relative;
+  overflow: hidden;
+}
+.section-blob::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 120%;
+  height: 120px;
+  background: var(--color-background);
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  transform: translateX(-10%);
+}
+
+/* Gradient fade into next section */
+.section-gradient-fade {
+  position: relative;
+  overflow: hidden;
+}
+.section-gradient-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, var(--color-background));
+}
+
+/* Decorative dotted/grid transition */
+.section-dotted {
+  position: relative;
+  overflow: hidden;
+}
+.section-dotted::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: radial-gradient(circle, var(--color-background) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Floating elements crossing between sections */
+.section-floating {
+  position: relative;
+  overflow: visible;
+}
+.section-floating::before {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Large rounded container ending */
+.section-rounded-end {
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  overflow: hidden;
+}
+
+/* Asymmetric modern cut */
+.section-asymmetric {
+  position: relative;
+  overflow: hidden;
+}
+.section-asymmetric::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: var(--color-background);
+  clip-path: polygon(0% 0%, 100% 20%, 100% 100%, 0% 80%);
+}
+
+/* End of Section Transition Utilities */
+.section-divider {
+  width: 48px;
+  height: 4px;
+  background: linear-gradient(90deg, #2563EB, #7C3AED);
+  border-radius: 2px;
+}
+
 /* ── Mesh Grid Background ── */
 .bg-grid {
   background-image: linear-gradient(to right, #f0f0f5 1px, transparent 1px),
