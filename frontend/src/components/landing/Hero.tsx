@@ -321,7 +321,7 @@ export default function Hero() {
                 {/* Crisp Printable Resume Sheet */}
                 <div
                   key={activeTemplate.id}
-                  className="bg-white text-slate-800 rounded-xl shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)] border border-zinc-200/60 min-h-[370px] text-left animate-in fade-in slide-in-from-bottom-4 duration-500 relative overflow-hidden grid grid-cols-12 z-10"
+                  className="bg-white text-slate-800 rounded-xl shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)] border border-zinc-200/60 h-[390px] text-left animate-in fade-in slide-in-from-bottom-4 duration-500 relative overflow-hidden grid grid-cols-12 z-10"
                 >
                   {/* Decorative paper texture */}
                   <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none rounded-xl z-0" />
