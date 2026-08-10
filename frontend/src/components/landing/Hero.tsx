@@ -438,9 +438,11 @@ export default function Hero() {
                     <>
                       {/* Dark Gray/Black Sidebar (Left Column) */}
                       <div className="col-span-5 bg-zinc-950 text-white p-3 space-y-4 relative z-10 flex flex-col justify-start">
-                        {/* Profile Photo - Rectangular */}
-                        <div className="w-full aspect-[4/3] overflow-hidden rounded-lg shadow-sm border border-zinc-800 shrink-0">
-                          <img src={activeTemplate.avatar} alt={activeTemplate.candidateName} className="w-full h-full object-cover" />
+                        {/* Profile Photo - Circular (matched to other templates) */}
+                        <div className="flex justify-center my-1 shrink-0">
+                          <div className="w-16 h-16 overflow-hidden rounded-full shadow-sm border-2 border-zinc-700 shrink-0">
+                            <img src={activeTemplate.avatar} alt={activeTemplate.candidateName} className="w-full h-full object-cover object-top" />
+                          </div>
                         </div>
 
                         {/* Contact */}
