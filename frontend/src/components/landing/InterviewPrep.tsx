@@ -56,7 +56,10 @@ const INTERVIEW_STEPS = [
 
 export default function InterviewPrep() {
   return (
-    <section id="interview-prep" className="relative py-20 lg:py-28 bg-[#fbfbfc] text-zinc-900 overflow-hidden border-b border-zinc-100">
+    <section id="interview-prep" className="relative py-20 lg:py-28 bg-[#EEF2FF] text-zinc-900 overflow-hidden">
+      
+      {/* Subtle centered radial glow */}
+      <div className="section-radial-accent" />
       
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         

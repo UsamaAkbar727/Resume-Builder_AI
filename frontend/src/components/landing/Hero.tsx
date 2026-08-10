@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
-  ArrowRight, Check, Star, Sparkles, ShieldCheck, 
-  FileText, CheckCircle2, Download, Upload,
-  Zap, MousePointerClick, Globe, Navigation,
+  ArrowRight, Star, Sparkles,
+  FileText, Upload,
+  Zap, TrendingUp, Target,
   Pause, Play
 } from "lucide-react";
 import { ScrollReveal } from "./Animations";
@@ -136,47 +136,6 @@ const SHOWCASE_TEMPLATES: ShowcaseTemplate[] = [
   }
 ];
 
-{/* Large Animated 3D World Globe Vector Background Component */}
-function BackgroundLeftWorldGlobe() {
-  return (
-    <div className="absolute top-6 -left-28 sm:-left-36 md:-left-44 lg:-left-52 w-[420px] h-[420px] sm:w-[550px] sm:h-[550px] lg:w-[720px] lg:h-[720px] pointer-events-none z-0 opacity-20 sm:opacity-25 lg:opacity-30">
-      
-      {/* Ambient Pulsing Radial Aura behind Left Globe */}
-      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/20 via-violet-500/5 to-transparent blur-3xl animate-pulse-slow" />
-
-      {/* Rotating Dotted Global Wireframe SVG */}
-      <svg 
-        className="w-full h-full text-indigo-400/30 animate-[spin_80s_linear_infinite]" 
-        viewBox="0 0 200 200" 
-        fill="none" 
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="100" cy="100" r="95" stroke="currentColor" strokeWidth="1.2" strokeDasharray="6 4" opacity="0.6" />
-        <circle cx="100" cy="100" r="82" stroke="currentColor" strokeWidth="1" strokeDasharray="4 3" opacity="0.5" />
-        <circle cx="100" cy="100" r="65" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3 3" opacity="0.4" />
-        <ellipse cx="100" cy="100" rx="95" ry="38" stroke="currentColor" strokeWidth="1.2" strokeDasharray="5 4" opacity="0.65" />
-        <ellipse cx="100" cy="100" rx="38" ry="95" stroke="currentColor" strokeWidth="1.2" strokeDasharray="5 4" opacity="0.65" />
-        <line x1="5" y1="100" x2="195" y2="100" stroke="currentColor" strokeWidth="1" strokeDasharray="4 2" opacity="0.5" />
-        <line x1="100" y1="5" x2="100" y2="195" stroke="currentColor" strokeWidth="1" strokeDasharray="4 2" opacity="0.5" />
-        <circle cx="100" cy="5" r="4" fill="#6366F1" />
-        <circle cx="195" cy="100" r="4" fill="#8B5CF6" />
-        <circle cx="100" cy="195" r="4" fill="#6366F1" />
-        <circle cx="5" cy="100" r="4" fill="#06B6D4" />
-      </svg>
-
-      <div className="absolute top-16 left-28 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg text-indigo-600 animate-float hidden sm:flex items-center gap-2 text-xs font-bold z-10">
-        <Globe className="w-4 h-4 text-indigo-600 animate-spin-slow" />
-        <span>50+ Countries</span>
-      </div>
-
-      <div className="absolute bottom-24 left-16 p-2.5 rounded-2xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg text-indigo-600 animate-float-delayed hidden md:flex items-center gap-2 text-xs font-bold z-10">
-        <Navigation className="w-4 h-4 text-indigo-600" />
-        <span>Global Remote Hire</span>
-      </div>
-    </div>
-  );
-}
-
 export default function Hero() {
   const [slideIndex, setSlideIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -193,13 +152,16 @@ export default function Hero() {
   const activeTemplate = SHOWCASE_TEMPLATES[slideIndex];
 
   return (
-    <section className="relative overflow-hidden bg-[#fbfbfc] text-zinc-900 pt-10 pb-20 md:pt-16 md:pb-28 border-b border-zinc-100">
-      
-      {/* Mesh Grid & World Globe Vector Background */}
-      <div className="absolute inset-0 bg-dot-grid opacity-[0.03] pointer-events-none z-0" />
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-indigo-500/5 via-violet-500/3 to-transparent rounded-full blur-3xl pointer-events-none" />
-      
-      <BackgroundLeftWorldGlobe />
+    <section className="relative overflow-hidden bg-[#fbfbfc] text-zinc-900 pt-10 pb-20 md:pt-16 md:pb-28">
+
+      {/* Faint dot grid background */}
+      <div className="absolute inset-0 bg-dot-grid-faint opacity-60 pointer-events-none z-0" />
+
+      {/* Right-side radial purple glow */}
+      <div className="hero-glow" />
+
+      {/* Left-side faint blue glow */}
+      <div className="hero-glow-left" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -246,14 +208,14 @@ export default function Hero() {
             {/* Micro Social Proof Badges */}
             <ScrollReveal variant="fade-up" delay={180}>
               <div className="space-y-2.5 pt-4 border-t border-zinc-200/80">
-                <div className="flex items-center gap-2 text-sm font-semibold text-zinc-650 text-zinc-600">
+                <div className="flex items-center gap-2 text-sm font-semibold text-zinc-600">
                   <div className="w-5 h-5 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center font-bold text-xs">
                     ✓
                   </div>
                   <span><strong className="text-zinc-900 font-extrabold">39%</strong> more likely to land the job</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-sm font-semibold text-zinc-650 text-zinc-600">
+                <div className="flex items-center gap-2 text-sm font-semibold text-zinc-600">
                   <div className="flex items-center text-indigo-600 gap-0.5">
                     <Star className="w-4 h-4 fill-current animate-pulse-slow" />
                     <Star className="w-4 h-4 fill-current animate-pulse-slow" />
@@ -268,120 +230,101 @@ export default function Hero() {
 
           </div>
 
-          {/* ── RIGHT COLUMN: PURE REAL CV TEMPLATE SHOWCASE (REDESIGNED PREMIUM SaaS WORKSPACE) ── */}
+          {/* ── RIGHT COLUMN: Premium Product Preview ── */}
           <div className="lg:col-span-6 relative flex flex-col justify-center items-center w-full">
-            
-            {/* Outer Ambient Glow */}
-            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-indigo-500/5 via-violet-500/3 to-cyan-500/3 blur-2xl pointer-events-none" />
 
-            {/* Redesigned template tracker header */}
-            <div className="mb-4 z-20 flex items-center justify-between w-full max-w-lg bg-white/95 text-zinc-900 px-4 py-2.5 rounded-2xl border border-zinc-200/80 shadow-xl shadow-zinc-200/25">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
-                <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest font-display">
-                  Live Showcase: {activeTemplate.name}
-                </span>
-              </div>
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="p-1.5 rounded-xl bg-zinc-50 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 transition-colors cursor-pointer flex items-center gap-1 text-[10px] font-bold border border-zinc-200"
-                title={isPlaying ? "Pause rotation" : "Play rotation"}
-              >
-                {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                <span>{isPlaying ? "Pause" : "Play"}</span>
-              </button>
-            </div>
-
-            {/* FLOATING INTERACTIVE WIDGET 1: ATS SCORE METER */}
-            <div className="absolute -top-5 -right-2 sm:-right-4 z-25 bg-white/95 backdrop-blur-md border border-zinc-200/80 text-zinc-900 rounded-2xl p-3 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex items-center gap-3.5 animate-float max-w-[170px]">
+            {/* === FLOATING CARD 1: ATS Score — top right === */}
+            <div className="hero-float-card absolute -top-4 right-0 sm:-right-4 z-30 flex items-center gap-3 px-4 py-3 animate-float">
+              {/* Circular progress ring */}
               <div className="relative flex items-center justify-center shrink-0">
-                <svg className="w-10 h-10 transform -rotate-90">
-                  <circle cx="20" cy="20" r="16" stroke="#f4f4f5" strokeWidth="2.5" fill="transparent" />
-                  <circle 
-                    cx="20" 
-                    cy="20" 
-                    r="16" 
-                    stroke="#4f46e5" 
-                    strokeWidth="2.5" 
-                    fill="transparent"
-                    strokeDasharray="100.5" 
-                    strokeDashoffset={100.5 * (1 - activeTemplate.atsScore / 100)}
+                <svg className="w-11 h-11 -rotate-90" viewBox="0 0 44 44">
+                  <circle cx="22" cy="22" r="18" stroke="#F1F5F9" strokeWidth="3" fill="none" />
+                  <circle
+                    cx="22" cy="22" r="18"
+                    stroke="#4f46e5"
+                    strokeWidth="3"
+                    fill="none"
+                    strokeDasharray="113"
+                    strokeDashoffset={113 * (1 - activeTemplate.atsScore / 100)}
                     strokeLinecap="round"
                     className="transition-all duration-700 ease-out"
                   />
                 </svg>
-                <span className="absolute text-[10px] font-black">{activeTemplate.atsScore}%</span>
+                <span className="absolute text-[10px] font-black text-zinc-800">{activeTemplate.atsScore}%</span>
               </div>
-              <div className="min-w-0">
-                <p className="text-[8px] font-black text-indigo-600 uppercase tracking-widest leading-none font-display">ATS Score</p>
-                <p className="text-[10px] font-black text-zinc-800 mt-1 truncate">Excellent Match</p>
-              </div>
-            </div>
-
-            {/* FLOATING INTERACTIVE WIDGET 2: AI AUDIT CHECKLIST */}
-            <div className="absolute top-1/4 -left-4 sm:-left-8 z-25 bg-white/95 backdrop-blur-md border border-zinc-200/80 text-zinc-900 rounded-2xl p-3.5 shadow-[0_12px_40px_rgba(0,0,0,0.06)] space-y-2 animate-float-delayed max-w-[180px] hidden sm:block">
-              <div className="flex items-center gap-1.5 border-b border-zinc-100 pb-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-indigo-650 text-indigo-600" />
-                <span className="text-[8px] font-black uppercase tracking-wider text-zinc-400 font-display">AI Checklist</span>
-              </div>
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-[7px]">✓</div>
-                  <span className="text-[9px] font-bold text-zinc-600">Action Verbs (+12%)</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-[7px]">✓</div>
-                  <span className="text-[9px] font-bold text-zinc-600">Metrics Quantified</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-[7px]">✓</div>
-                  <span className="text-[9px] font-bold text-zinc-600">No Clichés Found</span>
-                </div>
+              <div>
+                <p className="text-[10px] font-black text-indigo-600 uppercase tracking-widest leading-none font-display">ATS Score</p>
+                <p className="text-sm font-bold text-zinc-900 mt-0.5 leading-none">Excellent match</p>
               </div>
             </div>
 
-            {/* FLOATING INTERACTIVE WIDGET 3: EXPORT STATUS */}
-            <div className="absolute bottom-10 -left-2 sm:-left-6 z-25 bg-white/95 backdrop-blur-md border border-zinc-200/80 text-zinc-900 rounded-2xl px-3 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex items-center gap-2.5 animate-float">
-              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-              <div className="flex flex-col">
-                <span className="text-[8px] font-black uppercase tracking-widest text-zinc-450 text-zinc-500 leading-none font-display">Status</span>
-                <span className="text-[10px] font-black text-zinc-800 mt-0.5">LaTeX Export Ready</span>
+            {/* === FLOATING CARD 2: AI Suggestions — left center === */}
+            <div className="hero-float-card absolute top-1/3 -left-4 sm:-left-8 z-30 flex items-center gap-3 px-4 py-3 animate-float-delayed hidden sm:flex">
+              <div className="w-9 h-9 rounded-xl bg-violet-50 border border-violet-100 flex items-center justify-center shrink-0">
+                <Sparkles className="w-4 h-4 text-violet-600" />
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-violet-600 uppercase tracking-widest leading-none font-display">AI Suggestions</p>
+                <p className="text-sm font-bold text-zinc-900 mt-0.5 leading-none">+12 improvements</p>
               </div>
             </div>
 
-            {/* Redesigned Premium Editor Window Frame */}
-            <div className="relative w-full max-w-lg bg-zinc-100/60 backdrop-blur-md border border-zinc-200/80 rounded-3xl shadow-[0_24px_50px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col z-10">
-              
+            {/* === FLOATING CARD 3: Job Match — bottom left === */}
+            <div className="hero-float-card absolute bottom-8 -left-2 sm:-left-6 z-30 flex items-center gap-3 px-4 py-3 animate-float">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0">
+                <Target className="w-4 h-4 text-emerald-600" />
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest leading-none font-display">Job Match</p>
+                <p className="text-sm font-bold text-zinc-900 mt-0.5 leading-none">96% aligned</p>
+              </div>
+            </div>
+
+            {/* Outer ambient glow behind the mockup */}
+            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-indigo-500/[0.04] via-violet-500/[0.02] to-transparent blur-xl pointer-events-none" />
+
+            {/* ── MAIN PRODUCT MOCKUP WINDOW ── */}
+            <div className="relative w-full max-w-lg bg-zinc-50 border border-zinc-200/80 rounded-2xl shadow-[0_20px_60px_-10px_rgba(15,23,42,0.10),0_0_0_1px_rgba(226,232,240,0.6)] overflow-hidden flex flex-col z-10">
+
               {/* Editor Tab Bar & Window Header */}
-              <div className="flex items-center justify-between border-b border-zinc-200/60 px-4 py-3 bg-zinc-50/50">
+              <div className="flex items-center justify-between border-b border-zinc-200/60 px-4 py-3 bg-white/80">
                 <div className="flex items-center gap-1.5">
-                  <span className="w-3 h-3 rounded-full bg-red-500/80 border border-red-600/30" />
-                  <span className="w-3 h-3 rounded-full bg-yellow-500/80 border border-yellow-600/30" />
-                  <span className="w-3 h-3 rounded-full bg-green-500/80 border border-green-600/30" />
-                </div>
-                
-                <div className="flex items-center gap-1 bg-white px-3 py-1 rounded-lg border border-zinc-200 text-[10px] text-zinc-500 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>resumeflow.ai/editor</span>
+                  <span className="w-3 h-3 rounded-full bg-red-400/80" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-400/80" />
+                  <span className="w-3 h-3 rounded-full bg-green-400/80" />
                 </div>
 
-                <div className="flex items-center gap-1">
-                  <span className="text-[9px] font-black uppercase text-indigo-650 text-indigo-650 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 font-display">
-                    Live Preview
+                {/* Redesigned template tracker */}
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+                  <span className="text-[10px] font-semibold text-zinc-500 font-display">
+                    {activeTemplate.name}
                   </span>
+                  <button
+                    onClick={() => setIsPlaying(!isPlaying)}
+                    className="ml-1 p-1 rounded-md bg-zinc-100 hover:bg-zinc-200 text-zinc-500 transition-colors cursor-pointer"
+                    title={isPlaying ? "Pause rotation" : "Play rotation"}
+                  >
+                    {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-1 bg-indigo-50 border border-indigo-100 text-indigo-600 px-2.5 py-1 rounded-lg">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-[9px] font-black uppercase tracking-wide font-display">Live Preview</span>
                 </div>
               </div>
 
               {/* Editor Canvas Area */}
-              <div className="p-4 sm:p-6 bg-zinc-50/20 relative">
-                
-                {/* Crisp Printable Resume Sheet (Customized Layouts from User Screenshots) */}
-                <div 
+              <div className="p-3 sm:p-5 bg-zinc-50/40 relative">
+
+                {/* Crisp Printable Resume Sheet */}
+                <div
                   key={activeTemplate.id}
-                  className="bg-white text-slate-800 rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.06)] border border-zinc-200/60 min-h-[385px] text-left animate-in fade-in slide-in-from-bottom-6 duration-500 relative overflow-hidden grid grid-cols-12 z-10"
+                  className="bg-white text-slate-800 rounded-xl shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)] border border-zinc-200/60 min-h-[370px] text-left animate-in fade-in slide-in-from-bottom-4 duration-500 relative overflow-hidden grid grid-cols-12 z-10"
                 >
-                  {/* Decorative faint background pattern for paper feel */}
-                  <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none rounded-2xl z-0" />
+                  {/* Decorative paper texture */}
+                  <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none rounded-xl z-0" />
 
                   {activeTemplate.id === "husnain_yousaf" && (
                     <>
@@ -442,7 +385,7 @@ export default function Hero() {
                       {/* Right Main Body */}
                       <div className="col-span-7 bg-white p-3 space-y-3 relative z-10 flex flex-col justify-start">
                         {/* Header block */}
-                        <div className="bg-[#0d3c33] text-white p-3 -mx-3 -mt-3 rounded-tr-2xl space-y-0.5 shrink-0">
+                        <div className="bg-[#0d3c33] text-white p-3 -mx-3 -mt-3 rounded-tr-xl space-y-0.5 shrink-0">
                           <h3 className="text-sm sm:text-base font-black tracking-tight leading-none">Husnain Yousaf</h3>
                           <p className="text-[9px] font-extrabold uppercase tracking-widest text-emerald-350">Graphic Designer</p>
                           <p className="text-[7.5px] text-zinc-300 leading-relaxed font-medium pt-1 border-t border-emerald-900/60 mt-1 line-clamp-2">
@@ -542,7 +485,7 @@ export default function Hero() {
                       {/* Right Main Body */}
                       <div className="col-span-7 bg-white p-3 space-y-3 relative z-10 flex flex-col justify-start">
                         {/* Header Banner */}
-                        <div className="bg-[#967b66] text-white p-3 -mx-3 -mt-3 rounded-tr-2xl space-y-0.5 shrink-0">
+                        <div className="bg-[#967b66] text-white p-3 -mx-3 -mt-3 rounded-tr-xl space-y-0.5 shrink-0">
                           <h3 className="text-sm sm:text-base font-black tracking-tight uppercase leading-none">USAMA AKBAR</h3>
                           <p className="text-[8.5px] font-extrabold tracking-widest italic opacity-95 text-[#fcd34d]">Full-Stack Web Developer</p>
                         </div>
@@ -679,13 +622,13 @@ export default function Hero() {
             </div>
 
             {/* Pagination Controls */}
-            <div className="mt-4 flex items-center justify-center gap-2 z-20">
+            <div className="mt-5 flex items-center justify-center gap-2 z-20">
               {SHOWCASE_TEMPLATES.map((t, idx) => (
                 <button
                   key={t.id}
                   onClick={() => setSlideIndex(idx)}
-                  className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                    slideIndex === idx ? "w-8 bg-amber-400 shadow-md shadow-amber-500/30" : "w-2.5 bg-zinc-800 hover:bg-zinc-750"
+                  className={`h-2 rounded-full transition-all cursor-pointer ${
+                    slideIndex === idx ? "w-8 bg-indigo-500 shadow-sm shadow-indigo-500/30" : "w-2 bg-zinc-300 hover:bg-zinc-400"
                   }`}
                   title={t.name}
                 />

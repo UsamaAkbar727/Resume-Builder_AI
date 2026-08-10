@@ -115,9 +115,7 @@ export default function LandingPage() {
       </main>
 
       {/* Premium Footer */}
-      <div style={{ background: "#0f172a" }}>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }

@@ -111,7 +111,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="py-20 lg:py-28 bg-[#fbfbfc] text-zinc-900 relative z-10 border-t border-zinc-100 overflow-hidden">
+    <section className="py-20 lg:py-28 bg-[#F8F7FF] text-zinc-900 relative z-10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
 
         {/* Header — left aligned */}

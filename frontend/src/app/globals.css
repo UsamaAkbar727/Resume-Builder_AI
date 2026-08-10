@@ -88,6 +88,137 @@
   to { stroke-dashoffset: 0; }
 }
 
+@keyframes fade-up-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.65; transform: scale(1.04); }
+}
+
+/* ============================================================
+   PREMIUM SAAS SECTION DECORATIONS
+   ============================================================ */
+
+/* Hero radial glow — very subtle purple/blue */
+.hero-glow {
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 680px;
+  height: 680px;
+  background: radial-gradient(ellipse at center,
+    rgba(99, 102, 241, 0.055) 0%,
+    rgba(124, 58, 237, 0.03) 40%,
+    transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: glow-pulse 8s ease-in-out infinite;
+}
+
+.hero-glow-left {
+  position: absolute;
+  bottom: -60px;
+  left: -120px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse at center,
+    rgba(59, 130, 246, 0.04) 0%,
+    transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Faint dot grid — hero + section backgrounds */
+.bg-dot-grid-faint {
+  background-image: radial-gradient(rgba(99, 102, 241, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Section radial accent — center glow for stats / pricing */
+.section-radial-accent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse at center,
+    rgba(99, 102, 241, 0.06) 0%,
+    rgba(124, 58, 237, 0.02) 40%,
+    transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Thin gradient hr between visually-similar adjacent sections */
+.hr-section {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.12) 20%,
+    rgba(124, 58, 237, 0.1) 50%,
+    rgba(99, 102, 241, 0.12) 80%,
+    transparent 100%);
+  border: none;
+  margin: 0;
+}
+
+/* Dark CTA section decorations */
+.cta-dark-glow-1 {
+  position: absolute;
+  top: -100px;
+  right: -60px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse at center,
+    rgba(99, 102, 241, 0.18) 0%,
+    rgba(124, 58, 237, 0.08) 40%,
+    transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.cta-dark-glow-2 {
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(ellipse at center,
+    rgba(59, 130, 246, 0.12) 0%,
+    transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(50px);
+}
+
+/* Premium floating card — hero side */
+.hero-float-card {
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 32px -8px rgba(15, 23, 42, 0.10),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  backdrop-filter: blur(12px);
+}
+
+/* Dark footer grid pattern */
+.footer-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
 /* ============================================================
    BASE
    ============================================================ */

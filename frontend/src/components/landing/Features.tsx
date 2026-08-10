@@ -54,14 +54,10 @@ const HUB_FEATURES = [
 
 export default function Features() {
   return (
-    <section id="features" className="relative py-20 lg:py-28 bg-[#fbfbfc] text-zinc-900 overflow-hidden border-b border-zinc-100">
+    <section id="features" className="relative py-20 lg:py-28 bg-[#F5F8FF] text-zinc-900 overflow-hidden">
 
-      {/* Glossy Top-Right & Bottom-Left Diagonal Corner Strips (Light theme version) */}
-      <div className="absolute -top-16 -right-16 w-64 h-64 bg-gradient-to-br from-indigo-50/30 to-violet-50/30 rotate-45 border-b-4 border-indigo-200 shadow-md pointer-events-none opacity-80" />
-      <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-gradient-to-tr from-violet-50/30 to-cyan-50/30 rotate-45 border-t-4 border-violet-200 shadow-md pointer-events-none opacity-80" />
-
-      {/* Carbon Texture Dot Overlay */}
-      <div className="absolute inset-0 bg-dot-grid opacity-[0.03] pointer-events-none z-0" />
+      {/* Faint dot grid texture */}
+      <div className="absolute inset-0 bg-dot-grid-faint opacity-40 pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 

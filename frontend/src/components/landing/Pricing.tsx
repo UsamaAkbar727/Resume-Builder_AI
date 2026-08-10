@@ -59,7 +59,9 @@ export default function Pricing() {
   const [cycle, setCycle] = useState<Cycle>("annually");
 
   return (
-    <section id="pricing" className="py-28 bg-[#fbfbfc] text-zinc-900 relative z-10 border-t border-zinc-100">
+    <section id="pricing" className="py-28 bg-[#EEF2FF] text-zinc-900 relative z-10 overflow-hidden">
+      {/* Subtle centered radial glow behind cards */}
+      <div className="section-radial-accent" />
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
 
         <ScrollReveal variant="fade-up" delay={0}>

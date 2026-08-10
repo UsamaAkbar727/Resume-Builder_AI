@@ -23,7 +23,7 @@ export default function PortfolioShowcase() {
   };
 
   return (
-    <section id="portfolio-builder" className="py-24 bg-[#fbfbfc] text-zinc-900 relative z-10 border-t border-zinc-100">
+    <section id="portfolio-builder" className="py-24 bg-[#ffffff] text-zinc-900 relative z-10">
       <div className="max-w-7xl mx-auto px-6">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

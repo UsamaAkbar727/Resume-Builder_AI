@@ -15,7 +15,7 @@ export default function FAQ() {
   const [active, setActive] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-28 bg-[#fbfbfc] text-zinc-900 relative z-10 border-t border-zinc-100">
+    <section id="faq" className="py-28 bg-[#FAFAFC] text-zinc-900 relative z-10">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
 
         {/* Two-column layout */}

@@ -11,11 +11,13 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="py-20 bg-[#fbfbfc] text-zinc-900 relative z-10 border-b border-zinc-100">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+    <section className="py-20 bg-[#EEF2FF] text-zinc-900 relative z-10 overflow-hidden">
+      {/* Subtle centered radial glow */}
+      <div className="section-radial-accent" />
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
 
         {/* Horizontal number bar — not cards, unique layout */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-y lg:divide-y-0 divide-zinc-200/80 border border-zinc-200/80 rounded-3xl overflow-hidden bg-white/80 backdrop-blur-md shadow-xl shadow-zinc-200/20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-y lg:divide-y-0 divide-zinc-200/60 border border-zinc-200/60 rounded-3xl overflow-hidden bg-white/90 backdrop-blur-md shadow-xl shadow-indigo-900/5">
           {stats.map((s, i) => (
             <ScrollReveal key={s.label} variant="fade-up" delay={i * 60}>
               <div className="px-8 py-10 relative group hover:bg-zinc-50/50 transition-colors duration-300">

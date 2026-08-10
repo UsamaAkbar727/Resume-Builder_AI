@@ -16,9 +16,9 @@ const allLogos = [...logos, ...logos];
 
 export default function Logos() {
   return (
-    <section className="bg-[#fbfbfc] border-b border-zinc-100 py-10 overflow-hidden relative z-10">
+    <section className="bg-[#F8F7FF] py-10 overflow-hidden relative z-10">
       <ScrollReveal variant="fade" delay={0}>
-        <p className="text-center text-[10px] font-black uppercase tracking-widest text-zinc-500 mb-7 font-display">
+        <p className="text-center text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-7 font-display">
           Trusted by candidates landing at
         </p>
       </ScrollReveal>
@@ -26,8 +26,8 @@ export default function Logos() {
       {/* Marquee track */}
       <div className="relative">
         {/* Edge fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fbfbfc] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fbfbfc] to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#F8F7FF] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#F8F7FF] to-transparent z-10 pointer-events-none" />
 
         <div className="flex overflow-hidden">
           <div
