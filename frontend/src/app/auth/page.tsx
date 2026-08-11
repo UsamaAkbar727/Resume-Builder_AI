@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { 
   ArrowLeft, FileText, Brain, Cpu, Sparkles, 
-  Download, CheckCircle2, Zap, Briefcase 
+  Download, CheckCircle2, Zap, Briefcase, Loader2
 } from "lucide-react";
 
 type AuthMode = "login" | "register" | "forgot" | "reset" | "verify" | "2fa";
@@ -21,11 +21,7 @@ function AuthContent() {
   const [otp, setOtp] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-
-  // Prefetch dashboard page for truly instant demo login transition
-  useEffect(() => {
-    router.prefetch("/dashboard");
-  }, [router]);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   useEffect(() => {
     const urlMode = searchParams.get("mode") as AuthMode;
@@ -63,6 +59,7 @@ function AuthContent() {
         return;
       }
       setSuccessMsg("Verification successful! Logging in...");
+      setIsLoggingIn(true);
       setTimeout(() => {
         router.push("/dashboard");
       }, 300); // reduced timeout for snappier feel
@@ -77,6 +74,7 @@ function AuthContent() {
 
   // Automatic developer fast login bypass
   const handleDemoLogin = () => {
+    setIsLoggingIn(true);
     router.push("/dashboard");
   };
 
@@ -256,12 +254,25 @@ function AuthContent() {
               </div>
             )}
 
-            <button type="submit" className="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold text-sm uppercase tracking-wider shadow-lg shadow-indigo-600/10 hover:shadow-indigo-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer">
-              {mode === "login" && "Verify & Continue"}
-              {mode === "register" && "Register Account"}
-              {mode === "forgot" && "Send Reset Link"}
-              {mode === "verify" && "Verify Code"}
-              {mode === "2fa" && "Complete Sign In"}
+            <button 
+              type="submit" 
+              disabled={isLoggingIn}
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold text-sm uppercase tracking-wider shadow-lg shadow-indigo-600/10 hover:shadow-indigo-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoggingIn ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  <span>Logging In...</span>
+                </>
+              ) : (
+                <>
+                  {mode === "login" && "Verify & Continue"}
+                  {mode === "register" && "Register Account"}
+                  {mode === "forgot" && "Send Reset Link"}
+                  {mode === "verify" && "Verify Code"}
+                  {mode === "2fa" && "Complete Sign In"}
+                </>
+              )}
             </button>
           </form>
 
@@ -282,17 +293,29 @@ function AuthContent() {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
+                  disabled={isLoggingIn}
                   onClick={handleDemoLogin}
-                  className="w-full py-2.5 rounded-xl bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 text-zinc-700 text-xs font-bold transition-all flex justify-center items-center gap-2 cursor-pointer"
+                  className="w-full py-2.5 rounded-xl bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 text-zinc-700 text-xs font-bold transition-all flex justify-center items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span className="text-xs text-zinc-400 font-black">G</span> Google
+                  {isLoggingIn ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-zinc-400" />
+                  ) : (
+                    <span className="text-xs text-zinc-400 font-black">G</span>
+                  )}
+                  Google
                 </button>
                 <button
                   type="button"
+                  disabled={isLoggingIn}
                   onClick={handleDemoLogin}
-                  className="w-full py-2.5 rounded-xl bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 text-zinc-700 text-xs font-bold transition-all flex justify-center items-center gap-2 cursor-pointer"
+                  className="w-full py-2.5 rounded-xl bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 text-zinc-700 text-xs font-bold transition-all flex justify-center items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span className="text-xs text-indigo-600 font-black">in</span> LinkedIn
+                  {isLoggingIn ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-indigo-600" />
+                  ) : (
+                    <span className="text-xs text-indigo-600 font-black">in</span>
+                  )}
+                  LinkedIn
                 </button>
               </div>
             </div>
@@ -325,10 +348,20 @@ function AuthContent() {
           <div className="mt-6 p-3.5 rounded-xl bg-indigo-50/50 border border-dashed border-indigo-200 text-center">
             <button
               onClick={handleDemoLogin}
-              className="text-xs text-indigo-600 font-black hover:text-indigo-700 hover:underline cursor-pointer flex items-center justify-center gap-1.5 w-full"
+              disabled={isLoggingIn}
+              className="text-xs text-indigo-600 font-black hover:text-indigo-700 hover:underline cursor-pointer flex items-center justify-center gap-1.5 w-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Zap className="w-3.5 h-3.5 fill-indigo-600 text-indigo-600 animate-pulse" />
-              <span>Instant Demo Login (Skip Auth)</span>
+              {isLoggingIn ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-indigo-600" />
+                  <span>Logging in...</span>
+                </>
+              ) : (
+                <>
+                  <Zap className="w-3.5 h-3.5 fill-indigo-600 text-indigo-600 animate-pulse" />
+                  <span>Instant Demo Login (Skip Auth)</span>
+                </>
+              )}
             </button>
           </div>
         </div>

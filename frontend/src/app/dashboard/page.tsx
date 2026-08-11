@@ -3,26 +3,99 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import * as LucideIcons from "lucide-react";
+import dynamic from "next/dynamic";
 
-// Import panel components
-import DashboardOverview from "@/components/panels/DashboardOverview";
-import ResumeBuilder from "@/components/panels/ResumeBuilder";
-import ResumeAnalyzer from "@/components/panels/ResumeAnalyzer";
-import ResumeOptimizer from "@/components/panels/ResumeOptimizer";
-import CoverLetterGenerator from "@/components/panels/CoverLetterGenerator";
-import JobTracker from "@/components/panels/JobTracker";
-import JobImport from "@/components/panels/JobImport";
-import JobMatching from "@/components/panels/JobMatching";
-import InterviewPrep from "@/components/panels/InterviewPrep";
-import CareerAdvisor from "@/components/panels/CareerAdvisor";
-import PortfolioBuilder from "@/components/panels/PortfolioBuilder";
-import DocumentsManager from "@/components/panels/DocumentsManager";
-import CalendarView from "@/components/panels/CalendarView";
-import AnalyticsView from "@/components/panels/AnalyticsView";
-import NotificationsView from "@/components/panels/NotificationsView";
-import ProfileView from "@/components/panels/ProfileView";
-import SettingsView from "@/components/panels/SettingsView";
-import AdminPanel from "@/components/panels/AdminPanel";
+// Custom premium glassmorphic loader with pulse animation
+function PanelLoader({ label }: { label: string }) {
+  return (
+    <div className="w-full min-h-[400px] flex flex-col items-center justify-center p-8 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-200/50 dark:border-slate-800/85 shadow-xs animate-pulse">
+      <div className="relative w-16 h-16 flex items-center justify-center mb-6">
+        <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-xl animate-pulse" />
+        <div className="w-12 h-12 rounded-full border-4 border-indigo-100 dark:border-slate-800 border-t-indigo-600 dark:border-t-indigo-500 animate-spin" />
+      </div>
+      <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 tracking-tight">
+        Loading {label}...
+      </h3>
+      <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+        Preparing your premium ATS-optimized space
+      </p>
+    </div>
+  );
+}
+
+// Dynamically imported panel components
+const DashboardOverview = dynamic(() => import("@/components/panels/DashboardOverview"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Dashboard Overview" />
+});
+const ResumeBuilder = dynamic(() => import("@/components/panels/ResumeBuilder"), {
+  ssr: false,
+  loading: () => <PanelLoader label="AI Resume Builder" />
+});
+const ResumeAnalyzer = dynamic(() => import("@/components/panels/ResumeAnalyzer"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Resume Analyzer" />
+});
+const ResumeOptimizer = dynamic(() => import("@/components/panels/ResumeOptimizer"), {
+  ssr: false,
+  loading: () => <PanelLoader label="AI Resume Optimizer" />
+});
+const CoverLetterGenerator = dynamic(() => import("@/components/panels/CoverLetterGenerator"), {
+  ssr: false,
+  loading: () => <PanelLoader label="AI Cover Letter Generator" />
+});
+const JobTracker = dynamic(() => import("@/components/panels/JobTracker"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Job Kanban Tracker" />
+});
+const JobImport = dynamic(() => import("@/components/panels/JobImport"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Job Import Scraper" />
+});
+const JobMatching = dynamic(() => import("@/components/panels/JobMatching"), {
+  ssr: false,
+  loading: () => <PanelLoader label="AI Job Matching" />
+});
+const InterviewPrep = dynamic(() => import("@/components/panels/InterviewPrep"), {
+  ssr: false,
+  loading: () => <PanelLoader label="AI Mock Interview Prep" />
+});
+const CareerAdvisor = dynamic(() => import("@/components/panels/CareerAdvisor"), {
+  ssr: false,
+  loading: () => <PanelLoader label="AI Career Advisor" />
+});
+const PortfolioBuilder = dynamic(() => import("@/components/panels/PortfolioBuilder"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Portfolio Builder" />
+});
+const DocumentsManager = dynamic(() => import("@/components/panels/DocumentsManager"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Documents Manager" />
+});
+const CalendarView = dynamic(() => import("@/components/panels/CalendarView"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Calendar" />
+});
+const AnalyticsView = dynamic(() => import("@/components/panels/AnalyticsView"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Analytics Stats" />
+});
+const NotificationsView = dynamic(() => import("@/components/panels/NotificationsView"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Notifications" />
+});
+const ProfileView = dynamic(() => import("@/components/panels/ProfileView"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Profile" />
+});
+const SettingsView = dynamic(() => import("@/components/panels/SettingsView"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Settings" />
+});
+const AdminPanel = dynamic(() => import("@/components/panels/AdminPanel"), {
+  ssr: false,
+  loading: () => <PanelLoader label="Admin Operations" />
+});
 import { TRANSLATIONS } from "@/utils/i18n";
 
 // Centralized state models
