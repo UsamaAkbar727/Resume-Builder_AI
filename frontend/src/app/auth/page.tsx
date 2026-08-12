@@ -7,6 +7,7 @@ import {
   ArrowLeft, FileText, Brain, Cpu, Sparkles, 
   Download, CheckCircle2, Zap, Briefcase, Loader2
 } from "lucide-react";
+import { api } from "@/utils/api";
 
 type AuthMode = "login" | "register" | "forgot" | "reset" | "verify" | "2fa";
 
@@ -22,6 +23,7 @@ function AuthContent() {
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [twoFactorToken, setTwoFactorToken] = useState("");
 
   useEffect(() => {
     const urlMode = searchParams.get("mode") as AuthMode;
@@ -30,51 +32,118 @@ function AuthContent() {
     }
   }, [searchParams]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
     setSuccessMsg("");
+    setIsLoggingIn(true);
 
-    if (mode === "login") {
-      if (!email || !password) {
-        setErrorMsg("Please fill in all fields.");
-        return;
+    try {
+      if (mode === "login") {
+        if (!email || !password) {
+          setErrorMsg("Please fill in all fields.");
+          setIsLoggingIn(false);
+          return;
+        }
+
+        const res = await api.auth.login(email, password);
+        if (res.requires_2fa) {
+          setTwoFactorToken(res.two_factor_token);
+          setOtp("");
+          setSuccessMsg(res.message);
+          setMode("2fa");
+        } else {
+          setSuccessMsg("Success! Redirecting...");
+          setTimeout(() => {
+            router.push("/dashboard");
+          }, 300);
+        }
+      } else if (mode === "register") {
+        if (!name || !email || !password) {
+          setErrorMsg("Please fill in all fields.");
+          setIsLoggingIn(false);
+          return;
+        }
+
+        await api.auth.register(name, email, password);
+        setOtp("");
+        setSuccessMsg("Account created! A 6-digit verification code has been sent to your email.");
+        setMode("verify");
+      } else if (mode === "verify") {
+        if (!otp) {
+          setErrorMsg("Please enter the verification code.");
+          setIsLoggingIn(false);
+          return;
+        }
+
+        await api.auth.verifyEmail(email, otp);
+        setSuccessMsg("Email verified successfully! You can now log in.");
+        setMode("login");
+        setPassword("");
+        setOtp("");
+      } else if (mode === "2fa") {
+        if (otp.length !== 6) {
+          setErrorMsg("Verification code must be 6 digits.");
+          setIsLoggingIn(false);
+          return;
+        }
+
+        await api.auth.verify2fa(twoFactorToken, otp);
+        setSuccessMsg("Verification successful! Redirecting...");
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 300);
+      } else if (mode === "forgot") {
+        if (!email) {
+          setErrorMsg("Please enter your email.");
+          setIsLoggingIn(false);
+          return;
+        }
+
+        const res = await api.auth.forgotPassword(email);
+        setSuccessMsg(res.message);
+        setOtp("");
+        setMode("reset");
+      } else if (mode === "reset") {
+        if (!otp || !password) {
+          setErrorMsg("Please fill in all fields.");
+          setIsLoggingIn(false);
+          return;
+        }
+        if (password.length < 8) {
+          setErrorMsg("Password must be at least 8 characters.");
+          setIsLoggingIn(false);
+          return;
+        }
+
+        const res = await api.auth.resetPassword(email, otp, password);
+        setSuccessMsg(res.message);
+        setMode("login");
+        setPassword("");
+        setOtp("");
       }
-      // Switch to 2FA for security demo
-      setSuccessMsg("Credentials valid. Please verify 2FA.");
-      setMode("2fa");
-    } else if (mode === "register") {
-      if (!name || !email || !password) {
-        setErrorMsg("Please fill in all fields.");
-        return;
-      }
-      setSuccessMsg("Account created! Please verify your email.");
-      setMode("verify");
-    } else if (mode === "verify") {
-      setSuccessMsg("Email verified successfully! You can now log in.");
-      setMode("login");
-    } else if (mode === "2fa") {
-      if (otp.length !== 6) {
-        setErrorMsg("Verification code must be 6 digits.");
-        return;
-      }
-      setSuccessMsg("Verification successful! Logging in...");
-      setIsLoggingIn(true);
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 300); // reduced timeout for snappier feel
-    } else if (mode === "forgot") {
-      if (!email) {
-        setErrorMsg("Please enter your email.");
-        return;
-      }
-      setSuccessMsg("Password reset link sent to your email!");
+    } catch (err: any) {
+      console.error(err);
+      setErrorMsg(err.data?.message || err.message || "An authentication error occurred.");
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
   // Automatic developer fast login bypass
   const handleDemoLogin = () => {
     setIsLoggingIn(true);
+    // Seed local Storage with dummy auth token to access pages in offline / demo fallback mode
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_token", "demo_mode_token");
+      localStorage.setItem("resumeflow_user", JSON.stringify({
+        id: 1,
+        name: "Sarah Jenkins",
+        email: "sarah.jenkins@company.com",
+        email_verified_at: new Date().toISOString(),
+        two_factor_enabled: false
+      }));
+    }
     router.push("/dashboard");
   };
 
@@ -143,7 +212,8 @@ function AuthContent() {
           <h2 className="text-2.5xl font-black text-center text-zinc-900 mb-6 tracking-tight font-display">
             {mode === "login" && "Welcome Back"}
             {mode === "register" && "Create Account"}
-            {mode === "forgot" && "Reset Password"}
+            {mode === "forgot" && "Forgot Password"}
+            {mode === "reset" && "Reset Password"}
             {mode === "verify" && "Verify Your Email"}
             {mode === "2fa" && "2-Factor Security"}
           </h2>
@@ -221,16 +291,69 @@ function AuthContent() {
             )}
 
             {mode === "verify" && (
-              <div>
-                <label className="block text-[10px] font-extrabold text-zinc-500 uppercase tracking-widest mb-2 text-center">
-                  Verification Code
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter code sent to your email"
-                  className="w-full bg-white border border-zinc-200 focus:border-indigo-600 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-600/10 transition-all text-center tracking-widest font-bold"
-                />
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-[10px] font-extrabold text-zinc-500 uppercase tracking-widest mb-2 text-center">
+                    Verification Code
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter code sent to your email"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+                    className="w-full bg-white border border-zinc-200 focus:border-indigo-600 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-600/10 transition-all text-center tracking-widest font-bold"
+                  />
+                </div>
+                <div className="text-center">
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      setErrorMsg("");
+                      setSuccessMsg("");
+                      try {
+                        const res = await api.auth.resendVerification(email);
+                        setSuccessMsg(res.message);
+                      } catch (err: any) {
+                        setErrorMsg(err.data?.message || err.message);
+                      }
+                    }}
+                    className="text-xs text-indigo-600 font-bold hover:text-indigo-700 hover:underline cursor-pointer"
+                  >
+                    Resend verification code
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {mode === "reset" && (
+              <div className="space-y-4 text-left">
+                <div>
+                  <label className="block text-[10px] font-extrabold text-zinc-500 uppercase tracking-widest mb-2">
+                    Verification Code
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter 6-digit code"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+                    className="w-full bg-white border border-zinc-200 focus:border-indigo-600 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-600/10 transition-all text-center tracking-widest font-bold"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-extrabold text-zinc-500 uppercase tracking-widest mb-2">
+                    New Password
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-white border border-zinc-200 focus:border-indigo-600 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-600/10 transition-all"
+                  />
+                </div>
               </div>
             )}
 
@@ -262,13 +385,14 @@ function AuthContent() {
               {isLoggingIn ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin text-white" />
-                  <span>Logging In...</span>
+                  <span>Please wait...</span>
                 </>
               ) : (
                 <>
                   {mode === "login" && "Verify & Continue"}
                   {mode === "register" && "Register Account"}
-                  {mode === "forgot" && "Send Reset Link"}
+                  {mode === "forgot" && "Send Reset Code"}
+                  {mode === "reset" && "Reset Password"}
                   {mode === "verify" && "Verify Code"}
                   {mode === "2fa" && "Complete Sign In"}
                 </>
