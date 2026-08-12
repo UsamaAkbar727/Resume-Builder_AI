@@ -10,7 +10,12 @@ use Illuminate\Support\Facades\Route;
 
 // Public Auth routes
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
+Route::post('/resend-verification', [AuthController::class, 'resendVerification']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/verify-2fa', [AuthController::class, 'verify2fa']);
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
 // Public / Hybrid Job Feed & Matching API Endpoints
 Route::get('/jobs/feed', [JobAggregatorController::class, 'feed']);
@@ -25,6 +30,11 @@ Route::get('/advisor/mock-interview', [CareerAdvisorController::class, 'mockInte
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
+    
+    // Authenticated 2FA management endpoints
+    Route::post('/2fa/setup', [AuthController::class, 'setup2fa']);
+    Route::post('/2fa/enable', [AuthController::class, 'enable2fa']);
+    Route::post('/2fa/disable', [AuthController::class, 'disable2fa']);
 
     // Resumes endpoints
     Route::apiResource('resumes', ResumeController::class);
