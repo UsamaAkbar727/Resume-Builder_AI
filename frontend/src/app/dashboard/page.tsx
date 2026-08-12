@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import * as LucideIcons from "lucide-react";
 import dynamic from "next/dynamic";
+import { api } from "@/utils/api";
 
 // Custom premium glassmorphic loader with pulse animation
 function PanelLoader({ label }: { label: string }) {
@@ -147,6 +148,39 @@ export default function DashboardWrapper() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [language, setLanguage] = useState("en");
   const [unreadCount, setUnreadCount] = useState(0);
+
+  const [userProfile, setUserProfile] = useState<{ name: string; email: string }>({
+    name: "Sarah Jenkins",
+    email: "sarah@stripe.com",
+  });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const u = await api.auth.user();
+        setUserProfile({ name: u.name, email: u.email });
+      } catch (e) {
+        if (typeof window !== "undefined") {
+          const cached = localStorage.getItem("resumeflow_user");
+          if (cached) {
+            try {
+              const parsed = JSON.parse(cached);
+              setUserProfile({ name: parsed.name, email: parsed.email });
+            } catch (err) {}
+          }
+        }
+      }
+    };
+    fetchProfile();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await api.auth.logout();
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const addNotification = (title: string, desc: string, category: string = "system") => {
     if (typeof window !== "undefined") {
@@ -571,14 +605,14 @@ export default function DashboardWrapper() {
         <div className="border-t border-[#E5E7EB]/60 pt-4 flex items-center justify-between gap-3 text-left">
           <div className="flex items-center gap-2">
             <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-xs text-[#2563EB]">
-              SJ
+              {userProfile.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <h5 className="font-bold text-xs text-[#111827]">Sarah Jenkins</h5>
-              <span className="text-[10px] text-[#6B7280] block truncate max-w-[110px]">sarah@stripe.com</span>
+              <h5 className="font-bold text-xs text-[#111827]">{userProfile.name}</h5>
+              <span className="text-[10px] text-[#6B7280] block truncate max-w-[110px]">{userProfile.email}</span>
             </div>
           </div>
-          <Link href="/auth?mode=login" className="text-[#6B7280] hover:text-[#DC2626] font-bold p-1.5 hover:bg-[#EEF2F7] rounded-lg transition-colors border border-transparent hover:border-[#E5E7EB]/50">
+          <Link href="/auth?mode=login" onClick={handleLogout} className="text-[#6B7280] hover:text-[#DC2626] font-bold p-1.5 hover:bg-[#EEF2F7] rounded-lg transition-colors border border-transparent hover:border-[#E5E7EB]/50">
             <LucideIcons.LogOut className="w-4 h-4" />
           </Link>
         </div>
@@ -639,14 +673,14 @@ export default function DashboardWrapper() {
               )}
             </button>
             <div className="hidden md:flex flex-col text-right">
-              <span className="font-bold text-xs text-[#111827]">Sarah Jenkins</span>
+              <span className="font-bold text-xs text-[#111827]">{userProfile.name}</span>
               <span className="text-[10px] text-[#6B7280]">Staff Account</span>
             </div>
             <button
               onClick={() => setActiveTab("profile")}
               className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center font-bold text-xs text-[#2563EB] border border-[#E5E7EB]/50"
             >
-              SJ
+              {userProfile.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase()}
             </button>
           </div>
         </header>
@@ -860,16 +894,19 @@ export default function DashboardWrapper() {
             <div className="border-t border-[#E5E7EB]/60 pt-4 flex items-center justify-between gap-3 text-left">
               <div className="flex items-center gap-2">
                 <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-xs text-[#2563EB]">
-                  SJ
+                  {userProfile.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase()}
                 </div>
                 <div>
-                  <h5 className="font-bold text-xs text-[#111827]">Sarah Jenkins</h5>
-                  <span className="text-[10px] text-[#6B7280] block truncate max-w-[110px]">sarah@stripe.com</span>
+                  <h5 className="font-bold text-xs text-[#111827]">{userProfile.name}</h5>
+                  <span className="text-[10px] text-[#6B7280] block truncate max-w-[110px]">{userProfile.email}</span>
                 </div>
               </div>
               <Link 
                 href="/auth?mode=login" 
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleLogout();
+                }}
                 className="text-[#6B7280] hover:text-[#DC2626] font-bold p-1.5 hover:bg-[#EEF2F7] rounded-lg transition-colors border border-transparent hover:border-[#E5E7EB]/50"
               >
                 <LucideIcons.LogOut className="w-4 h-4" />
