@@ -22,7 +22,7 @@ function AuthContent() {
   const [otp, setOtp] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [activeAction, setActiveAction] = useState<"login" | "google" | "linkedin" | "demo" | null>(null);
   const [twoFactorToken, setTwoFactorToken] = useState("");
 
   useEffect(() => {
@@ -36,13 +36,13 @@ function AuthContent() {
     e.preventDefault();
     setErrorMsg("");
     setSuccessMsg("");
-    setIsLoggingIn(true);
+    setActiveAction("login");
 
     try {
       if (mode === "login") {
         if (!email || !password) {
           setErrorMsg("Please fill in all fields.");
-          setIsLoggingIn(false);
+          setActiveAction(null);
           return;
         }
 
@@ -61,7 +61,7 @@ function AuthContent() {
       } else if (mode === "register") {
         if (!name || !email || !password) {
           setErrorMsg("Please fill in all fields.");
-          setIsLoggingIn(false);
+          setActiveAction(null);
           return;
         }
 
@@ -72,7 +72,7 @@ function AuthContent() {
       } else if (mode === "verify") {
         if (!otp) {
           setErrorMsg("Please enter the verification code.");
-          setIsLoggingIn(false);
+          setActiveAction(null);
           return;
         }
 
@@ -84,7 +84,7 @@ function AuthContent() {
       } else if (mode === "2fa") {
         if (otp.length !== 6) {
           setErrorMsg("Verification code must be 6 digits.");
-          setIsLoggingIn(false);
+          setActiveAction(null);
           return;
         }
 
@@ -96,7 +96,7 @@ function AuthContent() {
       } else if (mode === "forgot") {
         if (!email) {
           setErrorMsg("Please enter your email.");
-          setIsLoggingIn(false);
+          setActiveAction(null);
           return;
         }
 
@@ -107,12 +107,12 @@ function AuthContent() {
       } else if (mode === "reset") {
         if (!otp || !password) {
           setErrorMsg("Please fill in all fields.");
-          setIsLoggingIn(false);
+          setActiveAction(null);
           return;
         }
         if (password.length < 8) {
           setErrorMsg("Password must be at least 8 characters.");
-          setIsLoggingIn(false);
+          setActiveAction(null);
           return;
         }
 
@@ -126,13 +126,13 @@ function AuthContent() {
       console.error(err);
       setErrorMsg(err.data?.message || err.message || "An authentication error occurred.");
     } finally {
-      setIsLoggingIn(false);
+      setActiveAction(null);
     }
   };
 
   // Automatic developer fast login bypass
-  const handleDemoLogin = () => {
-    setIsLoggingIn(true);
+  const handleDemoLogin = (action: "google" | "linkedin" | "demo") => {
+    setActiveAction(action);
     // Seed local Storage with dummy auth token to access pages in offline / demo fallback mode
     if (typeof window !== "undefined") {
       localStorage.setItem("resumeflow_token", "demo_mode_token");
@@ -379,10 +379,10 @@ function AuthContent() {
 
             <button 
               type="submit" 
-              disabled={isLoggingIn}
+              disabled={activeAction !== null}
               className="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold text-sm uppercase tracking-wider shadow-lg shadow-indigo-600/10 hover:shadow-indigo-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoggingIn ? (
+              {activeAction === "login" ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin text-white" />
                   <span>Please wait...</span>
@@ -417,11 +417,11 @@ function AuthContent() {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
-                  disabled={isLoggingIn}
-                  onClick={handleDemoLogin}
+                  disabled={activeAction !== null}
+                  onClick={() => handleDemoLogin("google")}
                   className="w-full py-2.5 rounded-xl bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 text-zinc-700 text-xs font-bold transition-all flex justify-center items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoggingIn ? (
+                  {activeAction === "google" ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin text-zinc-400" />
                   ) : (
                     <span className="text-xs text-zinc-400 font-black">G</span>
@@ -430,11 +430,11 @@ function AuthContent() {
                 </button>
                 <button
                   type="button"
-                  disabled={isLoggingIn}
-                  onClick={handleDemoLogin}
+                  disabled={activeAction !== null}
+                  onClick={() => handleDemoLogin("linkedin")}
                   className="w-full py-2.5 rounded-xl bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 text-zinc-700 text-xs font-bold transition-all flex justify-center items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoggingIn ? (
+                  {activeAction === "linkedin" ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin text-indigo-600" />
                   ) : (
                     <span className="text-xs text-indigo-600 font-black">in</span>
@@ -471,11 +471,11 @@ function AuthContent() {
           {/* Quick Demo Bypass for evaluation convenience */}
           <div className="mt-6 p-3.5 rounded-xl bg-indigo-50/50 border border-dashed border-indigo-200 text-center">
             <button
-              onClick={handleDemoLogin}
-              disabled={isLoggingIn}
+              onClick={() => handleDemoLogin("demo")}
+              disabled={activeAction !== null}
               className="text-xs text-indigo-600 font-black hover:text-indigo-700 hover:underline cursor-pointer flex items-center justify-center gap-1.5 w-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoggingIn ? (
+              {activeAction === "demo" ? (
                 <>
                   <Loader2 className="w-3.5 h-3.5 animate-spin text-indigo-600" />
                   <span>Logging in...</span>
