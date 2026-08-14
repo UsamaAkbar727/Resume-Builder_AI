@@ -22,8 +22,8 @@ export default function CoverLetterGenerator({ resumeData, onNavigate, showToast
     setTimeout(() => {
       setGenerating(false);
 
-      const name = resumeData?.name || "Sarah Jenkins";
-      const email = resumeData?.email || "sarah.jenkins@company.com";
+      const name = resumeData?.name || "Usama jutt";
+      const email = resumeData?.email || "usama.jutt@company.com";
       const location = resumeData?.location || "San Francisco, CA";
       const skills = resumeData?.skills || "React, Next.js 15, TypeScript, Tailwind CSS";
       
