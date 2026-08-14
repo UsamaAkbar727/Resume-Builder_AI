@@ -58,8 +58,11 @@ export default function ATSChecker() {
               <SearchCode className="w-4 h-4 text-indigo-600" />
               ATS RESUME CHECKER
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-indigo-600 tracking-tight leading-tight mb-4 font-display">
-              Verify keyword coverage before applying
+            <h2 className="text-3xl sm:text-5xl font-black text-zinc-900 tracking-tight leading-tight mb-4 font-display">
+              Verify keyword coverage{" "}
+              <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-600 bg-clip-text text-transparent pb-1">
+                before applying
+              </span>
             </h2>
             <p className="text-sm sm:text-base text-zinc-550 text-zinc-500 leading-relaxed font-semibold font-display">
               Upload your resume, paste the target job description, and watch our parser overlay keyword matrices, evaluate section weight, and flag clunky formatting.
@@ -120,25 +123,79 @@ export default function ATSChecker() {
                     <div className="absolute left-0 right-0 h-1.5 bg-indigo-500/15 border-y border-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.3)] animate-scan z-30 pointer-events-none"></div>
                   )}
 
-                  {/* Header content mock */}
-                  <div className="space-y-1.5 opacity-60">
-                    <div className="h-4 bg-zinc-200 rounded-sm w-3/4"></div>
-                    <div className="h-3 bg-zinc-300 rounded-sm w-1/2"></div>
-                    <div className="h-2.5 bg-zinc-100 rounded-sm w-2/3"></div>
-                  </div>
-
-                  {/* Body text representation */}
-                  <div className="space-y-2 py-4">
-                    <div className="h-3 bg-zinc-100 rounded-sm w-full"></div>
-                    <div className="h-3 bg-zinc-100 rounded-sm w-11/12"></div>
-                    <div className="h-3 bg-zinc-100 rounded-sm w-full"></div>
-                    {/* Active highlight matching animation */}
-                    <div className={`h-3.5 rounded-sm w-5/6 transition-all duration-300 ${
-                      isScanning ? "bg-indigo-50 border border-indigo-100 animate-pulse text-[9px] font-black text-indigo-600 flex items-center px-1.5" : "bg-zinc-200"
-                    }`}>
-                      {isScanning ? "Scanning keywords..." : ""}
+                  {/* Resume Content Mock */}
+                  <div className="text-left space-y-3 font-display py-2">
+                    {/* Header */}
+                    <div className="border-b border-zinc-100 pb-2">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="text-xs font-black text-zinc-800 tracking-tight">ALEX MORGAN</h4>
+                          <p className="text-[9px] font-bold text-indigo-600">Full Stack Engineer</p>
+                        </div>
+                        <span className="text-[7px] text-zinc-400 font-bold bg-zinc-50 border border-zinc-200 px-1.5 py-0.5 rounded-sm">
+                          ATS COMPLIANT
+                        </span>
+                      </div>
+                      <p className="text-[8px] text-zinc-400 font-semibold mt-1">alex.morgan@email.com | San Francisco, CA</p>
                     </div>
-                    <div className="h-3 bg-zinc-100 rounded-sm w-10/12"></div>
+
+                    {/* Summary */}
+                    <div className="space-y-1">
+                      <h5 className="text-[8px] font-black text-zinc-400 uppercase tracking-wider">Summary</h5>
+                      <p className="text-[9px] text-zinc-500 font-medium leading-relaxed">
+                        Results-driven software engineer with 3+ years of experience building modern web applications and scalable database systems.
+                      </p>
+                    </div>
+
+                    {/* Experience section */}
+                    <div className="space-y-1">
+                      <h5 className="text-[8px] font-black text-zinc-400 uppercase tracking-wider">Experience</h5>
+                      <div className="space-y-2 text-[9px] text-zinc-650 text-zinc-600 font-medium leading-relaxed">
+                        <div>
+                          <div className="flex justify-between text-[8px] font-bold text-zinc-700">
+                            <span>TechCorp Inc. — Software Engineer</span>
+                            <span>2024 - Present</span>
+                          </div>
+                          <p className="text-[8px] text-zinc-500 mt-1">
+                            • Engineered dynamic frontend interfaces using{" "}
+                            <span className="bg-indigo-50 border border-indigo-100 text-indigo-700 px-1 py-0.5 rounded-sm font-bold text-[8px]">
+                              React
+                            </span>{" "}
+                            and{" "}
+                            <span className="bg-indigo-50 border border-indigo-100 text-indigo-700 px-1 py-0.5 rounded-sm font-bold text-[8px]">
+                              Next.js
+                            </span>{" "}
+                            styled with{" "}
+                            <span className="bg-indigo-50 border border-indigo-100 text-indigo-700 px-1 py-0.5 rounded-sm font-bold text-[8px]">
+                              Tailwind CSS
+                            </span>
+                            .
+                          </p>
+                          <p className="text-[8px] text-zinc-500 mt-1">
+                            • Designed database schemas in{" "}
+                            <span className="bg-indigo-50 border border-indigo-100 text-indigo-700 px-1 py-0.5 rounded-sm font-bold text-[8px]">
+                              PostgreSQL
+                            </span>{" "}
+                            aligned with robust backend{" "}
+                            <span className="bg-indigo-50 border border-indigo-100 text-indigo-700 px-1 py-0.5 rounded-sm font-bold text-[8px]">
+                              System Design
+                            </span>
+                            .
+                          </p>
+                          <p className="text-[8px] text-zinc-500 mt-1">
+                            • Built type-safe backend microservices leveraging{" "}
+                            <span className={`px-1 py-0.5 rounded-sm font-bold text-[8px] transition-all duration-300 ${
+                              scanKeywords.find(k => k.name === "TypeScript")?.found
+                                ? "bg-indigo-50 border border-indigo-100 text-indigo-700"
+                                : "bg-zinc-100 border border-zinc-200 text-zinc-400"
+                            }`}>
+                              TypeScript
+                            </span>{" "}
+                            to ensure overall system reliability.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Click scan button */}
