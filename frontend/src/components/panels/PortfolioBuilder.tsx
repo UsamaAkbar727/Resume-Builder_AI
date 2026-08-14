@@ -103,7 +103,7 @@ export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: 
 
   // HTML Web Page Builder / Compiler
   const handleDownloadHTML = () => {
-    const name = resumeData?.name || "Sarah Jenkins";
+    const name = resumeData?.name || "Usama jutt";
     const title = resumeData?.title || activeProfessionLabel;
     const email = resumeData?.email || "hello@domain.com";
     const location = resumeData?.location || "New York, NY";
