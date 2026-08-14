@@ -336,8 +336,6 @@ export default function DashboardOverview({ jobs, language = "en", onNavigate, u
                 </span>
               </div>
             </div>
-          </div></div>
-            </div>
           </div>
 
         </div>

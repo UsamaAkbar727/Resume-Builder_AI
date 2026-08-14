@@ -138,8 +138,8 @@ function AuthContent() {
       localStorage.setItem("resumeflow_token", "demo_mode_token");
       localStorage.setItem("resumeflow_user", JSON.stringify({
         id: 1,
-        name: "Sarah Jenkins",
-        email: "sarah.jenkins@company.com",
+        name: "Usama jutt",
+        email: "usama.jutt@company.com",
         email_verified_at: new Date().toISOString(),
         two_factor_enabled: false
       }));
