@@ -158,14 +158,30 @@ export default function DashboardWrapper() {
     const fetchProfile = async () => {
       try {
         const u = await api.auth.user();
-        setUserProfile({ name: u.name, email: u.email });
+        let name = u.name;
+        let email = u.email;
+        if (!name || name === "Sarah Jenkins") {
+          name = "Usama jutt";
+          email = "usama@stripe.com";
+          if (typeof window !== "undefined") {
+            localStorage.setItem("resumeflow_user", JSON.stringify({ ...u, name, email }));
+          }
+        }
+        setUserProfile({ name, email });
       } catch (e) {
         if (typeof window !== "undefined") {
           const cached = localStorage.getItem("resumeflow_user");
           if (cached) {
             try {
               const parsed = JSON.parse(cached);
-              setUserProfile({ name: parsed.name, email: parsed.email });
+              let name = parsed.name;
+              let email = parsed.email;
+              if (!name || name === "Sarah Jenkins") {
+                name = "Usama jutt";
+                email = "usama@stripe.com";
+                localStorage.setItem("resumeflow_user", JSON.stringify({ ...parsed, name, email }));
+              }
+              setUserProfile({ name, email });
             } catch (err) {}
           }
         }
@@ -548,7 +564,7 @@ export default function DashboardWrapper() {
   );
 
   return (
-    <div className="h-screen bg-[#F5F7FB] flex text-[#111827] font-sans overflow-hidden">
+    <div className="h-screen bg-[#F5F7FB] dark:bg-[#0B0F19] flex text-[#111827] dark:text-white font-sans overflow-hidden">
       {/* Sidebar navigation */}
       <aside className="hidden lg:flex flex-col w-64 bg-white dark:bg-[#0B0F19] border-r border-[#E5E7EB]/60 dark:border-slate-800/80 shrink-0 p-5 justify-between h-screen sticky top-0 shadow-[1px_0_5px_rgba(0,0,0,0.015)]">
         <div className="space-y-6 flex flex-col">
@@ -602,17 +618,17 @@ export default function DashboardWrapper() {
         </div>
 
         {/* User Card footer */}
-        <div className="border-t border-[#E5E7EB]/60 pt-4 flex items-center justify-between gap-3 text-left">
+        <div className="border-t border-[#E5E7EB]/60 dark:border-slate-800/80 pt-4 flex items-center justify-between gap-3 text-left">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-xs text-[#2563EB]">
+            <div className="w-9 h-9 rounded-full bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50 flex items-center justify-center font-bold text-xs text-[#2563EB] dark:text-blue-400">
               {userProfile.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <h5 className="font-bold text-xs text-[#111827]">{userProfile.name}</h5>
-              <span className="text-[10px] text-[#6B7280] block truncate max-w-[110px]">{userProfile.email}</span>
+              <h5 className="font-bold text-xs text-[#111827] dark:text-white">{userProfile.name}</h5>
+              <span className="text-[10px] text-[#6B7280] dark:text-slate-400 block truncate max-w-[110px]">{userProfile.email}</span>
             </div>
           </div>
-          <Link href="/auth?mode=login" onClick={handleLogout} className="text-[#6B7280] hover:text-[#DC2626] font-bold p-1.5 hover:bg-[#EEF2F7] rounded-lg transition-colors border border-transparent hover:border-[#E5E7EB]/50">
+          <Link href="/auth?mode=login" onClick={handleLogout} className="text-[#6B7280] dark:text-slate-400 hover:text-[#DC2626] dark:hover:text-red-400 font-bold p-1.5 hover:bg-[#EEF2F7] dark:hover:bg-slate-800 rounded-lg transition-colors border border-transparent hover:border-[#E5E7EB]/50 dark:hover:border-slate-700/50">
             <LucideIcons.LogOut className="w-4 h-4" />
           </Link>
         </div>
@@ -621,13 +637,13 @@ export default function DashboardWrapper() {
       {/* Main Workspace content */}
       <div className="flex-1 flex flex-col h-screen overflow-y-auto">
         {/* Top Navbar */}
-        <header className="sticky top-0 z-40 bg-[#F5F7FB]/95 backdrop-blur-md border-b border-[#E5E7EB]/40 px-6 py-4 flex items-center justify-between">
+        <header className="sticky top-0 z-40 bg-[#F5F7FB]/95 dark:bg-[#0B0F19]/95 backdrop-blur-md border-b border-[#E5E7EB]/40 dark:border-slate-800/40 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             {/* Mobile menu trigger */}
             <div className="lg:hidden flex items-center gap-2">
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="w-8.5 h-8.5 rounded-xl bg-white border border-[#E5E7EB]/80 flex items-center justify-center text-[#6B7280] hover:text-[#111827] transition-colors cursor-pointer"
+                className="w-8.5 h-8.5 rounded-xl bg-white dark:bg-slate-800 border border-[#E5E7EB]/80 dark:border-slate-700/50 flex items-center justify-center text-[#6B7280] dark:text-slate-400 hover:text-[#111827] dark:hover:text-white transition-colors cursor-pointer"
               >
                 <LucideIcons.Menu className="w-4 h-4" />
               </button>
@@ -640,7 +656,7 @@ export default function DashboardWrapper() {
             {/* Global Search Command trigger button */}
             <button
               onClick={() => setShowCommandPalette(true)}
-              className="clay-card-flat px-3 py-2 text-xs text-[#6B7280] hover:text-[#111827] flex items-center gap-2.5 cursor-pointer bg-white max-w-[120px] xs:max-w-[180px] sm:max-w-xs md:max-w-md shrink-0"
+              className="clay-card-flat px-3 py-2 text-xs text-[#6B7280] dark:text-slate-400 hover:text-[#111827] dark:hover:text-white flex items-center gap-2.5 cursor-pointer bg-white dark:bg-slate-800 max-w-[120px] xs:max-w-[180px] sm:max-w-xs md:max-w-md shrink-0 border border-[#E5E7EB]/80 dark:border-slate-700/50"
             >
               <LucideIcons.Search className="w-4 h-4 text-[#6B7280] shrink-0" />
               <span className="truncate hidden sm:inline">Search dashboard command palette...</span>
@@ -653,7 +669,7 @@ export default function DashboardWrapper() {
             {/* Quick theme toggler shortcut */}
             <button
               onClick={handleToggleTheme}
-              className="w-9 h-9 rounded-xl bg-white border border-[#E5E7EB]/80 flex items-center justify-center text-sm relative hover:bg-[#EEF2F7]/50 text-[#6B7280] hover:text-[#111827] transition-colors cursor-pointer"
+              className="w-9 h-9 rounded-xl bg-white dark:bg-slate-800 border border-[#E5E7EB]/80 dark:border-slate-700/50 flex items-center justify-center text-sm relative hover:bg-[#EEF2F7]/50 dark:hover:bg-slate-750/50 text-[#6B7280] dark:text-slate-400 hover:text-[#111827] dark:hover:text-white transition-colors cursor-pointer"
               title={themeMode === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               {themeMode === "dark" ? (
@@ -665,7 +681,7 @@ export default function DashboardWrapper() {
 
             <button
               onClick={() => setActiveTab("notifications")}
-              className="w-9 h-9 rounded-xl bg-white border border-[#E5E7EB]/80 flex items-center justify-center text-sm relative hover:bg-[#EEF2F7]/50 text-[#6B7280] hover:text-[#111827] transition-colors cursor-pointer"
+              className="w-9 h-9 rounded-xl bg-white dark:bg-slate-800 border border-[#E5E7EB]/80 dark:border-slate-700/50 flex items-center justify-center text-sm relative hover:bg-[#EEF2F7]/50 dark:hover:bg-slate-750/50 text-[#6B7280] dark:text-slate-400 hover:text-[#111827] dark:hover:text-white transition-colors cursor-pointer"
             >
               <LucideIcons.Bell className="w-4 h-4" />
               {unreadCount > 0 && (
@@ -673,12 +689,12 @@ export default function DashboardWrapper() {
               )}
             </button>
             <div className="hidden md:flex flex-col text-right">
-              <span className="font-bold text-xs text-[#111827]">{userProfile.name}</span>
-              <span className="text-[10px] text-[#6B7280]">Staff Account</span>
+              <span className="font-bold text-xs text-[#111827] dark:text-white">{userProfile.name}</span>
+              <span className="text-[10px] text-[#6B7280] dark:text-slate-400">Staff Account</span>
             </div>
             <button
               onClick={() => setActiveTab("profile")}
-              className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center font-bold text-xs text-[#2563EB] border border-[#E5E7EB]/50"
+              className="w-9 h-9 rounded-full bg-blue-100 dark:bg-blue-950/40 flex items-center justify-center font-bold text-xs text-[#2563EB] dark:text-blue-400 border border-[#E5E7EB]/50 dark:border-slate-700/50"
             >
               {userProfile.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase()}
             </button>
