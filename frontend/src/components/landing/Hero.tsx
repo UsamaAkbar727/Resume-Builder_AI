@@ -6,7 +6,8 @@ import {
   ArrowRight, Star, Sparkles,
   FileText, Upload,
   Zap, TrendingUp, Target,
-  Pause, Play
+  Pause, Play,
+  Globe, Navigation
 } from "lucide-react";
 import { ScrollReveal } from "./Animations";
 
@@ -136,6 +137,47 @@ const SHOWCASE_TEMPLATES: ShowcaseTemplate[] = [
   }
 ];
 
+{/* Large Animated 3D World Globe Vector Background Component */}
+function BackgroundLeftWorldGlobe() {
+  return (
+    <div className="absolute top-6 -left-28 sm:-left-36 md:-left-44 lg:-left-52 w-[420px] h-[420px] sm:w-[550px] sm:h-[550px] lg:w-[720px] lg:h-[720px] pointer-events-none z-0 opacity-20 sm:opacity-25 lg:opacity-30">
+      
+      {/* Ambient Pulsing Radial Aura behind Left Globe */}
+      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/20 via-violet-500/5 to-transparent blur-3xl animate-pulse-slow" />
+
+      {/* Rotating Dotted Global Wireframe SVG */}
+      <svg 
+        className="w-full h-full text-indigo-400/30 animate-[spin_80s_linear_infinite]" 
+        viewBox="0 0 200 200" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="100" cy="100" r="95" stroke="currentColor" strokeWidth="1.2" strokeDasharray="6 4" opacity="0.6" />
+        <circle cx="100" cy="100" r="82" stroke="currentColor" strokeWidth="1" strokeDasharray="4 3" opacity="0.5" />
+        <circle cx="100" cy="100" r="65" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3 3" opacity="0.4" />
+        <ellipse cx="100" cy="100" rx="95" ry="38" stroke="currentColor" strokeWidth="1.2" strokeDasharray="5 4" opacity="0.65" />
+        <ellipse cx="100" cy="100" rx="38" ry="95" stroke="currentColor" strokeWidth="1.2" strokeDasharray="5 4" opacity="0.65" />
+        <line x1="5" y1="100" x2="195" y2="100" stroke="currentColor" strokeWidth="1" strokeDasharray="4 2" opacity="0.5" />
+        <line x1="100" y1="5" x2="100" y2="195" stroke="currentColor" strokeWidth="1" strokeDasharray="4 2" opacity="0.5" />
+        <circle cx="100" cy="5" r="4" fill="#6366F1" />
+        <circle cx="195" cy="100" r="4" fill="#8B5CF6" />
+        <circle cx="100" cy="195" r="4" fill="#6366F1" />
+        <circle cx="5" cy="100" r="4" fill="#06B6D4" />
+      </svg>
+
+      <div className="absolute top-16 left-28 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg text-indigo-600 animate-float hidden sm:flex items-center gap-2 text-xs font-bold z-10">
+        <Globe className="w-4 h-4 text-indigo-600 animate-spin-slow" />
+        <span>50+ Countries</span>
+      </div>
+
+      <div className="absolute bottom-24 left-16 p-2.5 rounded-2xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg text-indigo-600 animate-float-delayed hidden md:flex items-center gap-2 text-xs font-bold z-10">
+        <Navigation className="w-4 h-4 text-indigo-600" />
+        <span>Global Remote Hire</span>
+      </div>
+    </div>
+  );
+}
+
 export default function Hero() {
   const [slideIndex, setSlideIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -162,6 +204,9 @@ export default function Hero() {
 
       {/* Left-side faint blue glow */}
       <div className="hero-glow-left" />
+
+      {/* World Globe Background Graphic */}
+      <BackgroundLeftWorldGlobe />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
