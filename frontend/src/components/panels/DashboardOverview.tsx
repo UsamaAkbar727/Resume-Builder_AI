@@ -24,6 +24,7 @@ interface OverviewProps {
   jobs: Job[];
   language?: string;
   onNavigate: (tab: string) => void;
+  userName?: string;
 }
 
 // Interactive Quick AI Tools for Dashboard Bento Grid
@@ -36,7 +37,7 @@ const BENTO_TOOLS = [
   { id: "cover-letter", title: "AI Cover Letter Writer", desc: "Generate tailored application letters in seconds", icon: PenTool, color: "from-rose-500 to-pink-600", tag: "Instant AI" },
 ];
 
-export default function DashboardOverview({ jobs, language = "en", onNavigate }: OverviewProps) {
+export default function DashboardOverview({ jobs, language = "en", onNavigate, userName }: OverviewProps) {
   const t = (key: string) => {
     return TRANSLATIONS[language]?.[key] || TRANSLATIONS["en"]?.[key] || key;
   };
@@ -62,7 +63,7 @@ export default function DashboardOverview({ jobs, language = "en", onNavigate }:
           
           <div className="flex items-start gap-4">
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-extrabold text-xl shadow-lg border border-white/20 shrink-0">
-              SJ
+              {userName ? userName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase() : "UJ"}
             </div>
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-blue-300 text-xs font-semibold mb-2.5 border border-white/15 backdrop-blur-md">
@@ -73,7 +74,7 @@ export default function DashboardOverview({ jobs, language = "en", onNavigate }:
               </div>
 
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
-                {t("welcome") || "Welcome back, Sarah Jenkins"}
+                Welcome back, {userName ? userName.split(" ")[0] : "Usama"}
               </h1>
               <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl font-normal leading-relaxed">
                 Build recruiter-approved resumes, track your job application pipeline in real-time, and practice AI mock interviews.

@@ -11,7 +11,7 @@ interface ProfileViewProps {
 }
 
 export default function ProfileView({ resumeData, setResumeData, onNavigate, showToast }: ProfileViewProps) {
-  const [name, setName] = useState("Sarah Jenkins");
+  const [name, setName] = useState("Usama jutt");
   const [title, setTitle] = useState("Senior Full Stack Developer");
   const [location, setLocation] = useState("San Francisco, CA");
   const [linkedin, setLinkedin] = useState("https://linkedin.com/in/sjenkins");
@@ -20,7 +20,7 @@ export default function ProfileView({ resumeData, setResumeData, onNavigate, sho
   // Sync state with resumeData updates
   useEffect(() => {
     if (resumeData) {
-      setName(resumeData.name || "Sarah Jenkins");
+      setName(resumeData.name || "Usama jutt");
       setTitle(resumeData.title || "Senior Full Stack Developer");
       setLocation(resumeData.location || "San Francisco, CA");
     }
@@ -61,7 +61,7 @@ export default function ProfileView({ resumeData, setResumeData, onNavigate, sho
           {/* Avatar simulation */}
           <div className="flex items-center gap-4 border-b border-[#E5E7EB]/50 pb-5">
             <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center font-extrabold text-[#2563EB] text-xl shadow-[inset_1px_1px_3px_rgba(255,255,255,0.8)] border border-[#E5E7EB]">
-              SJ
+              {name ? name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase() : "UJ"}
             </div>
             <div>
               <h3 className="font-extrabold text-base text-[#111827]">{name}</h3>
