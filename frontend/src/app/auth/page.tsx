@@ -239,7 +239,7 @@ function AuthContent() {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Sarah Jenkins"
+                  placeholder="e.g. Usama jutt"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full bg-white border border-zinc-200 focus:border-indigo-600 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-600/10 transition-all"
