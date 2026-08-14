@@ -150,8 +150,8 @@ export default function DashboardWrapper() {
   const [unreadCount, setUnreadCount] = useState(0);
 
   const [userProfile, setUserProfile] = useState<{ name: string; email: string }>({
-    name: "Sarah Jenkins",
-    email: "sarah@stripe.com",
+    name: "Usama jutt",
+    email: "usama@stripe.com",
   });
 
   useEffect(() => {
@@ -370,9 +370,9 @@ export default function DashboardWrapper() {
 
   // Shared Resume Builder State
   const [resumeData, setResumeData] = useState({
-    name: "Sarah Jenkins",
+    name: "Usama jutt",
     title: "Senior Full Stack Developer",
-    email: "sarah.jenkins@company.com",
+    email: "usama.jutt@company.com",
     location: "San Francisco, CA",
     summary: "Designed and built highly scalable SaaS applications with React, Node.js, and TypeScript. Optimized database schemas to improve payload retrieval speed by 40%.",
     skills: "React, Next.js 15, TypeScript, Tailwind CSS, Node.js, PostgreSQL, GraphQL, AWS",
@@ -687,7 +687,7 @@ export default function DashboardWrapper() {
 
         {/* Primary Page Canvas */}
         <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
-          {activeTab === "overview" && <DashboardOverview jobs={jobs} language={language} onNavigate={handleNavigate} />}
+          {activeTab === "overview" && <DashboardOverview jobs={jobs} language={language} onNavigate={handleNavigate} userName={userProfile.name} />}
           {activeTab === "builder" && (
             <ResumeBuilder resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />
           )}
