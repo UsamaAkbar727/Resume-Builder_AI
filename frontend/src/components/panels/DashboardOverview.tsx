@@ -294,7 +294,9 @@ export default function DashboardOverview({ jobs, language = "en", onNavigate, u
         </div>
 
         {/* Right Column: AI Co-Pilot & Upcoming Interviews */}
-                 {/* AI Insights Widget */}
+        <div className="space-y-6">
+          
+          {/* AI Insights Widget */}
           <div className="bg-gradient-to-br from-blue-50/80 via-indigo-50/20 to-white dark:from-slate-900 dark:to-slate-900/60 rounded-2xl border border-blue-200 dark:border-slate-800/60 p-6 shadow-sm">
             <h3 className="font-bold text-base text-gray-900 dark:text-white mb-2 flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" /> AI Career Co-Pilot
