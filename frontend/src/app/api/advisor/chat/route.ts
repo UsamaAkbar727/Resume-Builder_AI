@@ -234,6 +234,26 @@ Configure your ResumeFlow AI workspace environment, security posture, and develo
 💡 *Do you need assistance enabling 2FA, generating an API key, or customizing your workspace theme?*`;
   }
 
+  // 12. SaaS Admin Operations & Platform Infrastructure
+  if (lower.includes("admin") || lower.includes("operation") || lower.includes("saas") || lower.includes("arr") || lower.includes("token usage") || lower.includes("user management") || lower.includes("subscriber")) {
+    return `### ⚡ SaaS Admin Operations & Infrastructure Dashboard
+
+Overview of ResumeFlow AI platform performance, subscription financials, and LLM inference telemetry:
+
+#### 📊 1. Core Platform KPIs:
+- **Total Registered Talent**: **1,482 Users** (+12% WoW growth).
+- **Active Paid Subscribers**: **842 Pro & Enterprise Accounts** (94% annual retention).
+- **Monthly Run-Rate (ARR)**: **$24,910** targeting $30,000 next quarter.
+- **AI Token Utilization**: **42.8M Tokens Consumed** across Gemini ATS parsing and Career Advisor sessions ($128.40 cloud inference expense).
+
+#### 👥 2. User Administration & Tier Management:
+- **Live Role Controls**: Instantly upgrade or downgrade user subscription tiers (*Free*, *Pro*, *Enterprise*).
+- **Security Audit Logs**: Track administrator token rotation events, 2FA status, and session anomalies.
+- **Admin Panel Access**: Accessible directly through the **Admin Operations** tab on the navigation sidebar.
+
+💡 *Would you like an analysis of user retention metrics, AI token unit economics, or subscription tier adjustments?*`;
+  }
+
   // Default Comprehensive Response
   return `### 🤖 Executive AI Career Advisor & LLM Coach
 
@@ -248,8 +268,9 @@ Here is what we can work on right now:
 6. **📅 Calendar & Prep Schedules**: Build a customized 7-day interview timeline and scheduling strategy.
 7. **🔔 Notifications & Alerts**: Manage proactive recruiter alerts, deadlines, and digests.
 8. **⚙️ Account Settings & 2FA**: Configure workspace themes, security, API keys, and language.
-9. **🚀 Career Roadmap & Leveling**: Build a customized plan to reach Senior or Staff Engineer.
-10. **📬 Recruiter Outreach**: Generate personalized LinkedIn messages that get responses.
+9. **⚡ SaaS Admin Operations**: Review system ARR, user directories, and AI token unit economics.
+10. **🚀 Career Roadmap & Leveling**: Build a customized plan to reach Senior or Staff Engineer.
+11. **📬 Recruiter Outreach**: Generate personalized LinkedIn messages that get responses.
 
 *What would you like to focus on today?*`;
 }
