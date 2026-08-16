@@ -21,7 +21,7 @@ At my previous role, I led the transition to server-side frameworks, improving u
 Thank you for your time and consideration.
 
 Sincerely,
-Sarah Jenkins`;
+Usama Jutt`;
 
   const handleGenerate = () => {
     setIsGenerating(true);

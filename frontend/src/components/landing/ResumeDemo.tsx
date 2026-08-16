@@ -13,7 +13,7 @@ export default function ResumeDemo() {
   const [activeTab, setActiveTab] = useState<"content" | "sections">("content");
   
   // Custom resume data state
-  const [name, setName] = useState("Sarah Jenkins");
+  const [name, setName] = useState("Usama Jutt");
   const [title, setTitle] = useState("Senior Full Stack Developer");
   const [skills, setSkills] = useState([
     "React", "Next.js 15", "TypeScript", "Tailwind CSS", "Node.js", "PostgreSQL"

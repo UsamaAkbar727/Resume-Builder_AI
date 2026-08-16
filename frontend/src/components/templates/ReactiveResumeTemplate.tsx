@@ -20,9 +20,9 @@ export default function ReactiveResumeTemplate({ resumeData, primaryColor, fontC
       <div className="col-span-4 p-6 text-white space-y-6 rounded-l-xl" style={{ backgroundColor: color }}>
         <div className="text-center space-y-2">
           <div className="w-16 h-16 mx-auto rounded-full bg-white/20 border-2 border-white/40 flex items-center justify-center text-white font-black text-2xl">
-            {(resumeData.name || "A").charAt(0)}
+            {(resumeData.name || "U").charAt(0)}
           </div>
-          <h2 className="text-xl font-black">{resumeData.name}</h2>
+          <h2 className="text-xl font-black">{resumeData.name || "Usama Jutt"}</h2>
           <p className="text-xs text-white/80 font-bold uppercase tracking-wider">{resumeData.title}</p>
         </div>
 

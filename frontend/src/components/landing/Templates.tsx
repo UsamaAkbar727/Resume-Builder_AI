@@ -112,7 +112,7 @@ export default function Templates() {
               <div className="mb-3">
                 <div className="flex items-center gap-1">
                   <span className={`${isLarge ? "text-sm" : "text-xs"}`}>💻</span>
-                  <h4 className={`font-black tracking-tight text-slate-900 ${isLarge ? "text-lg" : "text-[10px]"}`}>Sarah Jenkins</h4>
+                  <h4 className={`font-black tracking-tight text-slate-900 ${isLarge ? "text-lg" : "text-[10px]"}`}>Usama Jutt</h4>
                 </div>
                 <div className={`text-slate-400 font-bold uppercase mt-0.5 ${isLarge ? "text-[10px]" : "text-[6px]"}`}>
                   Senior Full Stack Developer
@@ -161,12 +161,12 @@ export default function Templates() {
             <div>
               {/* Centered Executive Header */}
               <div className="pb-3 border-b-2 border-slate-200 mb-3">
-                <h4 className={`font-bold text-slate-900 tracking-wide ${isLarge ? "text-lg" : "text-[11px]"}`}>SARAH JENKINS</h4>
+                <h4 className={`font-bold text-slate-900 tracking-wide ${isLarge ? "text-lg" : "text-[11px]"}`}>USAMA JUTT</h4>
                 <div className={`text-slate-400 font-bold uppercase tracking-wider mt-0.5 ${isLarge ? "text-[9px]" : "text-[5.5px]"}`}>
                   Senior Full Stack Developer
                 </div>
                 <div className={`text-slate-400 mt-1 flex justify-center gap-2 ${isLarge ? "text-[8px]" : "text-[5px]"}`}>
-                  <span>sarah@jenkins.com</span>
+                  <span>usama@stripe.com</span>
                   <span>•</span>
                   <span>San Francisco, CA</span>
                 </div>
@@ -213,9 +213,9 @@ export default function Templates() {
             <div className={`w-1/3 bg-stone-900 text-white flex flex-col justify-between ${paddingClass}`}>
               <div>
                 <div className={`w-8 h-8 rounded-full bg-stone-800 border border-stone-700 mb-3 flex items-center justify-center font-bold text-white ${isLarge ? "text-xs" : "text-[8px]"}`}>
-                  SJ
+                  UJ
                 </div>
-                <h4 className={`font-black leading-tight ${isLarge ? "text-xs" : "text-[8px]"}`}>Sarah Jenkins</h4>
+                <h4 className={`font-black leading-tight ${isLarge ? "text-xs" : "text-[8px]"}`}>Usama Jutt</h4>
                 <div className={`text-stone-400 mt-0.5 ${isLarge ? "text-[8px]" : "text-[5px]"}`}>Developer</div>
               </div>
 
@@ -266,7 +266,7 @@ export default function Templates() {
               </div>
 
               <div className={`text-[5px] text-stone-400 font-bold uppercase tracking-wider pt-2 ${isLarge ? "text-[7px]" : "text-[5px]"}`}>
-                sarahjenkins.dev
+                usamajutt.dev
               </div>
             </div>
           </div>
@@ -279,7 +279,7 @@ export default function Templates() {
             <div>
               {/* Header */}
               <div className={`pb-3 border-b-2 transition-colors mb-3 ${borderCol}`}>
-                <h4 className={`font-black tracking-tight text-stone-900 ${isLarge ? "text-lg" : "text-[10px]"}`}>Sarah Jenkins</h4>
+                <h4 className={`font-black tracking-tight text-stone-900 ${isLarge ? "text-lg" : "text-[10px]"}`}>Usama Jutt</h4>
                 <div className={`font-bold uppercase tracking-wide transition-colors ${accentText} ${isLarge ? "text-[8px]" : "text-[5.5px]"}`}>
                   Senior Full Stack Developer
                 </div>
@@ -318,7 +318,7 @@ export default function Templates() {
 
             {/* Bottom contact bar */}
             <div className={`text-stone-450 text-stone-400 mt-2 pt-2 border-t flex justify-between ${isLarge ? "text-[8px]" : "text-[5px]"}`}>
-              <span>sarah@jenkins.com</span>
+              <span>usama@stripe.com</span>
               <span>SF, CA</span>
             </div>
           </div>

@@ -22,7 +22,7 @@ export default function AwesomeCVTemplate({ resumeData, primaryColor, fontClass 
       <div className="flex justify-between items-start border-b-2 pb-4" style={{ borderColor: color }}>
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight">
-            {resumeData.name || "Alex Morgan"}
+            {resumeData.name || "Usama Jutt"}
           </h1>
           <p className="text-sm font-bold uppercase tracking-wider mt-1" style={{ color }}>
             {resumeData.title || "Senior Software Engineer"}
@@ -30,9 +30,9 @@ export default function AwesomeCVTemplate({ resumeData, primaryColor, fontClass 
         </div>
 
         <div className="text-right text-xs space-y-1 text-gray-600">
-          <p className="flex items-center justify-end gap-1.5"><Mail className="w-3.5 h-3.5" style={{ color }} /> {resumeData.email || "alex@example.com"}</p>
+          <p className="flex items-center justify-end gap-1.5"><Mail className="w-3.5 h-3.5" style={{ color }} /> {resumeData.email || "usama@stripe.com"}</p>
           <p className="flex items-center justify-end gap-1.5"><MapPin className="w-3.5 h-3.5" style={{ color }} /> {resumeData.location || "San Francisco, CA"}</p>
-          <p className="flex items-center justify-end gap-1.5"><Linkedin className="w-3.5 h-3.5 text-blue-600" /> linkedin.com/in/alexmorgan</p>
+          <p className="flex items-center justify-end gap-1.5"><Linkedin className="w-3.5 h-3.5 text-blue-600" /> linkedin.com/in/usamajutt</p>
           <p className="flex items-center justify-end gap-1.5"><Github className="w-3.5 h-3.5 text-gray-900" /> github.com/alexmorgan</p>
         </div>
       </div>

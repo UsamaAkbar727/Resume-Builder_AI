@@ -19,16 +19,16 @@ export default function Sb2novTemplate({ resumeData, primaryColor, fontClass }: 
       {/* Centered Name & Contact Header */}
       <div className="text-center space-y-1">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 uppercase">
-          {resumeData.name || "Alex Morgan"}
+          {resumeData.name || "Usama Jutt"}
         </h1>
         <div className="text-xs text-gray-700 flex flex-wrap justify-center items-center gap-2">
-          <span>{resumeData.email || "alex@example.com"}</span>
+          <span>{resumeData.email || "usama@stripe.com"}</span>
           <span>|</span>
           <span>{resumeData.location || "San Francisco, CA"}</span>
           <span>|</span>
-          <span className="text-blue-700 underline font-medium">linkedin.com/in/alexmorgan</span>
+          <span className="text-blue-700 underline font-medium">linkedin.com/in/usamajutt</span>
           <span>|</span>
-          <span className="text-blue-700 underline font-medium">github.com/alexmorgan</span>
+          <span className="text-blue-700 underline font-medium">github.com/usamajutt</span>
         </div>
       </div>
 

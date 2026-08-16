@@ -90,7 +90,7 @@ export default function PortfolioShowcase() {
                   <span className="w-2.5 h-2.5 rounded-full bg-green-400"></span>
                 </div>
                 <div className="flex-1 bg-white border border-zinc-200 rounded-md py-1 px-3 text-[9px] font-semibold text-zinc-500 truncate text-center select-all">
-                  https://{isConnected ? domainInput : "sarahjenkins.resumeflow.me"}
+                  https://{isConnected ? domainInput : "usamajutt.resumeflow.me"}
                 </div>
               </div>
 
@@ -99,12 +99,12 @@ export default function PortfolioShowcase() {
                 {/* Hero header */}
                 <div>
                   <div className="flex justify-between items-center mb-6">
-                    <span className="text-[10px] font-black text-zinc-900">S.J</span>
+                    <span className="text-[10px] font-black text-zinc-900">U.J</span>
                     <span className="text-[8px] font-black text-indigo-600 uppercase tracking-wider font-display">Available for work</span>
                   </div>
 
                   <h3 className="text-sm sm:text-base font-black text-zinc-900 leading-tight mb-2 font-display">
-                    Sarah Jenkins • Senior Developer
+                    Usama Jutt • Senior Developer
                   </h3>
                   <p className="text-[9px] text-zinc-500 leading-relaxed max-w-[280px]">
                     I build accessible software systems handling scales and payments. Experience leading product development at Notion and Stripe.
@@ -129,7 +129,7 @@ export default function PortfolioShowcase() {
 
                 {/* Footer branding */}
                 <div className="pt-3 border-t border-zinc-200/80 flex justify-between text-[7px] text-zinc-400 uppercase font-bold tracking-wider">
-                  <span>© 2026 Sarah Jenkins</span>
+                  <span>© 2026 Usama Jutt</span>
                   <span>Made with ResumeFlow</span>
                 </div>
               </div>

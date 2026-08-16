@@ -20,7 +20,7 @@ export default function ModernCVTemplate({ resumeData, primaryColor, fontClass }
       {/* ModernCV Header */}
       <div className="border-b-2 pb-4" style={{ borderColor: color }}>
         <h1 className="text-3xl font-serif font-bold tracking-tight text-gray-900">
-          {resumeData.name || "Alex Morgan"}
+          {resumeData.name || "Usama Jutt"}
         </h1>
         <p className="text-xs font-bold uppercase tracking-widest mt-1" style={{ color }}>
           {resumeData.title || "Senior Full-Stack Engineer"}

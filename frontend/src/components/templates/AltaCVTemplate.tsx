@@ -21,16 +21,16 @@ export default function AltaCVTemplate({ resumeData, primaryColor, fontClass }: 
       {/* AltaCV Header */}
       <div className="p-6 rounded-2xl bg-slate-900 text-white shadow-md flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-black">{resumeData.name || "Alex Morgan"}</h1>
-          <p className="text-xs font-bold uppercase tracking-wider text-emerald-400 mt-1">{resumeData.title || "Senior Architect"}</p>
+          <h1 className="text-3xl font-black">{resumeData.name || "Usama Jutt"}</h1>
+          <p className="text-sm font-bold opacity-90 tracking-wide">{resumeData.title}</p>
           <div className="flex flex-wrap gap-3 text-[11px] text-slate-300 mt-2">
             <span>{resumeData.email}</span>
             <span>•</span>
             <span>{resumeData.location}</span>
           </div>
         </div>
-        <div className="w-12 h-12 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center font-bold text-emerald-300">
-          {(resumeData.name || "A").charAt(0)}
+        <div className="w-12 h-12 rounded-full border-2 border-white/40 flex items-center justify-center font-black text-xl">
+          {(resumeData.name || "U").charAt(0)}
         </div>
       </div>
 

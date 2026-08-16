@@ -19,12 +19,12 @@ export default function NovoresumeTemplate({ resumeData, primaryColor, fontClass
       {/* Novorésumé Header Banner */}
       <div className="p-6 rounded-2xl text-white shadow-sm flex justify-between items-center" style={{ backgroundColor: color }}>
         <div>
-          <h1 className="text-3xl font-extrabold">{resumeData.name || "Alex Morgan"}</h1>
+          <h1 className="text-3xl font-extrabold">{resumeData.name || "Usama Jutt"}</h1>
           <p className="text-xs font-bold uppercase tracking-wider text-white/90 mt-1">{resumeData.title}</p>
           <p className="text-xs text-white/80 mt-2">{resumeData.email} • {resumeData.location}</p>
         </div>
         <div className="w-12 h-12 rounded-xl bg-white/20 border border-white/40 flex items-center justify-center font-black text-white text-lg">
-          {(resumeData.name || "A").charAt(0)}
+          {(resumeData.name || "U").charAt(0)}
         </div>
       </div>
 
