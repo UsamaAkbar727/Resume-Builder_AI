@@ -7,11 +7,15 @@ export async function POST(request: Request) {
     const jobTitle = body.job_title || "";
     const jobDesc = body.job_description || "";
 
-    const userSkillsRaw = typeof resume.skills === "string" ? resume.skills.split(",") : (Array.isArray(resume.skills) ? resume.skills : []);
-    const userSkills = userSkillsRaw.map((s: string) => s.trim().toLowerCase()).filter(Boolean);
+    const userSkillsRaw: unknown[] = typeof resume.skills === "string" 
+      ? resume.skills.split(",") 
+      : (Array.isArray(resume.skills) ? resume.skills : []);
+    const userSkills: string[] = userSkillsRaw
+      .map(s => String(s).trim().toLowerCase())
+      .filter(Boolean);
 
     // Common technical skills
-    const TECH_SKILLS = [
+    const TECH_SKILLS: string[] = [
       "react", "next.js", "typescript", "javascript", "node.js", "python", "go", "java",
       "postgresql", "mysql", "mongodb", "redis", "elasticsearch", "graphql", "rest api",
       "aws", "gcp", "azure", "docker", "kubernetes", "terraform", "ci/cd", "git",
@@ -19,10 +23,10 @@ export async function POST(request: Request) {
     ];
 
     const jobText = (jobTitle + " " + jobDesc).toLowerCase();
-    const requiredInJob = TECH_SKILLS.filter(skill => jobText.includes(skill));
+    const requiredInJob = TECH_SKILLS.filter((skill: string) => jobText.includes(skill));
 
-    const matched = requiredInJob.filter(skill => userSkills.some(us => us.includes(skill) || skill.includes(us)));
-    const missing = requiredInJob.filter(skill => !userSkills.some(us => us.includes(skill) || skill.includes(us)));
+    const matched = requiredInJob.filter((skill: string) => userSkills.some((us: string) => us.includes(skill) || skill.includes(us)));
+    const missing = requiredInJob.filter((skill: string) => !userSkills.some((us: string) => us.includes(skill) || skill.includes(us)));
 
     const matchRatio = requiredInJob.length > 0 ? (matched.length / requiredInJob.length) : 0.85;
     const matchScore = Math.min(98, Math.max(62, Math.round(matchRatio * 100)));
