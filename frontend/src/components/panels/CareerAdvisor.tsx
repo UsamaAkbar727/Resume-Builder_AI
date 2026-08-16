@@ -98,7 +98,6 @@ export default function CareerAdvisor({ resumeData, onNavigate, showToast }: Car
         setMessages((prev) => [...prev, { role: "assistant", message: data.data.message }]);
       }
     } catch (err) {
-      showToast?.("Connected to backup career coach engine.", "info");
       setMessages((prev) => [
         ...prev,
         {

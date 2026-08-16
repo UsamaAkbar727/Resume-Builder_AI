@@ -337,10 +337,8 @@ export default function JobMatching({ resumeData, onNavigate, showToast, onAddJo
     let nextFavs = [...favorites];
     if (nextFavs.includes(jobId)) {
       nextFavs = nextFavs.filter(id => id !== jobId);
-      if (showToast) showToast("Removed from favorites.", "info");
     } else {
       nextFavs.push(jobId);
-      if (showToast) showToast("Added to favorites!", "success");
     }
     setFavorites(nextFavs);
     localStorage.setItem("resumeflow_favs", JSON.stringify(nextFavs));

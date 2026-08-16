@@ -176,7 +176,6 @@ export default function InterviewPrep({ resumeData, onNavigate, showToast }: Int
     setAnswerInput("");
     setShowingFeedback(false);
     setInterviewStatus("active");
-    if (showToast) showToast("Mock interview session initiated!", "info");
   };
 
   // Perform dynamic keyword-matching score
@@ -287,7 +286,6 @@ export default function InterviewPrep({ resumeData, onNavigate, showToast }: Int
     if (selectedHistoryItem?.id === id) {
       setSelectedHistoryItem(null);
     }
-    showToast?.("Interview log deleted.", "info");
   };
 
   return (

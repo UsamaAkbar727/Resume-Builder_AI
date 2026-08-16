@@ -912,7 +912,6 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
                       onClick={() => {
                         setUploadedFileName("");
                         setUploadedResumeText("");
-                        if (showToast) showToast("File removed.", "info");
                       }}
                       className="text-xs font-bold text-[#DC2626] hover:underline"
                     >

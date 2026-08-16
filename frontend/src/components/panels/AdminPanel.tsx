@@ -109,7 +109,6 @@ export default function AdminPanel({ onNavigate, showToast }: { onNavigate?: (ta
                       Toggle Pro
                     </button>
                     <button
-                      onClick={() => showToast?.(`Detailed platform usage logs retrieved for user ID ${u.id}!`, "info")}
                       className="text-gray-500 hover:underline font-semibold text-xs cursor-pointer"
                     >
                       Audit Logs

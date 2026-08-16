@@ -106,7 +106,6 @@ export default function NotificationsView({ jobs = [], resumeData, onNavigate, s
     const updated = notifications.filter(n => n.id !== id);
     setNotifications(updated);
     localStorage.setItem("resumeflow_notifications", JSON.stringify(updated));
-    showToast?.("Notification dismissed.", "info");
     window.dispatchEvent(new Event("storage"));
   };
 
