@@ -74,40 +74,60 @@ export default function ATSChecker() {
         <ScrollReveal variant="fade-up" delay={150}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
-            {/* Left Column: Checklist & Info Card */}
-            <div className="lg:col-span-5 text-left space-y-8">
-              <div className="space-y-6">
-                <h3 className="text-lg font-black text-indigo-600 uppercase tracking-tight leading-none font-display">
-                  Advanced audit checklist parameters
-                </h3>
-                <ul className="space-y-4 text-xs font-semibold text-zinc-650 text-zinc-600 font-display">
-                  <li className="flex items-center gap-3 text-indigo-600">
-                    <Check className="w-4 h-4 stroke-[3]" /> Keyword density overlay scans
-                  </li>
-                  <li className="flex items-center gap-3 text-indigo-600">
-                    <Check className="w-4 h-4 stroke-[3]" /> Action verb index checks
-                  </li>
-                  <li className="flex items-center gap-3 text-indigo-600">
-                    <Check className="w-4 h-4 stroke-[3]" /> Quantifiable achievements count
-                  </li>
-                  <li className="flex items-center gap-3 text-indigo-600">
-                    <Check className="w-4 h-4 stroke-[3]" /> Avoid buzzwords & clutter
-                  </li>
-                  <li className="flex items-center gap-3 text-indigo-600">
-                    <Check className="w-4 h-4 stroke-[3]" /> Recruiter parseability testing
-                  </li>
-                  <li className="flex items-center gap-3 text-indigo-600">
-                    <Check className="w-4 h-4 stroke-[3]" /> Custom template sections format parser check
-                  </li>
-                </ul>
+            {/* Left Column: AI Robot Inspector Showcase Card & Audit Parameters */}
+            <div className="lg:col-span-5 text-left space-y-6">
+              
+              {/* Visual Showcase: AI Humanoid Scanning Hologram */}
+              <div className="relative rounded-3xl overflow-hidden border border-indigo-100 bg-gradient-to-b from-indigo-50/50 to-white p-4 sm:p-5 shadow-xl shadow-indigo-100/50 group">
+                <div className="relative rounded-2xl overflow-hidden border border-indigo-200/80 shadow-md">
+                  <img
+                    src="/images/ai-ats-scanner.png"
+                    alt="AI Robot scanning holographic job resume"
+                    className="w-full h-auto object-cover transform scale-[1.03] group-hover:scale-[1.06] transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  {/* Floating Hologram Scanner Pill */}
+                  <div className="absolute bottom-3 left-3 right-3 bg-slate-950/85 backdrop-blur-md border border-white/15 p-2.5 rounded-xl flex items-center justify-between text-xs text-white shadow-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                      <span className="font-bold text-[11px] sm:text-xs text-cyan-200">Neural Resume Diagnostics</span>
+                    </div>
+                    <span className="text-emerald-400 font-extrabold text-[10px] sm:text-[11px] uppercase tracking-wider">Zero False Rejections</span>
+                  </div>
+                </div>
+
+                <div className="mt-4 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-indigo-600" />
+                    <h4 className="text-sm font-extrabold text-zinc-900 font-display">Recruiter-Grade AI Parsing Engine</h4>
+                  </div>
+                  <p className="text-xs text-zinc-500 font-medium leading-relaxed font-display">
+                    Our AI models emulate the exact algorithmic parsing used by Greenhouse, Lever, and Workday to pinpoint formatting friction points before recruiters see them.
+                  </p>
+                </div>
               </div>
 
-              <div className="bg-white border border-zinc-200 p-5 rounded-2xl flex items-center gap-3 shadow-lg shadow-zinc-200/20">
-                <Sparkles className="w-5 h-5 text-indigo-600 shrink-0" />
-                <p className="text-xs text-zinc-605 text-zinc-600 font-semibold font-display">
-                  Our scanner mimics corporate ATS filters (Greenhouse, Lever) to show you exactly how bots read your background.
-                </p>
+              {/* Advanced Audit Parameters List */}
+              <div className="bg-white border border-zinc-200/80 p-5 rounded-2xl space-y-3 shadow-md shadow-zinc-100">
+                <h3 className="text-xs font-black text-indigo-600 uppercase tracking-wider font-display">
+                  Core Keyword & Layout Matrices
+                </h3>
+                <div className="grid grid-cols-2 gap-2.5 text-[11px] font-semibold text-zinc-600 font-display">
+                  <div className="flex items-center gap-1.5 text-zinc-700">
+                    <Check className="w-3.5 h-3.5 text-indigo-600 shrink-0 stroke-[3]" /> Keyword density scan
+                  </div>
+                  <div className="flex items-center gap-1.5 text-zinc-700">
+                    <Check className="w-3.5 h-3.5 text-indigo-600 shrink-0 stroke-[3]" /> Action verb index
+                  </div>
+                  <div className="flex items-center gap-1.5 text-zinc-700">
+                    <Check className="w-3.5 h-3.5 text-indigo-600 shrink-0 stroke-[3]" /> Quantified metrics
+                  </div>
+                  <div className="flex items-center gap-1.5 text-zinc-700">
+                    <Check className="w-3.5 h-3.5 text-indigo-600 shrink-0 stroke-[3]" /> Section hierarchy
+                  </div>
+                </div>
               </div>
+
             </div>
 
             {/* Right Column: ATS Sandbox Screen */}
