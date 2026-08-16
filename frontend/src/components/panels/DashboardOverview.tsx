@@ -258,7 +258,7 @@ export default function DashboardOverview({ jobs, language = "en", onNavigate, u
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {jobs.slice(0, 5).map((job) => (
-                      <tr key={job.id} className="hover:bg-gray-50 transition-colors">
+                      <tr key={job.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/40 transition-colors">
                         <td className="py-3.5 font-bold text-gray-900 flex items-center gap-2.5">
                           <div className="w-7 h-7 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-[11px] shrink-0">
                             {job.company.charAt(0)}
