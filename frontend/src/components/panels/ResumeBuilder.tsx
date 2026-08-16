@@ -276,7 +276,7 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
                 </div>
               </div>
               <button 
-                onClick={() => showToast?.("ATS Audit: All section headers and keyword tags parse 100% clean!", "info")}
+                onClick={() => onNavigate?.("analyzer")}
                 className="text-[10px] font-bold px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors cursor-pointer"
               >
                 View Audit
@@ -622,7 +622,6 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
                   onClick={() => {
                     setSelectedTemplateId(t.id);
                     setShowTemplateModal(false);
-                    showToast?.(`Switched template to "${t.name}"!`, "success");
                   }}
                   className={`border-2 rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between ${
                     selectedTemplateId === t.id

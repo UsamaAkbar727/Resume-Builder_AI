@@ -179,10 +179,7 @@ export default function SettingsView({
               <label className="block text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">Default Language</label>
               <select 
                 value={language}
-                onChange={(e) => {
-                  setLanguage(e.target.value);
-                  showToast?.(`Language changed to ${e.target.value.toUpperCase()}!`, "success");
-                }}
+                onChange={(e) => setLanguage(e.target.value)}
                 className="clay-input w-full text-xs cursor-pointer"
               >
                 <option value="en">English (US)</option>
@@ -401,13 +398,11 @@ export default function SettingsView({
 
             <div className="flex gap-2.5">
               <button
-                onClick={() => showToast?.("Subscription upgrade portal loaded!", "info")}
                 className="clay-btn-primary flex-1 py-2.5 text-xs text-white font-semibold"
               >
                 Change Plan
               </button>
               <button
-                onClick={() => showToast?.("Payment history log retrieved!", "info")}
                 className="clay-btn-secondary flex-1 py-2.5 text-xs font-semibold"
               >
                 Cancel Subscription
