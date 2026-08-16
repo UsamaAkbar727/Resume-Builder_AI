@@ -80,6 +80,90 @@ export default function HowItWorks() {
           </ScrollReveal>
         </div>
 
+        {/* ── THE AI TRANSFORMATION SHOWCASE SPOTLIGHT ── */}
+        <ScrollReveal variant="fade-up" delay={150}>
+          <div className="my-10 lg:my-14 relative rounded-3xl bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-xl border border-white/10 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-indigo-950/50 overflow-hidden group">
+            {/* Background ambient lighting */}
+            <div className="absolute -top-24 -right-24 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+              
+              {/* Left Column: Visual Image with luxury 3D glass frame */}
+              <div className="lg:col-span-6 relative flex justify-center">
+                <div className="relative w-full max-w-md rounded-2xl overflow-hidden border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.6)] group-hover:border-indigo-500/40 transition-all duration-500 group-hover:scale-[1.02]">
+                  {/* Glowing overlay highlight */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/10 via-transparent to-indigo-500/20 pointer-events-none z-10" />
+                  <img
+                    src="/images/ai-career-portal.png"
+                    alt="AI Resume to Career Opportunity Portal"
+                    className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  {/* Floating status badge */}
+                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 z-20 bg-slate-950/85 backdrop-blur-md border border-white/15 p-3 rounded-xl flex items-center justify-between text-xs shadow-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                      <span className="text-white font-bold text-[11px] sm:text-xs">100% Recruiter & ATS Ready</span>
+                    </div>
+                    <span className="text-amber-400 font-extrabold text-[10px] sm:text-[11px] uppercase tracking-wider">3x Callbacks</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Narrative / Story */}
+              <div className="lg:col-span-6 text-left space-y-5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-[11px] font-extrabold uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  The AI Evolution
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight font-display">
+                  Turn A Flat Resume Into An{" "}
+                  <span className="bg-gradient-to-r from-amber-300 via-indigo-300 to-cyan-300 bg-clip-text text-transparent">
+                    Open Door to Top Roles
+                  </span>
+                </h3>
+
+                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
+                  Traditional resumes get trapped in automated filters. ResumeFlow AI bridges the gap by connecting your raw experience to real-time hiring metrics, high-converting action phrasing, and recruiter-approved ATS architectures.
+                </p>
+
+                {/* Feature highlight bullet points */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Real-Time Keyword Match</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Quantified Impact Bullets</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Zero Parse Layout Errors</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>1-Click PDF/DOCX Export</span>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <a
+                    href="/auth?mode=register"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-indigo-300 hover:text-white group/link transition-colors cursor-pointer"
+                  >
+                    <span>Experience the transformation</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </ScrollReveal>
+
         {/* ── S-CURVE INFOGRAPHIC ROADMAP CONTAINER ── */}
         <div className="relative my-8 space-y-12 md:space-y-16">
           
