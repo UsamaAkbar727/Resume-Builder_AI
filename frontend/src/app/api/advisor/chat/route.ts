@@ -128,6 +128,91 @@ Sending targeted direct messages yields a **3x higher response rate** than cold 
 💡 *Tell me the company or role you're reaching out to, and I will tailor a personalized message for you!*`;
   }
 
+  // 7. Calendar, Scheduling & Interview Timeline Strategy
+  if (lower.includes("calendar") || lower.includes("schedule") || lower.includes("timeline") || lower.includes("reschedule") || lower.includes("deadline") || lower.includes("time management") || lower.includes("interview date")) {
+    return `### 📅 Executive Interview Scheduling & 7-Day Prep Calendar
+
+Proper scheduling and pacing can increase your interview performance by over **40%**. Here is the recommended framework:
+
+#### 🗓️ The 7-Day High-Impact Prep Calendar:
+- **Days 1–2 (Company & Architecture Audit)**: Research target engineering blogs, stack teardowns (e.g. Next.js, Go, AWS, Kafka), and recent company product launches.
+- **Days 3–4 (STAR Behavioral Stories)**: Polish 5 distinct stories (Production Outage, Tech Disagreement, Scaling Bottleneck, Mentorship, Cross-functional Delivery).
+- **Day 5 (Timed Mock Pressure Tests)**: Run a 45-minute live mock session for System Design or Coding using the **AI Mock Interview** panel.
+- **Day 6 (Executive Questions Preparation)**: Prepare 4-5 high-leverage questions about engineering culture, CI/CD deployment cadence, and technical debt.
+- **Day 7 (Pre-Game Reset)**: Test camera/mic, review architectural cheat sheets, and ensure zero late-night cramming.
+
+#### ⏰ Optimal Interview Scheduling Levers:
+- **Best Timeslots**: Tuesday – Thursday mornings (9:30 AM – 11:30 AM) when interviewers are sharpest and not fatigued by afternoon meetings.
+- **Buffer Rules**: Never schedule back-to-back technical rounds across different companies on the same day without at least a 2.5-hour decompression buffer.
+- **Dashboard Integration**: Check your **Calendar & Schedule** tab in ResumeFlow AI to track your deadlines and interview rounds synced directly from your Kanban board.
+
+💡 *Do you have an upcoming interview date or deadline you'd like to plan a preparation schedule for?*`;
+  }
+
+  // 8. Job Search Analytics & Pipeline Funnel
+  if (lower.includes("analytic") || lower.includes("metric") || lower.includes("funnel") || lower.includes("conversion") || lower.includes("rate") || lower.includes("job search stats") || lower.includes("pipeline") || lower.includes("stats")) {
+    return `### 📊 High-Performance Job Search Analytics & Funnel Benchmarks
+
+To systematically land top-tier offers, track your pipeline against these Silicon Valley tier-1 hiring benchmarks:
+
+#### 📈 Industry Standard Conversion Funnel (Senior / Lead Roles):
+| Funnel Stage | Top 10% Benchmark | Warning Threshold (< Action Needed) |
+| :--- | :--- | :--- |
+| **Application → Recruiter Screen** | **18% – 25%** | < 10% *(Diagnosis: Resume ATS keywords & quantified metrics need overhaul)* |
+| **Recruiter Screen → Technical Round** | **70% – 85%** | < 50% *(Diagnosis: Elevator pitch & communication clarity needs polish)* |
+| **Technical Round → Final Loop** | **55% – 70%** | < 40% *(Diagnosis: System design trade-offs & live coding edge cases)* |
+| **Final Loop → Written Offer** | **45% – 60%** | < 30% *(Diagnosis: Executive presence & STAR leadership alignment)* |
+
+#### 🎯 Key Levers to 2x Your Pipeline Conversion:
+1. **48-Hour Application Velocity**: Apply within the first 48 hours of posting for a **3.2x** higher recruiter viewing rate.
+2. **Keyword Match Density**: Maintain an ATS score of **80+** on all tailored applications.
+3. **Pipeline Value**: Track your total potential compensation across active interview stages in your **Job Search Analytics** panel.
+
+💡 *Would you like to analyze your current application numbers, conversion rates, or diagnose where candidates drop off in the funnel?*`;
+  }
+
+  // 9. Notifications Center & Proactive Alerts
+  if (lower.includes("notif") || lower.includes("alert") || lower.includes("digest") || lower.includes("reminder") || lower.includes("email alert") || lower.includes("push")) {
+    return `### 🔔 Notifications Center & Proactive Career Alert Strategy
+
+Staying on top of time-sensitive recruiting updates can make the difference between securing an offer or having a hiring headcount close.
+
+#### ⚡ 4 Essential Alerts to Maintain in Your Job Search:
+1. **⚡ Interview Slot Booking Alerts**: Recruiter interview slots fill within **4 hours** of delivery. Ensure immediate email alerts are enabled.
+2. **⏳ 48-Hour Take-Home & Application Deadlines**: Automated countdown pings for take-home coding challenges or pending application cutoffs.
+3. **📄 ATS Sync & Keyword Alerts**: Confirmations when updated skills or parsed resumes are re-indexed across your active applications.
+4. **📬 Weekly Career Digest**: Sunday evening automated summaries covering conversion rates, upcoming rounds, and top pending tasks.
+
+#### ⚙️ Notification Center Management:
+- Configure your **Email Alerts**, **Push Notifications**, and **Weekly Digest** inside the **Notifications Center** panel.
+- Mark notifications as read or clear completed milestone alerts with one click.
+
+💡 *Would you like help setting up your alert preferences or drafting an automated follow-up reminder for a pending application?*`;
+  }
+
+  // 10. Job Seeker Profile & Executive Personal Branding
+  if (lower.includes("profile") || lower.includes("bio") || lower.includes("headline") || lower.includes("personal brand") || lower.includes("about me") || lower.includes("executive summary") || lower.includes("contact info")) {
+    return `### 👤 Executive Job Seeker Profile & Personal Branding Strategy
+
+Your profile is the foundational digital identity that recruiters evaluate before scheduling initial interviews.
+
+#### 🌟 3 Pillars of a High-Converting Candidate Profile:
+1. **High-Impact Headline Formula**:
+   - *Weak*: "Software Engineer looking for opportunities"
+   - *Executive Impact*: **"Senior Full-Stack Engineer | Distributed Systems & Next.js 15 | Ex-Fintech ($2.4B GMV) | Cloud & Microservices"**
+2. **Quantified 3-Sentence Executive Summary**:
+   - **Sentence 1 (Identity & Scale)**: "Senior Full-Stack Engineer with 6+ years designing fault-tolerant distributed web architectures."
+   - **Sentence 2 (Signature Technical Win)**: "Scaled event-driven ingestion microservices from 10k to 250k RPS with sub-50ms P99 latency."
+   - **Sentence 3 (Leadership Focus)**: "Passionate about code quality standards, mentoring junior engineers, and driving CI/CD release cadence."
+3. **Verified Proof-Points**:
+   - Direct clickable **LinkedIn Profile** and **GitHub Portfolio** links added in your contact header.
+
+#### 🔄 Profile Synchronization in ResumeFlow AI:
+- Saving your details in the **Job Seeker Profile** panel automatically syncs your Name, Target Title, Location, and Social URLs across all active Resume Builder templates.
+
+💡 *Would you like me to write a tailored Executive Summary or optimize your profile headline for a specific target role?*`;
+  }
+
   // Default Comprehensive Response
   return `### 🤖 Executive AI Career Advisor & LLM Coach
 
@@ -135,10 +220,14 @@ I am here to help you accelerate your tech career, land top-tier software engine
 
 Here is what we can work on right now:
 1. **📄 Resume & ATS Polish**: Paste a bullet point or job description for instant keyword optimization.
-2. **💰 Salary & Equity Negotiation**: Review compensation packages and draft counter-offer emails.
-3. **🎯 STAR Interview Prep**: Practice behavioral, leadership, and system design questions.
-4. **🚀 Career Roadmap & Leveling**: Build a customized plan to reach Senior or Staff Engineer.
-5. **📬 Recruiter Outreach**: Generate personalized LinkedIn messages that get responses.
+2. **👤 Job Seeker Profile**: Optimize your executive headline, bio, and social proof links.
+3. **💰 Salary & Equity Negotiation**: Review compensation packages and draft counter-offer emails.
+4. **🎯 STAR Interview Prep**: Practice behavioral, leadership, and system design questions.
+5. **📊 Job Search Analytics**: Analyze conversion rates, application funnels, and pipeline metrics.
+6. **📅 Calendar & Prep Schedules**: Build a customized 7-day interview timeline and scheduling strategy.
+7. **🔔 Notifications & Alerts**: Manage proactive recruiter alerts, deadlines, and digests.
+8. **🚀 Career Roadmap & Leveling**: Build a customized plan to reach Senior or Staff Engineer.
+9. **📬 Recruiter Outreach**: Generate personalized LinkedIn messages that get responses.
 
 *What would you like to focus on today?*`;
 }
