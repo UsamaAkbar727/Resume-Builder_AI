@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "@/components/landing/Navbar";
 import Hero from "@/components/landing/Hero";
 import Logos from "@/components/landing/Logos";
@@ -22,6 +22,12 @@ import Footer from "@/components/landing/Footer";
 import SectionWrap from "@/components/landing/SectionWrap";
 
 export default function LandingPage() {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
   return (
     <div className="min-h-screen text-zinc-900 relative flex flex-col font-sans antialiased overflow-x-hidden">
       {/* Premium Navbar */}

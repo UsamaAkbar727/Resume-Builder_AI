@@ -26,6 +26,12 @@ function AuthContent() {
   const [twoFactorToken, setTwoFactorToken] = useState("");
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  useEffect(() => {
     const urlMode = searchParams.get("mode") as AuthMode;
     if (urlMode && ["login", "register", "forgot", "reset", "verify", "2fa"].includes(urlMode)) {
       setMode(urlMode);
