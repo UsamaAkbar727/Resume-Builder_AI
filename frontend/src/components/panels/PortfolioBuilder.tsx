@@ -692,7 +692,7 @@ export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: 
 
             {/* Interactive Preview Canvas */}
             <div
-              className={`p-8 min-h-[460px] text-left transition-all \${getFontFamilyClass()} \${
+              className={`p-8 min-h-[460px] text-left transition-all ${getFontFamilyClass()} ${
                 previewTheme === "dark" ? "bg-gray-950 text-white" : "bg-white text-gray-900"
               }`}
             >
@@ -701,7 +701,7 @@ export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: 
                 <div className={getSpacingClass()}>
                   <header className="flex justify-between items-center border-b border-gray-500/20 pb-4">
                     <span className="font-extrabold text-xs uppercase" style={{ color: accentColor }}>
-                      {(resumeData?.name || "Sarah Jenkins").split(" ").map((n: string) => n[0]).join("") + ".DEV"}
+                      {(resumeData?.name || "Usama jutt").split(" ").map((n: string) => n[0]).join("") + ".DEV"}
                     </span>
                     <div className="flex gap-4 text-[10px] font-bold text-gray-500">
                       {visibleSections.experience && <span>Experience</span>}
@@ -713,11 +713,11 @@ export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: 
                   <div className="space-y-4">
                     <span className="text-[10px] font-bold uppercase tracking-wider block" style={{ color: accentColor }}>Welcome page</span>
                     <h2 className="text-3xl font-black tracking-tight leading-none">
-                      Hi, I'm <span style={{ color: accentColor }}>{resumeData?.name || "Sarah Jenkins"}</span>
+                      Hi, I'm <span style={{ color: accentColor }}>{resumeData?.name || "Usama jutt"}</span>
                     </h2>
                     <h3 className="text-xs font-bold text-gray-400">{resumeData?.title || activeProfessionLabel}</h3>
                     {visibleSections.summary && (
-                      <p className={`text-xs font-light leading-relaxed max-w-md \${previewTheme === "dark" ? "text-gray-300" : "text-[#6B7280]"}`}>
+                      <p className={`text-xs font-light leading-relaxed max-w-md ${previewTheme === "dark" ? "text-gray-300" : "text-[#6B7280]"}`}>
                         {resumeData?.summary || "Senior developer building premium systems with modern tools."}
                       </p>
                     )}
@@ -757,9 +757,9 @@ export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: 
 
               {/* Creative Layout rendering */}
               {layout === "creative" && (
-                <div className={`text-center flex flex-col justify-between min-h-[380px] \${getSpacingClass()}`}>
+                <div className={`text-center flex flex-col justify-between min-h-[380px] ${getSpacingClass()}`}>
                   <header className="flex justify-between items-center border-b border-gray-500/10 pb-4">
-                    <span className="font-extrabold text-[10px] tracking-widest uppercase">{(resumeData?.name || "Sarah Jenkins").split(" ").map((n: string) => n[0]).join("") + ".STUDIO"}</span>
+                    <span className="font-extrabold text-[10px] tracking-widest uppercase">{(resumeData?.name || "Usama jutt").split(" ").map((n: string) => n[0]).join("") + ".STUDIO"}</span>
                     <span className="text-[9px] font-extrabold uppercase tracking-widest text-gray-400">Selected Works</span>
                   </header>
 
@@ -794,13 +794,13 @@ export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: 
               {layout === "corporate" && (
                 <div className={getSpacingClass()}>
                   <header className="flex justify-between items-center border-b border-gray-500/10 pb-4 text-xs font-bold">
-                    <span>{resumeData?.name || "Sarah Jenkins"}</span>
+                    <span>{resumeData?.name || "Usama jutt"}</span>
                     <span className="text-[10px] text-gray-400">{activeProfessionLabel}</span>
                   </header>
 
                   <div className="grid grid-cols-3 gap-6">
                     <div className="col-span-2 space-y-4">
-                      <h2 className="text-3xl font-extrabold tracking-tight">{resumeData?.name || "Sarah Jenkins"}</h2>
+                      <h2 className="text-3xl font-extrabold tracking-tight">{resumeData?.name || "Usama jutt"}</h2>
                       <span className="text-[10px] font-bold uppercase tracking-wider block" style={{ color: accentColor }}>{resumeData?.title || activeProfessionLabel}</span>
                       {visibleSections.summary && (
                         <p className="text-xs leading-relaxed text-gray-400 font-light">{resumeData?.summary || "Experienced corporate executive managing tech platforms."}</p>
@@ -809,7 +809,7 @@ export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: 
                     
                     <div className="col-span-1 p-4 rounded-2xl bg-gray-500/5 border border-gray-500/10 text-[10px] space-y-2.5">
                       <h5 className="font-extrabold uppercase tracking-wider text-[9px]">Details</h5>
-                      <p className="text-gray-400">Email: <span className="font-bold text-gray-300 block">{resumeData?.email || "sarah@company.com"}</span></p>
+                      <p className="text-gray-400">Email: <span className="font-bold text-gray-300 block">{resumeData?.email || "usama@stripe.com"}</span></p>
                       <p className="text-gray-400">Location: <span className="font-bold text-gray-300 block">{resumeData?.location || "San Francisco, CA"}</span></p>
                     </div>
                   </div>
@@ -836,9 +836,9 @@ export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: 
 
               {/* Freelancer Layout rendering */}
               {layout === "freelancer" && (
-                <div className={`text-center space-y-8 \${getSpacingClass()}`}>
+                <div className={`text-center space-y-8 ${getSpacingClass()}`}>
                   <header className="flex justify-between items-center border-b border-gray-500/10 pb-4">
-                    <span className="font-bold text-xs">{resumeData?.name || "Sarah Jenkins"}</span>
+                    <span className="font-bold text-xs">{resumeData?.name || "Usama jutt"}</span>
                     <button className="px-3.5 py-1.5 rounded-full text-[9px] font-bold text-white cursor-pointer" style={{ backgroundColor: accentColor }}>Hire Me</button>
                   </header>
 
