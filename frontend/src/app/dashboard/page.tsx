@@ -763,7 +763,7 @@ export default function DashboardWrapper() {
                           setShowCommandPalette(false);
                           setSearchQuery("");
                         }}
-                        className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#111827] hover:bg-[#EEF2F7] transition-all flex items-center gap-3"
+                        className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#111827] hover:bg-[#EEF2F7] dark:hover:bg-slate-800/60 transition-all flex items-center gap-3"
                       >
                         {IconComponent ? <IconComponent className="w-4 h-4 text-[#6B7280]" /> : <span className="text-base">▪</span>}
                         <span>{item.label}</span>
