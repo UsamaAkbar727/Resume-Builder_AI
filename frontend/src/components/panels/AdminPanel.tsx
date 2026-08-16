@@ -87,7 +87,7 @@ export default function AdminPanel({ onNavigate, showToast }: { onNavigate?: (ta
             </thead>
             <tbody className="divide-y divide-[#E5E7EB]/50">
               {users.map((u) => (
-                <tr key={u.id} className="hover:bg-[#EEF2F7]/30 transition-colors">
+                <tr key={u.id} className="hover:bg-[#EEF2F7]/30 dark:hover:bg-slate-800/40 transition-colors">
                   <td className="py-3.5 font-semibold text-[#111827]">{u.name}</td>
                   <td className="py-3.5 text-[#6B7280]">{u.email}</td>
                   <td className="py-3.5">

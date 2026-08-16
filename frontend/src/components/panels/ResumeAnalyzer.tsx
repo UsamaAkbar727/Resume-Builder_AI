@@ -1081,11 +1081,11 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
             <div className="clay-card bg-white overflow-hidden text-left">
               
               {/* Tab headers */}
-              <div className="flex flex-wrap border-b border-[#E5E7EB] bg-gray-50/50 text-xs font-semibold text-[#6B7280]">
+              <div className="flex flex-wrap border-b border-[#E5E7EB] dark:border-slate-800 bg-gray-50/50 dark:bg-slate-900/40 text-xs font-semibold text-[#6B7280] dark:text-slate-400">
                 <button
                   onClick={() => setActiveTab("overview")}
                   className={`px-4 py-3 border-b-2 transition-all flex items-center gap-1.5 ${
-                    activeTab === "overview" ? "border-[#2563EB] text-[#2563EB] bg-white font-bold" : "border-transparent hover:text-[#111827]"
+                    activeTab === "overview" ? "border-[#2563EB] text-[#2563EB] dark:text-blue-400 bg-white font-bold" : "border-transparent hover:text-[#111827] dark:hover:text-slate-200"
                   }`}
                 >
                   <FileCheck2 className="w-3.5 h-3.5" /> Overview
@@ -1093,7 +1093,7 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
                 <button
                   onClick={() => setActiveTab("sections")}
                   className={`px-4 py-3 border-b-2 transition-all flex items-center gap-1.5 ${
-                    activeTab === "sections" ? "border-[#2563EB] text-[#2563EB] bg-white font-bold" : "border-transparent hover:text-[#111827]"
+                    activeTab === "sections" ? "border-[#2563EB] text-[#2563EB] dark:text-blue-400 bg-white font-bold" : "border-transparent hover:text-[#111827] dark:hover:text-slate-200"
                   }`}
                 >
                   <BookOpen className="w-3.5 h-3.5" /> Sections Audit
@@ -1101,7 +1101,7 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
                 <button
                   onClick={() => setActiveTab("skills")}
                   className={`px-4 py-3 border-b-2 transition-all flex items-center gap-1.5 ${
-                    activeTab === "skills" ? "border-[#2563EB] text-[#2563EB] bg-white font-bold" : "border-transparent hover:text-[#111827]"
+                    activeTab === "skills" ? "border-[#2563EB] text-[#2563EB] dark:text-blue-400 bg-white font-bold" : "border-transparent hover:text-[#111827] dark:hover:text-slate-200"
                   }`}
                 >
                   <Sparkles className="w-3.5 h-3.5" /> Skills Match
@@ -1109,7 +1109,7 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
                 <button
                   onClick={() => setActiveTab("improvements")}
                   className={`px-4 py-3 border-b-2 transition-all flex items-center gap-1.5 ${
-                    activeTab === "improvements" ? "border-[#2563EB] text-[#2563EB] bg-white font-bold" : "border-transparent hover:text-[#111827]"
+                    activeTab === "improvements" ? "border-[#2563EB] text-[#2563EB] dark:text-blue-400 bg-white font-bold" : "border-transparent hover:text-[#111827] dark:hover:text-slate-200"
                   }`}
                 >
                   <AlertTriangle className="w-3.5 h-3.5" /> Recommendations ({improvements.length})
@@ -1117,7 +1117,7 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
                 <button
                   onClick={() => setActiveTab("formatting")}
                   className={`px-4 py-3 border-b-2 transition-all flex items-center gap-1.5 ${
-                    activeTab === "formatting" ? "border-[#2563EB] text-[#2563EB] bg-white font-bold" : "border-transparent hover:text-[#111827]"
+                    activeTab === "formatting" ? "border-[#2563EB] text-[#2563EB] dark:text-blue-400 bg-white font-bold" : "border-transparent hover:text-[#111827] dark:hover:text-slate-200"
                   }`}
                 >
                   <User className="w-3.5 h-3.5" /> Formatting & Verbs
