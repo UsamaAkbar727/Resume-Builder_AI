@@ -97,7 +97,7 @@ export default function HowItWorks() {
                   <img
                     src="/images/ai-career-portal.png"
                     alt="AI Resume to Career Opportunity Portal"
-                    className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-auto object-cover transform scale-[1.04] group-hover:scale-[1.08] transition-transform duration-700"
                     loading="lazy"
                   />
                   {/* Floating status badge */}
