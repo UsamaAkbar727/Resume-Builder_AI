@@ -213,6 +213,27 @@ Your profile is the foundational digital identity that recruiters evaluate befor
 💡 *Would you like me to write a tailored Executive Summary or optimize your profile headline for a specific target role?*`;
   }
 
+  // 11. Account Settings, Security & Workspace Preferences
+  if (lower.includes("setting") || lower.includes("account") || lower.includes("2fa") || lower.includes("two factor") || lower.includes("security") || lower.includes("api key") || lower.includes("billing") || lower.includes("theme") || lower.includes("language")) {
+    return `### ⚙️ Account Settings & Security Management
+
+Configure your ResumeFlow AI workspace environment, security posture, and developer integrations:
+
+#### 🛡️ 1. Two-Factor Authentication (2FA) & Security
+- **Protect Your Career Pipeline**: Safeguard private salary negotiations, compensation offers, and recruiter correspondence by enabling **TOTP 2-Step Verification** with Google Authenticator or Authy.
+- **Immediate Status**: Toggle and verify 2FA in real-time inside your **Account Settings** tab.
+
+#### 🔑 2. Developer Integration API Keys
+- Access programmatic endpoints to export your ATS scores, parsed resume schemas, and Kanban application trackers to external tools (Notion, Raycast, Zapier).
+- **Security Lever**: Click **"Rotate Key"** at any time to immediately revoke previous tokens.
+
+#### 🎨 3. Workspace Customization & Localization
+- **Theme Modes**: Seamlessly toggle between **Light**, **Sleek Dark**, and **System Auto**.
+- **Global Localization**: Select from 8 native languages (English, Urdu, Spanish, Arabic, French, German, Chinese, Hindi) for all dashboard metrics.
+
+💡 *Do you need assistance enabling 2FA, generating an API key, or customizing your workspace theme?*`;
+  }
+
   // Default Comprehensive Response
   return `### 🤖 Executive AI Career Advisor & LLM Coach
 
@@ -226,8 +247,9 @@ Here is what we can work on right now:
 5. **📊 Job Search Analytics**: Analyze conversion rates, application funnels, and pipeline metrics.
 6. **📅 Calendar & Prep Schedules**: Build a customized 7-day interview timeline and scheduling strategy.
 7. **🔔 Notifications & Alerts**: Manage proactive recruiter alerts, deadlines, and digests.
-8. **🚀 Career Roadmap & Leveling**: Build a customized plan to reach Senior or Staff Engineer.
-9. **📬 Recruiter Outreach**: Generate personalized LinkedIn messages that get responses.
+8. **⚙️ Account Settings & 2FA**: Configure workspace themes, security, API keys, and language.
+9. **🚀 Career Roadmap & Leveling**: Build a customized plan to reach Senior or Staff Engineer.
+10. **📬 Recruiter Outreach**: Generate personalized LinkedIn messages that get responses.
 
 *What would you like to focus on today?*`;
 }
