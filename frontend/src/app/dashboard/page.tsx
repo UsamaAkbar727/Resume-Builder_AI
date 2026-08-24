@@ -942,10 +942,10 @@ export default function DashboardWrapper() {
         </div>
       )}
 
-      {/* Sleek Modern Floating Toast Notification */}
+      {/* Sleek Modern Floating Toast Notification (Centered) */}
       {toast.show && (
-        <div className="fixed bottom-5 right-5 z-[100] animate-in fade-in-0 slide-in-from-bottom-3 duration-200 ease-out w-auto max-w-[340px] pointer-events-auto">
-          <div className="bg-white/95 dark:bg-slate-900/95 text-slate-800 dark:text-slate-100 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 rounded-xl px-3 py-2 flex items-center gap-2.5 shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08),0_2px_6px_-1px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.45)] transition-all">
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] animate-in fade-in-0 slide-in-from-top-4 duration-200 ease-out w-auto max-w-[420px] px-4 pointer-events-auto">
+          <div className="bg-white/95 dark:bg-slate-900/95 text-slate-800 dark:text-slate-100 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 rounded-xl px-3.5 py-2 flex items-center gap-2.5 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.1),0_4px_10px_-2px_rgba(0,0,0,0.04)] dark:shadow-[0_10px_30px_-5px_rgba(0,0,0,0.5)] transition-all">
             {/* Subtle Small Status Icon */}
             <div className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${
               toast.type === "success" ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400" :
@@ -958,7 +958,7 @@ export default function DashboardWrapper() {
             </div>
 
             {/* Clean Typography */}
-            <p className="text-[12px] font-medium text-slate-700 dark:text-slate-200 leading-snug line-clamp-2 min-w-0 flex-1">
+            <p className="text-[12px] font-medium text-slate-700 dark:text-slate-200 leading-snug line-clamp-2 min-w-0 flex-1 whitespace-nowrap">
               {toast.message}
             </p>
 
