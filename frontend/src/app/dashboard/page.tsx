@@ -867,6 +867,7 @@ export default function DashboardWrapper() {
               onUpdateProfile={handleUpdateProfile}
               resumeData={resumeData} 
               setResumeData={setResumeData} 
+              jobs={jobs}
               onNavigate={handleNavigate} 
               showToast={showToast} 
             />
