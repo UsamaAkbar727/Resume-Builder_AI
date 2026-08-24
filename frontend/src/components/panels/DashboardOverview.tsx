@@ -191,14 +191,14 @@ export default function DashboardOverview({ jobs, language = "en", onNavigate, u
               <div
                 key={tool.id}
                 onClick={() => onNavigate(tool.id)}
-                className="group p-5 rounded-2xl border border-gray-200 dark:border-slate-800/80 hover:border-blue-500 hover:shadow-xl bg-white dark:bg-[#0B0F19] transition-all cursor-pointer flex flex-col justify-between relative overflow-hidden"
+                className="group p-5 rounded-2xl border border-gray-200/90 dark:border-slate-800/80 bg-white dark:bg-[#0B0F19] hover:border-blue-500/40 dark:hover:border-blue-400/40 hover:-translate-y-1 hover:shadow-[0_12px_28px_-6px_rgba(37,99,235,0.08),0_4px_10px_-2px_rgba(0,0,0,0.03)] dark:hover:shadow-[0_12px_28px_-6px_rgba(0,0,0,0.4)] transition-all duration-200 ease-out cursor-pointer flex flex-col justify-between relative overflow-hidden"
               >
                 {/* Top Accent Ribbon */}
-                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${tool.color}`} />
+                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${tool.color} opacity-80 group-hover:opacity-100 transition-opacity duration-200`} />
 
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${tool.color} text-white flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform`}>
+                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${tool.color} text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform duration-200 ease-out`}>
                       <Icon className="w-5 h-5" />
                     </div>
                     <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 border border-gray-200 dark:border-slate-700/50">
@@ -206,15 +206,15 @@ export default function DashboardOverview({ jobs, language = "en", onNavigate, u
                     </span>
                   </div>
 
-                  <h4 className="text-base font-extrabold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <h4 className="text-base font-extrabold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
                     {tool.title}
                   </h4>
                   <p className="text-xs text-gray-500 dark:text-slate-400 mt-1 leading-relaxed">{tool.desc}</p>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-gray-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+                <div className="pt-4 mt-4 border-t border-gray-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold text-blue-600 dark:text-blue-400">
                   <span>Launch Tool</span>
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
                 </div>
               </div>
             );
