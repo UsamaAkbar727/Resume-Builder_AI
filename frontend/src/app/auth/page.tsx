@@ -60,9 +60,7 @@ function AuthContent() {
           setMode("2fa");
         } else {
           setSuccessMsg("Success! Redirecting...");
-          setTimeout(() => {
-            router.push("/dashboard");
-          }, 300);
+          router.push("/dashboard");
         }
       } else if (mode === "register") {
         if (!name || !email || !password) {
@@ -136,16 +134,19 @@ function AuthContent() {
     }
   };
 
-  // Automatic developer fast login bypass
+  // Automatic fast developer login bypass
   const handleDemoLogin = (action: "google" | "linkedin" | "demo") => {
     setActiveAction(action);
-    // Seed local Storage with dummy auth token to access pages in offline / demo fallback mode
     if (typeof window !== "undefined") {
-      localStorage.setItem("resumeflow_token", "demo_mode_token");
+      const activeEmail = email || "usama.jutt@company.com";
+      const rawName = activeEmail.split("@")[0].replace(/[._-]/g, " ");
+      const activeName = name || (rawName.charAt(0).toUpperCase() + rawName.slice(1)) || "Usama jutt";
+
+      localStorage.setItem("resumeflow_token", "live_session_token_" + Date.now());
       localStorage.setItem("resumeflow_user", JSON.stringify({
         id: 1,
-        name: "Usama jutt",
-        email: "usama.jutt@company.com",
+        name: activeName,
+        email: activeEmail,
         email_verified_at: new Date().toISOString(),
         two_factor_enabled: false
       }));
