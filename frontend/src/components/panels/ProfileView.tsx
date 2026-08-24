@@ -226,16 +226,16 @@ export default function ProfileView({
     }, 400);
   };
 
-  const initials = name && name.trim()
-    ? name
-        .trim()
-        .split(/\s+/)
-        .filter(Boolean)
-        .map(n => n[0])
-        .join("")
-        .slice(0, 2)
-        .toUpperCase()
-    : "UJ";
+  const getInitials = (str: string) => {
+    if (!str || !str.trim()) return "UJ";
+    const parts = str.trim().split(/\s+/).filter(Boolean);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return parts[0].slice(0, 2).toUpperCase();
+  };
+
+  const initials = getInitials(name);
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-300 text-left max-w-6xl mx-auto pb-12">
