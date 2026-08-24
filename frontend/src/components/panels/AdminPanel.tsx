@@ -39,16 +39,18 @@ export interface AuditLog {
 }
 
 export default function AdminPanel({ 
+  currentUser: propUser,
   onNavigate, 
   showToast 
 }: { 
+  currentUser?: { name: string; email: string };
   onNavigate?: (tab: string) => void; 
   showToast?: (msg: string, type?: "success" | "info" | "warning") => void 
 }) {
   // Load current logged-in user
   const [currentUser, setCurrentUser] = useState<{ name: string; email: string }>({
-    name: "Usama jutt",
-    email: "usama@stripe.com",
+    name: propUser?.name || "Usama jutt",
+    email: propUser?.email || "usama@stripe.com",
   });
 
   const [users, setUsers] = useState<AdminUser[]>([]);

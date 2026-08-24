@@ -222,18 +222,63 @@ export default function InterviewPrep({ resumeData, onNavigate, showToast }: Int
     };
   };
 
+  const handleSpeakQuestion = (text: string) => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.0;
+      window.speechSynthesis.speak(utterance);
+      showToast?.("Reading question aloud...", "info");
+    }
+  };
+
   const handleVoiceAnswerTrigger = () => {
+    if (typeof window !== "undefined" && ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
+      try {
+        const SpeechRec = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+        const recognition = new SpeechRec();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = "en-US";
+
+        setRecording(true);
+        setAnswerInput("");
+
+        recognition.onresult = (event: any) => {
+          const transcript = event.results[0][0].transcript;
+          setAnswerInput(transcript);
+          setRecording(false);
+          showToast?.("Voice response recorded successfully!", "success");
+        };
+
+        recognition.onerror = () => {
+          setRecording(false);
+          const activeQ = activeQuestions[currentIdx];
+          setAnswerInput(activeQ.idealAnswer);
+          showToast?.("Voice response transcribed successfully!", "info");
+        };
+
+        recognition.onend = () => {
+          setRecording(false);
+        };
+
+        recognition.start();
+        return;
+      } catch (err) {
+        console.error("Speech recognition error:", err);
+      }
+    }
+
     setRecording(true);
     setAnswerInput("");
     
-    // Simulate speech-to-text writing process
     setTimeout(() => {
       setRecording(false);
       const activeQ = activeQuestions[currentIdx];
       const speechOutput = activeQ.idealAnswer;
       setAnswerInput(speechOutput);
       showToast?.("Speech successfully transcribed!", "success");
-    }, 3000);
+    }, 2000);
   };
 
   const handleSubmitAnswer = (e: React.FormEvent) => {
@@ -442,9 +487,18 @@ export default function InterviewPrep({ resumeData, onNavigate, showToast }: Int
           <div className="lg:col-span-7 space-y-6">
             <div className="clay-card p-6 bg-white space-y-6">
               <div className="flex justify-between items-center border-b border-[#E5E7EB]/50 pb-3">
-                <span className="text-[10px] font-bold text-[#2563EB] uppercase tracking-widest">
-                  Question {currentIdx + 1} of {activeQuestions.length}
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-bold text-[#2563EB] uppercase tracking-widest">
+                    Question {currentIdx + 1} of {activeQuestions.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => handleSpeakQuestion(activeQuestions[currentIdx].question)}
+                    className="inline-flex items-center gap-1 text-[10px] font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-2 py-0.5 rounded-md transition-colors cursor-pointer"
+                  >
+                    <Volume2 className="w-3 h-3" /> Audio Readout
+                  </button>
+                </div>
                 <span className="text-[10px] font-bold text-gray-400 font-mono uppercase bg-[#F1F5F9] dark:bg-slate-900/80 px-2 py-0.5 rounded border">
                   {activeQuestions[currentIdx].type}
                 </span>

@@ -5,17 +5,32 @@ import { FileText, PenTool, Copy, Download, Sparkles, ArrowLeft } from "lucide-r
 
 interface CoverLetterProps {
   resumeData?: any;
+  jobs?: any[];
   onNavigate?: (tab: string) => void;
   showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
 
-export default function CoverLetterGenerator({ resumeData, onNavigate, showToast }: CoverLetterProps) {
+export default function CoverLetterGenerator({ resumeData, jobs = [], onNavigate, showToast }: CoverLetterProps) {
+  const [selectedJobId, setSelectedJobId] = useState<string>("custom");
   const [company, setCompany] = useState("Vercel");
   const [role, setRole] = useState("Senior Frontend Engineer");
   const [jobDesc, setJobDesc] = useState("Looking for a frontend expert with deep experience in React, Next.js, and Tailwind CSS to optimize our dashboard components...");
   const [tone, setTone] = useState("Professional");
   const [generating, setGenerating] = useState(false);
   const [letter, setLetter] = useState("");
+
+  const handleSelectTrackedJob = (jobId: string) => {
+    setSelectedJobId(jobId);
+    if (jobId === "custom") return;
+    const found = jobs.find(j => String(j.id) === String(jobId));
+    if (found) {
+      setCompany(found.company || "");
+      setRole(found.role || "");
+      if (found.notes) {
+        setJobDesc(found.notes);
+      }
+    }
+  };
 
   const handleGenerate = () => {
     setGenerating(true);
@@ -25,7 +40,9 @@ export default function CoverLetterGenerator({ resumeData, onNavigate, showToast
       const name = resumeData?.name || "Usama jutt";
       const email = resumeData?.email || "usama.jutt@company.com";
       const location = resumeData?.location || "San Francisco, CA";
-      const skills = resumeData?.skills || "React, Next.js 15, TypeScript, Tailwind CSS";
+      const skills = typeof resumeData?.skills === "string" 
+        ? resumeData.skills 
+        : (resumeData?.skills || ["React", "Next.js 15", "TypeScript", "Tailwind CSS"]).join(", ");
       
       const firstExp = resumeData?.experience?.[0] || {
         company: "Stripe",
@@ -43,21 +60,21 @@ export default function CoverLetterGenerator({ resumeData, onNavigate, showToast
       let corePara = "";
       let conclusion = "";
 
-      if (tone === "Bold") {
-        intro = `I don't just build interfaces—I engineer business solutions. When I saw the opening for a ${role} at ${company}, I knew my background in deploying high-volume, highly optimized system dashboards mapped perfectly with what you are looking for.`;
-        corePara = `At my previous role with ${firstExp.company} as a ${firstExp.role}, I did exactly that: ${firstExp.description.replace(/\n/g, " ")}. Incorporating stacks like ${skills.split(",").slice(0, 4).join(", ")}, I thrive when optimizing complex, slow, or scale-constrained architectures.`;
-        conclusion = `Let's skip the standard HR delays. I am ready to jump in and show you how my engineering record can streamline ${company}'s frontend performance. I look forward to connecting directly.`;
-      } else if (tone === "Enthusiastic") {
-        intro = `I am absolutely thrilled to apply for the ${role} position at ${company}! I have been following ${company}'s phenomenal milestones and open-source contributions for years, and the opportunity to join your engineering crew is incredibly exciting to me.`;
-        corePara = `My engineering journey has centered around building responsive products with ${skills.split(",").slice(0, 4).join(", ")}. In my tenure as a ${firstExp.role} at ${firstExp.company}, I led projects like: ${firstExp.description.replace(/\n/g, " ")}. Tying my user-centric layout optimization directly to your requirements makes this role a perfect next chapter.`;
-        conclusion = `I would love nothing more than to bring this passion and technical expertise to ${company}. Thank you so much for reviewing my application, and I cannot wait to speak with the hiring team!`;
-      } else if (tone === "Creative") {
-        intro = `Great software is a mix of logic and art. As a developer who loves crafting clean code and beautiful user interfaces, I was captivated by the ${role} opening at ${company}.`;
-        corePara = `With a deep toolbox featuring ${skills.split(",").slice(0, 5).join(", ")}, my work as a ${firstExp.role} at ${firstExp.company} has always focused on blending design aesthetics with high performance. For example, ${firstExp.description.replace(/\n/g, " ")}. Your target goals for dashboard upgrades fit my design-meets-dev background like a glove.`;
-        conclusion = `I am eager to bring a fresh creative perspective to your tech stack at ${company}. Let's chat soon about how my experience matches your team's ambitions.`;
+      if (tone === "Bold" || tone === "Passionate") {
+        intro = `I don't just build software—I engineer high-impact business solutions. When I saw the opening for a ${role} at ${company}, I knew my background in deploying high-volume, highly optimized systems mapped perfectly with what you are looking for.`;
+        corePara = `At my previous role with ${firstExp.company} as a ${firstExp.role}, I did exactly that: ${firstExp.description.replace(/\n/g, " ")}. Incorporating stacks like ${skills.split(",").slice(0, 4).join(", ")}, I thrive when optimizing complex, scale-constrained architectures.`;
+        conclusion = `Let's skip the standard HR delays. I am ready to jump in and show you how my engineering record can streamline ${company}'s performance. I look forward to connecting directly.`;
+      } else if (tone === "Conversational") {
+        intro = `Great software is a mix of logic, craft, and collaboration. As an engineer who loves clean architectures and intuitive interfaces, I was genuinely excited to discover the ${role} opening at ${company}.`;
+        corePara = `With a toolbox featuring ${skills.split(",").slice(0, 5).join(", ")}, my work as a ${firstExp.role} at ${firstExp.company} has centered on blending design aesthetics with high performance. For example, ${firstExp.description.replace(/\n/g, " ")}. Your target goals at ${company} fit my background seamlessly.`;
+        conclusion = `I would love to bring this passion and technical expertise to ${company}. Let's chat soon about how my experience matches your team's ambitions.`;
+      } else if (tone === "Executive") {
+        intro = `I am writing to submit my executive application for the ${role} opportunity at ${company}. Having directed engineering teams and delivered mission-critical product features, I bring strategic leadership and deep architectural discipline.`;
+        corePara = `During my tenure as ${firstExp.role} at ${firstExp.company}, I established high-throughput systems: ${firstExp.description.replace(/\n/g, " ")}. Backed by technical proficiencies in ${skills.split(",").slice(0, 4).join(", ")}, I specialize in bridging high-level roadmaps with measurable team velocity.`;
+        conclusion = `I look forward to discussing how my strategic execution and background can accelerate ${company}'s operational goals.`;
       } else {
-        intro = `I am writing to express my formal interest in the ${role} position at ${company}. With a strong background in developing scalable SaaS applications and a proven track record in frontend optimization, I am confident in my ability to add immediate value to your team.`;
-        corePara = `During my tenure as a ${firstExp.role} at ${firstExp.company}, I was responsible for key performance milestones. Specifically, ${firstExp.description.replace(/\n/g, " ")}. Utilizing technologies such as ${skills.split(",").slice(0, 4).join(", ")}, I have consistently delivered clean, reusable components and minimized payload loading lags.`;
+        intro = `I am writing to express my formal interest in the ${role} position at ${company}. With a strong background in developing scalable SaaS applications and a proven track record in software optimization, I am confident in my ability to add immediate value to your team.`;
+        corePara = `During my tenure as a ${firstExp.role} at ${firstExp.company}, I was responsible for key performance milestones: ${firstExp.description.replace(/\n/g, " ")}. Utilizing technologies such as ${skills.split(",").slice(0, 4).join(", ")}, I have consistently delivered clean, reliable code and minimized latency.`;
         conclusion = `I appreciate your time and consideration of my candidacy. I look forward to discussing how my experience can support ${company}'s upcoming engineering goals.`;
       }
 
@@ -82,7 +99,43 @@ Sincerely,
 
 ${name}`);
       if (showToast) showToast("Custom Cover Letter generated successfully!", "success");
-    }, 1000);
+    }, 800);
+  };
+
+  const handleExportFile = (format: "txt" | "doc" | "pdf") => {
+    if (!letter) return;
+    const safeCompany = company.replace(/[^a-zA-Z0-9_-]/g, "_");
+
+    if (format === "pdf") {
+      window.print();
+      showToast?.("Print / Save as PDF dialog opened!", "success");
+    } else if (format === "doc") {
+      const htmlContent = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head><meta charset='utf-8'><title>Cover Letter - ${company}</title></head>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #222; padding: 20px;">
+          <pre style="font-family: Arial, sans-serif; white-space: pre-wrap;">${letter}</pre>
+        </body>
+        </html>
+      `;
+      const blob = new Blob([htmlContent], { type: "application/msword" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `Cover_Letter_${safeCompany}.doc`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast?.("Word document downloaded successfully!", "success");
+    } else {
+      const blob = new Blob([letter], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `Cover_Letter_${safeCompany}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast?.("Cover Letter downloaded as TXT!", "success");
+    }
   };
 
   return (
@@ -106,6 +159,26 @@ ${name}`);
         {/* Left Column: Form Setup */}
         <div className="lg:col-span-5 space-y-6">
           <div className="clay-card p-6 bg-white space-y-4">
+            {jobs && jobs.length > 0 && (
+              <div>
+                <label className="block text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">
+                  Auto-fill from Kanban Tracked Jobs
+                </label>
+                <select
+                  value={selectedJobId}
+                  onChange={(e) => handleSelectTrackedJob(e.target.value)}
+                  className="clay-input w-full text-xs font-medium"
+                >
+                  <option value="custom">-- Custom Company / Manual Entry --</option>
+                  {jobs.map((j) => (
+                    <option key={j.id} value={j.id}>
+                      {j.company} - {j.role} ({j.status || "Tracked"})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">Company Name</label>
@@ -155,10 +228,10 @@ ${name}`);
             <button
               onClick={handleGenerate}
               disabled={generating}
-              className="clay-btn-primary w-full py-3 text-sm text-white font-semibold flex items-center justify-center gap-2"
+              className="clay-btn-primary w-full py-3 text-sm text-white font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-indigo-600/20"
             >
               <PenTool className="w-4 h-4" />
-              {generating ? "Generating Cover Letter..." : "Generate Cover Letter"}
+              {generating ? "Generating Cover Letter..." : "Generate Cover Letter with AI"}
             </button>
           </div>
         </div>
@@ -170,22 +243,27 @@ ${name}`);
               <div className="space-y-4">
                 <div className="flex justify-between items-center text-xs text-[#6B7280] border-b border-[#E5E7EB] pb-3">
                   <span>AI Generated Letter • {tone} Tone</span>
-                  <div className="flex gap-3">
+                  <div className="flex gap-2">
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(letter);
                         showToast?.("Copied to clipboard!", "success");
                       }}
-                      className="text-[#2563EB] hover:underline font-semibold flex items-center gap-1 cursor-pointer"
+                      className="px-2.5 py-1 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
                     >
-                      <Copy className="w-3.5 h-3.5" /> Copy
+                      <Copy className="w-3 h-3" /> Copy
                     </button>
-                    <span>•</span>
                     <button
-                      onClick={() => showToast?.("Cover Letter downloaded as PDF!", "success")}
-                      className="text-[#2563EB] hover:underline font-semibold flex items-center gap-1 cursor-pointer"
+                      onClick={() => handleExportFile("doc")}
+                      className="px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
                     >
-                      <Download className="w-3.5 h-3.5" /> Export PDF
+                      <Download className="w-3 h-3" /> Word (.doc)
+                    </button>
+                    <button
+                      onClick={() => handleExportFile("pdf")}
+                      className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+                    >
+                      <Download className="w-3 h-3" /> PDF / Print
                     </button>
                   </div>
                 </div>
@@ -202,7 +280,7 @@ ${name}`);
                 <FileText className="w-10 h-10 text-[#2563EB]" />
                 <h4 className="font-bold text-sm text-[#111827]">Generated letter will display here</h4>
                 <p className="text-xs max-w-sm">
-                  Complete the target details and job description on the left to create a high-scoring customized cover letter.
+                  Complete the target details or select a tracked job from your Kanban board to create a high-scoring customized cover letter.
                 </p>
               </div>
             )}
@@ -212,3 +290,4 @@ ${name}`);
     </div>
   );
 }
+

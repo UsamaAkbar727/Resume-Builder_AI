@@ -50,6 +50,13 @@ export default function JobTracker({ jobs, setJobs, onNavigate, showToast }: Tra
         if (selectedJob?.id === jobId) {
           setSelectedJob(updatedJob);
         }
+        if (targetStatus === "Interview") {
+          showToast?.(`🎉 Interview stage confirmed for ${job.role} at ${job.company}! Added to your Calendar schedule.`, "success");
+        } else if (targetStatus === "Offer") {
+          showToast?.(`🚀 Congratulations! Offer status recorded for ${job.role} at ${job.company}!`, "success");
+        } else {
+          showToast?.(`Moved ${job.role} to ${targetStatus} column!`, "info");
+        }
         return updatedJob;
       }
       return job;

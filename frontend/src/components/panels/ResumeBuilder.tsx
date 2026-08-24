@@ -15,6 +15,7 @@ import ResumeCanvasRenderers from "@/components/panels/ResumeCanvasRenderers";
 interface ResumeBuilderProps {
   resumeData: any;
   setResumeData: (data: any) => void;
+  userProfile?: any;
   onNavigate: (tab: string) => void;
   showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
@@ -38,7 +39,7 @@ const FONT_OPTIONS = [
   { id: "mono", label: "Fira Code (Developer Mono)", class: "font-mono" },
 ];
 
-export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, showToast }: ResumeBuilderProps) {
+export default function ResumeBuilder({ resumeData, setResumeData, userProfile, onNavigate, showToast }: ResumeBuilderProps) {
   const [activeTab, setActiveTab] = useState<"details" | "experience" | "skills" | "projects">("details");
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>("ats_pro_classic");
   const [primaryColor, setPrimaryColor] = useState<string>("#2563EB");
@@ -106,20 +107,6 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
     setResumeData({ ...resumeData, projects: updatedProj });
   };
 
-  // Export handlers
-  const handleExport = (format: "pdf" | "docx" | "text") => {
-    setExporting(true);
-    setTimeout(() => {
-      setExporting(false);
-      if (format === "text") {
-        navigator.clipboard.writeText(JSON.stringify(resumeData, null, 2));
-        showToast?.("Resume data copied to clipboard in clean text format!", "info");
-      } else {
-        showToast?.(`Resume successfully generated & exported as ${format.toUpperCase()}!`, "success");
-      }
-    }, 1200);
-  };
-
   // Calculate live ATS match score based on content completeness
   const calculateLiveATS = () => {
     let score = 50;
@@ -128,11 +115,115 @@ export default function ResumeBuilder({ resumeData, setResumeData, onNavigate, s
     if (resumeData.email) score += 5;
     if (resumeData.summary && resumeData.summary.length > 50) score += 10;
     if (resumeData.experience && resumeData.experience.length >= 2) score += 10;
-    if (resumeData.skills && (typeof resumeData.skills === "string" ? resumeData.skills.length > 20 : resumeData.skills.length > 3)) score += 5;
+    if (resumeData.skills && (typeof resumeData.skills === "string" ? resumeData.skills.length > 20 : resumeData.skills?.length > 3)) score += 5;
     return Math.min(score, 98);
   };
 
   const atsScore = calculateLiveATS();
+
+  // Save ATS score whenever it recalculates
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_ats_score", atsScore.toString());
+    }
+  }, [atsScore]);
+
+  // Export handlers
+  const handleExport = (format: "pdf" | "docx" | "text") => {
+    setExporting(true);
+
+    const safeName = (resumeData.name || "Resume").replace(/[^a-zA-Z0-9_-]/g, "_");
+
+    if (format === "pdf") {
+      setTimeout(() => {
+        setExporting(false);
+        window.print();
+        showToast?.("Printing / PDF export dialog opened!", "success");
+      }, 600);
+    } else if (format === "docx") {
+      setTimeout(() => {
+        setExporting(false);
+        const expHTML = (resumeData.experience || []).map((exp: any) => `
+          <h3>${exp.role || "Role"} - ${exp.company || "Company"} (${exp.duration || ""})</h3>
+          <p>${(exp.description || "").replace(/\n/g, "<br/>")}</p>
+        `).join("");
+
+        const projHTML = (resumeData.projects || []).map((p: any) => `
+          <h4>${p.name || "Project"} [${p.tech || ""}]</h4>
+          <p>${(p.description || "")}</p>
+        `).join("");
+
+        const htmlContent = `
+          <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+          <head><meta charset='utf-8'><title>${resumeData.name}</title></head>
+          <body style="font-family: Arial, sans-serif; line-height: 1.5; color: #111;">
+            <h1 style="color: ${primaryColor}; margin-bottom: 2px;">${resumeData.name || ""}</h1>
+            <p style="font-weight: bold; margin-top: 0; color: #555;">${resumeData.title || ""} | ${resumeData.email || ""} | ${resumeData.location || ""}</p>
+            <hr style="border: 1px solid ${primaryColor};" />
+            <h2>PROFESSIONAL SUMMARY</h2>
+            <p>${resumeData.summary || ""}</p>
+            <h2>SKILLS</h2>
+            <p>${typeof resumeData.skills === "string" ? resumeData.skills : (resumeData.skills || []).join(", ")}</p>
+            <h2>EXPERIENCE</h2>
+            ${expHTML}
+            <h2>PROJECTS</h2>
+            ${projHTML}
+          </body>
+          </html>
+        `;
+        const blob = new Blob([htmlContent], { type: "application/msword" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `${safeName}_Resume.doc`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast?.("Word document generated & downloaded successfully!", "success");
+      }, 700);
+    } else {
+      setTimeout(() => {
+        setExporting(false);
+        const expTxt = (resumeData.experience || []).map((exp: any) => `
+${exp.role || "Role"} | ${exp.company || "Company"} (${exp.duration || ""})
+${exp.description || ""}
+`).join("\n");
+
+        const projTxt = (resumeData.projects || []).map((p: any) => `
+${p.name || "Project"} [${p.tech || ""}]
+${p.description || ""}
+`).join("\n");
+
+        const plainText = `
+${resumeData.name || ""}
+${resumeData.title || ""} | ${resumeData.email || ""} | ${resumeData.location || ""}
+
+SUMMARY:
+${resumeData.summary || ""}
+
+SKILLS:
+${typeof resumeData.skills === "string" ? resumeData.skills : (resumeData.skills || []).join(", ")}
+
+EXPERIENCE:
+${expTxt}
+
+PROJECTS:
+${projTxt}
+`.trim();
+
+        navigator.clipboard.writeText(plainText);
+
+        const blob = new Blob([plainText], { type: "text/plain;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `${safeName}_Resume.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        showToast?.("Resume copied to clipboard and downloaded as TXT!", "success");
+      }, 500);
+    }
+  };
 
   // Filter templates by category & search query
   const filteredTemplates = TEMPLATES_DATA.filter(t => {

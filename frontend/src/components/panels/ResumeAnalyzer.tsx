@@ -30,6 +30,7 @@ import {
 
 interface ResumeAnalyzerProps {
   resumeData?: any;
+  setResumeData?: (data: any) => void;
   onNavigate?: (tab: string) => void;
   showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
@@ -163,7 +164,7 @@ const loadScript = (src: string, globalName: string): Promise<any> => {
   });
 };
 
-export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: ResumeAnalyzerProps) {
+export default function ResumeAnalyzer({ resumeData, setResumeData, onNavigate, showToast }: ResumeAnalyzerProps) {
   const [analyzing, setAnalyzing] = useState(false);
   const [analyzed, setAnalyzed] = useState(true);
   const [activeTab, setActiveTab] = useState<"overview" | "sections" | "skills" | "improvements" | "formatting">("overview");
@@ -172,6 +173,22 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
   const [targetRole, setTargetRole] = useState("Lead Software Engineer");
   const [customJD, setCustomJD] = useState("");
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
+
+  const handleAddMissingKeywords = (keywordsToAdd: string[]) => {
+    if (!setResumeData || !resumeData) return;
+    const currentSkills = typeof resumeData.skills === "string"
+      ? resumeData.skills.split(",").map((s: string) => s.trim()).filter(Boolean)
+      : (Array.isArray(resumeData.skills) ? resumeData.skills : []);
+    
+    const formattedNew = keywordsToAdd.map(s => s.charAt(0).toUpperCase() + s.slice(1));
+    const combined = Array.from(new Set([...currentSkills, ...formattedNew])).join(", ");
+    
+    setResumeData({
+      ...resumeData,
+      skills: combined,
+    });
+    showToast?.(`Added ${keywordsToAdd.length} high-match keywords directly to your active resume profile!`, "success");
+  };
   
   // Active (from Builder) vs Uploaded Resume File
   const [analysisMode, setAnalysisMode] = useState<"active" | "uploaded">("active");
@@ -1271,10 +1288,20 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
 
                     {/* Technical Skills grid */}
                     <div className="space-y-3.5 text-left">
-                      <h4 className="text-xs font-bold text-[#111827] uppercase tracking-wider flex items-center gap-1.5">
-                        <span className="w-1.5 h-3.5 bg-[#2563EB] rounded-xs inline-block"></span>
-                        Technical Keywords Database
-                      </h4>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <h4 className="text-xs font-bold text-[#111827] uppercase tracking-wider flex items-center gap-1.5">
+                          <span className="w-1.5 h-3.5 bg-[#2563EB] rounded-xs inline-block"></span>
+                          Technical Keywords Database ({result.matchedTechnicalSkills.length} Matched / {result.missingTechnicalSkills.length} Missing)
+                        </h4>
+                        {result.missingTechnicalSkills.length > 0 && setResumeData && (
+                          <button
+                            onClick={() => handleAddMissingKeywords(result.missingTechnicalSkills)}
+                            className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm self-start sm:self-auto"
+                          >
+                            <Sparkles className="w-3 h-3" /> Auto-Add Missing to Active Resume
+                          </button>
+                        )}
+                      </div>
                       
                       <div className="flex flex-wrap gap-2 text-xs">
                         {/* Matched skills */}
@@ -1286,10 +1313,15 @@ export default function ResumeAnalyzer({ resumeData, onNavigate, showToast }: Re
                         ))}
                         {/* Missing skills */}
                         {result.missingTechnicalSkills.map(skill => (
-                          <span key={skill} className="px-2.5 py-1 rounded-lg bg-gray-50 text-gray-500 border border-gray-200 font-medium flex items-center gap-1 hover:bg-red-50 hover:text-red-700 hover:border-red-200 transition-colors">
-                            <X className="w-3.5 h-3.5 text-gray-400" />
+                          <button
+                            key={skill}
+                            onClick={() => handleAddMissingKeywords([skill])}
+                            title="Click to add this keyword to your resume"
+                            className="px-2.5 py-1 rounded-lg bg-gray-50 text-gray-600 border border-gray-200 font-medium flex items-center gap-1 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-300 transition-colors cursor-pointer"
+                          >
+                            <Plus className="w-3 h-3 text-indigo-500" />
                             {skill}
-                          </span>
+                          </button>
                         ))}
                       </div>
                     </div>

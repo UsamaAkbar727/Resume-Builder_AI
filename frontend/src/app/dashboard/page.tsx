@@ -149,10 +149,38 @@ export default function DashboardWrapper() {
   const [language, setLanguage] = useState("en");
   const [unreadCount, setUnreadCount] = useState(0);
 
-  const [userProfile, setUserProfile] = useState<{ name: string; email: string }>({
+  const [userProfile, setUserProfile] = useState<{
+    name: string;
+    email: string;
+    title: string;
+    location: string;
+    linkedin?: string;
+    github?: string;
+  }>({
     name: "Usama jutt",
     email: "usama@stripe.com",
+    title: "Senior Full Stack Developer",
+    location: "San Francisco, CA",
+    linkedin: "https://linkedin.com/in/usamajutt",
+    github: "https://github.com/usamajutt",
   });
+
+  const handleUpdateProfile = (updated: Partial<typeof userProfile>) => {
+    const next = { ...userProfile, ...updated };
+    setUserProfile(next);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeflow_user", JSON.stringify(next));
+      window.dispatchEvent(new Event("storage"));
+    }
+    // Automatically keep resumeData synchronized with profile details
+    setResumeData((prev: any) => ({
+      ...prev,
+      name: next.name,
+      email: next.email,
+      title: next.title,
+      location: next.location,
+    }));
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -163,11 +191,19 @@ export default function DashboardWrapper() {
         if (!name || name === "Sarah Jenkins") {
           name = "Usama jutt";
           email = "usama@stripe.com";
-          if (typeof window !== "undefined") {
-            localStorage.setItem("resumeflow_user", JSON.stringify({ ...u, name, email }));
-          }
         }
-        setUserProfile({ name, email });
+        const profileObj = {
+          name,
+          email,
+          title: u.title || "Senior Full Stack Developer",
+          location: u.location || "San Francisco, CA",
+          linkedin: u.linkedin || "https://linkedin.com/in/usamajutt",
+          github: u.github || "https://github.com/usamajutt",
+        };
+        if (typeof window !== "undefined") {
+          localStorage.setItem("resumeflow_user", JSON.stringify(profileObj));
+        }
+        setUserProfile(profileObj);
       } catch (e) {
         if (typeof window !== "undefined") {
           const cached = localStorage.getItem("resumeflow_user");
@@ -179,9 +215,17 @@ export default function DashboardWrapper() {
               if (!name || name === "Sarah Jenkins") {
                 name = "Usama jutt";
                 email = "usama@stripe.com";
-                localStorage.setItem("resumeflow_user", JSON.stringify({ ...parsed, name, email }));
               }
-              setUserProfile({ name, email });
+              const profileObj = {
+                name,
+                email,
+                title: parsed.title || "Senior Full Stack Developer",
+                location: parsed.location || "San Francisco, CA",
+                linkedin: parsed.linkedin || "https://linkedin.com/in/usamajutt",
+                github: parsed.github || "https://github.com/usamajutt",
+              };
+              localStorage.setItem("resumeflow_user", JSON.stringify(profileObj));
+              setUserProfile(profileObj);
             } catch (err) {}
           }
         }
@@ -703,26 +747,147 @@ export default function DashboardWrapper() {
 
         {/* Primary Page Canvas */}
         <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
-          {activeTab === "overview" && <DashboardOverview jobs={jobs} language={language} onNavigate={handleNavigate} userName={userProfile.name} />}
-          {activeTab === "builder" && (
-            <ResumeBuilder resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />
+          {activeTab === "overview" && (
+            <DashboardOverview 
+              jobs={jobs} 
+              language={language} 
+              onNavigate={handleNavigate} 
+              userName={userProfile.name} 
+            />
           )}
-          {activeTab === "analyzer" && <ResumeAnalyzer resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "optimizer" && <ResumeOptimizer resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "cover-letter" && <CoverLetterGenerator resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "tracker" && <JobTracker jobs={jobs} setJobs={setJobs} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "import" && <JobImport onAddJob={handleAddJob} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "matching" && <JobMatching resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} onAddJob={handleAddJob} />}
-          {activeTab === "interview" && <InterviewPrep resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "advisor" && <CareerAdvisor resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "portfolio" && <PortfolioBuilder resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "documents" && <DocumentsManager onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "calendar" && <CalendarView jobs={jobs} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "analytics" && <AnalyticsView jobs={jobs} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "notifications" && <NotificationsView jobs={jobs} resumeData={resumeData} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "profile" && <ProfileView resumeData={resumeData} setResumeData={setResumeData} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "settings" && <SettingsView themeMode={themeMode} setThemeMode={setThemeMode} language={language} setLanguage={setLanguage} onNavigate={handleNavigate} showToast={showToast} />}
-          {activeTab === "admin" && <AdminPanel onNavigate={handleNavigate} showToast={showToast} />}
+          {activeTab === "builder" && (
+            <ResumeBuilder 
+              resumeData={resumeData} 
+              setResumeData={setResumeData} 
+              userProfile={userProfile}
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "analyzer" && (
+            <ResumeAnalyzer 
+              resumeData={resumeData} 
+              setResumeData={setResumeData}
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "optimizer" && (
+            <ResumeOptimizer 
+              resumeData={resumeData} 
+              setResumeData={setResumeData} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "cover-letter" && (
+            <CoverLetterGenerator 
+              resumeData={resumeData} 
+              jobs={jobs}
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "tracker" && (
+            <JobTracker 
+              jobs={jobs} 
+              setJobs={setJobs} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "import" && (
+            <JobImport 
+              onAddJob={handleAddJob} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "matching" && (
+            <JobMatching 
+              resumeData={resumeData} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+              onAddJob={handleAddJob} 
+            />
+          )}
+          {activeTab === "interview" && (
+            <InterviewPrep 
+              resumeData={resumeData} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "advisor" && (
+            <CareerAdvisor 
+              resumeData={resumeData} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "portfolio" && (
+            <PortfolioBuilder 
+              resumeData={resumeData} 
+              userProfile={userProfile}
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "documents" && (
+            <DocumentsManager 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "calendar" && (
+            <CalendarView 
+              jobs={jobs} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "analytics" && (
+            <AnalyticsView 
+              jobs={jobs} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "notifications" && (
+            <NotificationsView 
+              jobs={jobs} 
+              resumeData={resumeData} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "profile" && (
+            <ProfileView 
+              userProfile={userProfile}
+              onUpdateProfile={handleUpdateProfile}
+              resumeData={resumeData} 
+              setResumeData={setResumeData} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "settings" && (
+            <SettingsView 
+              themeMode={themeMode} 
+              setThemeMode={setThemeMode} 
+              language={language} 
+              setLanguage={setLanguage} 
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
+          {activeTab === "admin" && (
+            <AdminPanel 
+              currentUser={userProfile}
+              onNavigate={handleNavigate} 
+              showToast={showToast} 
+            />
+          )}
         </main>
       </div>
 

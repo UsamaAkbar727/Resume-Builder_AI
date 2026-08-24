@@ -6,6 +6,7 @@ import { downloadPortfolioHTML, PortfolioData } from "@/utils/portfolioExporter"
 
 interface PortfolioBuilderProps {
   resumeData?: any;
+  userProfile?: any;
   onNavigate?: (tab: string) => void;
   showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
@@ -46,7 +47,7 @@ const ACCENT_COLORS = [
   { name: "Orange", hex: "#F59E0B" }
 ];
 
-export default function PortfolioBuilder({ resumeData, onNavigate, showToast }: PortfolioBuilderProps) {
+export default function PortfolioBuilder({ resumeData, userProfile, onNavigate, showToast }: PortfolioBuilderProps) {
   const [selectedProfession, setSelectedProfession] = useState("software-dev");
   const [layout, setLayout] = useState("tech"); // tech, creative, corporate, freelancer
   const [accentColor, setAccentColor] = useState("#2563EB");

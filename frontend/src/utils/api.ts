@@ -158,4 +158,102 @@ export const api = {
       });
     },
   },
+
+  resumes: {
+    async list() {
+      return request("/resumes", { method: "GET" });
+    },
+    async get(id: number | string) {
+      return request(`/resumes/${id}`, { method: "GET" });
+    },
+    async create(data: any) {
+      return request("/resumes", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+    },
+    async update(id: number | string, data: any) {
+      return request(`/resumes/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(data),
+      });
+    },
+    async delete(id: number | string) {
+      return request(`/resumes/${id}`, { method: "DELETE" });
+    },
+    async optimize(id: number | string, bullet: string, tone: string) {
+      return request(`/resumes/${id}/optimize`, {
+        method: "POST",
+        body: JSON.stringify({ bullet, tone }),
+      });
+    },
+    async analyze(id: number | string) {
+      return request(`/resumes/${id}/analyze`, { method: "POST" });
+    },
+  },
+
+  jobApplications: {
+    async list() {
+      return request("/job-applications", { method: "GET" });
+    },
+    async create(data: any) {
+      return request("/job-applications", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+    },
+    async update(id: number | string, data: any) {
+      return request(`/job-applications/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(data),
+      });
+    },
+    async delete(id: number | string) {
+      return request(`/job-applications/${id}`, { method: "DELETE" });
+    },
+    async importUrl(url: string) {
+      return request("/jobs/import-url", {
+        method: "POST",
+        body: JSON.stringify({ url }),
+      });
+    },
+  },
+
+  jobs: {
+    async feed(params: { search?: string; remote?: string } = {}) {
+      const q = new URLSearchParams();
+      if (params.search) q.set("search", params.search);
+      if (params.remote) q.set("remote", params.remote);
+      return request(`/jobs/feed?${q.toString()}`, { method: "GET" });
+    },
+  },
+
+  matching: {
+    async analyze(resume: any, jobTitle: string, jobDescription: string) {
+      return request("/matching/analyze", {
+        method: "POST",
+        body: JSON.stringify({
+          resume,
+          job_title: jobTitle,
+          job_description: jobDescription,
+        }),
+      });
+    },
+  },
+
+  advisor: {
+    async chat(sessionId: string, message: string) {
+      return request("/advisor/chat", {
+        method: "POST",
+        body: JSON.stringify({
+          session_id: sessionId,
+          message,
+        }),
+      });
+    },
+    async history(sessionId: string) {
+      return request(`/advisor/history/${sessionId}`, { method: "GET" });
+    },
+  },
 };
+

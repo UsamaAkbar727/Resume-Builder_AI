@@ -13,15 +13,27 @@ interface ResumeOptimizerProps {
 }
 
 export default function ResumeOptimizer({ resumeData, setResumeData, onNavigate, showToast }: ResumeOptimizerProps) {
-  const [inputText, setInputText] = useState("I was responsible for scaling the checkout codebase and led the migration of systems to Kubernetes cluster.");
+  const [selectedExpIndex, setSelectedExpIndex] = useState<number>(0);
+  const [inputText, setInputText] = useState(
+    resumeData?.experience?.[0]?.description || 
+    "I was responsible for scaling the checkout codebase and led the migration of systems to Kubernetes cluster."
+  );
   const [tone, setTone] = useState<Tone>("Professional");
   const [optimizing, setOptimizing] = useState(false);
   const [optimizedText, setOptimizedText] = useState("");
   const [metricsSuggested, setMetricsSuggested] = useState<string[]>([]);
   const [actionVerbsSuggested, setActionVerbsSuggested] = useState<string[]>([]);
 
+  // Update input text when user picks a different experience entry
+  const handleSelectExp = (index: number) => {
+    setSelectedExpIndex(index);
+    if (index >= 0 && resumeData?.experience?.[index]) {
+      setInputText(resumeData.experience[index].description || "");
+    }
+  };
+
   const handleOptimize = () => {
-    if (!inputText) return;
+    if (!inputText.trim()) return;
     setOptimizing(true);
     setTimeout(() => {
       setOptimizing(false);
@@ -32,6 +44,8 @@ export default function ResumeOptimizer({ resumeData, setResumeData, onNavigate,
         "i worked on": "Engineered",
         "i built": "Synthesized",
         "i managed": "Orchestrated",
+        "responsible for": "Spearheaded",
+        "assisted in": "Facilitated",
         "led": "Spearheaded",
         "built": "Developed & shipped",
         "designed": "Formulated",
@@ -97,17 +111,22 @@ export default function ResumeOptimizer({ resumeData, setResumeData, onNavigate,
       setOptimizedText(result);
       setMetricsSuggested(metrics);
       setActionVerbsSuggested(verbs);
-      if (showToast) showToast("Resume bullet point optimized successfully!", "success");
-    }, 1000);
+      if (showToast) showToast("Resume bullet point optimized with quantifiable impact metrics!", "success");
+    }, 800);
   };
 
   const handleApplyToResume = () => {
     if (!resumeData || !setResumeData || !optimizedText) return;
-    const updatedExp = [...resumeData.experience];
-    if (updatedExp[0]) {
-      updatedExp[0].description = `${updatedExp[0].description}\n• ${optimizedText}`;
+    const updatedExp = [...(resumeData.experience || [])];
+    const targetIdx = selectedExpIndex >= 0 && selectedExpIndex < updatedExp.length ? selectedExpIndex : 0;
+    
+    if (updatedExp[targetIdx]) {
+      updatedExp[targetIdx].description = optimizedText;
       setResumeData({ ...resumeData, experience: updatedExp });
-      if (showToast) showToast("Optimized bullet applied to your Stripe work experience!", "success");
+      if (showToast) {
+        const companyName = updatedExp[targetIdx].company || "selected experience entry";
+        showToast(`Optimized bullet applied to ${companyName} in your active resume!`, "success");
+      }
     }
   };
 
@@ -148,6 +167,25 @@ export default function ResumeOptimizer({ resumeData, setResumeData, onNavigate,
                 ))}
               </div>
             </div>
+
+            {resumeData?.experience && resumeData.experience.length > 0 && (
+              <div>
+                <label className="block text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">
+                  Select Experience Entry from Active Resume
+                </label>
+                <select
+                  value={selectedExpIndex}
+                  onChange={(e) => handleSelectExp(Number(e.target.value))}
+                  className="clay-input w-full text-xs font-medium"
+                >
+                  {resumeData.experience.map((exp: any, idx: number) => (
+                    <option key={idx} value={idx}>
+                      {exp.role ? `${exp.role} @ ${exp.company || "Company"}` : `Experience Block #${idx + 1}`}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             <div>
               <label className="block text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">Original Bullet Description</label>

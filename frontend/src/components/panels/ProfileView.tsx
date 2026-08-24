@@ -4,39 +4,79 @@ import React, { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 
 interface ProfileViewProps {
+  userProfile?: {
+    name: string;
+    email: string;
+    title: string;
+    location: string;
+    linkedin?: string;
+    github?: string;
+  };
+  onUpdateProfile?: (updated: any) => void;
   resumeData?: any;
   setResumeData?: (data: any) => void;
   onNavigate?: (tab: string) => void;
   showToast?: (msg: string, type?: "success" | "info" | "warning") => void;
 }
 
-export default function ProfileView({ resumeData, setResumeData, onNavigate, showToast }: ProfileViewProps) {
-  const [name, setName] = useState("Usama jutt");
-  const [title, setTitle] = useState("Senior Full Stack Developer");
-  const [location, setLocation] = useState("San Francisco, CA");
-  const [linkedin, setLinkedin] = useState("https://linkedin.com/in/sjenkins");
-  const [github, setGithub] = useState("https://github.com/sjenkins");
+export default function ProfileView({ 
+  userProfile, 
+  onUpdateProfile, 
+  resumeData, 
+  setResumeData, 
+  onNavigate, 
+  showToast 
+}: ProfileViewProps) {
+  const [name, setName] = useState(userProfile?.name || resumeData?.name || "Usama jutt");
+  const [email, setEmail] = useState(userProfile?.email || resumeData?.email || "usama@stripe.com");
+  const [title, setTitle] = useState(userProfile?.title || resumeData?.title || "Senior Full Stack Developer");
+  const [location, setLocation] = useState(userProfile?.location || resumeData?.location || "San Francisco, CA");
+  const [linkedin, setLinkedin] = useState(userProfile?.linkedin || "https://linkedin.com/in/usamajutt");
+  const [github, setGithub] = useState(userProfile?.github || "https://github.com/usamajutt");
 
-  // Sync state with resumeData updates
+  // Sync state when props change
   useEffect(() => {
-    if (resumeData) {
+    if (userProfile) {
+      setName(userProfile.name || "Usama jutt");
+      setEmail(userProfile.email || "usama@stripe.com");
+      setTitle(userProfile.title || "Senior Full Stack Developer");
+      setLocation(userProfile.location || "San Francisco, CA");
+      if (userProfile.linkedin) setLinkedin(userProfile.linkedin);
+      if (userProfile.github) setGithub(userProfile.github);
+    } else if (resumeData) {
       setName(resumeData.name || "Usama jutt");
+      setEmail(resumeData.email || "usama@stripe.com");
       setTitle(resumeData.title || "Senior Full Stack Developer");
       setLocation(resumeData.location || "San Francisco, CA");
     }
-  }, [resumeData]);
+  }, [userProfile, resumeData]);
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
+    const updatedData = {
+      name: name.trim(),
+      email: email.trim(),
+      title: title.trim(),
+      location: location.trim(),
+      linkedin: linkedin.trim(),
+      github: github.trim(),
+    };
+
+    if (onUpdateProfile) {
+      onUpdateProfile(updatedData);
+    }
+
     if (setResumeData && resumeData) {
       setResumeData({
         ...resumeData,
-        name,
-        title,
-        location
+        name: updatedData.name,
+        email: updatedData.email,
+        title: updatedData.title,
+        location: updatedData.location,
       });
     }
-    showToast?.("Profile saved successfully and synced with Resume Builder!", "success");
+
+    showToast?.("Profile saved successfully and synced across all dashboard modules in real time!", "success");
   };
 
   return (
