@@ -226,9 +226,11 @@ export default function ProfileView({
     }, 400);
   };
 
-  const initials = name
+  const initials = name && name.trim()
     ? name
-        .split(" ")
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
         .map(n => n[0])
         .join("")
         .slice(0, 2)
